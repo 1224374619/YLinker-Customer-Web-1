@@ -14,7 +14,7 @@
     </nav>
     <div class="header">
       <div class="map">
-        <div>地图占位</div>
+        <div><img :src="placeholder" /></div>
       </div>
       <div class="slogan">军工人才 <br />&nbsp;&nbsp;&nbsp;&nbsp;领先世界</div>
     </div>
@@ -72,6 +72,8 @@
       </div>
     </div>
     <div class="company" ref="company-holder">
+      <img :src="placeholder"/>
+      <img :src="placeholder"/>
       <img :src="placeholder"/>
       <img :src="placeholder"/>
       <img :src="placeholder"/>
@@ -410,7 +412,7 @@ export default {
           flex 1
       .slogan
         flex 2
-        font-size 40px
+        font-size 50px
         font-style italic
         line-height 2
     .middle
@@ -419,7 +421,8 @@ export default {
       padding 20px
       align-items center
       margin auto
-      max-width 1024px
+      max-width 1280px
+      min-width 1024px
       .recommend
         width 250px
         margin-right 20px
@@ -446,7 +449,8 @@ export default {
           margin-left 20px
     .category
       margin 20px auto
-      max-width 1024px
+      max-width 1280px
+      min-width 1024px
       display flex
       flex-direction row
     .company
@@ -466,7 +470,8 @@ export default {
       display flex
       flex-direction row
       margin auto
-      max-width 1024px
+      max-width 1280px
+      min-width 1024px
       flex-wrap wrap
       div.container
         display flex
@@ -481,7 +486,9 @@ export default {
           display flex
           flex-direction column
           align-items flex-start
-          h3, h5
+          h3
+            margin 0 0 10px 0
+          h5
             margin 10px 0
           .meta
             span 
@@ -497,7 +504,8 @@ export default {
       margin-top 70px
       .appendix
         display flex
-        max-width 1024px
+        max-width 1280px
+        min-width 1024px
         padding 70px 150px 20px
         flex-direction row
         align-items center
