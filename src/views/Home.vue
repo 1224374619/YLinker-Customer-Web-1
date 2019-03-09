@@ -14,7 +14,7 @@
     </nav>
     <div class="header">
       <div class="map">
-        <div><img :src="placeholder" /></div>
+        <div><img :src="require('../assets/images/map.png')" /></div>
       </div>
       <div class="slogan">军工人才 <br />&nbsp;&nbsp;&nbsp;&nbsp;领先世界</div>
     </div>
@@ -34,10 +34,11 @@
     </div>
     <div class="category">
       <div class="list">
-        <el-menu default-active="1-4-1" class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose" :collapse="true">
+        <el-menu 
+          default-active="1-1" class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose" :collapse="true">
           <el-submenu index="1">
             <template slot="title">
-              <i>职位大类别一</i>
+              <i>研发技术</i>
             </template>
             <el-menu-item-group>
               <span slot="title">分组一</span>
@@ -53,13 +54,19 @@
             </el-submenu>
           </el-submenu>
           <el-menu-item index="2">
-            <i>职位大类别二</i>
+            <i>产品设计</i>
           </el-menu-item>
           <el-menu-item index="3">
-            <i>职位大类别三</i>
+            <i>运营销售</i>
           </el-menu-item>
           <el-menu-item index="4">
-            <i>职位大类别四</i>
+            <i>职能赋能</i>
+          </el-menu-item>
+          <el-menu-item index="5">
+            <i>科学研究</i>
+          </el-menu-item>
+          <el-menu-item index="6">
+            <i>营销规划</i>
           </el-menu-item>
         </el-menu>
       </div>
@@ -72,15 +79,21 @@
       </div>
     </div>
     <div class="company" ref="company-holder">
-      <img :src="placeholder"/>
-      <img :src="placeholder"/>
-      <img :src="placeholder"/>
-      <img :src="placeholder"/>
-      <img :src="placeholder"/>
-      <img :src="placeholder"/>
-      <img :src="placeholder"/>
-      <img :src="placeholder"/>
-      <img :src="placeholder"/>
+      <img :src="require('../assets/images/company1.jpg')"/>
+      <img :src="require('../assets/images/company2.jpg')"/>
+      <img :src="require('../assets/images/company3.png')"/>
+      <img :src="require('../assets/images/company4.png')"/>
+      <img :src="require('../assets/images/company5.png')"/>
+      <img :src="require('../assets/images/company1.jpg')"/>
+      <img :src="require('../assets/images/company2.jpg')"/>
+      <img :src="require('../assets/images/company3.png')"/>
+      <img :src="require('../assets/images/company4.png')"/>
+      <img :src="require('../assets/images/company5.png')"/>
+      <img :src="require('../assets/images/company1.jpg')"/>
+      <img :src="require('../assets/images/company2.jpg')"/>
+      <img :src="require('../assets/images/company3.png')"/>
+      <img :src="require('../assets/images/company4.png')"/>
+      <img :src="require('../assets/images/company5.png')"/>
     </div>
     <div class="occupation-card">
       <div class="container">
@@ -94,7 +107,7 @@
           </div>
         </div>
         <div class="logo">
-          <img :src="placeholder" />
+          <img :src="require('../assets/images/occupation1.png')" />
         </div>
       </div>
       <div class="container">
@@ -108,37 +121,7 @@
           </div>
         </div>
         <div class="logo">
-          <img :src="placeholder" />
-        </div>
-      </div>
-    </div>
-    <div class="occupation-card">
-      <div class="container">
-        <div class="desc">
-          <h3>Web 前端架构师</h3>
-          <h5>FESCO Adecco - 企业服务,教育/培训</h5>
-          <div class="meta">
-            <span>2天/周</span>
-            <span>100-150/天</span>
-            <span>上海</span>
-          </div>
-        </div>
-        <div class="logo">
-          <img :src="placeholder" />
-        </div>
-      </div>
-      <div class="container">
-        <div class="desc">
-          <h3>Web 前端架构师</h3>
-          <h5>FESCO Adecco - 企业服务,教育/培训</h5>
-          <div class="meta">
-            <span>2天/周</span>
-            <span>100-150/天</span>
-            <span>上海</span>
-          </div>
-        </div>
-        <div class="logo">
-          <img :src="placeholder" />
+          <img :src="require('../assets/images/occupation2.png')" />
         </div>
       </div>
     </div>
@@ -154,7 +137,7 @@
           </div>
         </div>
         <div class="logo">
-          <img :src="placeholder" />
+          <img :src="require('../assets/images/occupation3.png')" />
         </div>
       </div>
       <div class="container">
@@ -168,37 +151,7 @@
           </div>
         </div>
         <div class="logo">
-          <img :src="placeholder" />
-        </div>
-      </div>
-    </div>
-    <div class="occupation-card">
-      <div class="container">
-        <div class="desc">
-          <h3>Web 前端架构师</h3>
-          <h5>FESCO Adecco - 企业服务,教育/培训</h5>
-          <div class="meta">
-            <span>2天/周</span>
-            <span>100-150/天</span>
-            <span>上海</span>
-          </div>
-        </div>
-        <div class="logo">
-          <img :src="placeholder" />
-        </div>
-      </div>
-      <div class="container">
-        <div class="desc">
-          <h3>Web 前端架构师</h3>
-          <h5>FESCO Adecco - 企业服务,教育/培训</h5>
-          <div class="meta">
-            <span>2天/周</span>
-            <span>100-150/天</span>
-            <span>上海</span>
-          </div>
-        </div>
-        <div class="logo">
-          <img :src="placeholder" />
+          <img :src="require('../assets/images/occupation4.jpg')" />
         </div>
       </div>
     </div>
@@ -214,7 +167,7 @@
           </div>
         </div>
         <div class="logo">
-          <img :src="placeholder" />
+          <img :src="require('../assets/images/occupation5.png')" />
         </div>
       </div>
       <div class="container">
@@ -228,7 +181,67 @@
           </div>
         </div>
         <div class="logo">
-          <img :src="placeholder" />
+          <img :src="require('../assets/images/occupation6.jpg')" />
+        </div>
+      </div>
+    </div>
+    <div class="occupation-card">
+      <div class="container">
+        <div class="desc">
+          <h3>Web 前端架构师</h3>
+          <h5>FESCO Adecco - 企业服务,教育/培训</h5>
+          <div class="meta">
+            <span>2天/周</span>
+            <span>100-150/天</span>
+            <span>上海</span>
+          </div>
+        </div>
+        <div class="logo">
+          <img :src="require('../assets/images/occupation7.jpg')" />
+        </div>
+      </div>
+      <div class="container">
+        <div class="desc">
+          <h3>Web 前端架构师</h3>
+          <h5>FESCO Adecco - 企业服务,教育/培训</h5>
+          <div class="meta">
+            <span>2天/周</span>
+            <span>100-150/天</span>
+            <span>上海</span>
+          </div>
+        </div>
+        <div class="logo">
+          <img :src="require('../assets/images/occupation8.png')" />
+        </div>
+      </div>
+    </div>
+    <div class="occupation-card">
+      <div class="container">
+        <div class="desc">
+          <h3>Web 前端架构师</h3>
+          <h5>FESCO Adecco - 企业服务,教育/培训</h5>
+          <div class="meta">
+            <span>2天/周</span>
+            <span>100-150/天</span>
+            <span>上海</span>
+          </div>
+        </div>
+        <div class="logo">
+          <img :src="require('../assets/images/occupation9.png')" />
+        </div>
+      </div>
+      <div class="container">
+        <div class="desc">
+          <h3>Web 前端架构师</h3>
+          <h5>FESCO Adecco - 企业服务,教育/培训</h5>
+          <div class="meta">
+            <span>2天/周</span>
+            <span>100-150/天</span>
+            <span>上海</span>
+          </div>
+        </div>
+        <div class="logo">
+          <img :src="require('../assets/images/occupation10.jpg')" />
         </div>
       </div>
     </div>
@@ -288,7 +301,8 @@ export default {
     return {
       placeholder,
       carouselImgs: [
-        placeholder, placeholder
+        require('../assets/images/loop1.jpg'),
+        require('../assets/images/loop2.png')
       ],
       options: [{
         value: '101',
@@ -405,16 +419,20 @@ export default {
         flex 3
         display flex
         flex-direction column
-        div 
+        top 20px
+        position relative
+        img 
           margin 20px
           padding 20px
-          border solid 1px #000
           flex 1
+          max-width 600px
+            
       .slogan
         flex 2
         font-size 50px
         font-style italic
         line-height 2
+        text-shadow 4px 4px 3px #ccc
     .middle
       display flex
       flex-direction row
@@ -423,6 +441,8 @@ export default {
       margin auto
       max-width 1280px
       min-width 1024px
+      border solid 1px #eeee
+      margin 20px auto
       .recommend
         width 250px
         margin-right 20px
@@ -453,6 +473,9 @@ export default {
       min-width 1024px
       display flex
       flex-direction row
+      margin 20px auto
+      padding 20px
+      border solid 1px #eee
     .company
       width 100%
       height 170px
@@ -544,7 +567,10 @@ export default {
         i
           width 100%
           text-align left 
-          font-size 18px
+          font-size 20px
+          &:after
+            content '>'
+            margin-left 50px
     .carousel
       flex 1
       margin-left 20px
