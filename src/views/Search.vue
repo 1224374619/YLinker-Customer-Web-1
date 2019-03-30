@@ -58,7 +58,7 @@
           <div class="occupation-card">
             <div class="container">
               <div class="desc">
-                <h3>Web 前端架构师 [上海-徐汇区] <span>10:30 发布</span></h3>
+                <h3 @click="redirectToDetailPage(1)">Web 前端架构师 [上海-徐汇区] <span>10:30 发布</span></h3>
                 <div class="meta">
                   <h5>10k - 15k</h5>
                   <span>经验3-5年</span>
@@ -258,6 +258,9 @@ export default {
     }
   },
   methods: {
+    redirectToDetailPage(id) {
+      this.$router.push({ path: `/detail/${id}` });   
+    },
     search(pageNo = 0) {
       // 
     }
