@@ -1,14 +1,72 @@
 <template>
   <div class="home">
+    <el-dialog title="登录" :visible.sync="showLoginModal" width="350px">
+      <el-form :model="loginForm">
+        <el-form-item
+          :rules="{ required: true, type: 'email', message: '请输入用户名', trigger: 'change' }">
+          <el-input v-model="loginForm.username" autocomplete="off" placeholder="用户名"></el-input>
+        </el-form-item>
+        <el-form-item>
+          <el-input type="password" v-model="loginForm.password" autocomplete="off" placeholder="密码"></el-input>
+        </el-form-item>
+      </el-form>
+       <el-button style="float: right;" type="text" @click="showForgetPwdModal = true">忘记密码？</el-button>
+      <div slot="footer" class="dialog-footer">
+        <el-button type="primary" @click="doLogin">登录</el-button>
+      </div>
+    </el-dialog>
+    <el-dialog title="注册" :visible.sync="showRegisterModal" width="380px">
+      <el-form :model="registerForm">
+        <el-form-item>
+          <el-input v-model="registerForm.email" autocomplete="off" placeholder="请输入邮箱（将作为登陆用户名）"></el-input>
+        </el-form-item>
+        <el-form-item>
+          <el-input v-model="registerForm.captcha" autocomplete="off" placeholder="请输入验证码"></el-input>
+        </el-form-item>
+        <el-form-item>
+          <el-input type="password" v-model="registerForm.password" autocomplete="off" placeholder="请输入密码"></el-input>
+        </el-form-item>
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button type="primary" @click="doRegister">注册</el-button>
+      </div>
+    </el-dialog>
+    <el-dialog title="忘记密码" :visible.sync="showForgetPwdModal" width="380px">
+      <el-form :model="resetPwdForm">
+        <el-form-item>
+          <el-input v-model="resetPwdForm.email" autocomplete="off" placeholder="请输入重置账号"></el-input>
+        </el-form-item>
+        <el-form-item>
+          <el-input v-model="resetPwdForm.captcha" autocomplete="off" placeholder="请输入验证码"></el-input>
+        </el-form-item>
+        <el-form-item>
+          <el-input type="password" v-model="resetPwdForm.newPassword" autocomplete="off" placeholder="请输入新密码"></el-input>
+        </el-form-item>
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button type="primary" @click="doResetPwd">确认重置密码</el-button>
+      </div>
+    </el-dialog>
     <nav>
       <img src="https://sxsimg.xiaoyuanzhao.com/static/new_main/img/logo.png?v=ca7e7ee7a9339caf25d8e12d055eb1e8" />
       <div class="menu">
-        <div class="btn-set">
-          <button>登陆</button>
-          <button>注册</button>
-        </div>
         <div class="btn-single">
           <button>企业入口</button>
+        </div>
+        <div class="btn-set" v-if="!isLogin">
+          <button @click="showLoginModal = true">登录</button>
+          <button @click="showRegisterModal = true">注册</button>
+        </div>
+        <div class="user-operations" v-else>
+          <el-dropdown placement="bottom-start" @command="dealMenuClick">
+            <img :src="placeholder" />
+            <el-dropdown-menu slot="dropdown">
+              <el-dropdown-item>个人信息</el-dropdown-item>
+              <el-dropdown-item>我的简历</el-dropdown-item>
+              <el-dropdown-item>账号设置</el-dropdown-item>
+              <el-dropdown-item divided command="logout">退出</el-dropdown-item>
+            </el-dropdown-menu>
+          </el-dropdown>
         </div>
       </div>
     </nav>
@@ -26,16 +84,16 @@
           placeholder="请选择地区"
           :options="options"
           v-model="selectedOptions"
-          @change="handleChange">
+          @change="handleChangeLocation">
         </el-cascader>
         <el-input class="search-input" v-model="searchKey" placeholder="请输入搜索职位"></el-input>
-        <el-button type="primary">搜索</el-button>
+        <el-button type="primary" @click="redirectToSearchResult">搜索</el-button>
       </div>
     </div>
     <div class="category">
       <div class="list">
         <el-menu 
-          default-active="1-1" class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose" :collapse="true">
+          default-active="1-1" class="el-menu-vertical-demo" @open="handleOpenMenu" :collapse="true">
           <el-submenu index="1">
             <template slot="title">
               <i>研发技术</i>
@@ -245,61 +303,41 @@
         </div>
       </div>
     </div>
-    <div class="footer">
-      <div class="appendix">
-        <div>
-          <span>友情链接</span>
-          <ul>
-            <li>占位字符</li>
-            <li>占位字符</li>
-            <li>占位字符</li>
-            <li>占位字符</li>
-          </ul>
-        </div>
-        <div>
-          <span>企业服务</span>
-          <ul>
-            <li>占位字符</li>
-            <li>占位字符</li>
-            <li>占位字符</li>
-            <li>占位字符</li>
-          </ul>
-        </div>
-        <div>
-          <span>关于我们</span>
-          <ul>
-            <li>占位字符</li>
-            <li>占位字符</li>
-            <li>占位字符</li>
-            <li>占位字符</li>
-          </ul>
-        </div>
-        <div>
-          <span>联系我们</span>
-          <ul>
-            <li>占位字符</li>
-            <li>占位字符</li>
-            <li>占位字符</li>
-            <li>占位字符</li>
-          </ul>
-        </div>
-      </div>
-      <div class="copyright">
-        <p>xxxxxx有限责任公司版权所有 中国领先的职业招聘平台</p>
-        <p>©2017 实习僧 | 沪ICP备xxxxxxx号-1</p>
-      </div>
-    </div>
+    <customized-footer />
   </div>
 </template>
 
 <script>
-import placeholder from '../assets/images/placeholder.jpg';
+import placeholder from 'assets/images/placeholder.jpg';
+import CustomizedFooter from 'components/customized-footer.vue';
 
 export default {
   name: 'home',
+  components: {
+    CustomizedFooter
+  },
   data() {
     return {
+      isLogin: false,
       placeholder,
+      showLoginModal: false,
+      showRegisterModal: false,
+      showForgetPwdModal: false,
+      selectedOptions: null,
+      loginForm: {
+        username: '',
+        password: ''
+      },
+      registerForm: {
+        email: '',
+        captcha: '',
+        password: ''
+      },
+      resetPwdForm: {
+        email: '',
+        captcha: '',
+        newPassword: ''
+      },
       carouselImgs: [
         require('../assets/images/loop1.jpg'),
         require('../assets/images/loop2.png')
@@ -355,9 +393,33 @@ export default {
     }
   },
   methods: {
+    handleOpenMenu() {},
+    handleChangeLocation() {},
+    doLogin() {
+      // request;
+      this.showLoginModal = false;
+      this.isLogin = true;
+    },
+    dealMenuClick(command) {
+      if (command === 'logout') {
+        this.isLogin = false;
+      }
+    },
+    doLogot() {
+      this.isLogin = false;
+    },
+    doRegister() {
+
+    },
+    doResetPwd() {
+
+    },
+    redirectToSearchResult() {
+      this.$router.push({ path: '/search' });
+    },
     companyScrolling() {
       const holder = this.$refs['company-holder'];
-      if (document.body.clientWidth === (holder.scrollWidth - holder.scrollLeft))
+      if (holder && document.body.clientWidth === (holder.scrollWidth - holder.scrollLeft))
           holder.scrollLeft = 0;
         holder.scrollLeft += 1;
       requestAnimationFrame(this.companyScrolling);
@@ -372,6 +434,9 @@ export default {
 <style lang="stylus" scoped>
   .home
     margin 0
+    .dialog-footer
+      button
+        width 100%
     nav
       z-index 100
       background-color white
@@ -393,12 +458,20 @@ export default {
         height 100%
         justify-content flex-end
         align-items center
+        .user-operations
+          cursor pointer
+          img
+            width 50px
+            height 50px
+            border-radius 50%
         .btn-set
-          margin 0 10px
+          margin 0 15px
           button 
+            cursor pointer
             font-size 15px
             background none
             border none
+            padding 0 13px
             border-right solid 1px lightgrey
             &:last-child
               border none
@@ -522,35 +595,7 @@ export default {
           align-items center
           img 
             height 100px
-    .footer
-      background-color #fafafa
-      margin-top 70px
-      .appendix
-        display flex
-        max-width 1280px
-        min-width 1024px
-        padding 70px 150px 20px
-        flex-direction row
-        align-items center
-        justify-content space-between
-        div
-          span
-            font-size 20px
-            font-weight 500
-          ul
-            list-style-type none
-            padding 0
-            text-align left
-            li
-              margin 10px 0
-              font-size 16px
-              color #666
-      .copyright
-        font-size 12px
-        color #999
-        padding 10px 0
-          
-    
+        
 </style>
 
 <style lang="stylus">
