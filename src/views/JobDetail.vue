@@ -91,8 +91,7 @@ export default {
     }
   },
   mounted() {
-    const id = this.$route.params.id;
-    console.log(id);
+    // const id = this.$route.params.id;
   }
 }
 </script>

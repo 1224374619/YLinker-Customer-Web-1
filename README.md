@@ -1,4 +1,4 @@
-# HRWeb
+# YLinker-Client
 
 ## Project setup
 ```

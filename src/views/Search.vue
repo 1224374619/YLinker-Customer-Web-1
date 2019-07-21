@@ -261,7 +261,7 @@ export default {
     redirectToDetailPage(id) {
       this.$router.push({ path: `/detail/${id}` });   
     },
-    search(pageNo = 0) {
+    search() {
       // 
     }
   }

@@ -2,16 +2,53 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Home from './views/Home.vue'
 import Search from './views/Search.vue'
+import Login from './views/Login.vue'
+import ResetPassword from './views/ResetPassword.vue'
+import ResetResult from './views/ResetResult.vue'
+import Register from './views/Register.vue'
+import RegisterResult from './views/RegisterResult.vue'
+import UserLicense from './views/UserLicense.vue'
 import JobDetail from './views/JobDetail.vue'
 
-Vue.use(Router)
+Vue.use(Router);
 
 export default new Router({
+  mode: 'history',
   routes: [
     {
       path: '/',
       name: 'home',
       component: Home
+    },
+    {
+      path: '/login',
+      name: 'login',
+      component: Login
+    },
+    {
+      path: '/register',
+      name: 'register',
+      component: Register
+    },
+    {
+      path: '/reset-password',
+      name: 'reset-password',
+      component: ResetPassword
+    },
+    {
+      path: '/reset-result',
+      name: 'reset-result',
+      component: ResetResult
+    },
+    {
+      path: '/register-result',
+      name: 'register-result',
+      component: RegisterResult
+    },
+    {
+      path: '/user-license',
+      name: 'user-license',
+      component: UserLicense
     },
     {
       path: '/search',
@@ -24,4 +61,4 @@ export default new Router({
       component: JobDetail
     }
   ]
-})
+});

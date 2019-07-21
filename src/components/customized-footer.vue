@@ -1,6 +1,6 @@
 <template>
   <div class="footer">
-    <div class="appendix">
+    <div class="appendix" v-if="!showSimple">
       <div>
         <span>友情链接</span>
         <ul>
@@ -39,8 +39,7 @@
       </div>
     </div>
     <div class="copyright">
-      <p>xxxxxx有限责任公司版权所有 中国领先的职业招聘平台</p>
-      <p>©2017 实习僧 | 沪ICP备xxxxxxx号-1</p>
+      <p>©2019 银领人才网 | 沪ICP备xxxxxxx号-1</p>
     </div>
   </div>
 </template>
@@ -48,6 +47,12 @@
 <script>
 export default {
   name: 'customized-footer',
+  props: {
+    showSimple: {
+      type: Boolean,
+      default: false
+    },
+  },
   data() {
     return {}
   }
@@ -56,12 +61,11 @@ export default {
 
 <style lang="stylus" scoped>
   .footer
-    background-color #fafafa
-    margin-top 70px
+    background-color #f0f0f0
     .appendix
       display flex
-      max-width 1280px
-      min-width 1024px
+      width 1280px
+      margin auto
       padding 70px 150px 20px
       flex-direction row
       align-items center
