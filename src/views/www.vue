@@ -2,7 +2,7 @@
 
     <div class="el-container">
         <div class="el-main">
-            <Scroll>
+            <Scroll ref="scroll">
                 <div class="main">
                     <div class="personalinformation">
                         <img :src="require('../assets/images/11.png')"/>
@@ -14,33 +14,65 @@
                         <Basic-Info/>
                     </div>
                     <div class="main_line"></div>
-                    <div class="main_content" id="jobintension">
+                    <div ref="jobintension" class="main_content" >
                         <div class="main_content_1"><i class="el-icon-edit"></i> 求职意向</div>
                         <div class="main_content_2" onMouseOver="this.className='onon'"
                              onMouseOut="this.className='outout'"><i class="el-icon-edit-outline"></i> 添加
                         </div>
                     </div>
                     <div class="main_line"></div>
-                    <div class="main_content" id="educational">
+                    <div ref="educational" class="main_content" >
                         <div class="main_content_1"><i class="el-icon-edit"></i> 教育经历</div>
                         <div class="main_content_2" onMouseOver="this.className='onon'"
                              onMouseOut="this.className='outout'"><i class="el-icon-edit-outline"></i> 添加
                         </div>
                     </div>
                     <div class="main_line"></div>
-                    <div class="main_content" id="work">
+                    <div ref="work" class="main_content" >
                         <div class="main_content_1"><i class="el-icon-edit"></i> 工作经历</div>
                         <div class="main_content_2" onMouseOver="this.className='onon'"
                              onMouseOut="this.className='outout'"><i class="el-icon-edit-outline"></i> 添加
                         </div>
                     </div>
                     <div class="main_line"></div>
-                    <div class="main_content" id="progect">
+                    <div ref="progect" class="main_content" >
                         <div class="main_content_1"><i class="el-icon-edit"></i> 项目经历</div>
                         <div class="main_content_2" onMouseOver="this.className='onon'"
                              onMouseOut="this.className='outout'"><i class="el-icon-edit-outline"></i> 添加
                         </div>
                     </div>
+                    <div class="main_line"></div>
+                    <div class="main_content" ref="training">
+                        <div class="main_content_1"><i class="el-icon-edit"></i> 培训经历</div>
+                        <div class="main_content_2"><i class="el-icon-edit-outline"></i> 添加</div>
+                    </div>
+                    <div class="main_line"></div>
+                    <div class="main_content" ref="language">
+                        <div class="main_content_1"><i class="el-icon-edit"></i> 语言能力</div>
+                        <div class="main_content_2"><i class="el-icon-edit-outline"></i> 添加</div>
+                    </div>
+                    <div class="main_line"></div>
+                    <div class="main_content" ref="professional">
+                        <div class="main_content_1"><i class="el-icon-edit"></i> 职称等级</div>
+                        <div class="main_content_2"><i class="el-icon-edit-outline"></i> 添加</div>
+                    </div>
+                    <div class="main_line"></div>
+                    <div class="main_content" ref="personal_skill">
+                        <div class="main_content_1"><i class="el-icon-edit"></i> 专业技能</div>
+                        <div class="main_content_2"><i class="el-icon-edit-outline"></i> 添加</div>
+                    </div>
+                    <div class="main_line"></div>
+                    <div class="main_content" ref="awards">
+                        <div class="main_content_1" ><i class="el-icon-edit"></i> 荣誉奖项</div>
+                        <div class="main_content_2"><i class="el-icon-edit-outline"></i> 添加</div>
+                    </div>
+                    <div class="main_line"></div>
+                    <div class="main_content" ref="self-appraisal">
+                        <div class="main_content_1" ><i class="el-icon-edit"></i> 自我评价</div>
+                        <div class="main_content_2"><i class="el-icon-edit-outline"></i> 添加</div>
+                    </div>
+
+<!--                    测试数据，可删除-->
                     <div class="main_line"></div>
                     <div class="main_content" id="training">
                         <div class="main_content_1"><i class="el-icon-edit"></i> 培训经历</div>
@@ -85,27 +117,27 @@
             </div>
             <div class="aside_tabulation">
                 <div class="aside_line"></div>
-                <div class="tabulation"><a href="#personalinformation"><i class="el-icon-edit"></i> 基本信息</a></div>
+                <div class="tabulation"><a @click="testRef()"><i class="el-icon-edit"></i> 基本信息</a></div>
                 <div class="aside_line"></div>
-                <div class="tabulation"><a href="#jobintension"><i class="el-icon-edit"></i> 求职意向</a></div>
+                <div class="tabulation"><a @click="testRef('jobintension')"><i class="el-icon-edit"></i> 求职意向</a></div>
                 <div class="aside_line"></div>
-                <div class="tabulation"><a href="#educational"><i class="el-icon-edit"></i> 教育经历</a></div>
+                <div class="tabulation"><a @click="testRef('educational')"><i class="el-icon-edit"></i> 教育经历</a></div>
                 <div class="aside_line"></div>
-                <div class="tabulation"><a href="#work"><i class="el-icon-edit"></i> 工作经历</a></div>
+                <div class="tabulation"><a @click="testRef('work')"><i class="el-icon-edit"></i> 工作经历</a></div>
                 <div class="aside_line"></div>
-                <div class="tabulation"><a href="#progect"><i class="el-icon-edit"></i> 项目经历</a></div>
+                <div class="tabulation"><a @click="testRef('progect')"><i class="el-icon-edit"></i> 项目经历</a></div>
                 <div class="aside_line"></div>
-                <div class="tabulation"><a href="#training"><i class="el-icon-edit"></i> 培训经历</a></div>
+                <div class="tabulation"><a @click="testRef('training')"><i class="el-icon-edit"></i> 培训经历</a></div>
                 <div class="aside_line"></div>
-                <div class="tabulation"><a href="#language"><i class="el-icon-edit"></i> 语言能力</a></div>
+                <div class="tabulation"><a @click="testRef('language')"><i class="el-icon-edit"></i> 语言能力</a></div>
                 <div class="aside_line"></div>
-                <div class="tabulation"><a href="#professional"><i class="el-icon-edit"></i> 职称等级</a></div>
+                <div class="tabulation"><a @click="testRef('professional')"><i class="el-icon-edit"></i> 职称等级</a></div>
                 <div class="aside_line"></div>
-                <div class="tabulation"><a href="#personal_skill"><i class="el-icon-edit"></i> 专业技能</a></div>
+                <div class="tabulation"><a @click="testRef('personal_skill')"><i class="el-icon-edit"></i> 专业技能</a></div>
                 <div class="aside_line"></div>
-                <div class="tabulation"><a href="#awards"><i class="el-icon-edit"></i> 荣誉奖项</a></div>
+                <div class="tabulation"><a @click="testRef('awards')"><i class="el-icon-edit"></i> 荣誉奖项</a></div>
                 <div class="aside_line"></div>
-                <div class="tabulation"><a href="#self-appraisal"><i class="el-icon-edit"></i> 自我评价</a></div>
+                <div class="tabulation"><a @click="testRef('self-appraisal')"><i class="el-icon-edit"></i> 自我评价</a></div>
                 <div class="aside_line"></div>
             </div>
             <div class="aside_foot">
@@ -127,7 +159,16 @@
         data() {
             return {}
         },
-        methods: {},
+        methods: {
+            testRef(ref) {
+                if(ref){
+                    const y=this.$refs[ref].offsetTop-20
+                    this.$refs.scroll.scrollTo({y: y}, 300);
+                }else {
+                    this.$refs.scroll.scrollTo({y: 0}, 300);
+                }
+            }
+        },
 
     }
 
@@ -139,8 +180,9 @@
         padding-top 70px
         width 100%
         height 800px
-        /*min-height 800px*/
-        /*height 100vh*/
+
+    /*min-height 800px*/
+    /*height 100vh*/
     .el-aside
         background-color white
         margin 0 0 0 10px
