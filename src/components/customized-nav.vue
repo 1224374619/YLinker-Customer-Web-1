@@ -1,13 +1,15 @@
 <template>
+<div>
+  
   <nav>
       <div class="nav-body">
         <img @click="gotoHomeUI" :src="require('../assets/images/logo.png')" />
         <div class="menu">
           <div class="group" v-if="!ctlHideMenus">
-            <router-link to="/">首页</router-link>
-            <router-link to="/occupations">职位</router-link>
-            <router-link to="/resumes">简历</router-link>
-            <router-link to="/contact-us">联系我们</router-link>
+            <router-link to="/" index="1">首页</router-link>
+            <router-link to="/occupations" index="2">职位</router-link>
+            <router-link to="/www" index="3">简历</router-link>
+            <router-link to="/contact-us" index="4">联系我们</router-link>
           </div>
           <div class="btn-set" v-if="!hasLogin">
             <button @click="gotoLoginUI">登录</button>
@@ -27,6 +29,7 @@
         </div>
       </div>
     </nav>
+    </div>
 </template>
 
 <script>

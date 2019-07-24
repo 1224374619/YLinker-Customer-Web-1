@@ -9,6 +9,8 @@ import Register from './views/Register.vue'
 import RegisterResult from './views/RegisterResult.vue'
 import UserLicense from './views/UserLicense.vue'
 import JobDetail from './views/JobDetail.vue'
+// import Resumes from './views/resumes.vue'
+import www from './views/www.vue'
 
 Vue.use(Router);
 
@@ -59,6 +61,11 @@ export default new Router({
       path: '/detail/:id',
       name: 'detail',
       component: JobDetail
+    },
+    {
+      path: '/www',
+      name: 'www',
+      component: www
     }
   ]
 });

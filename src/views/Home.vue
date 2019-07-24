@@ -182,7 +182,8 @@
       </div>
       <button class="more">查看更多</button>
     </div>
-    <customized-footer />
+    <div class="22"><customized-footer /></div>
+    
   </div>
 </template>
 
