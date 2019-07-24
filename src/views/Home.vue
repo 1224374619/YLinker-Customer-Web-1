@@ -1,6 +1,5 @@
 <template>
   <div class="home">
-    <customized-nav />
     <div class="content">
       <div class="middle">
         <div class="search-bar">
@@ -182,8 +181,6 @@
       </div>
       <button class="more">查看更多</button>
     </div>
-    <div class="22"><customized-footer /></div>
-    
   </div>
 </template>
 
@@ -317,8 +314,8 @@ export default {
   .home
     margin-top 70px
     .content
-      width 1280px
-      padding 20px 40px
+      width 100%
+      /*padding 20px 40px*/
       margin auto
       background-color white
       .more
@@ -370,7 +367,7 @@ export default {
         border: solid 1px #eee
         margin: 20px auto
         overflow scroll
-        img 
+        img
           height 150px
           margin 0 10px
       .occupation-card
@@ -396,15 +393,15 @@ export default {
             h5
               margin 10px 0
             .meta
-              span 
+              span
                 margin-right 10px
                 font-size 14px
           .logo
             display flex
             align-items center
-            img 
+            img
               height 100px
-        
+
 </style>
 
 <style lang="stylus">
@@ -412,7 +409,7 @@ export default {
   .middle
     .search-bar
       .search-picker, .search-input
-        input 
+        input
           height 55px
   .category
     .list
@@ -420,7 +417,7 @@ export default {
         width 300px
         i
           width 100%
-          text-align left 
+          text-align left
           font-size 20px
           &:after
             content '>'
@@ -429,6 +426,6 @@ export default {
       flex 1
       margin-left 20px
   .company
-    &::-webkit-scrollbar 
+    &::-webkit-scrollbar
       display none
 </style>
