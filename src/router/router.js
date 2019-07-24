@@ -1,16 +1,16 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Home from './views/Home.vue'
-import Search from './views/Search.vue'
-import Login from './views/Login.vue'
-import ResetPassword from './views/ResetPassword.vue'
-import ResetResult from './views/ResetResult.vue'
-import Register from './views/Register.vue'
-import RegisterResult from './views/RegisterResult.vue'
-import UserLicense from './views/UserLicense.vue'
-import JobDetail from './views/JobDetail.vue'
+import Home from '../views/Home.vue'
+import Search from '../views/Search.vue'
+import Login from '../views/Login.vue'
+import ResetPassword from '../views/ResetPassword.vue'
+import ResetResult from '../views/ResetResult.vue'
+import Register from '../views/Register.vue'
+import RegisterResult from '../views/RegisterResult.vue'
+import UserLicense from '../views/UserLicense.vue'
+import JobDetail from '../views/JobDetail.vue'
 // import Resumes from './views/resumes.vue'
-import www from './views/www.vue'
+import www from '../views/www.vue'
 
 Vue.use(Router);
 
@@ -20,7 +20,7 @@ export default new Router({
         {
             path: '/',
             name: 'front',
-            component: resolve => require(['./layout/front'], resolve),
+            component: resolve => require(['../layout/front/index'], resolve),
             redirect: '/home',
             children: [
                 {
