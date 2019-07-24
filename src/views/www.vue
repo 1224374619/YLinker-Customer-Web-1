@@ -163,7 +163,7 @@
             testRef(ref) {
                 if(ref){
                     const y=this.$refs[ref].offsetTop-20
-                    this.$refs.scroll.scrollTo({y: y}, 300);
+                    this.$refs.scroll.scrollTo({y}, 300);
                 }else {
                     this.$refs.scroll.scrollTo({y: 0}, 300);
                 }
