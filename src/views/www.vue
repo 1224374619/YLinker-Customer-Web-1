@@ -139,6 +139,8 @@
         padding-top 70px
         width 100%
         height 800px
+        /*min-height 800px*/
+        /*height 100vh*/
     .el-aside
         background-color white
         margin 0 0 0 10px
