@@ -186,15 +186,10 @@
 
 <script>
 import placeholder from 'assets/images/placeholder.jpg';
-import CustomizedFooter from 'components/customized-footer.vue';
-import CustomizedNav from 'components/customized-nav.vue';
+
 
 export default {
   name: 'home',
-  components: {
-    CustomizedFooter,
-    CustomizedNav
-  },
   data() {
     return {
       isLogin: false,

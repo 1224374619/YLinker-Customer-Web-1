@@ -86,7 +86,7 @@ export default {
 
 <style lang="stylus" scoped>
   .basicinfo
-   width 1000px
+   width 800px
    .basicinfo_1
     width 800px
     display flex
@@ -94,9 +94,9 @@ export default {
     .basicinfo_left img
         width 80px
         height  80px
-        margin 30px 0 0 0
+        margin 30px 0 0 20px
     .basicinfo_right
-     margin 60px 0 0 150px 
+     margin 60px 0 0 130px 
         
 
 </style>
