@@ -51,6 +51,7 @@ export default {
     return {
          radio3: '上海',
          radio: '1',
+         value6:"",
          formInline: {
           user: '',
           region: ''

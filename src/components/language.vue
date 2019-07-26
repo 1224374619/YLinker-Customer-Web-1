@@ -6,8 +6,10 @@
             </el-form-item>
             <el-form-item label="听力能力">
                 <el-select style="width:100px" v-model="formInline.region" placeholder="">
-                <el-option label="" value="shanghai"></el-option>
-                <el-option label="" value="beijing"></el-option>
+                <el-option label="" value="一般"></el-option>
+                <el-option label="" value="良好"></el-option>
+                <el-option label="" value="熟练"></el-option>
+                <el-option label="" value="精通"></el-option>
                 </el-select>
             </el-form-item>
             <el-form-item label="读写能力">

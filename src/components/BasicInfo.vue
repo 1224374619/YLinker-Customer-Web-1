@@ -11,20 +11,24 @@
             </el-form-item>
             <el-form-item label="求职状态">
                 <el-select v-model="formInline.region" placeholder="">
-                <el-option label="" value="shanghai"></el-option>
-                <el-option label="" value="beijing"></el-option>
+                <el-option label="" value="积极找工作"></el-option>
+                <el-option label="" value="随便看看"></el-option>
+                <el-option label="" value="暂时不换工作"></el-option>
                 </el-select>
             </el-form-item>
             <el-form-item label="性别" >
                <el-radio-group v-model="radio3">
-                <el-radio-button  label="上海"></el-radio-button>
-                <el-radio-button  label="北京"></el-radio-button>
+                <el-radio-button  label="男性"></el-radio-button>
+                <el-radio-button  label="女性"></el-radio-button>
                </el-radio-group>
             </el-form-item>
             <el-form-item label="工作年限" style="margin-left:60px">
                 <el-select v-model="formInline.region" placeholder="">
-                <el-option label="" value="shanghai"></el-option>
-                <el-option label="" value="beijing"></el-option>
+                <el-option label="" value="无工作年限"></el-option>
+                <el-option label="" value="1-3年"></el-option>
+                <el-option label="" value="3-5年"></el-option>
+                <el-option label="" value="5-10年"></el-option>
+                <el-option label="" value="手动输入"></el-option>
                 </el-select>
             </el-form-item>
             <el-form-item label="所在城市" style="margin-left:-30px">
@@ -36,8 +40,13 @@
             </el-form-item>
             <el-form-item label="最高学历" >
                 <el-select v-model="formInline.region" placeholder="">
-                <el-option label="" value="shanghai"></el-option>
-                <el-option label="" value="beijing"></el-option>
+                <el-option label="" value="初中及以下"></el-option>
+                <el-option label="" value="中专/职中"></el-option>
+                <el-option label="" value="高中"></el-option>
+                <el-option label="" value="大专"></el-option>
+                <el-option label="" value="本科"></el-option>
+                <el-option label="" value="硕士"></el-option>
+                <el-option label="" value="博士"></el-option>
                 </el-select>
             </el-form-item>
              <el-form-item label="生日">
@@ -56,7 +65,7 @@
                 <el-input v-model="formInline.user" style="width:220px" placeholder=""></el-input>
             </el-form-item>
             <el-form-item>
-            <el-button type="info" plain>取消</el-button>
+            <el-button type="info" plain @click="open4">取消</el-button>
             <el-button type="primary">保存</el-button>
             </el-form-item>
           </el-form>
@@ -77,10 +86,34 @@ export default {
          formInline: {
           user: '',
           region: ''
-        }
-       
+        } 
+    }    
+  },
+  methods:{
+        open4() {
+        const h = this.$createElement;
+        this.$msgbox({
+            message: h('div', { style: 'height:200px'}, [
+            h('p', { style: 'font-size:20px;line-height:200px'}, '当前编辑内容未完成，是否继续操作？ '),
+            h('p', { style: 'font-size:14px;margin-top:-80px'}, '退出编辑后，更新的内容不会自动保存 '),
+          ]),
+          showCancelButton: true,
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning',
+        }).then(() => {
+          this.$message({
+            type: 'success',
+            message: '删除成功!'
+          });
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '已取消删除'
+          });          
+        });
+      }
     }
-  }
 }
 </script>
 

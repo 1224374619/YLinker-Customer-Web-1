@@ -6,10 +6,16 @@
                 <div class="main">
                     <div class="personalinformation" v-if="shownav">
                         <img :src="require('../assets/images/11.png')"/>
-                        <div id="personalinformation" @click="isclick" onMouseOver="this.className='on'"
-                             onMouseOut="this.className='out'"><i class="el-icon-edit-outline"></i> 添加个人信息
+                        <div class="from" style="flex-grow:2;"><Personalinformation-From></Personalinformation-From></div>
+                        <div class="personalinformation_1" @click="isclick" onMouseOver="this.className='on'"
+                             onMouseOut="this.className='out'"><i class="el-icon-edit-outline"></i> 编辑
                         </div>
                     </div>
+                    <!-- <ul v-if="showlist_1">
+                        <li v-for="(list,index) in lists_1" :key="index" >
+                            <Personalinformation-From :from-data="list" :index="index"></Personalinformation-From><br>
+                        </li>
+                    </ul> -->
                     <div class="showdemo" v-if="showdemo">
                         <Basic-Info/>
                     </div>
@@ -20,9 +26,9 @@
                              onMouseOut="this.className='outout'" @click="jobintension"><i class="el-icon-edit-outline"></i> 添加
                         </div>
                     </div>
-                    <ul v-if="showlist">
+                    <ul v-if="showlist" class="ul_a" style="margin-left:-15px">
                         <li v-for="(list,index) in lists" :key="index" >
-                            <From :from-data="list" :index="index"></From>
+                            <From :from-data="list" :index="index"></From><br>
                         </li>
                     </ul>
                     <div class="showJob" v-if="showJob"><Job-Intension /></div>
@@ -33,6 +39,11 @@
                              onMouseOut="this.className='outout'"><i class="el-icon-edit-outline"></i> 添加
                         </div>
                     </div>
+                    <ul v-if="showlist_1" class="ul_a" style="margin-left:-15px">
+                        <li v-for="(list,index) in lists_1" :key="index" >
+                            <EducationExperience-From :from-data="list" :index="index"></EducationExperience-From><br>
+                        </li>
+                    </ul>
                     <div class="showeducation" v-if="showeducation"><Education-Experience /></div>
                     <div class="main_line"></div>
                     <div ref="work" class="main_content" >
@@ -41,6 +52,11 @@
                              onMouseOut="this.className='outout'"><i class="el-icon-edit-outline"></i> 添加
                         </div>
                     </div>
+                    <ul v-if="showlist_2" class="ul_a" style="margin-left:-15px">
+                        <li v-for="(list,index) in lists_2" :key="index" >
+                            <Work-From :from-data="list" :index="index"></Work-From><br>
+                        </li>
+                    </ul>
                     <div v-if="showwork"><Work-Experience /></div>
                     <div class="main_line"></div>
                     <div ref="progect" class="main_content" >
@@ -49,6 +65,11 @@
                              onMouseOut="this.className='outout'"><i class="el-icon-edit-outline"></i> 添加
                         </div>
                     </div>
+                    <ul v-if="showlist_3" class="ul_a" style="margin-left:-15px">
+                        <li v-for="(list,index) in lists_3" :key="index" >
+                            <Progect-From :from-data="list" :index="index"></Progect-From><br>
+                        </li>
+                    </ul>
                     <div v-if="showproject"><Project-Experience /></div>
                     <div class="main_line"></div>
                     <div class="main_content" ref="training">
@@ -56,6 +77,11 @@
                         <div class="main_content_2" @click="training" onMouseOver="this.className='onon'"
                              onMouseOut="this.className='outout'"><i class="el-icon-edit-outline"></i> 添加</div>
                     </div>
+                    <ul v-if="showlist_4" class="ul_a" style="margin-left:-15px">
+                        <li v-for="(list,index) in lists_4" :key="index" >
+                            <Training-From :from-data="list" :index="index"></Training-From><br>
+                        </li>
+                    </ul>
                     <div v-if="showtraining"><Training-Experience /></div>
                     <div class="main_line"></div>
                     <div class="main_content" ref="language">
@@ -63,6 +89,11 @@
                         <div class="main_content_2" @click="language" onMouseOver="this.className='onon'"
                              onMouseOut="this.className='outout'"><i class="el-icon-edit-outline"></i> 添加</div>
                     </div>
+                    <ul v-if="showlist_5" class="ul_a" style="margin-left:-15px">
+                        <li v-for="(list,index) in lists_5" :key="index" >
+                            <Language-From :from-data="list" :index="index"></Language-From><br>
+                        </li>
+                    </ul>
                     <div v-if="showlanguage"><Language-Experience /></div>
                     <div class="main_line"></div>
                     <div class="main_content" ref="professional">
@@ -77,6 +108,18 @@
                         <div class="main_content_2" @click="personal_skill" onMouseOver="this.className='onon'"
                              onMouseOut="this.className='outout'"><i class="el-icon-edit-outline"></i> 添加</div>
                     </div>
+                    <ul v-if="showlist_6" class="ul_a">
+                        <li class="li_a" v-for="(list,index) in lists_6" :key="index" >
+                           
+                                <span style="opacity: 1;width:150px;margin-left:760px;font-size:10px;">
+                                <i  class="el-icon-edit-outline"></i> 删除
+                                <i  class="el-icon-edit-outline"></i> 编辑
+                                </span>
+                            
+                            <Personalskill-From :from-data="list" :index="index"></Personalskill-From>
+                           
+                        </li>
+                    </ul>
                     <div v-if="showpersonalskill"><Personal-Skill /></div>
                     <div class="main_line"></div>
                     <div class="main_content" ref="awards">
@@ -84,6 +127,11 @@
                         <div class="main_content_2" @click="awards" onMouseOver="this.className='onon'"
                              onMouseOut="this.className='outout'"><i class="el-icon-edit-outline"></i> 添加</div>
                     </div>
+                    <ul v-if="showlist_7" class="ul_a" style="margin-left:-15px">
+                        <li v-for="(list,index) in lists_7" :key="index" >
+                            <Awards-From :from-data="list" :index="index"></Awards-From><br>
+                        </li>
+                    </ul>
                     <div v-if="showawards"><Aw-Ards /></div>
                     <div class="main_line"></div>
                     <div class="main_content" ref="self-appraisal">
@@ -91,6 +139,11 @@
                         <div class="main_content_2" @click="selfappraisal" onMouseOver="this.className='onon'"
                              onMouseOut="this.className='outout'"><i class="el-icon-edit-outline"></i> 添加</div>
                     </div>
+                    <ul v-if="showlist_8" class="ul_a" style="margin-left:-15px">
+                        <li v-for="(list,index) in lists_8" :key="index" >
+                            <Selfappraisal-From :from-data="list" :index="index"></Selfappraisal-From><br>
+                        </li>
+                    </ul>
                      <div v-if="showselfappraisal"><Self-Appraisal /></div>
                 </div>
             </Scroll>
@@ -153,7 +206,16 @@
     import PersonalSkill from 'components/personal_skill.vue';
     import AwArds from 'components/awards.vue';
     import SelfAppraisal from 'components/self-appraisal.vue';
-    import From from 'components/from.vue'
+    import From from 'components/jobintension_from.vue'
+    import PersonalinformationFrom from 'components/personalinformation_from.vue'
+    import EducationExperienceFrom from 'components/education_from.vue'
+    import WorkFrom from 'components/work_from.vue'
+    import ProgectFrom from 'components/progect_from.vue'
+    import TrainingFrom from 'components/training_from.vue'
+    import LanguageFrom from 'components/language_from.vue'
+    import PersonalskillFrom from 'components/personal_skill_from.vue'
+    import AwardsFrom from 'components/awards_from.vue'
+    import SelfappraisalFrom from 'components/selfappraisal_from.vue'
     export default {
         name: 'user-license',
         components: {
@@ -168,7 +230,16 @@
         PersonalSkill,
         AwArds,
         SelfAppraisal,
-        From
+        From,
+        PersonalinformationFrom,
+        EducationExperienceFrom,
+        WorkFrom,
+        ProgectFrom,
+        TrainingFrom,
+        LanguageFrom,
+        PersonalskillFrom,
+        AwardsFrom,
+        SelfappraisalFrom,
         },
         data() {
             return {
@@ -186,20 +257,69 @@
                 showawards:false,
                 showselfappraisal:false,
                 showlist:true,
+                showlist_1:true,
+                showlist_2:true,
+                showlist_3:true,
+                showlist_4:true,
+                showlist_5:true,
+                showlist_6:true,
+                showlist_7:true,
+                showlist_8:true,
+                add:false,
                 lists: [{
-                    a: '1',
-                    b: '2',
-                    c: '2',
-                    d: '2',
-                    e: '2',
-                },
-                {
-                    a: '1',
-                    b: '2',
-                    c: '2',
-                    d: '2',
-                    e: '2',
-                },]
+                    a: '产品经理',
+                    b: '上海/北京',
+                    c: '互联网金融/公关',
+                    d: '5k~10k',
+                    e: '随时到岗',
+                    f: '实习'
+                }],
+                lists_1: [{
+                    a: '华东理工大学',
+                    b: '2018/12',
+                    c: '工业设计 | 硕士',
+                    d: '5k~10k',
+                    e: '随时到岗',
+                    f: '实习'
+                }],
+                lists_2: [{
+                    a: '公司名称',
+                    b: '2018/12',
+                    c: '工业设计 | 硕士',
+                    d: '22电动车v发射点发射点犯得上犯得上发射点',
+                }],
+                lists_3: [{
+                    a: '项目名称',
+                    b: '2018/12',
+                    c: '担任角色',
+                    d: '个人职责',
+                    e: '项目介绍',
+                }],
+                 lists_4: [{
+                    a: '培训课程',
+                    b: '培训机构',
+                    c: '2018/12-至今',
+                }],
+                 lists_5: [{
+                    a: '英语',
+                    b: '听说能力良好',
+                    c: '读写能力良好',
+                }],
+                lists_6: [{
+                    a: 'CET6',
+                    b: '六级',
+                    
+                },],
+                lists_7: [{
+                    a: 'xxxx比赛三等奖',
+                    b: '2018/12',
+                    
+                }],
+                lists_8: [{
+                    a: 'xxxx比赛三等奖',
+                    b: '2018/12',
+                    
+                }],
             }
         },
         methods: {
@@ -222,31 +342,42 @@
             },
             education(){
                 this.showeducation = true;
+                this.showlist_1= false
             },
             work(){
                 this.showwork = true;
+                this.showlist_2= false
             },
             project(){
                 this.showproject = true;
+                this.showlist_3= false
             },
             training(){
                 this.showtraining = true;
+                this.showlist_4= false
             },
             language(){
                 this.showlanguage = true;
+                this.showlist_5= false
             },
             professional(){
                 this.showprofessional = true;
+                this.showlist_6= false
             },
             personal_skill(){
                 this.showpersonalskill = true;
+                this.showlist_7= false
             },
             awards(){
                 this.showawards = true;
+                this.showlist_8= false
             },
             selfappraisal(){
                 this.showselfappraisal = true;
-            }
+                this.showlist_9= false
+            },
+            
+
 
             // add() {
             //     //每次添加就往lists中添加数据，如果后台中已经存有个人数据，可以添加已有数据
@@ -346,12 +477,10 @@
 
     .el-main
         background-color white
-
         .personalinformation
             display flex
             flex-direction row
             justify-content space-between
-
         .on
             font-weight bold
             line-height 17px
@@ -371,7 +500,11 @@
             border 0.5px solid #D8D8D8
             margin 0 0 0 30px
         ul li
-            list-style none      
+            list-style none
+        .ul_a
+            background-color #f5f7fa 
+            margin-left -15px
+        
         .showJob
             margin 0 0 0 0
         .main_content
@@ -385,7 +518,6 @@
                 color #1f368d
                 line-height 60px
                 margin 0 0 0 30px
-
             .main_content_2
                 font-size 14px
                 color #1f368d
