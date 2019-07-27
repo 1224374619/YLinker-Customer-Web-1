@@ -1,4 +1,4 @@
-# YLinker-Client
+# YLinker-Client-Web
 
 ## Project setup
 ```
