@@ -257,8 +257,8 @@
           </div>
         </el-tab-pane>
       </el-tabs>
-      <button class="more">查看更多</button>
     </div>
+    <button class="more">查看更多</button>
     <customized-footer />
   </div>
 </template>
@@ -393,19 +393,19 @@ export default {
 <style lang="stylus" scoped>
   .home
     margin-top 70px
+    .more
+      width 210px
+      height 43px
+      background-color #1F368D
+      color white
+      font-size 14px
+      margin 30px 0
+      cursor pointer
     .content
       width 1280px
       padding 20px 40px
       margin auto
       background-color white
-      .more
-        width 210px
-        height 43px
-        background-color #1F368D
-        color white
-        font-size 14px
-        margin 30px 0
-        cursor pointer
       .header
         margin 20px 0
         display flex
@@ -425,6 +425,8 @@ export default {
       .title
         display flex
         flex-direction row
+        color #455379
+        font-weight bold
         padding 0
       .middle
         display flex
@@ -447,7 +449,7 @@ export default {
           .search-input
             flex 1
           button
-            font-size 16px
+            font-size 18px
             width 200px
             margin-left 20px
       .company
@@ -471,7 +473,7 @@ export default {
         flex-wrap wrap  
         .container
           margin 10px
-          border solid 1px lightgray
+          box-shadow 1px 1px 4px rgba(0,0,0,0.2)
           padding 20px
           flex 1
           display flex
