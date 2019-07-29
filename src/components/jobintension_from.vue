@@ -2,22 +2,22 @@
     <div class="hello">
         <el-form :inline="true" :model="ruleForm" class="demo-form-inline">
             <el-form-item label="职位类型:">
-                <el-input :disabled="true"  v-model="ruleForm.a" placeholder=""></el-input>
+                <el-input :disabled="true"  v-model="ruleForm.postType" placeholder=""></el-input>
             </el-form-item>
             <el-form-item label="工作城市:">
-                <el-input :disabled="true"  v-model="ruleForm.b" placeholder=""></el-input>
+                <el-input :disabled="true"  v-model="ruleForm.city" placeholder=""></el-input>
             </el-form-item>
             <el-form-item label="企业行业:">
-                <el-input :disabled="true"  v-model="ruleForm.c" placeholder=""></el-input>
+                <el-input :disabled="true"  v-model="ruleForm.trade" placeholder=""></el-input>
             </el-form-item>
             <el-form-item label="薪资范围:">
-                <el-input :disabled="true"  v-model="ruleForm.d" placeholder=""></el-input>
+                <el-input :disabled="true"  v-model="ruleForm.scope" placeholder=""></el-input>
             </el-form-item>
             <el-form-item label="求职状态:">
-                <el-input :disabled="true"  v-model="ruleForm.e" placeholder=""></el-input>
+                <el-input :disabled="true"  v-model="ruleForm.status" placeholder=""></el-input>
             </el-form-item>
             <el-form-item label="工作类型:">
-                <el-input :disabled="true" v-model="ruleForm.f" placeholder=""></el-input>
+                <el-input :disabled="true" v-model="ruleForm.jobType" placeholder=""></el-input>
             </el-form-item>
           </el-form>
     </div>
@@ -30,12 +30,12 @@
         data() {
             return {
                 ruleForm: {
-                   a:"1",
-                   b:"2",
-                   c:"3",
-                   d:"4",
-                   e:"5",
-                   f:"6"
+                   postType:"",
+                   city:"",
+                   trade:"",
+                   scope:"",
+                   status:"",
+                   jobType:""
                 },
             };
         },
@@ -62,10 +62,7 @@
          margin -20px 0 0 0
         .el-form-item
           height 20px
-         .el-input__inner
-           border 0px solid #dcdfe6
-           width 300px
-           line-height 20px
+          margin 20px 0 0 0
          .el-input__inner
            border 0px solid #dcdfe6
            width 300px
@@ -73,5 +70,4 @@
          .el-textarea__inner
            padding 10px 0 0 15px
            border 0px solid #dcdfe6 
-
 </style>

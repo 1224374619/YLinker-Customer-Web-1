@@ -2,15 +2,15 @@
   <div class="jobintension">
       <el-form :inline="true" :model="formInline" class="demo-form-inline">
             <el-form-item label="培训课程" >
-                <el-input style="width:300px;" v-model="formInline.user" placeholder=""></el-input>
+                <el-input style="width:300px;" v-model="formInline.trainCourse" placeholder=""></el-input>
             </el-form-item>
             <el-form-item label="培训课程">
-                <el-input style="width:300px" v-model="formInline.user" placeholder=""></el-input>
+                <el-input style="width:300px" v-model="formInline.trainCourse" placeholder=""></el-input>
             </el-form-item>
             <el-form-item label="培训时间" class="block" style="margin-left:-25px">
                 <el-date-picker
                 style="width:300px;"
-                v-model="value6"
+                v-model="trainTime"
                 type="daterange"
                 range-separator="至"
                 start-placeholder="开始日期"
@@ -18,7 +18,7 @@
                 </el-date-picker>
             </el-form-item>
             <el-form-item label="学历" style="visibility:hidden;">
-                <el-select style="width:300px" v-model="formInline.region" placeholder="">
+                <el-select style="width:300px" placeholder="">
                 <el-option label="" value="shanghai"></el-option>
                 <el-option label="" value="beijing"></el-option>
                 </el-select>
@@ -38,12 +38,9 @@ export default {
   
   data() {
     return {
-         radio3: '上海',
-         value6:'',
-         radio: '1',
          formInline: {
-          user: '',
-          region: ''
+          trainCourse: '',
+          trainTime: '',
         }
     }
   }

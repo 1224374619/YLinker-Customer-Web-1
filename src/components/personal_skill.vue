@@ -2,10 +2,10 @@
   <div class="jobintension">
       <el-form :inline="true" :model="formInline" class="demo-form-inline">
             <el-form-item label="技能名称">
-                <el-input style="width:300px;" v-model="formInline.user" placeholder=""></el-input>
+                <el-input style="width:300px;" v-model="formInline.technicalName" placeholder=""></el-input>
             </el-form-item>
             <el-form-item label="掌握程度">
-                <el-select style="width:300px" v-model="formInline.region" placeholder="">
+                <el-select style="width:300px" v-model="formInline.level" placeholder="">
                 <el-option label="" value="shanghai"></el-option>
                 <el-option label="" value="beijing"></el-option>
                 </el-select>
@@ -19,7 +19,7 @@
                 </el-upload>
             </el-form-item>
             <el-form-item label="语种" style="visibility:hidden">
-                <el-input style="width:420px;" v-model="formInline.user" placeholder=""></el-input>
+                <el-input style="width:420px;" placeholder=""></el-input>
             </el-form-item><br>
             <el-form-item>
             <el-button type="info" plain>取消</el-button>
@@ -36,19 +36,15 @@ export default {
   
   data() {
     return {
-         radio3: '上海',
-         radio: '1',
          formInline: {
-          user: '',
-          region: ''
+          technicalName: '',
+          level: ''
         }
     }
   }
 }
 </script>
-
 <style lang="stylus" scoped> 
-        .el-form-item
-          padding 0 0 0 60px
-
+  .el-form-item
+    padding 0 0 0 60px
 </style>

@@ -7,8 +7,8 @@
                     <div class="personalinformation" v-if="shownav">
                         <img :src="require('../assets/images/11.png')"/>
                         <div class="from" style="flex-grow:2;"><Personalinformation-From></Personalinformation-From></div>
-                        <div class="personalinformation_1" @click="isclick" onMouseOver="this.className='on'"
-                             onMouseOut="this.className='out'"><i class="el-icon-edit-outline"></i> 编辑
+                        <div class="personalinformation_1"  @click="isclick" @mouseover="mouseOver"
+                         @mouseleave="mouseLeave" :style="active"><span ref="acp"><i class="el-icon-edit-outline"></i>编辑</span> 
                         </div>
                     </div>
                     <!-- <ul v-if="showlist_1">
@@ -22,129 +22,149 @@
                     <div class="main_line"></div>
                     <div ref="jobintension" class="main_content" >
                         <div class="main_content_1"><i class="el-icon-edit"></i> 求职意向</div>
-                        <div class="main_content_2" v-if="showadd" onMouseOver="this.className='onon'"
-                             onMouseOut="this.className='outout'" @click="jobintension"><i class="el-icon-edit-outline"></i> 添加
+                        <div class="main_content_2" v-if="showadd"  @click="jobintension"><i class="el-icon-edit-outline"></i> 添加
                         </div>
                     </div>
-                    <ul v-if="showlist" class="ul_a" style="margin-left:-15px">
-                        <li v-for="(list,index) in lists" :key="index" >
-                            <From :from-data="list" :index="index"></From><br>
+                    <ul v-if="showjobintension"  style="margin-left:-15px">
+                        <li v-for="(list,index) in listjobintension" :key="index"  class="ul_a">
+                        <span class="actions_span">
+                            <i class="el-icon-edit-outline"></i> 删除
+                            <i class="el-icon-edit-outline"></i> 编辑
+                        </span>
+                            <from :from-data="list" :index="index"></from><br><br>
                         </li>
                     </ul>
-                    <div class="showJob" v-if="showJob"><Job-Intension /></div>
+                    <div class="showJob" v-if="showJob"><job-intension /></div>
                     <div class="main_line"></div>
                     <div ref="educational" class="main_content" >
                         <div class="main_content_1"><i class="el-icon-edit"></i> 教育经历</div>
-                        <div class="main_content_2" @click="education" onMouseOver="this.className='onon'"
-                             onMouseOut="this.className='outout'"><i class="el-icon-edit-outline"></i> 添加
+                        <div class="main_content_2" @click="education"><i class="el-icon-edit-outline"></i> 添加
                         </div>
                     </div>
-                    <ul v-if="showlist_1" class="ul_a" style="margin-left:-15px">
-                        <li v-for="(list,index) in lists_1" :key="index" >
-                            <EducationExperience-From :from-data="list" :index="index"></EducationExperience-From><br>
+                    <ul v-if="showeducational"  style="margin-left:-15px">
+                        <li v-for="(list,index) in listeducational" :key="index" class="ul_a">
+                        <span class="actions_span">
+                            <i class="el-icon-edit-outline"></i> 删除
+                            <i class="el-icon-edit-outline"></i> 编辑
+                        </span>
+                            <educationexperience-From :from-data="list" :index="index"></educationexperience-From><br>
                         </li>
                     </ul>
                     <div class="showeducation" v-if="showeducation"><Education-Experience /></div>
                     <div class="main_line"></div>
                     <div ref="work" class="main_content" >
                         <div class="main_content_1"><i class="el-icon-edit"></i> 工作经历</div>
-                        <div class="main_content_2" @click="work" onMouseOver="this.className='onon'"
-                             onMouseOut="this.className='outout'"><i class="el-icon-edit-outline"></i> 添加
+                        <div class="main_content_2" @click="work" ><i class="el-icon-edit-outline"></i> 添加
                         </div>
                     </div>
-                    <ul v-if="showlist_2" class="ul_a" style="margin-left:-15px">
-                        <li v-for="(list,index) in lists_2" :key="index" >
-                            <Work-From :from-data="list" :index="index"></Work-From><br>
+                    <ul v-if="showworkperience" class="ul_a" style="margin-left:-15px">
+                        
+                        <li v-for="(list,index) in listwork" :key="index" class="ul_a">
+                        <span class="actions_span">
+                            <i class="el-icon-edit-outline"></i> 删除
+                            <i class="el-icon-edit-outline"></i> 编辑
+                        </span>
+                            <work-from :from-data="list" :index="index"></work-from><br>
                         </li>
                     </ul>
-                    <div v-if="showwork"><Work-Experience /></div>
+                    <div v-if="showwork"><work-experience /></div>
                     <div class="main_line"></div>
                     <div ref="progect" class="main_content" >
                         <div class="main_content_1"><i class="el-icon-edit"></i> 项目经历</div>
-                        <div class="main_content_2" @click="project" onMouseOver="this.className='onon'"
-                             onMouseOut="this.className='outout'"><i class="el-icon-edit-outline"></i> 添加
+                        <div class="main_content_2" @click="project" ><i class="el-icon-edit-outline"></i> 添加
                         </div>
                     </div>
-                    <ul v-if="showlist_3" class="ul_a" style="margin-left:-15px">
-                        <li v-for="(list,index) in lists_3" :key="index" >
-                            <Progect-From :from-data="list" :index="index"></Progect-From><br>
+                    <ul v-if="showprogectperience"  style="margin-left:-15px">
+                        <li v-for="(list,index) in listprogectperience" :key="index" class="ul_a">
+                        <span class="actions_span">
+                            <i class="el-icon-edit-outline"></i> 删除
+                            <i class="el-icon-edit-outline"></i> 编辑
+                        </span>
+                            <progect-from :from-data="list" :index="index"></progect-from><br>
                         </li>
                     </ul>
-                    <div v-if="showproject"><Project-Experience /></div>
+                    <div v-if="showproject"><project-experience /></div>
                     <div class="main_line"></div>
                     <div class="main_content" ref="training">
                         <div class="main_content_1"><i class="el-icon-edit"></i> 培训经历</div>
-                        <div class="main_content_2" @click="training" onMouseOver="this.className='onon'"
-                             onMouseOut="this.className='outout'"><i class="el-icon-edit-outline"></i> 添加</div>
+                        <div class="main_content_2" @click="training" ><i class="el-icon-edit-outline"></i> 添加</div>
                     </div>
-                    <ul v-if="showlist_4" class="ul_a" style="margin-left:-15px">
-                        <li v-for="(list,index) in lists_4" :key="index" >
-                            <Training-From :from-data="list" :index="index"></Training-From><br>
+                    <ul v-if="showtrain" class="ul_a" style="margin-left:-15px">
+                        <li v-for="(list,index) in listtrain" :key="index" class="ul_a">
+                        <span class="actions_span">
+                            <i class="el-icon-edit-outline"></i> 删除
+                            <i class="el-icon-edit-outline"></i> 编辑
+                        </span>
+                            <training-from :from-data="list" :index="index"></training-from><br>
                         </li>
                     </ul>
-                    <div v-if="showtraining"><Training-Experience /></div>
+                    <div v-if="showtraining"><training-experience /></div>
                     <div class="main_line"></div>
                     <div class="main_content" ref="language">
                         <div class="main_content_1"><i class="el-icon-edit"></i> 语言能力</div>
-                        <div class="main_content_2" @click="language" onMouseOver="this.className='onon'"
-                             onMouseOut="this.className='outout'"><i class="el-icon-edit-outline"></i> 添加</div>
+                        <div class="main_content_2" @click="language" ><i class="el-icon-edit-outline"></i> 添加</div>
                     </div>
-                    <ul v-if="showlist_5" class="ul_a" style="margin-left:-15px">
-                        <li v-for="(list,index) in lists_5" :key="index" >
-                            <Language-From :from-data="list" :index="index"></Language-From><br>
+                    <ul v-if="showlanguages"  style="margin-left:-15px">
+                        <li v-for="(list,index) in listlanguages" :key="index" class="ul_a">
+                            <span class="actions_span">
+                                <i class="el-icon-edit-outline"></i> 删除
+                                <i class="el-icon-edit-outline"></i> 编辑
+                            </span>
+                            <language-from :from-data="list" :index="index"></language-from><br>
                         </li>
                     </ul>
-                    <div v-if="showlanguage"><Language-Experience /></div>
+                    <div v-if="showlanguage"><language-experience /></div>
                     <div class="main_line"></div>
                     <div class="main_content" ref="professional">
                         <div class="main_content_1"><i class="el-icon-edit"></i> 职称等级</div>
-                        <div class="main_content_2" @click="professional" onMouseOver="this.className='onon'"
-                             onMouseOut="this.className='outout'"><i class="el-icon-edit-outline"></i> 添加</div>
+                        <div class="main_content_2" @click="professional()" ><i class="el-icon-edit-outline"></i> 添加</div>
                     </div>
-                    <div v-if="showprofessional"><Professional-Experience /></div>
+                    <div v-if="showprofessional"><professional-experience /></div>
                     <div class="main_line"></div>
                     <div class="main_content" ref="personal_skill">
                         <div class="main_content_1"><i class="el-icon-edit"></i> 专业技能</div>
-                        <div class="main_content_2" @click="personal_skill" onMouseOver="this.className='onon'"
-                             onMouseOut="this.className='outout'"><i class="el-icon-edit-outline"></i> 添加</div>
+                        <div class="main_content_2" @click="personal_skill()" ><i class="el-icon-edit-outline"></i> 添加</div>
                     </div>
-                    <ul v-if="showlist_6" class="ul_a">
-                        <li class="li_a" v-for="(list,index) in lists_6" :key="index" >
-                           
-                                <span style="opacity: 1;width:150px;margin-left:760px;font-size:10px;">
-                                <i  class="el-icon-edit-outline"></i> 删除
-                                <i  class="el-icon-edit-outline"></i> 编辑
-                                </span>
-                            
-                            <Personalskill-From :from-data="list" :index="index"></Personalskill-From>
-                           
+                    <ul v-if="showpersonalskills">
+                        <li class="ul_a" v-for="(list,index) in listpersonalskill" :key="index" >
+                            <span class="actions_span">
+                                <i class="el-icon-edit-outline"></i> 删除
+                                <i class="el-icon-edit-outline"></i> 编辑
+                            </span>
+                            <personalskill-from :from-data="list" :index="index"></personalskill-from>
                         </li>
                     </ul>
-                    <div v-if="showpersonalskill"><Personal-Skill /></div>
+                    <div v-if="showpersonalskill"><personal-skill /></div>
                     <div class="main_line"></div>
                     <div class="main_content" ref="awards">
                         <div class="main_content_1" ><i class="el-icon-edit"></i> 荣誉奖项</div>
-                        <div class="main_content_2" @click="awards" onMouseOver="this.className='onon'"
-                             onMouseOut="this.className='outout'"><i class="el-icon-edit-outline"></i> 添加</div>
+                        <div class="main_content_2" @click="awards" ><i class="el-icon-edit-outline"></i> 添加</div>
                     </div>
-                    <ul v-if="showlist_7" class="ul_a" style="margin-left:-15px">
-                        <li v-for="(list,index) in lists_7" :key="index" >
-                            <Awards-From :from-data="list" :index="index"></Awards-From><br>
+                    <ul v-if="showaward" style="margin-left:-15px">
+                        <li v-for="(list,index) in listaward" :key="index"  class="ul_a">
+                            <span class="actions_span">
+                                <i class="el-icon-edit-outline"></i> 删除
+                                <i class="el-icon-edit-outline"></i> 编辑
+                            </span>
+                            <awards-from :from-data="list" :index="index"></awards-from><br>
                         </li>
                     </ul>
                     <div v-if="showawards"><Aw-Ards /></div>
                     <div class="main_line"></div>
                     <div class="main_content" ref="self-appraisal">
                         <div class="main_content_1" ><i class="el-icon-edit"></i> 自我评价</div>
-                        <div class="main_content_2" @click="selfappraisal" onMouseOver="this.className='onon'"
-                             onMouseOut="this.className='outout'"><i class="el-icon-edit-outline"></i> 添加</div>
+                        <div class="main_content_2" @click="selfappraisal" ><i class="el-icon-edit-outline"></i> 添加</div>
                     </div>
-                    <ul v-if="showlist_8" class="ul_a" style="margin-left:-15px">
-                        <li v-for="(list,index) in lists_8" :key="index" >
-                            <Selfappraisal-From :from-data="list" :index="index"></Selfappraisal-From><br>
+                    <ul v-if="showpersonappraisal"  style="margin-left:-15px">
+                        <li v-for="(list,index) in listpersonappraisal" :key="index" class="ul_a">
+                            <span class="actions_span">
+                                <i class="el-icon-edit-outline"></i> 删除
+                                <i class="el-icon-edit-outline"></i> 编辑
+                            </span>
+                            <selfappraisal-from :from-data="list" :index="index"></selfappraisal-from><br>
                         </li>
                     </ul>
-                     <div v-if="showselfappraisal"><Self-Appraisal /></div>
+                     <div v-if="showselfappraisal"><self-appraisal /></div>
                 </div>
             </Scroll>
         </div>
@@ -243,6 +263,8 @@
         },
         data() {
             return {
+                active: "",
+                activeOne: "",
                 showdemo:false,
                 shownav:true,
                 showadd:true,
@@ -256,69 +278,70 @@
                 showpersonalskill:false,
                 showawards:false,
                 showselfappraisal:false,
-                showlist:true,
-                showlist_1:true,
-                showlist_2:true,
-                showlist_3:true,
-                showlist_4:true,
-                showlist_5:true,
-                showlist_6:true,
-                showlist_7:true,
-                showlist_8:true,
+                showjobintension:true,
+                showeducational:true,
+                showworkperience:true,
+                showprogectperience:true,
+                showtrain:true,
+                showlanguages:true,
+                shpersonalskills:true,
+                showaward:true,
+                showpersonappraisal:true,
                 add:false,
-                lists: [{
-                    a: '产品经理',
-                    b: '上海/北京',
-                    c: '互联网金融/公关',
-                    d: '5k~10k',
-                    e: '随时到岗',
-                    f: '实习'
+                listjobintension: [{
+                    postType:"产品经理",
+                    city:"上海/北京",
+                    trade:"互联网金融/公关",
+                    scope:"5k~10k",
+                    status:"随时到岗",
+                    jobType:"实习"
+                },
+                {
+                    postType:"产品经理",
+                    city:"上海/北京",
+                    trade:"互联网金融/公关",
+                    scope:"5k~10k",
+                    status:"随时到岗",
+                    jobType:"实习"
                 }],
-                lists_1: [{
-                    a: '华东理工大学',
-                    b: '2018/12',
-                    c: '工业设计 | 硕士',
-                    d: '5k~10k',
-                    e: '随时到岗',
-                    f: '实习'
+                listeducational: [{
+                    educationName:"华东理工大学",
+                    educationTime:"2018/12",
+                    educationDegree:"工业设计 | 硕士"
                 }],
-                lists_2: [{
-                    a: '公司名称',
-                    b: '2018/12',
-                    c: '工业设计 | 硕士',
-                    d: '22电动车v发射点发射点犯得上犯得上发射点',
+                listwork: [{
+                    jobDescription: '公司名称',
+                    companyName: '2018/12',
+                    post: '工业设计 | 硕士',
+                    jobTime: '22电动车v发射点发射点犯得上犯得上发射点',
                 }],
-                lists_3: [{
-                    a: '项目名称',
-                    b: '2018/12',
-                    c: '担任角色',
-                    d: '个人职责',
-                    e: '项目介绍',
+                listprogectperience: [{
+                    itemName: '项目名称',
+                    companyName: '2018/12',
+                    schoolTime: '担任角色',
+                    duty: '个人职责',
+                    project: '项目介绍',
                 }],
-                 lists_4: [{
-                    a: '培训课程',
-                    b: '培训机构',
-                    c: '2018/12-至今',
+                listtrain: [{
+                    trainCourse: '培训课程',
+                    trainTime: '培训机构',
                 }],
-                 lists_5: [{
-                    a: '英语',
-                    b: '听说能力良好',
-                    c: '读写能力良好',
+                listlanguages: [{
+                    languages:"英语",
+                    listenAbility:"听说能力良好",
+                    readAbility:"读写能力良好",
                 }],
-                lists_6: [{
-                    a: 'CET6',
-                    b: '六级',
+                listpersonalskill: [{
+                   technicalName: '2',
+                   level: '2'
                     
                 },],
-                lists_7: [{
-                    a: 'xxxx比赛三等奖',
-                    b: '2018/12',
-                    
+                listaward: [{
+                    prizeName:"xxxx比赛三等奖",
+                    prizeTime:"2018/12",
                 }],
-                lists_8: [{
-                    a: 'xxxx比赛三等奖',
-                    b: '2018/12',
-                    
+                listpersonappraisal: [{
+                    personalDescription:"年轻有为",
                 }],
             }
         },
@@ -334,47 +357,56 @@
             isclick() {
                 this.showdemo = true;
                 this.shownav = false;
-    },
+            },
+            mouseOver() {
+                this.active = "font-weight:bold;line-height:27px;font-size:16px"
+                var acps = this.$refs.acp
+                acps.style.color = "black"
+            },
+            mouseLeave() {
+                this.active = "";
+                this.$refs.acp.style=''
+            },
+            
             jobintension(){
                 this.showadd = false;
                 this.showJob = true;
-                this.showlist= false
+                this.showjobintension= false
             },
             education(){
                 this.showeducation = true;
-                this.showlist_1= false
+                this.showeducational= false
             },
             work(){
                 this.showwork = true;
-                this.showlist_2= false
+                this.showworkperience= false
             },
             project(){
                 this.showproject = true;
-                this.showlist_3= false
+                this.showprogectperience= false
             },
             training(){
                 this.showtraining = true;
-                this.showlist_4= false
+                this.showtrain= false
             },
             language(){
                 this.showlanguage = true;
-                this.showlist_5= false
+                this.showlanguages= false
             },
             professional(){
                 this.showprofessional = true;
-                this.showlist_6= false
             },
             personal_skill(){
                 this.showpersonalskill = true;
-                this.showlist_7= false
+                this.showpersonalskills= false
             },
             awards(){
                 this.showawards = true;
-                this.showlist_8= false
+                this.showaward= false
             },
             selfappraisal(){
                 this.showselfappraisal = true;
-                this.showlist_9= false
+                this.showpersonappraisal= false
             },
             
 
@@ -481,16 +513,9 @@
             display flex
             flex-direction row
             justify-content space-between
-        .on
-            font-weight bold
-            line-height 17px
-
-        .out
-            font-size 13px
-
         .personalinformation div
-            margin 80px 50px 40px 0
-
+            margin 80px 55px 40px 0
+            font-size 13px
         .personalinformation img
             width 80px
             height 80px
@@ -502,8 +527,18 @@
         ul li
             list-style none
         .ul_a
-            background-color #f5f7fa 
+            background-color #f5f7fa
             margin-left -15px
+            .actions_span
+                opacity 0
+                width 150px
+                margin-left 760px
+                font-size 13px
+                transition all 300ms ease
+                color #617dcb
+            &:hover
+                .actions_span
+                    opacity 1
         
         .showJob
             margin 0 0 0 0

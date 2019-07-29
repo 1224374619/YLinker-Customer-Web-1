@@ -1,8 +1,8 @@
 <template>
     <div class="hello">
         <el-form :inline="true" :model="ruleForm" class="demo-form-inline">
-                <el-input :disabled="true"  v-model="ruleForm.a" placeholder=""></el-input>
-                <el-input :disabled="true"  v-model="ruleForm.b" placeholder=""></el-input>
+                <el-input :disabled="true"  v-model="ruleForm.prizeName" placeholder=""></el-input>
+                <el-input :disabled="true"  v-model="ruleForm.prizeTime" placeholder=""></el-input>
           </el-form>
     </div>
 </template>
@@ -14,10 +14,8 @@
         data() {
             return {
                 ruleForm: {
-                   a:"1",
-                   b:"2",
-                   c:"3",
-                   d:"4",
+                   prizeName:"",
+                   prizeTime:"",
                 },
             };
         },
@@ -39,20 +37,18 @@
 </script>
 
 <style lang="stylus" scoped>
-      .hello
-       .el-form
-         display flex
-         flex-direction row
-         flex-wrap wrap 
-         margin -20px 0 0 
-        .el-input
-           margin 0 0 0 65px
-           border 0px solid #dcdfe6
-           width 210px
-           line-height 20px
+  .hello
+    .el-form
+      display flex
+      flex-direction row
+      flex-wrap wrap 
+      margin -20px 0 0 
+      .el-input
+        margin 22px 0 0 65px
+        border 0px solid #dcdfe6
+        width 210px
+        line-height 20px
         .el-textarea__inner
-           padding 10px 0 0 15px
-           border 0px solid #dcdfe6
-          
-
+          padding 10px 0 0 15px
+          border 0px solid #dcdfe6
 </style>

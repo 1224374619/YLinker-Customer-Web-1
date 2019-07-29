@@ -11,6 +11,7 @@ import UserLicense from '../views/UserLicense.vue'
 import JobDetail from '../views/JobDetail.vue'
 // import Resumes from './views/resumes.vue'
 import www from '../views/www.vue'
+import aaa from '../views/aaa.vue'
 
 Vue.use(Router);
 
@@ -28,11 +29,15 @@ export default new Router({
                     name: 'home',
                     component: Home
                 },
-
                 {
                     path: '/www',
                     name: 'www',
                     component: www
+                },
+                {
+                    path: '/aaa',
+                    name: 'aaa',
+                    component: aaa
                 }
             ]
         },

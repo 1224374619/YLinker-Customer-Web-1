@@ -1,9 +1,9 @@
 <template>
     <div class="hello">
         <el-form :inline="true" :model="ruleForm" class="demo-form-inline">
-                <el-input :disabled="true"   v-model="ruleForm.a" placeholder=""></el-input>
-                <el-input :disabled="true"   v-model="ruleForm.b" placeholder=""></el-input>
-                <a href="" onMouseOver="this.className='on'" onMouseOut="this.className='out'"><a class="el-icon-picture">点击查看证书</a></a>
+                <el-input :disabled="true"   v-model="ruleForm.technicalName" placeholder=""></el-input>
+                <el-input :disabled="true"   v-model="ruleForm.level" placeholder=""></el-input>
+                <a id="a" href="" @mouseover="on()" @mouseout="out()"><a class="el-icon-picture">点击查看证书</a></a>
           </el-form>
     </div>
 </template>
@@ -15,10 +15,8 @@
         data() {
             return {
                 ruleForm: {
-                   a:"1",
-                   b:"2",
-                   c:"3",
-                   d:"4",
+                   technicalName: '',
+                   level: ''
                 },
             };
         },
@@ -34,37 +32,35 @@
                     data:this.ruleForm
                 }
                 this.$emit('setFromList',flag);
+            },
+            on(){
+              document.getElementById("a").style.color = "#8897d0";
+            },
+            out(){
+              document.getElementById("a").style.color = "#551a8b";
             }
         }
     }
 </script>
 
 <style lang="stylus" scoped>
-      .hello
-       .el-form
-         display flex
-         flex-direction row
-         flex-wrap wrap 
-         margin -10px 0 0 
-        .el-input
-           margin 0 0 0 65px
-           border 0px solid #dcdfe6
-           width 210px
-           line-height 20px
-        .el-icon-picture
-           
-           border 0px solid #dcdfe6
-           width 300px
-           line-height 40px
-           font-size 14px  
-           
-        .el-textarea__inner
-           padding 10px 0 0 15px
-           border 0px solid #dcdfe6
-        .on
-           color #8897d0
-        .out
-           color black 
-          
-
+  .hello
+    .el-form
+      display flex
+      flex-direction row
+      flex-wrap wrap 
+      margin -10px 0 0 
+      .el-input
+        margin 0 0 0 65px
+        border 0px solid #dcdfe6
+        width 210px
+        line-height 20px
+      .el-icon-picture  
+        border 0px solid #dcdfe6
+        width 300px
+        line-height 40px
+        font-size 14px  
+      .el-textarea__inner
+        padding 10px 0 0 15px
+        border 0px solid #dcdfe6
 </style>

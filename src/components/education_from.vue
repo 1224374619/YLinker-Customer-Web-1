@@ -1,9 +1,9 @@
 <template>
     <div class="hello">
         <el-form :inline="true" :model="ruleForm" class="demo-form-inline">
-                <el-input :disabled="true"  v-model="ruleForm.a" placeholder=""></el-input>
-                <el-input :disabled="true"  v-model="ruleForm.b" placeholder=""></el-input>
-                <el-input :disabled="true"  v-model="ruleForm.c" placeholder=""></el-input>
+                <el-input :disabled="true"  v-model="ruleForm.educationName" placeholder=""></el-input>
+                <el-input :disabled="true"  v-model="ruleForm.educationTime" placeholder=""></el-input>
+                <el-input :disabled="true"  v-model="ruleForm.educationDegree" placeholder=""></el-input>
           </el-form>
     </div>
 </template>
@@ -15,10 +15,9 @@
         data() {
             return {
                 ruleForm: {
-                   a:"1",
-                   b:"2",
-                   c:"3",
-                   d:"4",
+                   educationName:"",
+                   educationTime:"",
+                   educationDegree:""
                 },
             };
         },
@@ -40,16 +39,15 @@
 </script>
 
 <style lang="stylus" scoped>
-      .hello
-       .el-form
-         display flex
-         flex-direction row
-         flex-wrap wrap 
-         margin -20px 0 0 
-        .el-input
-           margin 0 0 0 60px
-           border 0px solid #dcdfe6
-           width 310px
-           line-height 20px
-
+  .hello
+    .el-form
+      display flex
+      flex-direction row
+      flex-wrap wrap 
+      margin -20px 0 0 
+      .el-input
+        margin 20px 0 0 60px
+        border 0px solid #dcdfe6
+        width 310px
+        line-height 20px
 </style>
