@@ -3,6 +3,7 @@ function resolve (dir) {
     return path.join(__dirname, dir)
 }
 module.exports = {
+  publicPath: './',
   lintOnSave: true,
   chainWebpack: (config) => {
       config.resolve.alias
@@ -12,5 +13,6 @@ module.exports = {
         .set('utils',resolve('src/utils'))
         .set('apis',resolve('src/apis'))
         .set('store',resolve('src/store'))
+        .set('theme',resolve('src/theme'))
   }
 }
