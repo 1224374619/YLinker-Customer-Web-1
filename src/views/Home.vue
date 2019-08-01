@@ -1,6 +1,5 @@
 <template>
   <div class="home">
-    <customized-nav />
     <div class="content">
       <div class="middle">
         <div class="search-bar">
@@ -22,11 +21,6 @@
           <el-button type="primary" @click="redirectToSearchResult"><i class="el-icon-search"></i> 搜索</el-button>
         </div>
       </div>
-      <div class="hot">
-        <span>热门搜索：</span>
-        <el-button class="tag" type="text" @click="redirectToSearchResult">哈哈哈</el-button>
-        <el-button class="tag" type="text" @click="redirectToSearchResult">哈哈哈</el-button>
-      </div>
       <div class="header">
         <div class="carousel">
           <el-carousel :interval="5000" arrow="always" height="450px">
@@ -36,247 +30,168 @@
           </el-carousel>
         </div>
       </div>
-      <div class="title">
-        <span>热门企业</span>
-      </div>
       <div class="company" ref="company-holder">
-        <div class="group">
-          <img :src="require('../assets/images/company1.jpg')"/>
-          <p>哔哩哔哩</p>
+        <img :src="require('../assets/images/company1.jpg')"/>
+        <img :src="require('../assets/images/company2.jpg')"/>
+        <img :src="require('../assets/images/company3.png')"/>
+        <img :src="require('../assets/images/company4.png')"/>
+        <img :src="require('../assets/images/company5.png')"/>
+        <img :src="require('../assets/images/company1.jpg')"/>
+        <img :src="require('../assets/images/company2.jpg')"/>
+        <img :src="require('../assets/images/company3.png')"/>
+        <img :src="require('../assets/images/company4.png')"/>
+        <img :src="require('../assets/images/company5.png')"/>
+        <img :src="require('../assets/images/company1.jpg')"/>
+        <img :src="require('../assets/images/company2.jpg')"/>
+        <img :src="require('../assets/images/company3.png')"/>
+        <img :src="require('../assets/images/company4.png')"/>
+        <img :src="require('../assets/images/company5.png')"/>
+      </div>
+      <div class="occupation-card">
+        <div class="container">
+          <div class="desc">
+            <h3>Web 前端架构师</h3>
+            <h5>FESCO Adecco - 企业服务,教育/培训</h5>
+            <div class="meta">
+              <span>2天/周</span>
+              <span>100-150/天</span>
+              <span>上海</span>
+            </div>
+          </div>
+          <div class="logo">
+            <img :src="require('../assets/images/occupation1.png')" />
+          </div>
         </div>
-        <div class="group">
-          <img :src="require('../assets/images/company1.jpg')"/>
-          <p>哔哩哔哩</p>
+        <div class="container">
+          <div class="desc">
+            <h3>Web 前端架构师</h3>
+            <h5>FESCO Adecco - 企业服务,教育/培训</h5>
+            <div class="meta">
+              <span>2天/周</span>
+              <span>100-150/天</span>
+              <span>上海</span>
+            </div>
+          </div>
+          <div class="logo">
+            <img :src="require('../assets/images/occupation2.png')" />
+          </div>
         </div>
-        <div class="group">
-          <img :src="require('../assets/images/company1.jpg')"/>
-          <p>哔哩哔哩</p>
-        </div>
-        <div class="group">
-          <img :src="require('../assets/images/company1.jpg')"/>
-          <p>哔哩哔哩</p>
-        </div>
-        <div class="group">
-          <img :src="require('../assets/images/company1.jpg')"/>
-          <p>哔哩哔哩</p>
-        </div>
-        <div class="group">
-          <img :src="require('../assets/images/company1.jpg')"/>
-          <p>哔哩哔哩</p>
-        </div>
-        <div class="group">
-          <img :src="require('../assets/images/company1.jpg')"/>
-          <p>哔哩哔哩</p>
-        </div>
-        <div class="group">
-          <img :src="require('../assets/images/company1.jpg')"/>
-          <p>哔哩哔哩</p>
-        </div>
-        <div class="group">
-          <img :src="require('../assets/images/company1.jpg')"/>
-          <p>哔哩哔哩</p>
-        </div>
-        <div class="group">
-          <img :src="require('../assets/images/company1.jpg')"/>
-          <p>哔哩哔哩</p>
+        <div class="container">
+          <div class="desc">
+            <h3>Web 前端架构师</h3>
+            <h5>FESCO Adecco - 企业服务,教育/培训</h5>
+            <div class="meta">
+              <span>2天/周</span>
+              <span>100-150/天</span>
+              <span>上海</span>
+            </div>
+          </div>
+          <div class="logo">
+            <img :src="require('../assets/images/occupation2.png')" />
+          </div>
         </div>
       </div>
-      <el-tabs v-model="activeTabName">
-        <el-tab-pane label="为您推荐" name="recommend">
-          <div class="occupation-card">
-            <div class="container">
-              <div class="head">
-                <h4>Web 前端架构师</h4>
-                <h4 class="price">4-5K</h4>
-              </div>
-              <div class="meta">
-                <span>上海 徐汇区</span>
-                <span>1-3年</span>
-                <span>本科</span>
-              </div>
-              <div class="bottom">
-                <img :src="require('../assets/images/occupation2.png')" />
-                <div>
-                  <p>迪卡侬</p>
-                  <h5>50-100人 | 企业服务,教育/培训</h5>
-                </div>
-              </div>
-            </div>
-            <div class="container">
-              <div class="head">
-                <h4>Web 前端架构师</h4>
-                <h4 class="price">4-5K</h4>
-              </div>
-              <div class="meta">
-                <span>上海 徐汇区</span>
-                <span>1-3年</span>
-                <span>本科</span>
-              </div>
-              <div class="bottom">
-                <img :src="require('../assets/images/occupation2.png')" />
-                <div>
-                  <p>迪卡侬</p>
-                  <h5>50-100人 | 企业服务,教育/培训</h5>
-                </div>
-              </div>
-            </div>
-            <div class="container">
-              <div class="head">
-                <h4>Web 前端架构师</h4>
-                <h4 class="price">4-5K</h4>
-              </div>
-              <div class="meta">
-                <span>上海 徐汇区</span>
-                <span>1-3年</span>
-                <span>本科</span>
-              </div>
-              <div class="bottom">
-                <img :src="require('../assets/images/occupation2.png')" />
-                <div>
-                  <p>迪卡侬</p>
-                  <h5>50-100人 | 企业服务,教育/培训</h5>
-                </div>
-              </div>
+      <div class="occupation-card">
+        <div class="container">
+          <div class="desc">
+            <h3>Web 前端架构师</h3>
+            <h5>FESCO Adecco - 企业服务,教育/培训</h5>
+            <div class="meta">
+              <span>2天/周</span>
+              <span>100-150/天</span>
+              <span>上海</span>
             </div>
           </div>
-        </el-tab-pane>
-        <el-tab-pane label="热门职位" name="hot">
-          <div class="occupation-card">
-            <div class="container">
-              <div class="head">
-                <h4>Web 前端架构师</h4>
-                <h4 class="price">4-5K</h4>
-              </div>
-              <div class="meta">
-                <span>上海 徐汇区</span>
-                <span>1-3年</span>
-                <span>本科</span>
-              </div>
-              <div class="bottom">
-                <img :src="require('../assets/images/occupation2.png')" />
-                <div>
-                  <p>迪卡侬</p>
-                  <h5>50-100人 | 企业服务,教育/培训</h5>
-                </div>
-              </div>
-            </div>
-            <div class="container">
-              <div class="head">
-                <h4>Web 前端架构师</h4>
-                <h4 class="price">4-5K</h4>
-              </div>
-              <div class="meta">
-                <span>上海 徐汇区</span>
-                <span>1-3年</span>
-                <span>本科</span>
-              </div>
-              <div class="bottom">
-                <img :src="require('../assets/images/occupation2.png')" />
-                <div>
-                  <p>迪卡侬</p>
-                  <h5>50-100人 | 企业服务,教育/培训</h5>
-                </div>
-              </div>
-            </div>
-            <div class="container">
-              <div class="head">
-                <h4>Web 前端架构师</h4>
-                <h4 class="price">4-5K</h4>
-              </div>
-              <div class="meta">
-                <span>上海 徐汇区</span>
-                <span>1-3年</span>
-                <span>本科</span>
-              </div>
-              <div class="bottom">
-                <img :src="require('../assets/images/occupation2.png')" />
-                <div>
-                  <p>迪卡侬</p>
-                  <h5>50-100人 | 企业服务,教育/培训</h5>
-                </div>
-              </div>
+          <div class="logo">
+            <img :src="require('../assets/images/occupation1.png')" />
+          </div>
+        </div>
+        <div class="container">
+          <div class="desc">
+            <h3>Web 前端架构师</h3>
+            <h5>FESCO Adecco - 企业服务,教育/培训</h5>
+            <div class="meta">
+              <span>2天/周</span>
+              <span>100-150/天</span>
+              <span>上海</span>
             </div>
           </div>
-        </el-tab-pane>
-        <el-tab-pane label="最新职位" name="newest">
-          <div class="occupation-card">
-            <div class="container">
-              <div class="head">
-                <h4>Web 前端架构师</h4>
-                <h4 class="price">4-5K</h4>
-              </div>
-              <div class="meta">
-                <span>上海 徐汇区</span>
-                <span>1-3年</span>
-                <span>本科</span>
-              </div>
-              <div class="bottom">
-                <img :src="require('../assets/images/occupation2.png')" />
-                <div>
-                  <p>迪卡侬</p>
-                  <h5>50-100人 | 企业服务,教育/培训</h5>
-                </div>
-              </div>
-            </div>
-            <div class="container">
-              <div class="head">
-                <h4>Web 前端架构师</h4>
-                <h4 class="price">4-5K</h4>
-              </div>
-              <div class="meta">
-                <span>上海 徐汇区</span>
-                <span>1-3年</span>
-                <span>本科</span>
-              </div>
-              <div class="bottom">
-                <img :src="require('../assets/images/occupation2.png')" />
-                <div>
-                  <p>迪卡侬</p>
-                  <h5>50-100人 | 企业服务,教育/培训</h5>
-                </div>
-              </div>
-            </div>
-            <div class="container">
-              <div class="head">
-                <h4>Web 前端架构师</h4>
-                <h4 class="price">4-5K</h4>
-              </div>
-              <div class="meta">
-                <span>上海 徐汇区</span>
-                <span>1-3年</span>
-                <span>本科</span>
-              </div>
-              <div class="bottom">
-                <img :src="require('../assets/images/occupation2.png')" />
-                <div>
-                  <p>迪卡侬</p>
-                  <h5>50-100人 | 企业服务,教育/培训</h5>
-                </div>
-              </div>
+          <div class="logo">
+            <img :src="require('../assets/images/occupation2.png')" />
+          </div>
+        </div>
+        <div class="container">
+          <div class="desc">
+            <h3>Web 前端架构师</h3>
+            <h5>FESCO Adecco - 企业服务,教育/培训</h5>
+            <div class="meta">
+              <span>2天/周</span>
+              <span>100-150/天</span>
+              <span>上海</span>
             </div>
           </div>
-        </el-tab-pane>
-      </el-tabs>
+          <div class="logo">
+            <img :src="require('../assets/images/occupation2.png')" />
+          </div>
+        </div>
+      </div>
+      <div class="occupation-card">
+        <div class="container">
+          <div class="desc">
+            <h3>Web 前端架构师</h3>
+            <h5>FESCO Adecco - 企业服务,教育/培训</h5>
+            <div class="meta">
+              <span>2天/周</span>
+              <span>100-150/天</span>
+              <span>上海</span>
+            </div>
+          </div>
+          <div class="logo">
+            <img :src="require('../assets/images/occupation1.png')" />
+          </div>
+        </div>
+        <div class="container">
+          <div class="desc">
+            <h3>Web 前端架构师</h3>
+            <h5>FESCO Adecco - 企业服务,教育/培训</h5>
+            <div class="meta">
+              <span>2天/周</span>
+              <span>100-150/天</span>
+              <span>上海</span>
+            </div>
+          </div>
+          <div class="logo">
+            <img :src="require('../assets/images/occupation2.png')" />
+          </div>
+        </div>
+        <div class="container">
+          <div class="desc">
+            <h3>Web 前端架构师</h3>
+            <h5>FESCO Adecco - 企业服务,教育/培训</h5>
+            <div class="meta">
+              <span>2天/周</span>
+              <span>100-150/天</span>
+              <span>上海</span>
+            </div>
+          </div>
+          <div class="logo">
+            <img :src="require('../assets/images/occupation2.png')" />
+          </div>
+        </div>
+      </div>
+      <button class="more">查看更多</button>
     </div>
-    <button class="more">查看更多</button>
-    <customized-footer />
   </div>
 </template>
 
 <script>
 import placeholder from 'assets/images/placeholder.jpg';
-import CustomizedFooter from 'components/customized-footer.vue';
-import CustomizedNav from 'components/customized-nav.vue';
+
 
 export default {
   name: 'home',
-  components: {
-    CustomizedFooter,
-    CustomizedNav
-  },
   data() {
     return {
-      activeTabName: 'recommend',
       isLogin: false,
       placeholder,
       showLoginModal: false,
@@ -393,19 +308,19 @@ export default {
 <style lang="stylus" scoped>
   .home
     margin-top 70px
-    .more
-      width 210px
-      height 43px
-      background-color #1F368D
-      color white
-      font-size 14px
-      margin 30px 0
-      cursor pointer
     .content
-      width 1280px
-      padding 20px 40px
+      width 100%
+      /*padding 20px 40px*/
       margin auto
       background-color white
+      .more
+        width 210px
+        height 43px
+        background-color #1F368D
+        color white
+        font-size 14px
+        margin 30px 0
+        cursor pointer
       .header
         margin 20px 0
         display flex
@@ -414,20 +329,6 @@ export default {
         align-items center
         .carousel
           width 100%
-      .hot
-        display flex
-        flex-direction row
-        padding 0 20px
-        font-size 14px
-        .tag
-          padding 0
-          margin-left 10px
-      .title
-        display flex
-        flex-direction row
-        color #455379
-        font-weight bold
-        padding 0
       .middle
         display flex
         flex-direction row
@@ -449,71 +350,53 @@ export default {
           .search-input
             flex 1
           button
-            font-size 18px
+            font-size 16px
             width 200px
             margin-left 20px
       .company
+        height 170px
         display flex
         flex--direction row
         justify-content space-evenly
         align-items center
+        border: solid 1px #eee
         margin: 20px auto
         overflow scroll
-        .group
-          img 
-            height 150px
-            margin 0 10px
-          p
-            margin 5px 0
-            font-size 13px
+        img
+          height 150px
+          margin 0 10px
       .occupation-card
         display flex
         flex-direction row
         margin auto
-        flex-wrap wrap  
-        .container
-          margin 10px
-          box-shadow 1px 1px 4px rgba(0,0,0,0.2)
-          padding 20px
-          flex 1
+        flex-wrap wrap
+        div.container
           display flex
-          flex-direction column
-          .head
+          flex 1
+          padding 10px
+          align-items center
+          flex-direction row
+          margin 10px
+          border solid 1px lightgray
+          .desc
+            flex 1
             display flex
-            justify-content space-between
-            margin-bottom 5px
-            h4
-              margin 2px 0
-              &.price
-                color red
-          .meta
-            text-align left
-            border-bottom solid 1px darkgray
-            padding-bottom 10px
-            span
-              padding 0 5px
-              border-right solid 1px black
-              &:last-child
-                border none 
-              &:first-child
-                padding-left 0
-          .bottom
+            flex-direction column
+            align-items flex-start
+            h3
+              margin 0 0 10px 0
+            h5
+              margin 10px 0
+            .meta
+              span
+                margin-right 10px
+                font-size 14px
+          .logo
             display flex
-            flex-direction row
-            margin-top 10px
+            align-items center
             img
-              flex 0 0 40px
-              height 55px
-            div
-              flex: 1
-              text-align left
-              padding 0 20px
-              p, h5
-                margin 5px
+              height 100px
 
-
-        
-        
 </style>
 
 <style lang="stylus">
@@ -521,7 +404,7 @@ export default {
   .middle
     .search-bar
       .search-picker, .search-input
-        input 
+        input
           height 55px
   .category
     .list
@@ -529,7 +412,7 @@ export default {
         width 300px
         i
           width 100%
-          text-align left 
+          text-align left
           font-size 20px
           &:after
             content '>'
@@ -538,6 +421,6 @@ export default {
       flex 1
       margin-left 20px
   .company
-    &::-webkit-scrollbar 
+    &::-webkit-scrollbar
       display none
 </style>

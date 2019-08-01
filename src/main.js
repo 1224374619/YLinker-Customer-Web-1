@@ -3,11 +3,22 @@ import 'element-ui/lib/theme-chalk/index.css';
 import 'theme/index.css';
 import ElementUI from 'element-ui';
 import App from './App.vue';
-import router from './router';
+import router from './router/router';
 import store from './store';
-
+import 'element-ui/lib/theme-chalk/index.css';
+import vuescroll from 'vuescroll';
 Vue.use(ElementUI);
 Vue.config.productionTip = false
+
+Vue.use(vuescroll, {
+  ops: {
+    bar: {
+      onlyShowBarOnScroll: false,
+      background: '#c1c1c1',
+    }
+  },
+  name: 'Scroll'
+});
 
 new Vue({
   router,
