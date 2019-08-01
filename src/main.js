@@ -7,6 +7,7 @@ import router from './router/router';
 import store from './store';
 import 'element-ui/lib/theme-chalk/index.css';
 import vuescroll from 'vuescroll';
+import BaiduMap from 'vue-baidu-map'
 Vue.use(ElementUI);
 Vue.config.productionTip = false
 
@@ -19,6 +20,10 @@ Vue.use(vuescroll, {
   },
   name: 'Scroll'
 });
+Vue.use(BaiduMap, {
+  // ak 是在百度地图开发者平台申请的密钥 详见 http://lbsyun.baidu.com/apiconsole/key */
+  ak: 'LGSF5bLoRGYzsOBrr20kXazopMHxLgL1'
+})
 
 new Vue({
   router,

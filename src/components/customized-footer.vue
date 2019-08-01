@@ -48,11 +48,7 @@ export default {
       display flex
       width 1280px
       margin auto
-<<<<<<< HEAD
       padding 70px 0px 20px
-=======
-      padding 30px 150px 20px
->>>>>>> b980e36eca623fafac12c34537d4d58570e8f4c8
       flex-direction row
       align-items center
       div.group

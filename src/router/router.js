@@ -11,7 +11,10 @@ import UserLicense from '../views/UserLicense.vue'
 import JobDetail from '../views/JobDetail.vue'
 // import Resumes from './views/resumes.vue'
 import www from '../views/www.vue'
-import aaa from '../views/aaa.vue'
+import Position from '../views/Position.vue'
+import Station from '../views/Station.vue'
+
+// import map from '../views/maps.vue'
 
 Vue.use(Router);
 
@@ -35,10 +38,15 @@ export default new Router({
                     component: www
                 },
                 {
-                    path: '/aaa',
-                    name: 'aaa',
-                    component: aaa
-                }
+                    path: '/position',
+                    name: '职位',
+                    component: Position
+                },
+                {
+                    path: '/station',
+                    name: '百度地图',
+                    component: Station
+                },
             ]
         },
         {

@@ -228,7 +228,7 @@
     import SelfAppraisal from 'components/self-appraisal.vue';
     import From from 'components/jobintension_from.vue'
     import PersonalinformationFrom from 'components/personalinformation_from.vue'
-    import EducationExperienceFrom from 'components/education_from.vue'
+    import EducationexperienceFrom from 'components/education_from.vue'
     import WorkFrom from 'components/work_from.vue'
     import ProgectFrom from 'components/progect_from.vue'
     import TrainingFrom from 'components/training_from.vue'
@@ -252,7 +252,7 @@
         SelfAppraisal,
         From,
         PersonalinformationFrom,
-        EducationExperienceFrom,
+        EducationexperienceFrom,
         WorkFrom,
         ProgectFrom,
         TrainingFrom,
@@ -437,76 +437,60 @@
         padding-top 70px
         width 100%
         height 800px
-
     /*min-height 800px*/
     /*height 100vh*/
     .el-aside
         background-color white
         margin 0 0 0 10px
         width 280px
-
     .aside
         width 180px
         margin 10px 0 0 20px
         text-align left
-
     .aside_content
         font-size 14px
         padding 10px 0 0 0
         color #2e3961
-
     .aside_progress
         font-size 10px
         display flex
         padding 10px 0 0 0
         flex-direction: row
-
     .aside_time
         font-size 10px
         padding 10px 0 0
-
     .aside_tabulation
         display flex
         flex-direction column
         justify-content center
         align-items center
         margin 25px 0 0 0
-
     .aside_line
         width 240px
         border 0.5px solid #D8D8D8
-
     .tabulation
         line-height 40px
         margin-right 150px
         font-size 13px
-
     .tabulation a
         text-decoration none
         color #617dcb
-
     .tabulation a:active
         font-size 23px
         font-weight bold
         color #617dcb
-
     .aside_foot
         margin 10px 0 0 30px
         text-align left
         font-size 14px
-
     .aside_foot_1
         color #617dcb
-
     .aside_foot_2
         margin -10px 0 0 0
         font-size 10px
         text-align left
-
     .aside_foot_3
         margin 20px 0 20px 40px
-
-
     .el-main
         background-color white
         .personalinformation
@@ -539,14 +523,12 @@
             &:hover
                 .actions_span
                     opacity 1
-        
         .showJob
             margin 0 0 0 0
         .main_content
             display flex
             flex-direction row
             justify-content space-between
-
             .main_content_1
                 font-size 17px
                 font-weight bold
@@ -558,12 +540,10 @@
                 color #1f368d
                 line-height 61px
                 margin 0 50px 0 0
-
             .onon
                 line-height 61px
                 margin 0 50px 0 0
                 font-weight bold
-
             .outout
                 font-size 13px
                 color #1f368d
