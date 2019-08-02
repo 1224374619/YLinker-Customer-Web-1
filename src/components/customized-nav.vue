@@ -6,7 +6,7 @@
                 <img @click="gotoHomeUI" :src="require('../assets/images/logo.png')"/>
                 <div class="menu">
                     <div class="group" v-if="!ctlHideMenus">
-                        <router-link to="/" index="1">首页</router-link>
+                        <router-link to="/home" index="1">首页</router-link>
                         <router-link to="/position" index="2">职位</router-link>
                         <router-link to="/resumes" index="3">简历</router-link>
                         <router-link to="/station" index="4">联系我们</router-link>
@@ -114,7 +114,7 @@
                         align-items center
                         justify-content center
 
-                        &.router-link-active
+                        &.router-link-exact-active
                             color #6EC5D2
                             border-bottom solid 3px #6EC5D2
 
