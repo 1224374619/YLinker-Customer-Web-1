@@ -4,7 +4,7 @@
                 <el-input :disabled="true"  v-model="ruleForm.companyName" placeholder=""></el-input>
                 <el-input :disabled="true"  v-model="ruleForm.jobTime" placeholder=""></el-input>
                 <el-input :disabled="true"  v-model="ruleForm.post" placeholder=""></el-input>
-                <el-input :disabled="true"  v-model="ruleForm.jobDescription" type="textarea" style="width:730px;margin:0 0 0 63px" placeholder="工作内容："></el-input>
+                <el-input :disabled="true"  v-model="ruleForm.jobDescription" type="textarea" style="width:730px;margin:0 0 0 83px" placeholder="工作内容："></el-input>
           </el-form>
     </div>
 </template>
@@ -23,14 +23,14 @@
                 },
             };
         },
-        created(){
+        created () {
             //如果后台有个人之前填的数据，需要先把数据格式化后复制给子组件，可以进行修改操作
-            this.ruleForm=Object.assign({},this.fromData)
+            this.ruleForm = Object.assign({},this.fromData)
         },
         methods: {
-            onSubmit(){
+            onSubmit () {
                 //如果每次保存都要存后台，就在这里写发送时间，如果需要整体保存，就在父组件整体操作
-                const flag={
+                const flag = {
                     index:this.index,
                     data:this.ruleForm
                 }

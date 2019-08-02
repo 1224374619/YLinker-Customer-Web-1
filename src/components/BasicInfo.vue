@@ -1,10 +1,10 @@
 <template>
   <div class="basicinfo">
-    <div class="basicinfo_1">
-      <div class="basicinfo_left">
+    <div class="basicinfo-1">
+      <div class="basicinfo-left">
         <img :src="require('../assets/images/11.png')" />
       </div>
-      <div class="basicinfo_right">
+      <div class="basicinfo-right">
         <el-form :inline="true" :model="formInline" class="demo-form-inline">
           <el-form-item label="姓名">
             <el-input v-model="formInline.name" placeholder="请输入姓名"></el-input>
@@ -68,7 +68,7 @@
             <el-input v-model="formInline.politicCountenance" style="width:220px" placeholder></el-input>
           </el-form-item>
           <el-form-item>
-            <el-button type="info" plain @click="open4">取消</el-button>
+            <el-button type="info" plain @click="cancel()">取消</el-button>
             <el-button type="primary">保存</el-button>
           </el-form-item>
         </el-form>
@@ -97,7 +97,7 @@ export default {
     };
   },
   methods: {
-    open4() {
+    cancel() {
       const h = this.$createElement;
       this.$msgbox({
         message: h(
@@ -147,14 +147,14 @@ export default {
 <style lang="stylus" scoped>
 .basicinfo
   width 800px
-  .basicinfo_1 
+  .basicinfo-1 
     width 800px
     display flex
     flex-direction row
-    .basicinfo_left img 
+    .basicinfo-left img 
       width 80px
       height 80px
       margin 30px 0 0 20px
-    .basicinfo_right 
+    .basicinfo-right 
       margin 60px 0 0 130px
 </style>
