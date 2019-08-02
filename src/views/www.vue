@@ -22,7 +22,7 @@
                     <div class="main_line"></div>
                     <div ref="jobintension" class="main_content" >
                         <div class="main_content_1"><i class="el-icon-edit"></i> 求职意向</div>
-                        <div class="main_content_2" v-if="showadd"  @click="jobintension"><i class="el-icon-edit-outline"></i> 添加
+                        <div class="main_content_2" v-if="showadd"  @click="jobintension" @mouseover="over" @mouseleave="leave" :style="active1"><span ref="acp1"><i class="el-icon-edit-outline"></i> 添加</span>
                         </div>
                     </div>
                     <ul v-if="showjobintension"  style="margin-left:-15px">
@@ -263,6 +263,7 @@
         },
         data() {
             return {
+                active1: "",
                 active: "",
                 activeOne: "",
                 showdemo:false,
@@ -367,7 +368,16 @@
                 this.active = "";
                 this.$refs.acp.style=''
             },
-            
+            over(){
+                
+                this.active1 = "font-weight:bold;line-height:40px;font-size:16px"
+                var acps = this.$refs.acp1
+                acps.style.color = "black"
+            },
+            leave(){
+                this.active1 = "";
+                this.$refs.acp.style=''
+            },
             jobintension(){
                 this.showadd = false;
                 this.showJob = true;
