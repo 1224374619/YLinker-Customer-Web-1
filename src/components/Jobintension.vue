@@ -85,9 +85,9 @@ export default {
     }
   },
   methods:{
-    JobType(){
-      if(this.formInline.aaa=="离职-延时到岗"){
-         this.datePicker=true
+    JobType () {
+      if(this.formInline.aaa == "离职-延时到岗"){
+         this.datePicker = true
       }
     }
   }

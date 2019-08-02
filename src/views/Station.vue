@@ -3,12 +3,12 @@
     <div v-if="deliver">
         <deliver></deliver>
     </div>
-    <div class="station_nav" v-if="station_nav">
-      <div class="station_nav_name">
+    <div class="station-nav" v-if="stationNav">
+      <div class="station-nav-name">
         <span>产品实习生</span>
         <span>4-5k</span>
       </div>
-      <div class="station_nav_content">
+      <div class="station-nav-content">
         <span>上海 徐汇区</span>
         <span>|</span>
         <span>1-3年</span>
@@ -17,15 +17,15 @@
         <span>|</span>
         <span>实习</span>
         <span>发布时间：今天 15：00</span>
-        <span v-if="aa">
+        <span v-if="showDeliver">
           <el-button id="deliver" type="primary" style="width:110px" @click="isclick()">
             <i class="el-icon-check"></i> 投递简历
           </el-button>
         </span>
-        <span v-if="bb">
+        <span v-if="showCollect">
           <el-button id="collect" type="primary" style="width:110px" plain>收藏</el-button>
         </span>
-        <span v-if="map_list">
+        <span v-if="mapList">
           <el-button
             type="primary"
             icon="el-icon-check"
@@ -54,17 +54,17 @@
         </span>
       </el-dialog>
     </div>
-    <div class="station_foot" v-if="station_foot">
-      <div class="station_foot_content">
+    <div class="station-foot" v-if="stationFoot">
+      <div class="station-foot-content">
         <span>一.职位描述</span>
         <span>1.在上级的领导和要求下定期按量的完成工作要求</span>
         <span>2.能独立处理和解决所负责的任务</span>
         <span>二.招聘要求</span>
         <span>1.在上级的领导和要求下定期按量的完成工作要求</span>
         <span>2.能独立处理和解决所负责的任务</span>
-        <div class="station_foot_foot">
-          <div class="station_foot_foot_one">工作地点:</div>
-          <div class="station_foot_foot_two">
+        <div class="station-foot-foot">
+          <div class="station-foot-foot-one">工作地点:</div>
+          <div class="station-foot-foot-two">
             <span>上海市徐汇区梅陇路139号</span>
             <span>查看地图</span>
           </div>
@@ -72,38 +72,38 @@
           </baidu-map>
         </div>
       </div>
-      <div class="station_foot_aside">
-        <div class="station_foot_aside_nav">
-          <div class="station_foot_aside_nav_img">
+      <div class="station-foot-aside">
+        <div class="station-foot-aside-nav">
+          <div class="station-foot-aside-nav-img">
             <img style="width:100px;height:100px" :src="url" />
           </div>
-          <div class="station_foot_aside_nav_article">
-            <div class="company_name">
+          <div class="station-foot-aside-nav-article">
+            <div class="company-name">
               <span>上海xx公司</span>
             </div>
-            <div class="company_type">
+            <div class="company-type">
               <span>
                 <i class="el-icon-menu"></i> 互联网 金融
               </span>
             </div>
-            <div class="company_status">
+            <div class="company-status">
               <span>
                 <i class="el-icon-s-data"></i> 国企
               </span>
             </div>
-            <div class="company_num">
+            <div class="company-num">
               <span>
                 <i class="el-icon-coordinate"></i> 150-500人
               </span>
             </div>
           </div>
         </div>
-        <div class="station_foot_aside_footer">
-          <div class="company_post">
+        <div class="station-foot-aside-footer">
+          <div class="company-post">
             <span>产品经理</span>
             <span>4-5k</span>
           </div>
-          <div class="company_address">
+          <div class="company-address">
             <span>上海YY公司</span>
             <span>长宁区</span>
           </div>
@@ -127,16 +127,16 @@ export default {
     return {
         center: {lng: 0, lat: 0},
         zoom: 3,
+        num:1,
         deliver:false,
-        station_nav:true,
-        station_foot:true,
-        a:2,
+        stationNav:true,
+        stationFoot:true,
         dialogVisibleOne: false,
         dialogVisible: false,
         map:false,
-        map_list:false,
-        aa:true,
-        bb:true,
+        mapList:false,
+        showDeliver:true,
+        showCollect:true,
         isshow:true,  
         url: 'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',  
       }
@@ -148,22 +148,22 @@ export default {
           this.center.lat = 39.915
           this.zoom = 15
       },
-      isclick(){
-          if(this.a==1){
-              this.dialogVisible=true
+      isclick () {
+          if(this.num == 1) {
+              this.dialogVisible = true
           }else{
-              this.dialogVisibleOne=true
+              this.dialogVisibleOne = true
           }
-          this.aa=false,
-          this.bb=false,
-          this.map=true,
-          this.map_list=true
+          this.showDeliver = false,
+          this.showCollect = false,
+          this.map = true,
+          this.mapList = true
       },
-      isdeliver(){
-          this.dialogVisibleOne=false
-          this.station_nav=false
-          this.station_foot=false
-          this.deliver=true
+      isdeliver () {
+          this.dialogVisibleOne = false
+          this.stationNav = false
+          this.stationFoot = false
+          this.deliver = true
       }
     },
 };
@@ -174,137 +174,137 @@ export default {
     margin 80px 0 0 0
     display flex
     flex-direction column
-    .station_nav
+    .station-nav
       margin 3% 0 0 0
       display flex
       flex-direction column
-      .station_nav_name
+      .station-nav-name
         display flex
         flex-direction row
-      .station_nav_name span
+      .station-nav-name span
         padding 0 0 0 2%
-      .station_nav_name span:nth-child(1)
+      .station-nav-name span:nth-child(1)
         font-size 30px
         color #1f368d
         font-weight bold
-      .station_nav_name span:nth-child(2)
+      .station-nav-name span:nth-child(2)
         font-size 25px
         color #617dcb
         font-weight bold
         line-height 45px
         padding  0 0 0 5%
-      .station_nav_content
+      .station-nav-content
         display flex
         flex-direction row
         font-size 15px
         margin 0 0 0 2%
-      .station_nav_content span:nth-child(2)
+      .station-nav-content span:nth-child(2)
         padding  0 0 0 1%
-      .station_nav_content span:nth-child(3)
+      .station-nav-content span:nth-child(3)
         padding  0 0 0 1%
-      .station_nav_content span:nth-child(4)
+      .station-nav-content span:nth-child(4)
         padding  0 0 0 1% 
-      .station_nav_content span:nth-child(5)
+      .station-nav-content span:nth-child(5)
         padding  0 0 0 1% 
-      .station_nav_content span:nth-child(6)
+      .station-nav-content span:nth-child(6)
         padding  0 0 0 1% 
-      .station_nav_content span:nth-child(7)
+      .station-nav-content span:nth-child(7)
         padding  0 0 0 1%
-      .station_nav_content span:nth-child(8)
+      .station-nav-content span:nth-child(8)
         padding  0 0 0 22%  
         font-size 13px
-      .station_nav_content span:nth-child(8)
+      .station-nav-content span:nth-child(8)
         padding  0 0 0 22%  
         font-size 13px
-      .station_nav_content span:nth-child(9)
+      .station-nav-content span:nth-child(9)
         padding  0 0 0 20% 
-      .station_nav_content span:nth-child(10)
+      .station-nav-content span:nth-child(10)
         padding  0 0 0 6%
-      .station_nav_content span:nth-child(11)
+      .station-nav-content span:nth-child(11)
         padding  0 0 0 6% 
-    .station_foot
+    .station-foot
       display flex
       flex-direction row
       margin 1% 0 0 0
-      .station_foot_content
+      .station-foot-content
         display flex
         flex-direction column
         width 75%
         text-align left 
         background-color white 
-      .station_foot_aside
+      .station-foot-aside
         width 24%
         background-color white
         margin 0 0 0 1% 
-      .station_foot_aside_nav
+      .station-foot-aside-nav
         display flex
         flex-direction row
-        .station_foot_aside_nav_img
+        .station-foot-aside-nav-img
           margin 6% 0 0 6%
-        .station_foot_aside_nav_article
+        .station-foot-aside-nav-article
           margin 6% 0 0 6%
           text-align left
-          .company_name
+          .company-name
             font-size 25px
             font-weight bold
             color #1f368d
-          .company_type
+          .company-type
             padding  4% 0 0 0
             font-size 13px
             color #636f8d
-          .company_status
+          .company-status
             padding  4% 0 0 0
             font-size 13px
             color #636f8d
-          .company_num
+          .company-num
             padding  4% 0 0 0
             font-size 13px
             color #636f8d
-      .station_foot_aside_footer
+      .station-foot-aside-footer
         display flex
         flex-direction column
         margin 5% 0 0 0
-        .company_post 
+        .company-post 
           display flex
           flex-direction row
           justify-content space-between
           font-size 14px
           color #455379
           padding 2% 0 0 0
-        .company_post span:nth-child(1)
+        .company-post span:nth-child(1)
           margin 0 0 0 6% 
-        .company_post span:nth-child(2)
+        .company-post span:nth-child(2)
           margin 0 6% 0 0
-        .company_address
+        .company-address
           display flex
           flex-direction row
           justify-content space-between
           font-size 10px
           color #cbcbcb
           padding 4% 0 0 0
-        .company_address span:nth-child(1)
+        .company-address span:nth-child(1)
           margin 0 0 0 6% 
-        .company_address span:nth-child(2)
+        .company-address span:nth-child(2)
           margin 0 6% 0 0
         .line
           width 90%
           border 0.5px  solid #e5e5e5
           margin 2% 0 0 5%         
-      .station_foot_content span
+      .station-foot-content span
         margin 0 0 0 2%
         color #6a7184
         font-size 14px
         padding 1% 0 0 0 
-      .station_foot_foot
+      .station-foot-foot
         display flex
         flex-direction column
         margin 5% 0 0 0
-        .station_foot_foot_one
+        .station-foot-foot-one
           margin 0 0 0 2%
           font-size 13px
           font-weight bold
           color #1f368d 
-        .station_foot_foot_two
+        .station-foot-foot-two
           display flex
           flex-direction row
           justify-content space-between
@@ -315,16 +315,16 @@ export default {
           margin 10px 0 0 10px
           width 98%
           height 200px
-        .BMap_cpyCtrl
+        .BMap-cpyCtrl
           display none   
-        .station_foot_foot_two span:nth-child(1)
+        .station-foot-foot-two span:nth-child(1)
           font-size 13px
           font-weight bold  
-        .station_foot_foot_two span:nth-child(2)
+        .station-foot-foot-two span:nth-child(2)
           margin 0 2% 0 0
           font-size 13px
           font-weight bold
           color #48b32b
-        .station_foot_foot_three
+        .station-foot-foot-three
           margin 0 0 0 2%                     
 </style>

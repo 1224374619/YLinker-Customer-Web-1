@@ -22,21 +22,21 @@
         },
         created(){
             //如果后台有个人之前填的数据，需要先把数据格式化后复制给子组件，可以进行修改操作
-            this.ruleForm=Object.assign({},this.fromData)
+            this.ruleForm = Object.assign({},this.fromData)
         },
         methods: {
-            onSubmit(){
+            onSubmit () {
                 //如果每次保存都要存后台，就在这里写发送时间，如果需要整体保存，就在父组件整体操作
-                const flag={
+                const flag = {
                     index:this.index,
                     data:this.ruleForm
                 }
                 this.$emit('setFromList',flag);
             },
-            on(){
+            on () {
               document.getElementById("a").style.color = "#8897d0";
             },
-            out(){
+            out () {
               document.getElementById("a").style.color = "#551a8b";
             }
         }
