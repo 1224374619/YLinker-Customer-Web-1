@@ -1,29 +1,29 @@
 <template>
   <div class="basicinfo">
-    <div class="basicinfo-1">
+    <div class="basicinfo-first">
       <div class="basicinfo-left">
         <img :src="require('../assets/images/11.png')" />
       </div>
-      <div class="basicinfo-right">
+      <div class="basicinfo-right" style="margin:53px 0 0 0">
         <el-form :inline="true" :model="formInline" class="demo-form-inline">
-          <el-form-item label="姓名">
-            <el-input v-model="formInline.name" placeholder="请输入姓名"></el-input>
+          <el-form-item label="姓名" style="margin:0 40px 0 0">
+            <el-input style="width:168px;height:36px" v-model="formInline.name" placeholder="请输入姓名"></el-input>
           </el-form-item>
           <el-form-item label="求职状态">
-            <el-select v-model="formInline.jobHunting" placeholder>
+            <el-select style="width:168px;height:36px" v-model="formInline.jobHunting" placeholder>
               <el-option label value="积极找工作"></el-option>
               <el-option label value="随便看看"></el-option>
               <el-option label value="暂时不换工作"></el-option>
             </el-select>
-          </el-form-item>
-          <el-form-item label="性别">
+          </el-form-item><br>
+          <el-form-item label="性别" style="margin:0 40px 0 0">
             <el-radio-group v-model="formInline.gender">
-              <el-radio-button label="男性"></el-radio-button>
-              <el-radio-button label="女性"></el-radio-button>
+              <el-radio-button  label="男性"></el-radio-button>
+              <el-radio-button  label="女性"></el-radio-button>
             </el-radio-group>
           </el-form-item>
-          <el-form-item label="工作年限" style="margin-left:60px">
-            <el-select v-model="formInline.workingSeniority" placeholder>
+          <el-form-item label="工作年限" style="margin-left:30px">
+            <el-select style="width:168px;height:36px" v-model="formInline.workingSeniority" placeholder>
               <el-option label value="无工作年限"></el-option>
               <el-option label value="1-3年"></el-option>
               <el-option label value="3-5年"></el-option>
@@ -31,16 +31,16 @@
               <el-option label value="手动输入"></el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="所在城市" style="margin-left:-30px">
+          <el-form-item label="所在城市" style="margin:0 40px 0 -30px">
             <el-cascader
-              style="width:200px"
+              style="width:168px;height:36px"
               :options="options"
               :show-all-levels="false"
               v-model="formInline.city"
             ></el-cascader>
           </el-form-item>
           <el-form-item label="最高学历">
-            <el-select v-model="formInline.educationLevel" placeholder>
+            <el-select style="width:168px;height:36px" v-model="formInline.educationLevel" placeholder>
               <el-option label value="初中及以下"></el-option>
               <el-option label value="中专/职中"></el-option>
               <el-option label value="高中"></el-option>
@@ -50,25 +50,25 @@
               <el-option label value="博士"></el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="生日">
+          <el-form-item label="生日" style="margin:0 40px 0 0">
             <el-date-picker
-              style="width:200px;"
+              style="width:168px;height:36px"
               type="date"
               placeholder="选择日期"
               v-model="formInline.birthday"
             ></el-date-picker>
           </el-form-item>
           <el-form-item label="邮箱" style="margin-left:30px">
-            <el-input v-model="formInline.email" style="width:220px" placeholder></el-input>
+            <el-input v-model="formInline.email" style="width:168px;height:36px" placeholder></el-input>
           </el-form-item>
-          <el-form-item label="手机">
-            <el-input v-model="formInline.phone" style="width:200px" placeholder></el-input>
+          <el-form-item label="手机" style="margin:0 40px 0 0">
+            <el-input v-model="formInline.phone" style="width:168px;height:36px" placeholder></el-input>
           </el-form-item>
           <el-form-item label="政治面貌">
-            <el-input v-model="formInline.politicCountenance" style="width:220px" placeholder></el-input>
-          </el-form-item>
-          <el-form-item>
-            <el-button type="info" plain @click="cancel()">取消</el-button>
+            <el-input v-model="formInline.politicCountenance" style="width:168px;height:36px" placeholder></el-input>
+          </el-form-item><br>
+          <el-form-item style="float:right;margin:0 100px 20px 0">
+            <el-button type="info" plain @click="cancel()" style="margin:0 10px 0 0">取消</el-button>
             <el-button type="primary">保存</el-button>
           </el-form-item>
         </el-form>
@@ -146,15 +146,13 @@ export default {
 
 <style lang="stylus" scoped>
 .basicinfo
-  width 800px
-  .basicinfo-1 
+  width 770px
+  .basicinfo-first 
     width 800px
     display flex
     flex-direction row
     .basicinfo-left img 
       width 80px
       height 80px
-      margin 30px 0 0 20px
-    .basicinfo-right 
-      margin 60px 0 0 130px
+      margin 32px 0 0 42px
 </style>

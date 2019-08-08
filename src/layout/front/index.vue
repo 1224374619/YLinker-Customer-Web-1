@@ -4,12 +4,12 @@
         <main>
             <router-view/>
         </main>
-        <div class="22"><customized-footer /></div>
+        <!-- <div class="22"><customized-footer /></div> -->
     </div>
 </template>
 
 <script>
-    import CustomizedFooter from 'components/customized-footer.vue';
+    // import CustomizedFooter from 'components/customized-footer.vue';
     import CustomizedNav from 'components/customized-nav.vue';
 
     export default {
@@ -18,7 +18,7 @@
             return {}
         },
         components: {
-            CustomizedFooter,
+            // CustomizedFooter,
             CustomizedNav
         },
     }
