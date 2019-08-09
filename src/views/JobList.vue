@@ -114,7 +114,7 @@
         </div>
         <div class="content-button">
             <span>
-                <el-button  class="button" type="primary">进入企业主页</el-button>
+                <el-button @click.native="position"  class="button" type="primary">进入企业主页</el-button>
             </span>
         </div>
         <div class="content-job">
@@ -207,7 +207,7 @@
             <span>电子商务，文化娱乐 | 150-500人</span>
         </div>
         <div class="footer-line"></div>
-        <div class="footer-first">
+        <div class="footer-first" style="margin-top:-20px">
             <span>产品经理</span>
             <span>5-10k</span>
             <span>迪卡侬</span>
@@ -218,7 +218,7 @@
             <span>电子商务，文化娱乐 | 150-500人</span>
         </div>
         <div class="footer-line"></div>
-        <div class="footer-first">
+        <div class="footer-first" style="margin-top:-20px">
             <span>产品经理</span>
             <span>5-10k</span>
             <span>迪卡侬</span>
@@ -324,7 +324,7 @@ export default {
     return {
       value:'上海',
       company:'职位',
-      dialogVisible:true,
+      dialogVisible:false,
       options: [{
           value: 'zhinan',
           label: '指南',
@@ -525,6 +525,9 @@ export default {
   methods: {
       close() {
           this.dialogVisible = false
+      },
+      position() {
+         this.$router.push({path:'/position'})
       },
       handleItemChange() {
            setTimeout(() => {

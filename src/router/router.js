@@ -13,7 +13,7 @@ import JobDetail from '../views/JobDetail.vue'
 import www from '../views/www.vue'
 import Position from '../views/Position.vue'
 // import Station from '../views/Station.vue'
-// import JobList from '../views/JobList.vue'
+import JobList from '../views/JobList.vue'
 import Personal from '../views/Personal.vue'
 import InforChange from '../views/inforchange.vue'
 
@@ -42,7 +42,7 @@ export default new Router({
                 },
                 {
                     path: '/position',
-                    name: '职位',
+                    name: '企业详情',
                     component: Position
                 },
                 {
@@ -54,6 +54,11 @@ export default new Router({
                     path: '/inforchange',
                     name: 'inforchange',
                     component: InforChange
+                },
+                {
+                    path: '/joblist',
+                    name: '职位',
+                    component: JobList
                 },
             ]
         },

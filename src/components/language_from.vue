@@ -1,10 +1,8 @@
 <template>
-    <div class="hello">
-        <el-form :inline="true" :model="ruleForm" class="demo-form-inline">
-                <el-input :disabled="true"  v-model="ruleForm.languages" placeholder=""></el-input>
-                <el-input :disabled="true"  v-model="ruleForm.listenAbility" placeholder=""></el-input>
-                <el-input :disabled="true"  v-model="ruleForm.readAbility" placeholder=""></el-input>
-          </el-form>
+   <div class="from">
+        <span style="margin:15px 0 0 50px">英语</span>
+        <span style="margin:15px 0 0 50px">听说能力良好</span>
+        <span style="margin:15px 255px 0 0">读写能力良好</span>
     </div>
 </template>
 
@@ -39,18 +37,13 @@
 </script>
 
 <style lang="stylus" scoped>
-  .hello
-    .el-form
-      display flex
-      flex-direction row
-      flex-wrap wrap 
-      margin -20px 0 0 
-      .el-input
-        margin 22px 0 0 65px
-        border 0px solid #dcdfe6
-        width 210px
-        line-height 20px
-      .el-textarea__inner
-        padding 10px 0 0 15px
-        border 0px solid #dcdfe6
+  .from
+    display flex
+    flex-direction row
+    flex-wrap wrap 
+    justify-content space-between
+    font-size 15px
+    color #1f368d
+    font-weight bold
+    text-align left
 </style>

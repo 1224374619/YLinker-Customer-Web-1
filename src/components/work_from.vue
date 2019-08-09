@@ -1,11 +1,17 @@
 <template>
-    <div class="hello">
-        <el-form :inline="true" :model="ruleForm" class="demo-form-inline">
-                <el-input :disabled="true"  v-model="ruleForm.companyName" placeholder=""></el-input>
-                <el-input :disabled="true"  v-model="ruleForm.jobTime" placeholder=""></el-input>
-                <el-input :disabled="true"  v-model="ruleForm.post" placeholder=""></el-input>
-                <el-input :disabled="true"  v-model="ruleForm.jobDescription" type="textarea" style="width:730px;margin:0 0 0 83px" placeholder="工作内容："></el-input>
-          </el-form>
+    <div class="from">
+        <div style="display:flex;flex-direction:row">
+            <div class="fromfirst">
+                <div class="fromfirst-one"><span>公司名称</span></div>
+                <div class="fromfirst-one"><span>产品经理 | 4K-6K</span></div>
+            </div>
+            <div class="fromsecond">
+                <div class="fromfirst-two"><span>2018-12/至今</span></div>
+            </div>
+        </div>
+        <div style="margin:10px 0 0 47px">
+            <span>工作内容：<span>文案文案文案文案文案</span></span>
+        </div>
     </div>
 </template>
 
@@ -41,19 +47,20 @@
 </script>
 
 <style lang="stylus" scoped>
-  .hello
-    .el-form
-      display flex
-      flex-direction row
-      flex-wrap wrap 
-      margin -20px 0 0 
-      .el-input
-        margin 20px 0 0 60px
-        border 0px solid #dcdfe6
-        width 310px
-        line-height 20px
-      .el-textarea__inner
-        margin 20px 0 0 0
-        padding 10px 0 0 15px
-        border 0px solid #dcdfe6
+  .from
+    display flex
+    flex-direction column
+    font-size 15px
+    color #1f368d
+    text-align left
+    margin 0 0 0 0
+    font-weight bold
+    .fromfirst 
+      margin 0 0 0 50px
+      .fromfirst-one
+        margin 10px 0 0 0 
+    .fromsecond 
+      margin 0 0 0 235px
+      .fromfirst-two
+        margin 8px 0 0 -16px   
 </style>

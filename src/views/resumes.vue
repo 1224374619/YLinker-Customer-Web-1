@@ -242,6 +242,7 @@
     import PersonalinformationFrom from 'components/personalinformation_from.vue'
     import EducationexperienceFrom from 'components/education_from.vue'
     import WorkFrom from 'components/work_from.vue'
+    
     import ProgectFrom from 'components/progect_from.vue'
     import TrainingFrom from 'components/training_from.vue'
     import LanguageFrom from 'components/language_from.vue'

@@ -1,25 +1,15 @@
 <template>
-    <div class="hello">
-        <el-form :inline="true" :model="ruleForm" class="demo-form-inline">
-            <el-form-item label="职位类型:">
-                <el-input  :disabled="true"  v-model="ruleForm.postType" placeholder=""></el-input>
-            </el-form-item>
-            <el-form-item label="工作城市:">
-                <el-input :disabled="true"  v-model="ruleForm.city" placeholder=""></el-input>
-            </el-form-item>
-            <el-form-item label="企业行业:" >
-                <el-input :disabled="true"  v-model="ruleForm.trade" placeholder=""></el-input>
-            </el-form-item>
-            <el-form-item label="薪资范围:" >
-                <el-input :disabled="true"  v-model="ruleForm.scope" placeholder=""></el-input>
-            </el-form-item>
-            <el-form-item label="求职状态:">
-                <el-input :disabled="true"  v-model="ruleForm.status" placeholder=""></el-input>
-            </el-form-item>
-            <el-form-item label="工作类型:">
-                <el-input :disabled="true" v-model="ruleForm.jobType" placeholder=""></el-input>
-            </el-form-item>
-          </el-form>
+    <div class="from">
+        <div class="fromfirst">
+             <div class="fromfirst-one">职位类型：<span>产品经理</span></div>
+             <div class="fromfirst-one">企业行情：<span>互联网金融/公关</span></div>
+             <div class="fromfirst-one">求职状态：<span>随时到岗</span></div>
+        </div>
+        <div class="fromsecond">
+            <div class="fromfirst-two">工作城市：<span>上海/北京</span></div>
+            <div class="fromfirst-two">薪资范围：<span>5K-10K</span></div>
+            <div class="fromfirst-two">工作类型：<span>实习</span></div>
+        </div>
     </div>
 </template>
 
@@ -56,19 +46,21 @@
     }
 </script>
 
-<style lang="stylus" >
-      .hello
-       .el-form
-         margin -20px 0 0 0
-        .el-form-item
-          height 20px
-          margin 20px 0 0 0
-          
-         .el-input__inner
-           border 0px solid #dcdfe6
-           width 260px
-           line-height 20px
-         .el-textarea__inner
-           padding 10px 0 0 15px
-           border 0px solid #dcdfe6 
+<style lang="stylus" scoped>
+  .from
+    display flex
+    flex-direction row
+    font-size 15px
+    color #1f368d
+    font-weight bold
+    text-align left
+    margin 10px 0 -20px 0
+    .fromfirst 
+      margin 0 0 0 50px
+      .fromfirst-one
+        margin 10px 0 0 0 
+    .fromsecond 
+      margin 0 0 0 150px
+      .fromfirst-two
+        margin 10px 0 0 0     
 </style>
