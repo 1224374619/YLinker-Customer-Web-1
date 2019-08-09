@@ -21,6 +21,10 @@ Vue.use(vuescroll, {
   },
   name: 'Scroll'
 });
+Vue.use(BaiduMap, {
+  // ak 是在百度地图开发者平台申请的密钥 详见 http://lbsyun.baidu.com/apiconsole/key */
+  ak: 'LGSF5bLoRGYzsOBrr20kXazopMHxLgL1'
+})
 
 Vue.use(BaiduMap, {
   // ak 是在百度地图开发者平台申请的密钥 详见 http://lbsyun.baidu.com/apiconsole/key */

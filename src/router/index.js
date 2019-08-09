@@ -9,16 +9,20 @@ import Register from '../views/Register.vue'
 import RegisterResult from '../views/RegisterResult.vue'
 import UserLicense from '../views/UserLicense.vue'
 import JobDetail from '../views/JobDetail.vue'
-import Resumes from '../views/Resumes.vue'
-// import www from '../views/www.vue'
+// import Resumes from '../views/Resumes.vue'
+import www from '../views/www.vue'
 import Position from '../views/Position.vue'
-import Station from '../views/Station.vue'
+// import Station from '../views/Station.vue'
+// import JobList from '../views/JobList.vue'
+import Personal from '../views/Personal.vue'
+import InforChange from '../views/inforchange.vue'
 
 // import map from '../views/maps.vue'
 
 Vue.use(Router);
 
 export default new Router({
+    mode: 'history',
     routes: [
         {
             path: '/',
@@ -32,9 +36,9 @@ export default new Router({
                     component: Home
                 },
                 {
-                    path: '/Resumes',
+                    path: '/www',
                     name: '简历',
-                    component: Resumes
+                    component: www
                 },
                 {
                     path: '/position',
@@ -42,9 +46,14 @@ export default new Router({
                     component: Position
                 },
                 {
-                    path: '/station',
+                    path: '/personal',
                     name: '百度地图',
-                    component: Station
+                    component: Personal
+                },
+                {
+                    path: '/inforchange',
+                    name: 'inforchange',
+                    component: InforChange
                 },
             ]
         },
@@ -88,5 +97,6 @@ export default new Router({
             name: 'detail',
             component: JobDetail
         },
+        
     ]
 });

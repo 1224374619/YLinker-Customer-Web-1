@@ -1,5 +1,4 @@
 <template>
-
     <div class="el-container">
         <div class="el-main">
             <Scroll ref="scroll">
@@ -369,14 +368,14 @@
             }
         },
         methods: {
-            testRef(ref) {
-                if(ref){
-                    const y=this.$refs[ref].offsetTop-20
-                    this.$refs.scroll.scrollTo({y}, 300);
-                }else {
-                    this.$refs.scroll.scrollTo({y: 0}, 300);
-                }
-            },
+            // testRef(ref) {
+            //     if(ref){
+            //         const y=this.$refs[ref].offsetTop-20
+            //         this.$refs.scroll.scrollTo({y}, 300);
+            //     }else {
+            //         this.$refs.scroll.scrollTo({y: 0}, 300);
+            //     }
+            // },
             showdialog() {
                 alert("222222")
                 this.dialog = true
@@ -526,16 +525,16 @@
     .el-container
         margin 40px 0 0 0 
         padding-top 70px
-        width 100%
-        height 800px
-    /*min-height 800px*/
-    /*height 100vh*/
+        border 1px solid red
+        width 990px
+        
     .el-aside
         background-color white
         margin 0 0 0 10px
-        width 280px
+        width 220px
     .aside
         width 180px
+        border 1px solid red
         margin 10px 0 0 20px
         text-align left
     .aside-content
@@ -584,6 +583,8 @@
         margin 20px 0 20px 40px
     .el-main
         background-color white
+        border 1px solid red
+        width 770px
         .personalinformation
             display flex
             flex-direction row

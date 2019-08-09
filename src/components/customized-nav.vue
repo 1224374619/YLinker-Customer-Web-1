@@ -6,10 +6,10 @@
                 <img @click="gotoHomeUI" :src="require('../assets/images/logo.png')"/>
                 <div class="menu">
                     <div class="group" v-if="!ctlHideMenus">
-                        <router-link to="/home" index="1">首页</router-link>
+                        <router-link to="/" index="1">首页</router-link>
                         <router-link to="/position" index="2">职位</router-link>
-                        <router-link to="/resumes" index="3">简历</router-link>
-                        <router-link to="/station" index="4">联系我们</router-link>
+                        <router-link to="/www" index="3">简历</router-link>
+                        <router-link to="/personal" index="4">联系我们</router-link>
                     </div>
                     <div class="btn-set" v-if="!hasLogin">
                         <router-link tag="button" :to="{name:'login'}" index="1">首页</router-link>
