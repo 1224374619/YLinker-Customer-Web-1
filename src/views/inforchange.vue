@@ -127,6 +127,7 @@ export default {
       width 784px   
       margin 90px 0 0 36px
       background white
+      color #1f368d
     .inforchangeback
       width 656px
       height 360px

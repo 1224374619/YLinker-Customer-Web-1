@@ -1,10 +1,8 @@
 <template>
-    <div class="hello">
-        <el-form :inline="true" :model="ruleForm" class="demo-form-inline">
-                <el-input :disabled="true"  v-model="ruleForm.trainCourse" placeholder=""></el-input>
-                <el-input :disabled="true"  v-model="ruleForm.trainCourse" placeholder=""></el-input>
-                <el-input :disabled="true"  v-model="ruleForm.trainTime" placeholder=""></el-input>
-          </el-form>
+   <div class="from">
+        <span style="margin:15px 0 0 50px">培训课程</span>
+        <span style="margin:15px 0 0 0">培训机构</span>
+        <span style="margin:15px 250px 0 0">2018/12-至今</span>
     </div>
 </template>
 
@@ -38,17 +36,13 @@
 </script>
 
 <style lang="stylus" scoped>
-  .hello
-    .el-form
-      display flex
-      flex-direction row
-      flex-wrap wrap 
-      margin -20px 0 0 
-      .el-input
-        margin 25px 0 0 65px
-        border 0px solid #dcdfe6
-        width 210px
-      .el-textarea__inner
-        padding 10px 0 0 15px
-        border 0px solid #dcdfe6
+  .from
+    display flex
+    flex-direction row
+    flex-wrap wrap 
+    justify-content space-between
+    font-size 15px
+    color #1f368d
+    font-weight bold
+    text-align left
 </style>

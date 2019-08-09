@@ -14,7 +14,6 @@
       <div class="tab">
         <el-tabs v-model="activeName" @tab-click="handleClick">
           <el-tab-pane label="企业信息" name="first">
-            <div v-if="table"><post-type /></div>
             <div class="information" v-if="information">
               <p class="company">公司介绍:</p>
               <p class="company-content">上海银领科技网络</p>
@@ -31,7 +30,9 @@
               </div>
             </div>
           </el-tab-pane>
-          <el-tab-pane label="在招职位" name="second"></el-tab-pane>
+          <el-tab-pane label="在招职位" name="second">
+            <div><post-type /></div>
+          </el-tab-pane>
         </el-tabs>
       </div>
     </div>

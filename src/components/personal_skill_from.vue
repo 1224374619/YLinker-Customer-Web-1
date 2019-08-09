@@ -1,10 +1,8 @@
 <template>
-    <div class="hello">
-        <el-form :inline="true" :model="ruleForm" class="demo-form-inline">
-                <el-input :disabled="true"   v-model="ruleForm.technicalName" placeholder=""></el-input>
-                <el-input :disabled="true"   v-model="ruleForm.level" placeholder=""></el-input>
-                <a id="a" href="" @mouseover="on()" @mouseout="out()"><a class="el-icon-picture">点击查看证书</a></a>
-          </el-form>
+   <div class="from">
+        <span style="margin:15px 0 10px 50px">CET6</span>
+        <span style="margin:15px 0 0 50px">六级</span>
+        <span style="margin:15px 235px 0 0"><a href="#" style="color:#1f368d">点击查看证书<img style="margin:0 0 0 5px" :src="require('../assets/images/090.png')"/></a></span>
     </div>
 </template>
 
@@ -44,23 +42,13 @@
 </script>
 
 <style lang="stylus" scoped>
-  .hello
-    .el-form
-      display flex
-      flex-direction row
-      flex-wrap wrap 
-      margin -10px 0 0 
-      .el-input
-        margin 0 0 0 65px
-        border 0px solid #dcdfe6
-        width 210px
-        line-height 20px
-      .el-icon-picture  
-        border 0px solid #dcdfe6
-        width 300px
-        line-height 40px
-        font-size 14px  
-      .el-textarea__inner
-        padding 10px 0 0 15px
-        border 0px solid #dcdfe6
+  .from
+    display flex
+    flex-direction row
+    flex-wrap wrap 
+    justify-content space-between
+    font-size 15px
+    color #1f368d
+    font-weight bold
+    text-align left
 </style>

@@ -10,10 +10,10 @@ import RegisterResult from '../views/RegisterResult.vue'
 import UserLicense from '../views/UserLicense.vue'
 import JobDetail from '../views/JobDetail.vue'
 // import Resumes from '../views/Resumes.vue'
-import www from '../views/www.vue'
+import Resume from '../views/Resume.vue'
 import Position from '../views/Position.vue'
 // import Station from '../views/Station.vue'
-// import JobList from '../views/JobList.vue'
+import JobList from '../views/JobList.vue'
 import Personal from '../views/Personal.vue'
 import InforChange from '../views/inforchange.vue'
 
@@ -36,13 +36,13 @@ export default new Router({
                     component: Home
                 },
                 {
-                    path: '/www',
+                    path: '/resume',
                     name: '简历',
-                    component: www
+                    component: Resume
                 },
                 {
                     path: '/position',
-                    name: '职位',
+                    name: '企业详情',
                     component: Position
                 },
                 {
@@ -54,6 +54,11 @@ export default new Router({
                     path: '/inforchange',
                     name: 'inforchange',
                     component: InforChange
+                },
+                {
+                    path: '/joblist',
+                    name: '职位',
+                    component: JobList
                 },
             ]
         },

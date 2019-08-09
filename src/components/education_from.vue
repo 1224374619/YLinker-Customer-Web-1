@@ -1,10 +1,12 @@
 <template>
-    <div class="hello">
-        <el-form :inline="true" :model="ruleForm" class="demo-form-inline">
-                <el-input :disabled="true"  v-model="ruleForm.educationName" placeholder=""></el-input>
-                <el-input :disabled="true"  v-model="ruleForm.educationTime" placeholder=""></el-input>
-                <el-input :disabled="true"  v-model="ruleForm.educationDegree" placeholder=""></el-input>
-          </el-form>
+    <div class="from">
+        <div class="fromfirst">
+             <div class="fromfirst-one"><span>华东理工大学</span></div>
+             <div class="fromfirst-one"><span>工学设计 | 硕士</span></div>
+        </div>
+        <div class="fromsecond">
+            <div class="fromfirst-two"><span>2018-12/至今</span></div>
+        </div>
     </div>
 </template>
 
@@ -39,15 +41,20 @@
 </script>
 
 <style lang="stylus" scoped>
-  .hello
-    .el-form
-      display flex
-      flex-direction row
-      flex-wrap wrap 
-      margin -20px 0 0 
-      .el-input
-        margin 20px 0 0 60px
-        border 0px solid #dcdfe6
-        width 310px
-        line-height 20px
+  .from
+    display flex
+    flex-direction row
+    font-size 15px
+    color #1f368d
+    text-align left
+    margin 0 0 0 0
+    font-weight bold
+    .fromfirst 
+      margin 0 0 0 50px
+      .fromfirst-one
+        margin 10px 0 0 0 
+    .fromsecond 
+      margin 0 0 0 235px
+      .fromfirst-two
+        margin 10px 0 0 0   
 </style>
