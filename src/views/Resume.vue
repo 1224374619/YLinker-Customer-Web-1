@@ -43,8 +43,8 @@
               <div class="main-content-first"><img :src="require('../assets/images/33.png')"/><span>工作经历</span> </div>
               <div class="main-content-second" @click="work"><img :src="require('../assets/images/add.png')"/> <span>添加</span></div>
           </div>
-          <ul v-if="showworkperience" class="ul-a" style="margin-left:-15px;margin:5px 0 10px 0">
-              <li v-for="(list,index) in listwork" :key="index" class="ul-a">
+          <ul v-if="showworkperience"  style="margin-left:-15px;margin:5px 0 10px 0">
+              <li v-for="(list,index) in listwork" :key="index" >
               <!-- <span class="actions-span">
                   <i class="el-icon-edit-outline"></i> 删除
                   <i class="el-icon-edit-outline"></i> 编辑
@@ -59,7 +59,7 @@
               <div class="main-content-second" @click="project"><img :src="require('../assets/images/add.png')"/> <span>添加</span></div>
           </div>
           <ul v-if="showprogectperience"  style="margin-left:-15px;margin:5px 0 10px 0">
-              <li v-for="(list,index) in listprogectperience" :key="index" class="ul-a">
+              <li v-for="(list,index) in listprogectperience" :key="index" >
               <!-- <span class="actions-span">
                   <i class="el-icon-edit-outline"></i> 删除
                   <i class="el-icon-edit-outline"></i> 编辑
@@ -73,8 +73,8 @@
               <div class="main-content-first"><img :src="require('../assets/images/77.png')"/><span>培训经历</span> </div>
               <div class="main-content-second" @click="training"><img :src="require('../assets/images/add.png')"/> <span>添加</span></div>
           </div>
-          <ul v-if="showtrain" class="ul-a" style="margin-left:-15px;margin:5px 0 10px 0">
-              <li v-for="(list,index) in listtrain" :key="index" class="ul-a">
+          <ul v-if="showtrain"  style="margin-left:-15px;margin:5px 0 10px 0">
+              <li v-for="(list,index) in listtrain" :key="index" >
               <!-- <span class="actions-span">
                   <i class="el-icon-edit-outline"></i> 删除
                   <i class="el-icon-edit-outline"></i> 编辑
@@ -89,7 +89,7 @@
               <div class="main-content-second" @click="language"><img :src="require('../assets/images/add.png')"/> <span>添加</span></div>
           </div>
           <ul v-if="showlanguages"  style="margin-left:-15px;margin:5px 0 10px 0">
-              <li v-for="(list,index) in listlanguages" :key="index" class="ul-a">
+              <li v-for="(list,index) in listlanguages" :key="index">
                   <!-- <span class="actions-span">
                       <i class="el-icon-edit-outline"></i> 删除
                       <i class="el-icon-edit-outline"></i> 编辑
@@ -110,7 +110,7 @@
               <div class="main-content-second" @click="personal_skill()"><img :src="require('../assets/images/add.png')"/> <span>添加</span></div>
           </div>
           <ul v-if="showpersonalskills" style="margin-left:-15px;margin:5px 0 10px 0">
-              <li class="ul-a" v-for="(list,index) in listpersonalskill" :key="index" >
+              <li  v-for="(list,index) in listpersonalskill" :key="index" >
                   <!-- <span class="actions-span">
                       <i class="el-icon-edit-outline"></i> 删除
                       <i class="el-icon-edit-outline"></i> 编辑
@@ -125,7 +125,7 @@
               <div class="main-content-second" @click="awards"><img :src="require('../assets/images/add.png')"/> <span>添加</span></div>
           </div>
           <ul v-if="showaward" style="margin-left:-15px;margin:5px 0 10px 0">
-              <li v-for="(list,index) in listaward" :key="index"  class="ul-a">
+              <li v-for="(list,index) in listaward" :key="index"  >
                   <!-- <span class="actions-span">
                       <i class="el-icon-edit-outline"></i> 删除
                       <i class="el-icon-edit-outline"></i> 编辑
@@ -140,7 +140,7 @@
               <div class="main-content-second" @click="selfappraisal"><img :src="require('../assets/images/add.png')"/> <span>添加</span></div>
           </div>
           <ul v-if="showpersonappraisal"  style="margin-left:-15px;margin:5px 0 10px 0">
-              <li v-for="(list,index) in listpersonappraisal" :key="index" class="ul-a">
+              <li v-for="(list,index) in listpersonappraisal" :key="index" >
                   <!-- <span class="actions-span">
                       <i class="el-icon-edit-outline"></i> 删除
                       <i class="el-icon-edit-outline"></i> 编辑

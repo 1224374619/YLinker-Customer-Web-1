@@ -7,7 +7,7 @@
                     <div class="group" v-if="!ctlHideMenus">
                         <router-link to="/" index="1">首页</router-link>
                         <router-link to="/joblist" index="2">职位</router-link>
-                        <router-link to="/www" index="3">简历</router-link>
+                        <router-link to="/resume" index="3">简历</router-link>
                         <router-link to="/personal" index="4">联系我们</router-link>
                     </div>
                     <div class="btn-set" v-if="!hasLogin">
@@ -118,7 +118,7 @@
                         align-items center
                         justify-content center
 
-                        &.router-link-active
+                        &.router-link-exact-active
                             color #6EC5D2
                             border-bottom solid 3px #6EC5D2
 
