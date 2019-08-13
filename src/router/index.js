@@ -16,7 +16,8 @@ import Position from '../views/Position.vue'
 import JobList from '../views/JobList.vue'
 import Personal from '../views/Personal.vue'
 import InforChange from '../views/inforchange.vue'
-
+import AboutUs from '../views/AboutUs.vue'
+import Specialty  from '../views/Specialty.vue'
 // import map from '../views/maps.vue'
 
 Vue.use(Router);
@@ -59,6 +60,16 @@ export default new Router({
                     path: '/joblist',
                     name: '职位',
                     component: JobList
+                },
+                {
+                    path: '/aboutus',
+                    name: '职位',
+                    component: AboutUs
+                },
+                {
+                    path: '/specialty',
+                    name: '职位',
+                    component: Specialty
                 },
             ]
         },

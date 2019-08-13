@@ -3,17 +3,17 @@
         <div style="display:flex;flex-direction:row">
             <div class="fromfirst">
                 <div class="fromfirst-one"><span>公司名称</span></div>
-                <div class="fromfirst-one"><span>产品经理 | 4K-6K</span></div>
+                <div class="fromfirst-one" style="color:#61687c"><span>产品经理 | 4K-6K</span></div>
             </div>
             <div class="fromsecond">
-                <div class="fromfirst-two"><span>2018-12/至今</span></div>
+                <div class="fromfirst-two" style="color:#61687c"><span>2018-12/至今</span></div>
             </div>
         </div>
-        <div style="margin:10px 0 0 47px">
-            <span>个人职责：<span>文案文案文案文案文案</span></span>
+        <div style="margin:10px 0 0 47px;color:#61687c">
+            <span>个人职责：<span>文案文案文案文案文案文案文案文案文案文案文案文案文案</span></span>
         </div>
-        <div style="margin:10px 0 0 47px">
-            <span>项目介绍：<span>文案文案文案文案文案</span></span>
+        <div style="margin:10px 0 0 47px;color:#61687c">
+            <span>项目介绍：<span>文案文案文案文案文案文案文案文案文案文案文案文案文案</span></span>
         </div>
     </div>
 </template>
@@ -58,7 +58,6 @@
     color #1f368d
     text-align left
     margin 0 0 0 0
-    font-weight bold
     .fromfirst 
       margin 0 0 0 50px
       .fromfirst-one

@@ -32,12 +32,11 @@
             </el-select>
           </el-form-item>
           <el-form-item label="所在城市" style="margin:0 40px 0 -30px">
-            <el-cascader
-              style="width:168px;height:36px"
-              :options="options"
-              :show-all-levels="false"
-              v-model="formInline.city"
-            ></el-cascader>
+            <el-select style="width:168px;height:36px" v-model="formInline.city" placeholder>
+              <el-option label value="上海"></el-option>
+              <el-option label value="天津"></el-option>
+              <el-option label value="北京"></el-option>
+            </el-select>
           </el-form-item>
           <el-form-item label="最高学历">
             <el-select style="width:168px;height:36px" v-model="formInline.educationLevel" placeholder>
@@ -68,8 +67,8 @@
             <el-input v-model="formInline.politicCountenance" style="width:168px;height:36px" placeholder></el-input>
           </el-form-item><br>
           <el-form-item style="float:right;margin:0 100px 20px 0">
-            <el-button type="info" plain @click="cancel()" style="margin:0 10px 0 0">取消</el-button>
-            <el-button type="primary">保存</el-button>
+            <el-button class="cancel"  @click="cancel()" style="margin:0 10px 0 0">取消</el-button>
+            <el-button class="keep" type="primary">保存</el-button>
           </el-form-item>
         </el-form>
       </div>
@@ -155,4 +154,15 @@ export default {
       width 80px
       height 80px
       margin 32px 0 0 42px
+    .cancel:hover
+      background #1f368d  
+      color white
+      border-color #1f368d
+    .keep:hover
+      border-color #7d8dcd 
+            
+</style>
+<style lang="stylus">
+  .el-cascader__label:hover
+    border-color blue
 </style>

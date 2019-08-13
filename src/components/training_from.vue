@@ -1,8 +1,8 @@
 <template>
    <div class="from">
-        <span style="margin:15px 0 0 50px">培训课程</span>
-        <span style="margin:15px 0 0 0">培训机构</span>
-        <span style="margin:15px 250px 0 0">2018/12-至今</span>
+        <span style="margin:15px 0 10px 50px;line-height:10px">培训课程</span>
+        <span style="margin:15px 0 0 76px;color:#61687c;">培训机构</span>
+        <span style="margin:15px 25px 0 141px;color:#61687c;">2018/12-至今</span>
     </div>
 </template>
 
@@ -37,12 +37,7 @@
 
 <style lang="stylus" scoped>
   .from
-    display flex
-    flex-direction row
-    flex-wrap wrap 
-    justify-content space-between
     font-size 15px
     color #1f368d
-    font-weight bold
     text-align left
 </style>

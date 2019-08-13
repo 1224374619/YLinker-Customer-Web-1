@@ -51,8 +51,7 @@
     display flex
     flex-direction row
     font-size 15px
-    color #1f368d
-    font-weight bold
+    color #61687c
     text-align left
     margin 10px 0 -20px 0
     .fromfirst 

@@ -7,8 +7,8 @@
                     <div class="group" v-if="!ctlHideMenus">
                         <router-link to="/" index="1">首页</router-link>
                         <router-link to="/joblist" index="2">职位</router-link>
-                        <router-link to="/resume" index="3">简历</router-link>
-                        <router-link to="/personal" index="4">联系我们</router-link>
+                        <router-link to="/specialty" index="3">简历</router-link>
+                        <router-link to="/aboutus" index="4">联系我们</router-link>
                     </div>
                     <div class="btn-set" v-if="!hasLogin">
                         <router-link tag="button" :to="{name:'login'}" index="1">登录</router-link>
@@ -18,8 +18,8 @@
                         <el-dropdown placement="bottom-start" @command="dealMenuClick">
                             <img :src="require('../assets/images/tou.png')"/>
                             <el-dropdown-menu slot="dropdown">
-                                <el-dropdown-item @click.native="inforchange">个人信息</el-dropdown-item>
-                                <el-dropdown-item @click.native="personal">账号设置</el-dropdown-item>
+                                <el-dropdown-item @click.native="personal">个人信息</el-dropdown-item>
+                                <el-dropdown-item @click.native="inforchange">账号设置</el-dropdown-item>
                                 <el-dropdown-item divided command="logout">退出</el-dropdown-item>
                             </el-dropdown-menu>
                         </el-dropdown>

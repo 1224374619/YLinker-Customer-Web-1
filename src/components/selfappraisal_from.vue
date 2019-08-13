@@ -39,7 +39,6 @@
     flex-wrap wrap 
     justify-content space-between
     font-size 15px
-    color #1f368d
-    font-weight bold
+    color #61687c
     text-align left
 </style>

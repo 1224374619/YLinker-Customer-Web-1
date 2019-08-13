@@ -1,6 +1,6 @@
 <template>
    <div class="from">
-        <span style="margin:15px 0 0 50px">xxx比赛三等奖</span>
+        <span style="margin:15px 0 0 50px;line-height:10px">xxx比赛三等奖</span>
         <span style="margin:15px 0 0 95px">2018/12</span>
     </div>
 </template>
@@ -36,11 +36,7 @@
 
 <style lang="stylus" scoped>
   .from
-    display flex
-    flex-direction row
-    flex-wrap wrap 
     font-size 15px
-    color #1f368d
-    font-weight bold
+    color #61687c
     text-align left
 </style>

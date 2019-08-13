@@ -1,8 +1,8 @@
 <template>
    <div class="from">
-        <span style="margin:15px 0 0 50px">英语</span>
-        <span style="margin:15px 0 0 50px">听说能力良好</span>
-        <span style="margin:15px 255px 0 0">读写能力良好</span>
+        <span style="margin:15px 0 0 50px;line-height:10px">英语</span>
+        <span style="margin:15px 0 0 106px;color:#61687c">听说能力良好</span>
+        <span style="margin:15px 255px 0 111px;color:#61687c">读写能力良好</span>
     </div>
 </template>
 
@@ -38,12 +38,6 @@
 
 <style lang="stylus" scoped>
   .from
-    display flex
-    flex-direction row
-    flex-wrap wrap 
-    justify-content space-between
     font-size 15px
     color #1f368d
-    font-weight bold
-    text-align left
 </style>

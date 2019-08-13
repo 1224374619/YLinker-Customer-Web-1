@@ -10,7 +10,7 @@
         </el-select>
         <span style="font-size:20px">|</span>
         <el-input style="width:600px;" placeholder="请输入内容"></el-input>
-        <el-button class="search-button" type="primary"  icon="el-icon-search">搜索</el-button>
+        <el-button class="search-button" style="border-radius:0 2px 2px 0" type="primary"  icon="el-icon-search">搜索</el-button>
     </div>
     <div class="joblist-article">
         <div class="article" style="margin-top:-2px">
@@ -99,8 +99,8 @@
             </el-radio-group>
         </div>
         <div class="article-button">
-            <el-button type="primary" style="margin:0 0 16px 564px;width:105px;height:35px;line-height:35px;line-height:3px;color:white;font-size:12px">清除筛选条件</el-button>
-            <el-button type="primary" style="margin:0 0 16px 30px;width:105px;height:35px;line-height:3px;color:white;font-size:12px">立即筛选</el-button>
+            <el-button class="button" type="primary" style="margin:0 0 16px 564px;width:105px;height:35px;line-height:3px;color:white;font-size:12px;padding:0px;">清除筛选条件</el-button>
+            <el-button class="button" type="primary" style="margin:0 0 16px 30px;width:105px;height:35px;line-height:3px;color:white;font-size:12px;padding:0px;">立即筛选</el-button>
         </div>
     </div>
     <div class="joblist-content">
@@ -550,12 +550,14 @@ export default {
         color white
         font-size 17px 
       .el-input__inner
-         border 0px solid red
+        border 0px solid red
       .search-button
-         width 110px
-         height 44px
-         font-size 12px
-         color white
+        width 110px
+        height 44px
+        font-size 12px
+        color white
+      .search-button:hover
+        border-color #7d8dcd   
     .joblist-article
       width 880px
       background white
@@ -583,6 +585,7 @@ export default {
           line-height 15px
           font-size 12px 
           color #1f368d 
+          
     .joblist-article div:nth-child(1)
       margin 45px 0 0 51px
       text-align left
@@ -616,8 +619,8 @@ export default {
         .content-infor span:nth-child(1)
           text-align left
           font-family PingFangSC-Regular
-          font-size 24px
-          margin 10px 0 8px 8px
+          font-size 16px
+          margin 13px 0 8px 8px
         .content-infor span:nth-child(2)
           text-align left
           font-family PingFangSC-Regular
@@ -633,7 +636,17 @@ export default {
           font-size 14px  
         .content-button
           float right
-          margin 20px 36px 0 0
+          margin 25px 36px 0 0
+          .button
+            width 105px
+            height 35px
+            text-align center
+            font-size 12px
+            line-height 3px
+            vertical-align middle
+            padding 0px 
+          .button:hover
+            border-color #7d8dcd 
     .joblist-footer
       width 880px
       margin 10px 0 0 0
@@ -729,6 +742,6 @@ export default {
     background #617dcb
   .el-button:hover
     background #7d8dcd
-  .el-input:hover  
     border-color #7d8dcd 
+      
 </style>
