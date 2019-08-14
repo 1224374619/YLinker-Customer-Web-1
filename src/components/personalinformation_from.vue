@@ -51,18 +51,19 @@
           float left
           color #1f368d
           font-size 24px
+          font-weight bold
           margin 0 0 0 -5px
         .information-first span:nth-child(2)
           float left
           margin 8px 0 0 5px
         .information-first span:nth-child(3)
           float left
-          color #1f368d
+          color #61687c
           font-size 13px
           line-height 34px 
           margin 0 0 0 40px 
         .information-second span:nth-child(1)
-          color #1f368d
+          color #61687c
           font-size 14px
           line-height 34px 
           margin 0 0 0 -20px
@@ -73,7 +74,7 @@
         .information-second span:nth-child(4)
           margin 0 0 0 25px
         .information-third span:nth-child(1)
-          color #1f368d
+          color #61687c
           font-size 14px
           line-height 34px 
           margin 0 0 0 20px

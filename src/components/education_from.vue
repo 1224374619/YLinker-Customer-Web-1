@@ -45,10 +45,10 @@
     display flex
     flex-direction row
     font-size 15px
-    color #1f368d
+    color #61687c
     text-align left
     margin 0 0 0 0
-    font-weight bold
+    
     .fromfirst 
       margin 0 0 0 50px
       .fromfirst-one

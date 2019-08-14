@@ -15,9 +15,9 @@
             <el-form-item label="读写能力">
                 <el-input style="width:108px;height:36px" v-model="formInline.readAbility" placeholder=""></el-input>
             </el-form-item><br>
-            <el-form-item style="margin:0 0 20px 470px">
-            <el-button type="info" plain style="margin:0 10px 0 0">取消</el-button>
-            <el-button type="primary">保存</el-button>
+            <el-form-item style="margin:0 0 20px 420px">
+            <el-button class="cancel" style="margin:0 10px 0 0">取消</el-button>
+            <el-button class="keep" type="primary">保存</el-button>
             </el-form-item>
           </el-form>
   </div>
@@ -42,4 +42,15 @@ export default {
 <style lang="stylus" scoped> 
   .el-form-item
     padding 0 0 0 54px
+  .cancel:hover
+     background #1f368d  
+     color white
+     border-color #1f368d
+  .el-button
+    width 94px 
+    height 34px
+    vertical-align middle
+    padding 0px
+  .keep:hover
+    border-color #7d8dcd    
 </style>

@@ -9,8 +9,8 @@
                 <div class="fromfirst-two"><span>2018-12/至今</span></div>
             </div>
         </div>
-        <div style="margin:10px 0 0 47px">
-            <span>工作内容：<span>文案文案文案文案文案</span></span>
+        <div style="margin:10px 0 0 47px;color:#61687c">
+            <span>工作内容：<span>文案文案文案文案文案文案文案文案文案文案文案文案</span></span>
         </div>
     </div>
 </template>
@@ -54,7 +54,6 @@
     color #1f368d
     text-align left
     margin 0 0 0 0
-    font-weight bold
     .fromfirst 
       margin 0 0 0 50px
       .fromfirst-one

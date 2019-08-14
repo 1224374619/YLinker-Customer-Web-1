@@ -1,8 +1,8 @@
 <template>
    <div class="from">
-        <span style="margin:15px 0 10px 50px">CET6</span>
-        <span style="margin:15px 0 0 50px">六级</span>
-        <span style="margin:15px 235px 0 0"><a href="#" style="color:#1f368d">点击查看证书<img style="margin:0 0 0 5px" :src="require('../assets/images/090.png')"/></a></span>
+        <span style="margin:15px 0 10px 50px;color:#61687c;line-height:10px">CET6</span>
+        <span style="margin:15px 0 0 106px;color:#61687c">六级</span>
+        <span style="margin:15px 25px 0 165px"><a href="#" style="color:#61687c">点击查看证书<img style="margin:0 0 0 5px" :src="require('../assets/images/090.png')"/></a></span>
     </div>
 </template>
 
@@ -43,12 +43,8 @@
 
 <style lang="stylus" scoped>
   .from
-    display flex
-    flex-direction row
-    flex-wrap wrap 
-    justify-content space-between
     font-size 15px
     color #1f368d
-    font-weight bold
+    
     text-align left
 </style>

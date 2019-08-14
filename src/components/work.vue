@@ -29,8 +29,8 @@
                 <el-input type="textarea" v-model="formInline.jobDescription"  style="width:583px" ></el-input>
             </el-form-item><br>
             <el-form-item style="margin:0 0 20px 500px">
-            <el-button type="info" plain style="margin:0 10px 0 0">取消</el-button>
-            <el-button type="primary">保存</el-button>
+            <el-button class="cancel" style="margin:0 10px 0 0">取消</el-button>
+            <el-button class="keep" type="primary">保存</el-button>
             </el-form-item>
           </el-form>
   </div>
@@ -59,4 +59,13 @@ export default {
 <style lang="stylus" scoped> 
   .el-form-item
     padding 0 0 0 30px
+  .cancel:hover
+    background #1f368d  
+    color white
+  .el-button
+    width 94px 
+    height 34px
+    vertical-align middle
+    padding 0px    
+    
 </style>

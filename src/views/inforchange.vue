@@ -9,19 +9,19 @@
       </div>
       <div class="inforchange-right" v-if="rightPassword"> 
           <div style="margin:29px 213px 0 0">
-              <span style="margin-right:33px;font-size:16px;font-weight:600;color:#1f368d">手机号</span><span style="font-size:14px;color:#1f368d">15513779331</span>
+              <span style="margin-right:33px;font-size:14px;color:#1f368d">手机号</span><span style="font-size:14px;color:#1f368d">15513779331</span>
           </div>
           <div style="margin:25px 41px 0 0">
-              <span style="margin-right:26px;font-size:16px;font-weight:600;color:#1f368d">验证码</span>
+              <span style="margin-right:26px;font-size:14px;color:#1f368d">验证码</span>
               <span style="margin-right:12px"><el-input style="width:129px;height:43px" placeholder="请输入验证码"  clearable></el-input></span>
               <span ><el-button style="width:129px;height:43px" type="primary" plain>获取验证码</el-button></span>
           </div>
           <div style="margin:25px 41px 0 0">
-              <span style="margin-right:26px;font-size:16px;font-weight:600;color:#1f368d">新密码</span>
+              <span style="margin-right:26px;font-size:14px;color:#1f368d">新密码</span>
               <span><el-input style="width:270px;height:43px" placeholder="请输入新密码（6-24位数字和字母）" suffix-icon="el-icon-view"></el-input></span>
           </div>
           <div style="margin:25px 55px 0 0">
-              <span style="margin-right:26px;font-size:16px;font-weight:600;color:#1f368d">确认密码</span>
+              <span style="margin-right:26px;font-size:14px;color:#1f368d">确认密码</span>
               <span><el-input style="width:270px;height:43px" placeholder="请确认输入新密码" suffix-icon="el-icon-view"></el-input></span>
           </div>
           <div style="margin:29px 0 20px 40px">
@@ -30,18 +30,18 @@
       </div>
       <div class="inforchange-right" v-if="rightPhone"> 
           <div style="margin:29px 213px 0 0">
-              <span style="margin-right:33px;font-size:16px;font-weight:600">手机号</span><span style="font-size:14px">15513779331</span>
+              <span style="margin-right:33px;font-size:14px;">手机号</span><span style="font-size:14px">15513779331</span>
           </div>
-          <div style="margin:25px 89px 0 0">
-              <span style="margin-right:26px;font-size:16px;font-weight:600">当前登陆密码</span>
-              <span><el-input style="width:270px;height:43px" placeholder="请输入当前登录密码" suffix-icon="el-icon-view"></el-input></span>
+          <div style="margin:25px 85px 0 0">
+              <span style="margin-right:26px;font-size:14px;">当前登陆密码</span>
+              <span><el-input style="width:270px;height:43px;" placeholder="请输入当前登录密码" suffix-icon="el-icon-view"></el-input></span>
           </div>
           <div style="margin:25px 55px 0 0">
-              <span style="margin-right:26px;font-size:16px;font-weight:600">新手机号</span>
-              <span><el-input style="width:270px;height:43px" placeholder="请确认新手机号" suffix-icon="el-icon-view"></el-input></span>
+              <span style="margin-right:26px;font-size:14px;">新手机号</span>
+              <span><el-input style="width:270px;height:43px" placeholder="请确认新手机号"></el-input></span>
           </div>
           <div style="margin:25px 41px 0 0">
-              <span style="margin-right:26px;font-size:16px;font-weight:600">验证码</span>
+              <span style="margin-right:26px;font-size:14px;">验证码</span>
               <span style="margin-right:12px"><el-input style="width:129px;height:43px" placeholder="请输入验证码"  clearable></el-input></span>
               <span ><el-button style="width:129px;height:43px" type="primary" plain>获取验证码</el-button></span>
           </div>
