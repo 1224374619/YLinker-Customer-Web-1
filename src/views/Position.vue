@@ -16,7 +16,16 @@
           <el-tab-pane label="企业信息" name="first">
             <div class="information" v-if="information">
               <p class="company">公司介绍:</p>
-              <p class="company-content">上海银领科技网络</p>
+              <p class="company-content">
+                技术驱动的产品型人力资源服务公司<br><br> 
+                公司近300名员工，70%的领域专家、产品经理、开发工程师。<br><br> 
+                上海、无锡、深圳、北京均设有研发中心，倡导以技术推动人力资源管理变革。<br><br> 
+                累计融资额最高的劳动力综合管理公司<br><br> 
+                全美顶级基金DCM、光速、启明创投联袂注资，融资总额超3亿元，市值超10亿人民币。拥有线下<br>人力灵活用工服务，全面推动连锁服务行业人力管理新篇章！<br><br> 
+                累计服务企业和员工最多的HRSaaS公司<br><br> 
+                服务了数千家各领域头部企业，服务企业总数超过15万家，覆盖员工超过300万.<br><br> 
+                涵盖了餐饮服务、零售连锁、安保物业、生产制造等数十个行业。
+              </p>
               <div class="positon-footer">
                 <div class="address">
                   <p class="company-address">公司地址:</p>
@@ -77,8 +86,8 @@ export default {
   .position 
     display flex
     flex-direction column
-    margin 100px 0 0 20px
-    width 1240px
+    margin 100px auto 0 
+    width 1000px
     background-color white
     .positon-nav 
       display flex
@@ -116,6 +125,7 @@ export default {
           text-align left
           font-size 14px 
           color #b2b6c0 
+          margin 20px 0 0 0
         .positon-footer
           .address
             .company-address
@@ -134,11 +144,11 @@ export default {
             .map-address-map
               font-size 14px
               color #bbdf4f
-              margin 10px 25px 0 0
+              margin 10px 355px 0 0
           .bm-view
-            margin 10px 0 0 0
-            width 98%
-            height 200px
-          .BMap-cpyCtrl
-            display none   
+            margin 10px 0 20px 0
+            width 620px
+            height 70px
+          .anchorBL
+            display none  
 </style>

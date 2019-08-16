@@ -12,7 +12,7 @@ import JobDetail from '../views/JobDetail.vue'
 // import Resumes from '../views/Resumes.vue'
 import Resume from '../views/Resume.vue'
 import Position from '../views/Position.vue'
-// import Station from '../views/Station.vue'
+import Station from '../views/Station.vue'
 import JobList from '../views/JobList.vue'
 import Personal from '../views/Personal.vue'
 import InforChange from '../views/inforchange.vue'
@@ -37,6 +37,14 @@ export default new Router({
                     name: 'home',
                     component: Home
                 },
+            ]
+        },
+        {
+            path: '/',
+            name: 'front',
+            component: resolve => require(['../layout/front/nav'], resolve),
+            redirect: '/home',
+            children: [
                 {
                     path: '/resume',
                     name: '简历',
@@ -76,6 +84,11 @@ export default new Router({
                     path: '/gap',
                     name: '空白',
                     component: Gap
+                },
+                {
+                    path: '/station',
+                    name: '空白',
+                    component: Station
                 },
             ]
         },

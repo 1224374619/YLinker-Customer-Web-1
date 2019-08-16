@@ -14,8 +14,8 @@
             </el-form-item><br>
             <el-form-item label="企业行业" style="margin:0 0 0 20px">
                 <el-select style="width:242px;height:36px" v-model="formInline.trade" placeholder="">
-                <el-option label="" value="shanghai"></el-option>
-                <el-option label="" value="beijing"></el-option>
+                <el-option label="" value=""></el-option>
+                <el-option label="" value=""></el-option>
                 </el-select>
             </el-form-item>
             <el-form-item label="薪资范围" style="margin:0 10px 20px 0">
@@ -41,7 +41,7 @@
                 <el-option label="" value="beijing"></el-option>
                 </el-select>
             </el-form-item><br>
-            <el-form-item label="到岗时间" class="block" v-if="datePicker" style="margin:0 0 0 20px">
+            <el-form-item label="到岗时间" class="block" v-if="datePicker" style="margin:0 0 0 350px">
                 <el-date-picker
                 style="width:242px;height:36px"
                 v-model="formInline.reportTime"
@@ -51,14 +51,9 @@
                 end-placeholder="结束日期">
                 </el-date-picker>
             </el-form-item>
-            <el-form-item label="工作类型" style="visibility:hidden">
-                <el-select style="width:242px;height:36px" placeholder="">
-                <el-option label="" value=""></el-option>
-                <el-option label="" value=""></el-option>
-                </el-select>
-            </el-form-item>
-            <el-form-item style="float:right;margin:0 41px 20px 0">
-            <el-button class="cancel" style="margin:0 10px 0 0">取消</el-button>
+            
+            <el-form-item style="margin:0 41px 20px 0">
+            <el-button class="cancel" style="margin:0 10px 0 490px">取消</el-button>
             <el-button class="keep" type="primary" @click="JobType">保存</el-button>
             </el-form-item>
           </el-form>
@@ -72,21 +67,20 @@ export default {
   
   data() {
     return {
-         radio3: '上海',
+         datePicker:false,
          formInline: {
           postType: '',
           trade: '',
           scope:'',
           status:'',
           jobType:'',
-          reportTime:'',
-          datePicker:false,
+          reportTime:'', 
         }
     }
   },
   methods:{
     JobType () {
-      if(this.formInline.aaa == "离职-延时到岗"){
+      if(this.formInline.status == "离职-延时到岗"){
          this.datePicker = true
       }
     }

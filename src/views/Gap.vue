@@ -42,7 +42,8 @@ export default {
 
 <style lang="stylus" scoped>
   .gap
-    margin 90px 0 0 0
+    width 990px
+    margin 90px auto 0
     display flex
     flex-direction row
     .gap-left
@@ -66,7 +67,7 @@ export default {
       margin 0 0 0 10px 
       .right-nav
         width 220px 
-        height 106px 
+        height 120px 
         background white
         display flex
         flex-direction column

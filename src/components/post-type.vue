@@ -5,7 +5,7 @@
     <span>市场（2）</span>
     <span>公关（1）</span>
     <span>销售（2）</span>
-    <el-table :data="tableData" style="width: 90%;margin:0 0 0 80px">
+    <el-table :data="tableData"  style="width: 90%;margin:0 0 0 80px" @row-click="next">
       <el-table-column prop="date" label="" width="180"></el-table-column>
       <el-table-column prop="name" label="" width="180"></el-table-column>
       <el-table-column prop="address" label=""></el-table-column>
@@ -56,6 +56,9 @@ export default {
       },
     handleCurrentChange(val) {
       alert(`当前页: ${val}`);
+    },
+    next() {
+      this.$router.push({ path:"/station" });
     }
   }
 }

@@ -1,7 +1,7 @@
 <template>
   <div class="joblist">
     <div class="joblist-search">
-        <el-select  v-model="value"  style="width:77px;height:44px;font-size:14px;">
+        <el-select  v-model="value" @focus="next"  style="width:77px;height:44px;font-size:14px;" >
           <el-option label="上海" value=""></el-option>
         </el-select>
         <span style="font-size:20px">|</span>
@@ -538,6 +538,9 @@ export default {
       
   },
   methods: {
+      next() {
+        this.dialogVisible = true
+      },
       close() {
           this.dialogVisible = false
       },
@@ -565,7 +568,7 @@ export default {
 <style lang="stylus">
   .joblist
     width 880px
-    margin 90px 0 0 0 
+    margin 90px auto 0 
     .joblist-search
       width 880px
       height 44px

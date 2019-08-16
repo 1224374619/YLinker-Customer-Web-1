@@ -1,5 +1,19 @@
 <template>
   <div class="inforchange">
+      <el-dialog
+          title=""
+          :visible.sync="dialog"
+          width="30%"
+          :before-close="handleClose">
+          <div style="display:flex;flex-direction:row;margin-left:220px">
+              <img style="height:18px;" :src="require('../assets/images/222.png')"/>
+              <span style="font-size:14px;line-height:20px;margin:0 0 0 20px">请先登录？</span>
+          </div>
+          <div slot="footer" class="dialog-footer" style="margin-top:-30px">
+              <el-button type="primary"  style="margin:0 200px 0 0" @click="next">确 定</el-button>
+          </div>
+          <div style="height:30px"></div>
+      </el-dialog>
       <div class="inforchange-left"  v-if="inforchangeLeft">
           <div class="left">
               <a  href="#" class="password" @click="rightpassword()">公司介绍</a>
@@ -44,13 +58,8 @@
             </el-upload>
           </div>
           <div>
-            <el-button style="width:178px;height:43px;margin-left:520px" type="primary">提交</el-button>
+            <el-button @click="next" style="width:178px;height:43px;margin-left:520px" type="primary">提交</el-button>
           </div>
-      </div> 
-      <div class="inforchangeback" v-if="inforchangeBack">
-          <span><i class="el-icon-success"></i></span>
-          <span>换绑成功，请用新手机号重新登陆</span>
-          <span><el-button class="button" type="primary">重新登陆</el-button></span>
       </div> 
   </div>
   
@@ -67,11 +76,15 @@ export default {
       rightPassword:true,
       rightPhone:false,
       inforchangeLeft:true,
-      inforchangeBack:false,
-      textarea:''
+      textarea:'',
+      dialog:false
     }
   },
   methods: {
+      next() {
+          this.dialog = false,
+          this.$router.push({ path: "/login" });
+      },
       rightpassword() {
           this.rightPassword = true,
           this.rightPhone = false
@@ -92,8 +105,10 @@ export default {
 
 <style lang="stylus" scoped>
   .inforchange
+    width 1000px
     display flex
     flex-direction row
+    margin 0 auto 0 
     .inforchange-left
       margin 90px 0 0 0
       .left
@@ -121,7 +136,7 @@ export default {
           color #1f368d 
           text-decoration none
         .phone:focus
-          color #617dcb  
+          color #617dcb   
     .inforchange-right
       background white
       margin 90px 0 0 36px
@@ -181,295 +196,3 @@ export default {
 </style>
 
 
-<style lang="stylus" scoped>
-  .home
-    margin-top 70px
-    .content
-      
-      .joblist-search
-        width 802px
-        height 47px
-        background white
-        .el-icon-search:before
-          color white
-          font-size 17px 
-        .el-input__inner
-          border 0px solid red
-        .search-button
-          width 167px
-          height 47px
-          font-size 12px
-          color white
-        .search-button:hover
-          border-color #7d8dcd 
-      .more
-        width 210px
-        height 43px
-        background-color #1F368D
-        color white
-        font-size 14px
-        margin 30px 0
-        cursor pointer
-      .header
-        margin 20px 0
-        display flex
-        flex-direction row
-        justify-content center
-        align-items center
-        .carousel
-          width 100%
-      .middle
-        display flex
-        flex-direction row
-        padding 20px
-        align-items center
-        margin auto
-        border solid 1px #eeee
-        margin 20px auto
-        .search-bar
-          flex 1
-          display flex
-          flex-direction row
-          height 55px
-          .search-picker
-            font-size 17px
-            line-height 55px
-            width 180px
-            margin-right 20px
-          .search-input
-            flex 1
-          button
-            font-size 16px
-            width 200px
-            margin-left 20px
-      .company
-        height 170px
-        display flex
-        flex--direction row
-        justify-content space-evenly
-        align-items center
-        border: solid 1px #eee
-        margin: 20px auto
-        overflow scroll
-        img
-          height 150px
-          margin 0 10px
-      .occupation-card
-        display flex
-        flex-direction row
-        margin auto
-        flex-wrap wrap
-        div.container
-          display flex
-          flex 1
-          padding 10px
-          align-items center
-          flex-direction row
-          margin 10px
-          border solid 1px lightgray
-          .desc
-            flex 1
-            display flex
-            flex-direction column
-            align-items flex-start
-            h3
-              margin 0 0 10px 0
-            h5
-              margin 10px 0
-            .meta
-              span
-                margin-right 10px
-                font-size 14px
-          .logo
-            display flex
-            align-items center
-            img
-              height 100px
-
-</style>
-
-<style lang="stylus">
-.home
-  .middle
-    .search-bar
-      .search-picker, .search-input
-        input
-          height 55px
-  .category
-    .list
-      .el-menu--collapse
-        width 300px
-        i
-          width 100%
-          text-align left
-          font-size 20px
-          &:after
-            content '>'
-            margin-left 50px
-    .carousel
-      flex 1
-      margin-left 20px
-  .company
-    &::-webkit-scrollbar
-      display none
-</style>
-<!-- <div class="header">
-        <div class="carousel">
-          <el-carousel :interval="5000" arrow="always" height="450px">
-            <el-carousel-item v-for="item in carouselImgs" :key="item">
-              <img :src="item"/>
-            </el-carousel-item>
-          </el-carousel>
-        </div>
-      </div>
-      <div class="company" ref="company-holder">
-        <img :src="require('../assets/images/company1.jpg')"/>
-        <img :src="require('../assets/images/company2.jpg')"/>
-        <img :src="require('../assets/images/company3.png')"/>
-        <img :src="require('../assets/images/company4.png')"/>
-        <img :src="require('../assets/images/company5.png')"/>
-        <img :src="require('../assets/images/company1.jpg')"/>
-        <img :src="require('../assets/images/company2.jpg')"/>
-        <img :src="require('../assets/images/company3.png')"/>
-        <img :src="require('../assets/images/company4.png')"/>
-        <img :src="require('../assets/images/company5.png')"/>
-        <img :src="require('../assets/images/company1.jpg')"/>
-        <img :src="require('../assets/images/company2.jpg')"/>
-        <img :src="require('../assets/images/company3.png')"/>
-        <img :src="require('../assets/images/company4.png')"/>
-        <img :src="require('../assets/images/company5.png')"/>
-      </div>
-      <div class="occupation-card">
-        <div class="container">
-          <div class="desc">
-            <h3>Web 前端架构师</h3>
-            <h5>FESCO Adecco - 企业服务,教育/培训</h5>
-            <div class="meta">
-              <span>2天/周</span>
-              <span>100-150/天</span>
-              <span>上海</span>
-            </div>
-          </div>
-          <div class="logo">
-            <img :src="require('../assets/images/occupation1.png')" />
-          </div>
-        </div>
-        <div class="container">
-          <div class="desc">
-            <h3>Web 前端架构师</h3>
-            <h5>FESCO Adecco - 企业服务,教育/培训</h5>
-            <div class="meta">
-              <span>2天/周</span>
-              <span>100-150/天</span>
-              <span>上海</span>
-            </div>
-          </div>
-          <div class="logo">
-            <img :src="require('../assets/images/occupation2.png')" />
-          </div>
-        </div>
-        <div class="container">
-          <div class="desc">
-            <h3>Web 前端架构师</h3>
-            <h5>FESCO Adecco - 企业服务,教育/培训</h5>
-            <div class="meta">
-              <span>2天/周</span>
-              <span>100-150/天</span>
-              <span>上海</span>
-            </div>
-          </div>
-          <div class="logo">
-            <img :src="require('../assets/images/occupation2.png')" />
-          </div>
-        </div>
-      </div>
-      <div class="occupation-card">
-        <div class="container">
-          <div class="desc">
-            <h3>Web 前端架构师</h3>
-            <h5>FESCO Adecco - 企业服务,教育/培训</h5>
-            <div class="meta">
-              <span>2天/周</span>
-              <span>100-150/天</span>
-              <span>上海</span>
-            </div>
-          </div>
-          <div class="logo">
-            <img :src="require('../assets/images/occupation1.png')" />
-          </div>
-        </div>
-        <div class="container">
-          <div class="desc">
-            <h3>Web 前端架构师</h3>
-            <h5>FESCO Adecco - 企业服务,教育/培训</h5>
-            <div class="meta">
-              <span>2天/周</span>
-              <span>100-150/天</span>
-              <span>上海</span>
-            </div>
-          </div>
-          <div class="logo">
-            <img :src="require('../assets/images/occupation2.png')" />
-          </div>
-        </div>
-        <div class="container">
-          <div class="desc">
-            <h3>Web 前端架构师</h3>
-            <h5>FESCO Adecco - 企业服务,教育/培训</h5>
-            <div class="meta">
-              <span>2天/周</span>
-              <span>100-150/天</span>
-              <span>上海</span>
-            </div>
-          </div>
-          <div class="logo">
-            <img :src="require('../assets/images/occupation2.png')" />
-          </div>
-        </div>
-      </div>
-      <div class="occupation-card">
-        <div class="container">
-          <div class="desc">
-            <h3>Web 前端架构师</h3>
-            <h5>FESCO Adecco - 企业服务,教育/培训</h5>
-            <div class="meta">
-              <span>2天/周</span>
-              <span>100-150/天</span>
-              <span>上海</span>
-            </div>
-          </div>
-          <div class="logo">
-            <img :src="require('../assets/images/occupation1.png')" />
-          </div>
-        </div>
-        <div class="container">
-          <div class="desc">
-            <h3>Web 前端架构师</h3>
-            <h5>FESCO Adecco - 企业服务,教育/培训</h5>
-            <div class="meta">
-              <span>2天/周</span>
-              <span>100-150/天</span>
-              <span>上海</span>
-            </div>
-          </div>
-          <div class="logo">
-            <img :src="require('../assets/images/occupation2.png')" />
-          </div>
-        </div>
-        <div class="container">
-          <div class="desc">
-            <h3>Web 前端架构师</h3>
-            <h5>FESCO Adecco - 企业服务,教育/培训</h5>
-            <div class="meta">
-              <span>2天/周</span>
-              <span>100-150/天</span>
-              <span>上海</span>
-            </div>
-          </div>
-          <div class="logo">
-            <img :src="require('../assets/images/occupation2.png')" />
-          </div>
-        </div>
-      </div>
-      <button class="more">查看更多</button>
-    </div> -->

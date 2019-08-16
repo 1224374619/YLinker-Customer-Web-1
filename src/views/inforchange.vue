@@ -2,9 +2,9 @@
   <div class="inforchange">
       <div class="inforchange-left"  v-if="inforchangeLeft">
           <div class="left">
-              <a  href="#" class="password" @click="rightpassword()">修改密码</a>
+              <a href="#" class="password" :style="password" v-focus @click="rightpassword()">修改密码</a>
               <span class="left-line"></span>
-              <a href="#" class="phone" @click="rightphone()">换绑手机</a>
+              <a href="#" class="phone" :style="phone" @click="rightphone()">换绑手机</a>
           </div>
       </div>
       <div class="inforchange-right" v-if="rightPassword"> 
@@ -14,7 +14,7 @@
           <div style="margin:25px 41px 0 0">
               <span style="margin-right:26px;font-size:14px;color:#1f368d">验证码</span>
               <span style="margin-right:12px"><el-input style="width:129px;height:43px" placeholder="请输入验证码"  clearable></el-input></span>
-              <span ><el-button style="width:129px;height:43px" type="primary" plain>获取验证码</el-button></span>
+              <span ><el-button style="width:129px;height:43px" class="cancel">获取验证码</el-button></span>
           </div>
           <div style="margin:25px 41px 0 0">
               <span style="margin-right:26px;font-size:14px;color:#1f368d">新密码</span>
@@ -43,10 +43,10 @@
           <div style="margin:25px 41px 0 0">
               <span style="margin-right:26px;font-size:14px;">验证码</span>
               <span style="margin-right:12px"><el-input style="width:129px;height:43px" placeholder="请输入验证码"  clearable></el-input></span>
-              <span ><el-button style="width:129px;height:43px" type="primary" plain>获取验证码</el-button></span>
+              <span ><el-button style="width:129px;height:43px" class="cancel">获取验证码</el-button></span>
           </div>
           <div style="margin:29px 0 20px 40px">
-               <el-button @click="showinforchangeback" style="width:270px;height:43px" type="primary">重置密码</el-button>
+               <el-button @click="showinforchangeback" style="width:270px;height:43px" type="primary">换绑手机</el-button>
           </div>
       </div> 
       <div class="inforchangeback" v-if="inforchangeBack">
@@ -66,6 +66,8 @@ export default {
   
   data() {
     return {
+      phone:'',
+      password:'',
       rightPassword:true,
       rightPhone:false,
       inforchangeLeft:true,
@@ -76,6 +78,7 @@ export default {
       rightpassword() {
           this.rightPassword = true,
           this.rightPhone = false
+
       },
       rightphone() {
           this.rightPhone = true,
@@ -87,7 +90,18 @@ export default {
           this.rightPassword = false,
           this.inforchangeBack = true
       }
+  },
+  created() {
+  },
+  
+directives: {
+  focus: {
+    // 指令的定义
+    inserted: function (el) {
+      el.focus()
+    }
   }
+}
 }
 </script>
 
@@ -109,14 +123,16 @@ export default {
         font-weight 550
         .left-line
           width 180px
-          border 0.5px solid #f0f0f0
+          border 0.5px solid #eeeeee
           margin 8px 0 0 0
         .password
           margin 32px 0 0 0
           color #1f368d 
           text-decoration none
+          border 1px solid white
         .password:focus
           color #617dcb
+          border 1px solid white
         .phone
           margin 8px 0 0 0
           color #1f368d 
@@ -128,6 +144,10 @@ export default {
       margin 90px 0 0 36px
       background white
       color #1f368d
+      .cancel:hover
+        background #1f368d  
+        color white
+        border-color #1f368d 
     .inforchangeback
       width 656px
       height 360px

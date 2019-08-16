@@ -2,6 +2,21 @@
  <Scroll ref="scroll">
   <div class="resumes" >
       <div class="content">
+          <el-dialog
+                title=""
+                :visible.sync="dialog"
+                width="30%"
+                :before-close="handleClose">
+                <div style="display:flex;flex-direction:row;margin-left:150px">
+                    <img style="height:18px;" :src="require('../assets/images/222.png')"/>
+                    <span style="font-size:14px;line-height:20px;margin:0 0 0 20px">删除后不能恢复，请确定删除？</span>
+                </div>
+                <div slot="footer" class="dialog-footer" style="margin-top:-30px">
+                    <el-button class="cancel"  @click="dialog = false">取 消</el-button>
+                    <el-button type="primary"  style="margin:0 160px 0 0" @click="dialog = false">确 定</el-button>
+                </div>
+                <div style="height:30px"></div>
+          </el-dialog>       
           <div  class="personalinformation" v-if="personalinformation" >
               <div class="personalinformation-img"><img :src="require('../assets/images/11.png')"/></div>
               <div class="img-add" @click="isshowpersonalinformation"><img :src="require('../assets/images/add.png')"/><span class="add">添加个人信息</span></div>
@@ -246,6 +261,8 @@
         },
         data() {
             return {
+                dialog:false,
+                
                 personalinformation:false,
                 showPersonalinformation:true,
                 showDemo:false,
@@ -344,6 +361,9 @@
                     // alert(y)
                 }
             },
+          showdialog() {
+              this.dialog = true
+          },  
           isshowpersonalinformation() {
             this.personalinformation = false
             this.showdemo = true
@@ -467,7 +487,7 @@
 <style lang="stylus" scoped>
   .resumes
     width 990px
-    margin 90px 220px 0 220px
+    margin 90px 120px 0 140px
     display flex
     flex-direction row
     .content
@@ -488,6 +508,12 @@
           font-family PingFangSC-Regular
           color #111D4B 100% 
           font-weight bold 
+      .cancel:hover
+        background #1f368d  
+        color white
+        border-color #1f368d
+      .cancel
+         margin 0 20px 0 0
       .personalinformation div:nth-child(1) img
         width 80px 
         height 80px
@@ -496,7 +522,7 @@
         margin 0 75px 15px 0
       .content-line
         width 682px
-        border 0.5px solid #D8D8D8
+        border 0.5px solid #eeeeee
         margin 0 44px 0 44px
       ul
         width 675px
@@ -586,7 +612,7 @@
         margin 25px 0 0 0
         .aside-line
           width 160px
-          border 0.5px solid #D8D8D8
+          border 0.5px solid #eeeeee
           margin 0 27px 0 32px
         .tabulation
           line-height 42px

@@ -15,6 +15,7 @@
                         <router-link tag="button" :to="{name:'register'}" index="2">注册</router-link>
                     </div>
                     <div class="user-operations" v-else>
+                        <span style="line-height:60px;color:white;padding:0 10px 0 0;font-size:15px;">李康</span>
                         <el-dropdown placement="bottom-start" @command="dealMenuClick">
                             <img :src="require('../assets/images/tou.png')"/>
                             <el-dropdown-menu slot="dropdown">
@@ -23,6 +24,9 @@
                                 <el-dropdown-item divided command="logout">退出</el-dropdown-item>
                             </el-dropdown-menu>
                         </el-dropdown>
+                        <el-badge :value="12" class="item" style="margin:15px 0 0 10px">
+                                <el-button plain style="width:40px" size="small">回复</el-button>
+                        </el-badge>
                     </div>
                 </div>
             </div>
@@ -74,7 +78,7 @@
         z-index 100
         background-color #1f368d
         box-shadow 0px 1px 9px #ccc
-        width 1440px
+        width 100%
         position fixed
         top 0
         display flex
@@ -82,7 +86,6 @@
         height 70px
         align-content center
         align-items center
-        margin 0 240px 0 240px
         .nav-body
             display flex
             flex-direction row
@@ -109,7 +112,6 @@
                     height 100%
                     flex 1
                     margin 0 50px
-
                     a
                         width 100px
                         color white
@@ -117,22 +119,20 @@
                         display flex
                         align-items center
                         justify-content center
-
                         &.router-link-exact-active
                             color #6EC5D2
                             border-bottom solid 3px #6EC5D2
-
                 .user-operations
                     cursor pointer
-
+                    display flex
+                    flex-direction row
                     img
-                        width 50px
-                        height 50px
+                        width 26px
+                        height 26px
                         border-radius 50%
-
+                        margin 17px 0 0 0
                 .btn-set
                     margin 0 15px
-
                     button
                         cursor pointer
                         font-size 15px
@@ -141,7 +141,6 @@
                         padding 0 13px
                         border-right solid 1px lightgrey
                         color white
-
                         &:last-child
                             border none
 </style>

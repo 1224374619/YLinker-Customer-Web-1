@@ -575,7 +575,7 @@ export default {
           margin 0 0 0 24px 
         .footer-article span:nth-child(2)
           font-family PingFangSC-Semibold
-          color #1f368d
+          color #617dcb
           font-size 15px 
           margin 0 26px 0 0
         .footer-foot

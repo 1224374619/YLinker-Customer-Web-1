@@ -9,59 +9,68 @@
         <span>4-5k</span>
       </div>
       <div class="station-nav-content">
-        <span>上海 徐汇区</span>
-        <span>|</span>
-        <span>1-3年</span>
-        <span>|</span>
-        <span>应届生</span>
-        <span>|</span>
-        <span>实习</span>
-        <span>发布时间：今天 15：00</span>
-        <span v-if="showDeliver">
-          <el-button id="deliver" type="primary" style="width:110px" @click="isclick()">
-            <i class="el-icon-check"></i> 投递简历
-          </el-button>
-        </span>
-        <span v-if="showCollect">
-          <el-button id="collect" type="primary" style="width:110px" plain>收藏</el-button>
-        </span>
-        <span v-if="mapList">
-          <el-button
-            type="primary"
-            icon="el-icon-check"
-            style="width:110px;background:#617dbc;border:0px solid red"
-          >已投递</el-button>
-        </span>
-        <span v-if="map">
-          <el-button
-            type="primary"
-            icon="el-icon-star-off"
-            style="width:110px;background:#617dbc;border:0px solid red"
-          >已收藏</el-button>
-        </span>
+        <div class="content-nav">
+          <span>上海 徐汇区 | 1-3年 | 应届生 | 实习</span>
+        </div>
+        <div class="content-article">
+           <span>发布时间：今天 15：00</span>
+        </div>
+        <div v-if="showDeliver">
+          <span style="margin:0 20px 0 0">
+            <el-button id="deliver" style="width:140px;height:40px;" type="primary" @click="isclick()"> 投递简历</el-button>
+          </span>
+          <span>
+            <el-button id="collect" type="primary" style="width:140px;height:40px" plain>收藏</el-button>
+          </span>
+        </div>
+        <div v-if="mapList">
+          <span >
+            <el-button
+            
+              type="primary"
+              icon="el-icon-check"
+              style="width:140px;height:40px;margin:0 20px 0 0;background:#617dbc;border:0px solid red"
+            >已投递</el-button>
+          </span>
+          <span>
+            <el-button
+              type="primary"
+              icon="el-icon-star-off"
+              style="width:140px;height:40px;background:#617dbc;border:0px solid red"
+            >已收藏</el-button>
+          </span>
+        </div>
       </div>
-      <el-dialog  :visible.sync="dialogVisible" width="20%" :before-close="handleClose">
+      <el-dialog  :visible.sync="dialogVisible" width="30%" :before-close="handleClose">
         <span style="font-size:16px;color:#455379">简历中要至少要填写"基本信息"和"校园经历",否则无法投递呦</span>
-        <span slot="footer" class="dialog-footer">
-          <el-button @click="dialogVisible = false" style="float:left">取 消</el-button>
-          <el-button type="primary" @click="dialogVisible = false">完善简历</el-button>
+        <span slot="footer" class="dialog-footer" >
+          <el-button style="width:94px;height:34px" @click="dialogVisible = false" class="cancel">取 消</el-button>
+          <el-button type="primary" style="margin-right:160px;width:94px;height:34px;" @click="dialogVisible = false">完善简历</el-button>
         </span>
       </el-dialog>
-      <el-dialog  :visible.sync="dialogVisibleOne" width="20%" :before-close="handleClose">
-        <span style="font-size:16px;color:#455379">投递成功，静候佳音吧~~~</span>
+      <el-dialog  :visible.sync="dialogVisibleOne" width="30%" :before-close="handleClose">
+        <span style="font-size:34px;color:#52c41a;"><i class="el-icon-circle-check"></i></span><br>
+        <span style="font-size:16px;color:#455379;">投递成功，静候佳音吧~~~</span>
         <span slot="footer" class="dialog-footer">
-          <el-button type="primary" @click="isdeliver()" style="margin:0 40% 0 0">好的</el-button>
+          <el-button type="primary" @click="isdeliver()" style="margin:0 40% 5px 0;width:94px;height:34px">好的</el-button>
         </span>
       </el-dialog>
     </div>
     <div class="station-foot" v-if="stationFoot">
       <div class="station-foot-content">
-        <span>一.职位描述</span>
-        <span>1.在上级的领导和要求下定期按量的完成工作要求</span>
-        <span>2.能独立处理和解决所负责的任务</span>
-        <span>二.招聘要求</span>
-        <span>1.在上级的领导和要求下定期按量的完成工作要求</span>
-        <span>2.能独立处理和解决所负责的任务</span>
+        <p>职位描述</p>
+        <p>
+          1、在上级的领导和监督下定期完成量化的工作要求；<br><br> 
+          2、能独立处理和解决所负责的任务；<br> <br>
+          3、根据开发进度和任务分配，完成相应模块软件的设计、开发、编程任务；<br> <br>
+          二、招聘要求：<br> <br>
+          1、本科在读，20年应届生，计算机、软件工程、网络类及相关理工科专业毕业优先；<br><br> 
+          2、有充裕时间，即日起可稳定实习，一周三天以上，至少6个月，可长期实习最佳；<br><br>
+          3、热爱软件开发行业，善于学习和总结分析； <br><br>
+          4、做事认真、细心、负责，能够专心学习技术；<br> <br>
+          5、有良好的工作态度和团队合作精神； 
+        </p>
+
         <div class="station-foot-foot">
           <div class="station-foot-foot-one">工作地点:</div>
           <div class="station-foot-foot-two">
@@ -99,6 +108,7 @@
           </div>
         </div>
         <div class="station-foot-aside-footer">
+          <div class="aside-footer">
           <div class="company-post">
             <span>产品经理</span>
             <span>4-5k</span>
@@ -108,6 +118,62 @@
             <span>长宁区</span>
           </div>
           <div class="line"></div>
+          </div>
+          <div class="aside-footer">
+          <div class="company-post">
+            <span>产品经理</span>
+            <span>4-5k</span>
+          </div>
+          <div class="company-address">
+            <span>上海YY公司</span>
+            <span>长宁区</span>
+          </div>
+          <div class="line"></div>
+          </div>
+          <div class="aside-footer">
+          <div class="company-post">
+            <span>产品经理</span>
+            <span>4-5k</span>
+          </div>
+          <div class="company-address">
+            <span>上海YY公司</span>
+            <span>长宁区</span>
+          </div>
+          <div class="line"></div>
+          </div>
+          <div class="aside-footer">
+          <div class="company-post">
+            <span>产品经理</span>
+            <span>4-5k</span>
+          </div>
+          <div class="company-address">
+            <span>上海YY公司</span>
+            <span>长宁区</span>
+          </div>
+          <div class="line"></div>
+          </div>
+          <div class="aside-footer">
+          <div class="company-post">
+            <span>产品经理</span>
+            <span>4-5k</span>
+          </div>
+          <div class="company-address">
+            <span>上海YY公司</span>
+            <span>长宁区</span>
+          </div>
+          <div class="line"></div>
+          </div>
+          <div class="aside-footer">
+          <div class="company-post">
+            <span>产品经理</span>
+            <span>4-5k</span>
+          </div>
+          <div class="company-address">
+            <span>上海YY公司</span>
+            <span>长宁区</span>
+          </div>
+          <div class="line"></div>
+          </div>
         </div>
       </div>
     </div>
@@ -131,7 +197,7 @@ export default {
         deliver:false,
         stationNav:true,
         stationFoot:true,
-        dialogVisibleOne: false,
+        dialogVisibleOne: true,
         dialogVisible: false,
         map:false,
         mapList:false,
@@ -184,11 +250,11 @@ export default {
       .station-nav-name span
         padding 0 0 0 2%
       .station-nav-name span:nth-child(1)
-        font-size 30px
+        font-size 32px
         color #1f368d
         font-weight bold
       .station-nav-name span:nth-child(2)
-        font-size 25px
+        font-size 28px
         color #617dcb
         font-weight bold
         line-height 45px
@@ -196,32 +262,20 @@ export default {
       .station-nav-content
         display flex
         flex-direction row
+        justify-content space-between
         font-size 15px
-        margin 0 0 0 2%
-      .station-nav-content span:nth-child(2)
-        padding  0 0 0 1%
-      .station-nav-content span:nth-child(3)
-        padding  0 0 0 1%
-      .station-nav-content span:nth-child(4)
-        padding  0 0 0 1% 
-      .station-nav-content span:nth-child(5)
-        padding  0 0 0 1% 
-      .station-nav-content span:nth-child(6)
-        padding  0 0 0 1% 
-      .station-nav-content span:nth-child(7)
-        padding  0 0 0 1%
-      .station-nav-content span:nth-child(8)
-        padding  0 0 0 22%  
-        font-size 13px
-      .station-nav-content span:nth-child(8)
-        padding  0 0 0 22%  
-        font-size 13px
-      .station-nav-content span:nth-child(9)
-        padding  0 0 0 20% 
-      .station-nav-content span:nth-child(10)
-        padding  0 0 0 6%
-      .station-nav-content span:nth-child(11)
-        padding  0 0 0 6% 
+        line-height 60px
+        .content-nav
+          color #455379
+          font-size 14px
+          margin 0 0 0 20px
+        .content-article 
+          color #9b9b9b
+          font-size 14px
+      .cancel:hover
+        background #1f368d  
+        color white
+        border-color #1f368d     
     .station-foot
       display flex
       flex-direction row
@@ -231,7 +285,15 @@ export default {
         flex-direction column
         width 75%
         text-align left 
-        background-color white 
+        background-color white
+      .station-foot-content p:nth-child(1)  
+        font-size 16px
+        color #617dcb
+        margin 17px 0 0 42px
+      .station-foot-content p:nth-child(2)
+        font-size 14px
+        color #61687c
+        margin 15px 0 -20px 42px 
       .station-foot-aside
         width 24%
         background-color white
@@ -263,33 +325,35 @@ export default {
       .station-foot-aside-footer
         display flex
         flex-direction column
-        margin 5% 0 0 0
-        .company-post 
-          display flex
-          flex-direction row
-          justify-content space-between
-          font-size 14px
-          color #455379
-          padding 2% 0 0 0
-        .company-post span:nth-child(1)
-          margin 0 0 0 6% 
-        .company-post span:nth-child(2)
-          margin 0 6% 0 0
-        .company-address
-          display flex
-          flex-direction row
-          justify-content space-between
-          font-size 10px
-          color #cbcbcb
-          padding 4% 0 0 0
-        .company-address span:nth-child(1)
-          margin 0 0 0 6% 
-        .company-address span:nth-child(2)
-          margin 0 6% 0 0
-        .line
-          width 90%
-          border 0.5px  solid #e5e5e5
-          margin 2% 0 0 5%         
+        margin 0 0 0 0
+        .aside-footer
+          margin 10px 0 0 0  
+          .company-post 
+            display flex
+            flex-direction row
+            justify-content space-between
+            font-size 14px
+            color #455379
+            padding 2% 0 0 0
+          .company-post span:nth-child(1)
+            margin 0 0 0 6% 
+          .company-post span:nth-child(2)
+            margin 0 6% 0 0
+          .company-address
+            display flex
+            flex-direction row
+            justify-content space-between
+            font-size 10px
+            color #cbcbcb
+            padding 4% 0 0 0
+          .company-address span:nth-child(1)
+            margin 0 0 0 6% 
+          .company-address span:nth-child(2)
+            margin 0 6% 0 0
+          .line
+            width 90%
+            border 0.5px  solid #e5e5e5
+            margin 2% 0 0 5%         
       .station-foot-content span
         margin 0 0 0 2%
         color #6a7184
@@ -300,31 +364,30 @@ export default {
         flex-direction column
         margin 5% 0 0 0
         .station-foot-foot-one
-          margin 0 0 0 2%
-          font-size 13px
-          font-weight bold
+          margin 0 0 0 40px
+          font-size 14px
           color #1f368d 
         .station-foot-foot-two
           display flex
           flex-direction row
           justify-content space-between
-          font-size 13px
-          font-weight bold
-          color #1f368d
+          font-size 14px
+          color #61687c
+          margin 0 0 0 20px
         .bm-view
-          margin 10px 0 0 10px
-          width 98%
-          height 200px
-        .BMap-cpyCtrl
+          margin 10px 0 20px 42px
+          width 880px
+          height 70px
+        .anchorBL
           display none   
         .station-foot-foot-two span:nth-child(1)
           font-size 13px
           font-weight bold  
         .station-foot-foot-two span:nth-child(2)
-          margin 0 2% 0 0
-          font-size 13px
+          margin 0 38px 0 0
+          font-size 13.5px
           font-weight bold
-          color #48b32b
+          color #6ec5d2
         .station-foot-foot-three
           margin 0 0 0 2%                     
 </style>

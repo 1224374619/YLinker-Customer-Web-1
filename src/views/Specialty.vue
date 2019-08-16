@@ -6,13 +6,13 @@
         :model="formInline"
         :rules="rules"
         ref="ruleForm"
-        label-width="100px"
+        label-width="120px"
         class="demo-formInline"
         :inline="true"
       >
         <el-row :gutter="20">
           <el-col :span="13">
-            <el-form-item label="姓名" prop="name" style="margin-left:10px">
+            <el-form-item label="姓名" prop="name" style="margin-left:-13px">
               <el-input style="width:168px;height:36px" v-model="formInline.name" placeholder="请输入姓名"></el-input>
             </el-form-item>
           </el-col>
@@ -21,7 +21,7 @@
           </el-col>
         </el-row>
 
-        <el-form-item label="性别">
+        <el-form-item label="性别" prop="gender">
           <el-radio-group style="width:168px;height:36px" v-model="formInline.gender">
             <el-row :gutter="20">
               <el-col :span="12">
@@ -33,8 +33,8 @@
             </el-row>
           </el-radio-group>
         </el-form-item>
-        <el-form-item label="最高学历">
-          <el-select style="width:168px;height:36px" v-model="formInline.educationLevel" placeholder>
+        <el-form-item label="最高学历" prop="educationLevel" >
+          <el-select style="width:168px;height:36px" v-model="formInline.educationLevel" placeholder="请选择学历">
             <el-option label value="初中及以下"></el-option>
             <el-option label value="中专/职中"></el-option>
             <el-option label value="高中"></el-option>
@@ -44,7 +44,7 @@
             <el-option label value="博士"></el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="生日">
+        <el-form-item label="生日" prop="birthday">
           <el-date-picker
             style="width:168px;height:36px"
             type="date"
@@ -52,8 +52,8 @@
             v-model="formInline.birthday"
           ></el-date-picker>
         </el-form-item>
-        <el-form-item label="海外工作年限">
-          <el-select style="width:168px;height:36px" v-model="formInline.workingSeniority" placeholder>
+        <el-form-item label="海外工作年限" prop="outWorkingSeniority">
+          <el-select style="width:168px;height:36px" v-model="formInline.outWorkingSeniority" :disabled="formInline.workingSeniority === '无工作年限'?true:false" placeholder="请选择年限">
             <el-option label value="无工作年限"></el-option>
             <el-option label value="1-3年"></el-option>
             <el-option label value="3-5年"></el-option>
@@ -61,8 +61,8 @@
             <el-option label value="手动输入"></el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="工作年限">
-          <el-select style="width:168px;height:36px" v-model="formInline.workingSeniority" placeholder>
+        <el-form-item label="工作年限" prop="workingSeniority">
+          <el-select style="width:168px;height:36px" v-model="formInline.workingSeniority" placeholder="请选择年限">
             <el-option label value="无工作年限"></el-option>
             <el-option label value="1-3年"></el-option>
             <el-option label value="3-5年"></el-option>
@@ -70,21 +70,21 @@
             <el-option label value="手动输入"></el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="政治面貌">
-          <el-select style="width:168px;height:36px" v-model="formInline.politicCountenance" placeholder>
+        <el-form-item label="政治面貌" prop="politicCountenance">
+          <el-select style="width:168px;height:36px" v-model="formInline.politicCountenance" placeholder="请选择政治面貌">
             <el-option label value="群众"></el-option>
             <el-option label value="党员"></el-option>
             <el-option label value="中共团员"></el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="手机">
-          <el-input style="width:168px;height:36px" v-model="formInline.phone" placeholder></el-input>
+        <el-form-item label="手机" prop="phone">
+          <el-input style="width:168px;height:36px" v-model="formInline.phone" placeholder="请填写手机号"></el-input>
         </el-form-item>
-        <el-form-item label="邮箱">
-          <el-input style="width:168px;height:36px" v-model="formInline.email" placeholder></el-input>
+        <el-form-item label="邮箱" prop="email">
+          <el-input style="width:168px;height:36px" v-model="formInline.email" placeholder="请填写邮箱"></el-input>
         </el-form-item>
         <el-form-item style="margin:50px 0 40px 280px">
-          <el-button class="keep" @click="next" style="width:270px;height:43px" type="primary">下一步</el-button>
+          <el-button class="keep" @click="submitForm('ruleForm')" style="width:270px;height:43px" type="primary">下一步</el-button>
         </el-form-item>
       </el-form>
     </div>
@@ -99,15 +99,47 @@ export default {
       formInline: {
           name: "",
           gender: "",
-          workingSeniority: "",
+          workingSeniority: '',
           educationLevel: "",
           birthday: "",
           email: "",
           phone: "",
-          politicCountenance: ""
+          politicCountenance: "",
+          outWorkingSeniority:''
         },
-      
+        rules: {
+          name: [
+            { required: true, message: '请输入姓名', trigger: 'blur' },
+            { min: 3, max: 5, message: '长度在 3 到 5 个字符', trigger: 'blur' }
+          ],
+          gender: [
+            { required: true, message: '请选择性别', trigger: 'change' }
+          ],
+          birthday: [
+            { type: 'date', required: true, message: '请选择日期', trigger: 'change' }
+          ],
+          educationLevel: [
+            { required: true, message: '请选择学历', trigger: 'change' }
+          ],
+          outWorkingSeniority: [
+            { required: true, message: '请选择工作年限', trigger: 'change' }
+          ],
+          workingSeniority: [
+            { required: true, message: '请选择工作年限', trigger: 'change' }
+          ],
+          politicCountenance: [
+            { required: true, message: '请选择政治面貌', trigger: 'change' }
+          ],
+          phone: [
+            { required: true, message: '请填写手机号', trigger: 'change' }
+          ],
+          email: [
+            { required: true, message: '请填写邮箱', trigger: 'change' }
+          ],
+        }
     };
+    
+    
   },
   methods: {
     cancel() {
@@ -156,6 +188,16 @@ export default {
     next() {
         this.$router.push({path:'/resume'})
     },
+    submitForm(formName) {
+        this.$refs[formName].validate((valid) => {
+          if (valid) {
+            // this.$router.push({path:'/resume'})
+          } else {
+            this.$router.push({path:'/resume'})
+            return false;
+          }
+        });
+      },
   }
 };
 </script>
@@ -164,7 +206,7 @@ export default {
 .specialty
   width 770px
   background white
-  margin 90px 0 0 0
+  margin 90px auto 0 
   border 1px solid white 
   .specialty-title
     font-size 16px

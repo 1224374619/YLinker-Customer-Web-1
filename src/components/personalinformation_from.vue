@@ -1,6 +1,6 @@
 <template>
     <div class="personalinformation">
-        <div class="information">
+        <div class="information" >
             <div><img style="width:95px" :src="require('../assets/images/89.png')"/></div>
             <div class="informationright">
                 <div class="information-first">
@@ -22,7 +22,11 @@
                   <span style="margin-left:25px">政治面貌：党员</span>
                 </div>
             </div>
-           
+            <div style="margin:35px 0 0 90px">
+              <span class="actions-span">
+                  <img style="margin-right:9px;height:12px" :src="require('../assets/images/1.png')"/><span style="margin-right:3px">编辑</span> 
+              </span>
+            </div>
         </div>
     </div>
 </template>
@@ -38,6 +42,7 @@
 </script>
 
 <style lang="stylus" scoped>
+  
   .personalinformation
     .information
       display flex
@@ -81,5 +86,10 @@
         .information-third span:nth-child(2)
           margin 0 0 0 50px            
     .information div:nth-child(1) 
-      margin 31px 0 0 25px  
+      margin 31px 0 0 25px
+    .information div:nth-child(3)   
+      .actions-span
+        color #1f368d
+        font-size 14px
+          
 </style>
