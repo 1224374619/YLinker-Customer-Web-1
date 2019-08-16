@@ -2,14 +2,6 @@
   <div class="footer">
     <div class="appendix" v-if="!showSimple">
       <div class="group">
-        <span style="text-align:left">使用与帮助</span>
-        <ul>
-          <li>企业介绍</li>
-          <li>投诉建议</li>
-          <li>用户协议</li>
-        </ul>
-      </div>
-      <div class="group">
         <span>联系方式</span>
         <ul>
           <li>公司：银领科技网络有限公司</li>
@@ -19,10 +11,18 @@
           <li>邮箱：123456789@qq.com</li>
         </ul>
       </div>
+      <div class="group">
+        <span style="text-align:left">使用与帮助</span>
+        <ul>
+          <li>企业介绍</li>
+          <li>投诉建议</li>
+          <li>用户协议</li>
+        </ul>
+      </div>
     </div>
-    <!-- <div class="copyright">
-      <p>©2019 银领人才网 | 沪ICP备xxxxxxx号-1</p>
-    </div> -->
+    <div class="footer" style="padding:0 0 10px 0">
+      <span style="color:#ffffff;font-size:12px;">Copyright   （公司名称）All Right Reserved</span>
+    </div>
   </div>
 </template>
 
@@ -43,7 +43,7 @@ export default {
 
 <style lang="stylus" scoped>
   .footer
-    background-color #f0f0f0
+    background-color #1f368d
     margin 0 0 50px 0
     .appendix
       display flex
@@ -53,13 +53,13 @@ export default {
       .group
         display flex
         flex-direction column
-        color #455379
-        margin-right 140px
+        color #ffffff
+        margin-right 50px
         margin-top 21px
         span
           font-size 15px
           font-weight 500
-          color #455379
+          color #ffffff
           text-align left 
         ul
           list-style-type none
@@ -69,7 +69,7 @@ export default {
           li
             margin 10px 0
             font-size 12px
-            color #455379
+            color #ffffff
     .copyright
       font-size 12px
       color #999

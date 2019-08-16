@@ -15,6 +15,61 @@
                         <router-link tag="button" :to="{name:'register'}" index="2">注册</router-link>
                     </div>
                     <div class="user-operations" v-else>
+                        
+                        <el-dropdown trigger="click">
+                            <el-badge  class="item" style="margin:5px 10px 0 0">
+                                    <img style="height:18px" :src="require('../assets/images/1111.png')"/>
+                            </el-badge>
+                            <el-dropdown-menu slot="dropdown" style="width:372px;height:200px;">
+                              <div style="overflow:scroll;width:372px;height:180px;overflow-x:hidden">
+                                <div class="badge">
+                                    <span style="color:#4a4a4a;font-size:12px;margin-left:10px;">你投递的“产品经理”(xx公司) 已被查看简历</span>
+                                    <span style="color:#909090;font-size:10px;margin-left:35px;">昨天15：30</span>
+                                </div>
+                                <div class="badge">
+                                    <span style="color:#4a4a4a;font-size:12px;margin-left:10px;">你投递的“产品经理”(xx公司) 已被查看简历</span>
+                                    <span style="color:#909090;font-size:10px;margin-left:35px;">昨天15：30</span>
+                                </div>
+                                <div class="badge">
+                                    <span style="color:#4a4a4a;font-size:12px;margin-left:10px;">你投递的“产品经理”(xx公司) 已被查看简历</span>
+                                    <span style="color:#909090;font-size:10px;margin-left:35px;">昨天15：30</span>
+                                </div>
+                                <div class="badge">
+                                    <span style="color:#4a4a4a;font-size:12px;margin-left:10px;">你投递的“产品经理”(xx公司) 已被查看简历</span>
+                                    <span style="color:#909090;font-size:10px;margin-left:35px;">昨天15：30</span>
+                                </div>
+                                <div class="badge">
+                                    <span style="color:#4a4a4a;font-size:12px;margin-left:10px;">你投递的“产品经理”(xx公司) 已被查看简历</span>
+                                    <span style="color:#909090;font-size:10px;margin-left:35px;">昨天15：30</span>
+                                </div>
+                                <div class="badge">
+                                    <span style="color:#4a4a4a;font-size:12px;margin-left:10px;">你投递的“产品经理”(xx公司) 已被查看简历</span>
+                                    <span style="color:#909090;font-size:10px;margin-left:35px;">昨天15：30</span>
+                                </div>
+                                <div  class="badge">
+                                    <span style="color:#4a4a4a;font-size:12px;margin-left:10px;">你投递的“产品经理”(xx公司) 已被查看简历</span>
+                                    <span style="color:#909090;font-size:10px;margin-left:35px;">昨天15：30</span>
+                                </div>
+                                <div class="badge">
+                                    <span style="color:#4a4a4a;font-size:12px;margin-left:10px;">你投递的“产品经理”(xx公司) 已被查看简历</span>
+                                    <span style="color:#909090;font-size:10px;margin-left:35px;">昨天15：30</span>
+                                </div>
+                                <div class="badge">
+                                    <span style="color:#4a4a4a;font-size:12px;margin-left:10px;">你投递的“产品经理”(xx公司) 已被查看简历</span>
+                                    <span style="color:#909090;font-size:10px;margin-left:35px;">昨天15：30</span>
+                                </div>
+                                <div class="badge">
+                                    <span style="color:#4a4a4a;font-size:12px;margin-left:10px;">你投递的“产品经理”(xx公司) 已被查看简历</span>
+                                    <span style="color:#909090;font-size:10px;margin-left:35px;">昨天15：30</span>
+                                </div>
+                                <div class="badge">
+                                    <span style="color:#4a4a4a;font-size:12px;margin-left:10px;">你投递的“产品经理”(xx公司) 已被查看简历</span>
+                                    <span style="color:#909090;font-size:10px;margin-left:35px;">昨天15：30</span>
+                                </div>
+                              </div>
+                              <div><span style="font-size:10px;color:#1f368d;margin-left:10px;line-height:30px">全部标为已读</span></div>  
+                            </el-dropdown-menu>
+                        </el-dropdown>
                         <span style="line-height:60px;color:white;padding:0 10px 0 0;font-size:15px;">李康</span>
                         <el-dropdown placement="bottom-start" @command="dealMenuClick">
                             <img :src="require('../assets/images/tou.png')"/>
@@ -24,9 +79,7 @@
                                 <el-dropdown-item divided command="logout">退出</el-dropdown-item>
                             </el-dropdown-menu>
                         </el-dropdown>
-                        <el-badge :value="12" class="item" style="margin:15px 0 0 10px">
-                                <el-button plain style="width:40px" size="small">回复</el-button>
-                        </el-badge>
+                        
                     </div>
                 </div>
             </div>
@@ -99,7 +152,7 @@
                 height 40
                 margin 0 20px
                 cursor pointer
-
+              
             .menu
                 display flex
                 flex 1
@@ -126,11 +179,15 @@
                     cursor pointer
                     display flex
                     flex-direction row
+                    .badge
+                      border 1px solid red  
                     img
                         width 26px
                         height 26px
                         border-radius 50%
                         margin 17px 0 0 0
+                      
+                       
                 .btn-set
                     margin 0 15px
                     button
@@ -143,4 +200,11 @@
                         color white
                         &:last-child
                             border none
+</style>
+<style lang="stylus" scoped>
+  .badge
+    height 30px 
+    line-height 30px 
+  .badge:hover
+    background #e5e8f5
 </style>

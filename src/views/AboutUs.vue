@@ -14,14 +14,14 @@
           </div>
           <div style="height:30px"></div>
       </el-dialog>
-      <div class="inforchange-left"  v-if="inforchangeLeft">
+      <div class="inforchange-left">
           <div class="left">
-              <a  href="#" class="password" @click="rightpassword()">公司介绍</a>
+              <a  href="#" :class="{active:active===1}" class="password" @click="handleActive(1)">公司介绍</a>
               <span class="left-line"></span>
-              <a href="#" class="phone" @click="rightphone()">联系我们</a>
+              <a href="#"  :class="{active:active===2}" class="phone" @click="handleActive(2)">联系我们</a>
           </div>
       </div>
-      <div class="inforchange-right" v-if="rightPassword"> 
+      <div class="inforchange-right" v-if="active===1"> 
           <div>公司介绍</div>
           <div><p>文案文案文案文案文案文案文案文案文案文案文案文案
             文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案
@@ -33,7 +33,7 @@
             </p></div>
           <div>支持展示图片</div>
       </div>
-      <div class="aboutus-right" v-if="rightPhone"> 
+      <div class="aboutus-right" v-if="active===2"> 
           <div style="font-size:18px">联系我们</div>
           <div class="aboutus-vontent">
             <span>公司：YinLinker人力资源有限公司</span>
@@ -69,34 +69,25 @@
 
 
 export default {
-  name: 'inforchange',
+  name: 'aboutus',
   
   data() {
     return {
-      rightPassword:true,
-      rightPhone:false,
-      inforchangeLeft:true,
+      active:1,
       textarea:'',
       dialog:false
     }
   },
   methods: {
       next() {
-          this.dialog = false,
+          this.dialog = true,
           this.$router.push({ path: "/login" });
       },
-      rightpassword() {
-          this.rightPassword = true,
-          this.rightPhone = false
-      },
-      rightphone() {
-          this.rightPhone = true,
-          this.rightPassword = false
+      handleActive(index) {
+        this.active = index
       },
       showinforchangeback() {
-          this.rightPhone = false,
           this.inforchangeLeft = false,
-          this.rightPassword = false,
           this.inforchangeBack = true
       }
   }
@@ -129,14 +120,12 @@ export default {
           margin 32px 0 0 0
           color #1f368d 
           text-decoration none
-        .password:focus
-          color #617dcb
         .phone
           margin 8px 0 0 0
           color #1f368d 
           text-decoration none
-        .phone:focus
-          color #617dcb   
+        .active
+          color #617dcb
     .inforchange-right
       background white
       margin 90px 0 0 36px

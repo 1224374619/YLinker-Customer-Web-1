@@ -444,11 +444,9 @@
       </el-tabs>
     </div>
     <div class="button">
-      <el-button type="primary" @click="search" style="width:210px;height:43px;border:1px solid #1f368d;color:#1f368d:font-size:14px" plain>查看更多</el-button>
+      <el-button type="primary" plain  @click="search" style="width:210px;height:43px;border:1px solid #1f368d;color:#1f368d:font-size:14px">查看更多</el-button>
     </div>
-    <div class="footer">
-      <span style="color:#909090;font-size:12px">Copyright   （公司名称）All Right Reserved</span>
-    </div>
+    
   </div>
 </template>
 
