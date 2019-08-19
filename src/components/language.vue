@@ -16,8 +16,8 @@
                 <el-input style="width:108px;height:36px" v-model="formInline.readAbility" placeholder=""></el-input>
             </el-form-item><br>
             <el-form-item style="margin:0 0 20px 420px">
-            <el-button class="cancel" style="margin:0 10px 0 0">取消</el-button>
-            <el-button class="keep" type="primary">保存</el-button>
+            <el-button style="margin:0 10px 0 0" plain>取消</el-button>
+            <el-button type="primary">保存</el-button>
             </el-form-item>
           </el-form>
   </div>

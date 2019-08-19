@@ -53,8 +53,8 @@
             </el-form-item>
             
             <el-form-item style="margin:0 41px 20px 0">
-            <el-button class="cancel" style="margin:0 10px 0 490px">取消</el-button>
-            <el-button class="keep" type="primary" @click="JobType">保存</el-button>
+            <el-button style="margin:0 10px 0 490px" plain>取消</el-button>
+            <el-button type="primary" @click="JobType">保存</el-button>
             </el-form-item>
           </el-form>
   </div>

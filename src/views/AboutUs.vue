@@ -176,10 +176,6 @@ export default {
       
 </style>
 <style lang="stylus">
-  .el-button:active
-    background #617dcb
-  .el-button:hover
-    background #7d8dcd
   .el-input:hover  
     border-color #7d8dcd 
 </style>

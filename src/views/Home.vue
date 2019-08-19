@@ -4,7 +4,7 @@
       <el-select v-model="value" style="width:77px;height:44px;font-size:14px;">
         <el-option label="上海" value></el-option>
       </el-select>
-      <span style="font-size:20px">|</span>
+      <span class="joblist-after"></span>
       <el-select
         slot="prepend"
         v-model="company"
@@ -19,8 +19,8 @@
           :value="item.value"
         ></el-option>
       </el-select>
-      <span style="font-size:20px">|</span>
-      <el-input style="width:470px;" placeholder="请输入内容"></el-input>
+      <span class="joblist-after"></span>
+      <el-input style="width:478px;" placeholder="请输入内容"></el-input>
       <el-button
         class="search-button"
         style="border-radius:0 2px 2px 0"
@@ -440,11 +440,28 @@
           </div>
         </el-tab-pane>
         <el-tab-pane label="最新职位" name="third">
+          <div class="demo">
+            <div class="desc">
+              <div class="desc-first">
+                <span>产品经理</span>
+                <span>4-5k</span>
+              </div>
+              <div class="desc-second">上海 徐汇区 | 1-3年 | 本科</div>
+              <div class="line"></div>
+              <div class="desc-third">
+                <img @click="desc" style="width:50px;margin:10px 0 0 5px" :src="require('../assets/images/company1.jpg')" />
+                <div class="third-content">
+                  <span>迪卡侬</span>
+                  <span>50-100人 | 电子商务，文化...</span>
+                </div>
+              </div>
+            </div>
+          </div>
         </el-tab-pane>
       </el-tabs>
     </div>
     <div class="button">
-      <el-button type="primary" plain  @click="search" style="width:210px;height:43px;border:1px solid #1f368d;color:#1f368d:font-size:14px">查看更多</el-button>
+      <el-button plain  @click="search" style="width:210px;height:43px;font-size:14px">查看更多</el-button>
     </div>
     
   </div>
@@ -480,6 +497,9 @@ export default {
     };
   },
   methods: {
+     handleClick() {
+
+      },
     handleOpenMenu() {},
     handleChangeLocation() {},
     doLogin() {
@@ -539,6 +559,8 @@ export default {
       width 802px
       height 44px
       background white
+      .joblist-after                  
+        border 0.5px solid #455379
       .el-icon-search:before
         color white
         font-size 17px 
@@ -616,15 +638,7 @@ export default {
                 color #909090
                 font-size 12px
     .button
-      margin 34px 0 20px 0
-      .el-button:hover
-        background #1f368d
-        color white
-      
-      
-          
-                            
-                       
+      margin 34px 0 20px 0             
 </style>
 
 <style lang="stylus">

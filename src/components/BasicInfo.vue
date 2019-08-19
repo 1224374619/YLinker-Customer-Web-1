@@ -67,8 +67,8 @@
             <el-input v-model="formInline.politicCountenance" style="width:168px;height:36px" placeholder></el-input>
           </el-form-item><br>
           <el-form-item style="float:right;margin:0 100px 20px 0">
-            <el-button class="cancel"  @click="cancel()" style="margin:0 10px 0 0">取消</el-button>
-            <el-button class="keep" type="primary">保存</el-button>
+            <el-button  @click="cancel()" style="margin:0 10px 0 0" plain>取消</el-button>
+            <el-button type="primary">保存</el-button>
           </el-form-item>
         </el-form>
       </div>

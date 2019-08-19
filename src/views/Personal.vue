@@ -317,7 +317,7 @@
     </div>
     <div class="personal-right">
       <div class="right-nav">
-        <span>编辑</span>
+        <span class="span-hover">编辑</span>
         <img @click="toPerson" :src="require('../assets/images/tou.png')" />
         <span class="span-name">
           李康
@@ -510,6 +510,15 @@ export default {
         display flex
         flex-direction column
         background white
+        .span-hover
+          font-family PingFangSC-Regular
+          color #909090
+          font-size 13px
+          margin 23px 0 0 230px
+          opacity 0
+        &:hover
+          .span-hover
+              opacity 1  
         .span-name 
           font-family PingFangSC-Regular
           color #455379 
@@ -532,12 +541,7 @@ export default {
             font-family PingFangSC-Regular
             color #455379 
             font-size 14px 
-            margin 10px 0 11px 0     
-      .right-nav span:nth-child(1)
-        font-family PingFangSC-Regular
-        color #909090
-        font-size 13px
-        margin 23px 0 0 230px
+            margin 10px 0 11px 0      
       .right-nav img
         font-family PingFangSC-Regular
         color #909090

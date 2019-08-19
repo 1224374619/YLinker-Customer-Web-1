@@ -83,6 +83,12 @@ export default {
 </script>
 
 <style lang="stylus">
+  .el-tabs__item
+    color #1f368d
+  .el-tabs__item.is-active
+    color #617DCB 
+  .el-tabs__active-bar
+    background-color #617DCB    
   .position 
     display flex
     flex-direction column

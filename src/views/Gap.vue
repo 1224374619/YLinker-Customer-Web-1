@@ -102,5 +102,4 @@ export default {
         margin 14px 0 0 56px       
 </style>
 <style lang="stylus">
- 
 </style>

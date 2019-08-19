@@ -22,7 +22,7 @@
                   <span style="margin-left:25px">政治面貌：党员</span>
                 </div>
             </div>
-            <div style="margin:35px 0 0 90px">
+            <div style="margin:35px 0 0 93px">
               <span class="actions-span">
                   <img style="margin-right:9px;height:12px" :src="require('../assets/images/1.png')"/><span style="margin-right:3px">编辑</span> 
               </span>
@@ -91,5 +91,9 @@
       .actions-span
         color #1f368d
         font-size 14px
+      .actions-span span:hover
+        color #7d8dcd
+      .actions-span span:active
+        color #617dcb  
           
 </style>

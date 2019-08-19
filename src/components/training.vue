@@ -24,8 +24,8 @@
                 </el-select>
             </el-form-item>
             <el-form-item style="margin:0 0 20px 450px">
-            <el-button class="cancel" style="margin:0 10px 0 0">取消</el-button>
-            <el-button class="keep" type="primary">保存</el-button>
+            <el-button plain style="margin:0 10px 0 0">取消</el-button>
+            <el-button type="primary">保存</el-button>
             </el-form-item>
           </el-form>
   </div>
@@ -58,5 +58,4 @@ export default {
     height 34px
     vertical-align middle
     padding 0px  
-
 </style>

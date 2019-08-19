@@ -9,13 +9,12 @@
     </div>
     <div class="inforchange-right" v-if="active===1">
       <el-form :model="ruleForm" :rules="rules" style="width:400px;margin-left:150px" ref="ruleForm" label-width="120px" class="demo-ruleForm">
-        <div style="margin:29px 140px 0 0">
-          <span style="margin-right:33px;font-size:14px;color:#1f368d">手机号</span>
-          <span style="font-size:14px;color:#1f368d">15513779331</span>
-        </div><br>
+        <el-form-item label="手机号" style="margin:20px 0 10px 0">
+          <span style="font-size:14px;color:#1f368d;margin-left:-180px">15513779331</span>
+        </el-form-item>
         <el-form-item label="验证码" prop="code">
           <span style="margin-right:12px"><el-input v-model="ruleForm.code"  style="width:135px;height:43px" placeholder="请输入验证码" clearable></el-input></span>
-          <span><el-button style="width:123px;height:43px" class="cancel">获取验证码</el-button></span>
+          <span><el-button style="width:123px;height:43px" plain>获取验证码</el-button></span>
         </el-form-item>
         <el-form-item label="新密码" prop="newPassword">
           <span><el-input style="width:270px;height:43px" v-model="ruleForm.newPassword"  placeholder="请输入新密码（6-24位数字和字母）" suffix-icon="el-icon-view"></el-input></span>
@@ -31,10 +30,9 @@
 
     <div class="inforchange-right" v-if="active===2">
       <el-form :model="newRuleForm" :rules="newRules" style="width:400px;margin-left:150px" ref="newRuleForm" label-width="120px" class="demo-ruleForm">
-        <div style="margin:29px 140px 0 0">
-          <span style="margin-right:33px;font-size:14px;color:#1f368d">手机号</span>
-          <span style="font-size:14px;color:#1f368d">15513779331</span>
-        </div><br>
+        <el-form-item label="手机号" style="margin:20px 0 10px 0">
+          <span style="font-size:14px;color:#1f368d;margin-left:-180px">15513779331</span>
+        </el-form-item>
         <el-form-item label="当前登陆密码" prop="nowPassword">
           <span><el-input style="width:270px;height:43px" v-model="ruleForm.nowPassword" placeholder="请输入当前登陆密码" suffix-icon="el-icon-view"></el-input></span>
         </el-form-item>
@@ -43,7 +41,7 @@
         </el-form-item>
         <el-form-item label="验证码" prop="newCode">
           <span style="margin-right:12px"><el-input v-model="ruleForm.newCode" style="width:135px;height:43px" placeholder="请输入验证码" clearable></el-input></span>
-          <span><el-button style="width:123px;height:43px" class="cancel">获取验证码</el-button></span>
+          <span><el-button style="width:123px;height:43px" plain>获取验证码</el-button></span>
         </el-form-item>
         <el-form-item>
           <el-button  @click="phoneSubmitForm('newRuleForm')" style="width:270px;height:43px" type="primary">换绑手机</el-button>
@@ -201,10 +199,6 @@
       font-size 14px
 </style>
 <style lang="stylus">
-  .el-button:active
-    background #617dcb
-  .el-button:hover
-    background #7d8dcd
   .el-input:hover
     border-color #7d8dcd
   .el-form-item__label

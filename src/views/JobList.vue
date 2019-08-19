@@ -202,17 +202,7 @@
       <div class="content-line"></div>  
     </div>
     <div class="joblist-footer">
-        <div class="footer-first">
-            <span>产品经理</span>
-            <span>5-10k</span>
-            <span>迪卡侬</span>
-        </div>
-        <div class="footer-second">
-            <span>上海 徐汇区 | 1-3年 | 本科</span>
-            <span>今天 15:30</span>
-            <span>电子商务，文化娱乐 | 150-500人</span>
-        </div>
-        <div class="footer-line"></div>
+      <div class="joblist-hover" style="border:1px solid white">
         <div class="footer-first" style="margin-top:-20px">
             <span>产品经理</span>
             <span>5-10k</span>
@@ -224,6 +214,20 @@
             <span>电子商务，文化娱乐 | 150-500人</span>
         </div>
         <div class="footer-line"></div>
+      </div>  
+      <div class="joblist-hover" style="border:1px solid white">  
+        <div class="footer-first" style="margin-top:-20px">
+            <span>产品经理</span>
+            <span>5-10k</span>
+            <span>迪卡侬</span>
+        </div>
+        <div class="footer-second">
+            <span>上海 徐汇区 | 1-3年 | 本科</span>
+            <span>今天 15:30</span>
+            <span>电子商务，文化娱乐 | 150-500人</span>
+        </div>
+        <div class="footer-line"></div>
+      </div>  
         <div class="footer-first" style="margin-top:-20px">
             <span>产品经理</span>
             <span>5-10k</span>
@@ -579,7 +583,7 @@ export default {
       .el-input__inner
         border 0px solid red
       .search-button
-        width 110px
+        width 115px
         height 44px
         font-size 12px
         color white
@@ -611,8 +615,7 @@ export default {
           padding 4px 6px 
           line-height 15px
           font-size 12px 
-          color #1f368d 
-          
+          color #1f368d     
     .joblist-article div:nth-child(1)
       margin 45px 0 0 51px
       text-align left
@@ -678,6 +681,8 @@ export default {
       width 880px
       margin 10px 0 0 0
       background white
+      .joblist-hover:hover 
+        background #f7f7f7  
       .footer-first
         display flex
         flex-direction row
@@ -765,10 +770,4 @@ export default {
 <style lang="stylus">
   .el-icon-arrow-up:before
     color #617dcb
-  .el-button:active
-    background #617dcb
-  .el-button:hover
-    background #7d8dcd
-    border-color #7d8dcd 
-      
 </style>

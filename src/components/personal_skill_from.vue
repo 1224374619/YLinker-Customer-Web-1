@@ -44,7 +44,6 @@
 <style lang="stylus" scoped>
   .from
     font-size 15px
-    color #1f368d
-    
+    color #1f368d 
     text-align left
 </style>

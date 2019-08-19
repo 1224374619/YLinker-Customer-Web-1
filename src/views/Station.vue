@@ -20,7 +20,7 @@
             <el-button id="deliver" style="width:140px;height:40px;" type="primary" @click="isclick()"> 投递简历</el-button>
           </span>
           <span>
-            <el-button id="collect" type="primary" style="width:140px;height:40px" plain>收藏</el-button>
+            <el-button id="collect" style="width:140px;height:40px" plain>收藏</el-button>
           </span>
         </div>
         <div v-if="mapList">

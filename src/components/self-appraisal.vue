@@ -5,8 +5,8 @@
                 <el-input type="textarea" v-model="personalDescription" style="width:583px" placeholder="资料完善程度高，被选中的几率越大呦" ></el-input>
             </el-form-item><br>
             <el-form-item style="margin:0 0 20px 420px">
-                <el-button class="cancel" style="margin:0 10px 0 0">取消</el-button>
-                <el-button class="keep" type="primary">保存</el-button>
+                <el-button plain style="margin:0 10px 0 0">取消</el-button>
+                <el-button type="primary">保存</el-button>
             </el-form-item>
           </el-form>
   </div>

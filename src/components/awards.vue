@@ -22,8 +22,8 @@
                 <el-input style="width:242px;height:36px" placeholder=""></el-input>
             </el-form-item><br>
             <el-form-item style="margin:0 0 20px 450px">
-            <el-button class="cancel" style="margin:0 10px 0 0">取消</el-button>
-            <el-button class="keep" type="primary">保存</el-button>
+            <el-button style="margin:0 10px 0 0" plain>取消</el-button>
+            <el-button type="primary">保存</el-button>
             </el-form-item>
           </el-form>
   </div>
@@ -47,10 +47,6 @@ export default {
 <style lang="stylus" scoped> 
   .el-form-item
     padding 0 0 0 30px
-  .cancel:hover
-    background #1f368d  
-    color white
-    border-color #1f368d
   .el-button
     width 94px 
     height 34px
@@ -62,4 +58,5 @@ export default {
 <style lang="stylus">
   .el-input__inner:hover
     border-color red 
+   
 </style>
