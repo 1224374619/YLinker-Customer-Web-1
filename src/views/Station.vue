@@ -214,16 +214,40 @@ export default {
           this.center.lat = 39.915
           this.zoom = 15
       },
+      //向岗位投递简历（登陆之后）
       isclick () {
-          if(this.num == 1) {
-              this.dialogVisible = true
-          }else{
-              this.dialogVisibleOne = true
+        this.$http.put(`/submitted/position/${2}/resume/${2}`).then(res => {
+          if (res.data.code == 200) {
+            // this.resumeIdList = res.data
+            console.log(res);
           }
-          this.showDeliver = false,
-          this.showCollect = false,
-          this.map = true,
-          this.mapList = true
+        });
+          // if(this.num == 1) {
+          //     this.dialogVisible = true
+          // }else{
+          //     this.dialogVisibleOne = true
+          // }
+          // this.showDeliver = false,
+          // this.showCollect = false,
+          // this.map = true,
+          // this.mapList = true
+      },
+      iscollect () {
+        this.$http.put(`/favorite/position/${2}`).then(res => {
+          if (res.data.code == 200) {
+            // this.resumeIdList = res.data
+            console.log(res);
+          }
+        });
+          // if(this.num == 1) {
+          //     this.dialogVisible = true
+          // }else{
+          //     this.dialogVisibleOne = true
+          // }
+          // this.showDeliver = false,
+          // this.showCollect = false,
+          // this.map = true,
+          // this.mapList = true
       },
       isdeliver () {
           this.dialogVisibleOne = false
@@ -232,6 +256,10 @@ export default {
           this.deliver = true
       }
     },
+    created () {
+      this.isclick();
+      this.iscollect();
+    }
 };
 </script>
 

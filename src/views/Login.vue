@@ -67,11 +67,15 @@ export default {
     onSubmit() {
       this.$refs['form'].validate(async (valid) => {
         if (valid) {
-          // submit form;
-          const res = await signin({ ...this.form });
-          if (res.result) {
-            this[DONE_LOGIN]();
+          // const res = await signin({ ...this.form });
+          // if (res.result) {
+          //   this[DONE_LOGIN]();
+          // }
+          this.$http.post('/login',{username:'678',password:this.form.password}).then(res => {
+          if (res.data.code == 200) {
+            console.log(res) 
           }
+        });
         } else {
           return false;
         }

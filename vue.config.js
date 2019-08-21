@@ -14,8 +14,7 @@ module.exports = {
         open: true,
         proxy: {
             '/api': {
-                // target: 'https://c.hrzhixin.com/',  // target host
-                target: process.env.VUE_APP_SECRET + 'basic/', // target host
+                target: process.env.VUE_APP_SECRET + 'consumertest/', // target host
                 ws: true, // proxy websockets
                 changeOrigin: true, // needed for virtual hosted sites
                 pathRewrite: {

@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import store from '../store/index'
 import Router from 'vue-router'
 import Home from '../views/Home.vue'
 import Search from '../views/Search.vue'
@@ -23,7 +24,7 @@ import Gap  from '../views/Gap.vue'
 
 Vue.use(Router);
 
-export default new Router({
+const router = new Router({
     mode: 'history',
     routes: [
         {
@@ -135,3 +136,24 @@ export default new Router({
         
     ]
 });
+
+
+// 注册全局钩子用来拦截导航
+router.beforeEach((to, from, next) => {
+    const token = store.state.token
+    if (to.meta.requireAuth) { // 判断该路由是否需要登录权限
+      if (token) { // 通过vuex state获取当前的token是否存在
+        next()
+      } else {
+        alert('该页面需要登陆')
+        next({
+          path: '/login'
+          // query: {redirect: to.fullPath} // 将跳转的路由path作为参数，登录成功后跳转到该路由
+        })
+      }
+    } else {
+      next()
+    }
+  })
+
+  export default router

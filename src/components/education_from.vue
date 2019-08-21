@@ -48,7 +48,6 @@
     color #61687c
     text-align left
     margin 0 0 0 0
-    
     .fromfirst 
       margin 0 0 0 50px
       .fromfirst-one

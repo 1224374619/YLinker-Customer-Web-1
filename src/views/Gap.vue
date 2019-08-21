@@ -34,9 +34,18 @@ export default {
   },
   methods: {
      next() {
-        this.$router.push({path:'/specialty'})
+       this.$http.post('/resume').then(res => {
+        if (res.data.code == 200) {
+          console.log(res) 
+        }else {
+           this.$router.push({path:'/specialty'})
+        }
+      });
     },
-  }
+  },
+  created () {
+    // this.next();
+  },
 }
 </script>
 

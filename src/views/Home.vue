@@ -8,7 +8,6 @@
       <el-select
         slot="prepend"
         v-model="company"
-        @change="getVendorId"
         style="width:77px;height:44px;font-size:14px"
         :label-in-value="true"
       >
@@ -58,9 +57,30 @@
       <img :src="require('../assets/images/company5.png')" />
     </div>
     <div class="tabs">
-      <el-tabs v-model="activeName" @tab-click="handleClick">
+      <el-tabs v-model="activeName">
         <el-tab-pane label="为你推荐" name="first" v-if="recommend">
           <div class="demo">
+            <div class="desc" v-for="(list,index) in listRecommend" :key="index">
+              <div class="desc-first">
+                <span>{{list.positionName}}</span>
+                <span>{{list.salaryMax}}-{{list.salaryMin}}k</span>
+              </div>
+              <div class="desc-second">{{list.positionCatalog}} | {{list.workAgeMax}}-{{list.workAgeMin}}年 | {{list.degreeMin}}</div>
+              <div class="line"></div>
+              <div class="desc-third">
+                <img
+                  @click="desc"
+                  style="width:50px;margin:10px 0 0 5px"
+                  :src="require('../assets/images/company1.jpg')"
+                />
+                <div class="third-content">
+                  <span>{{list.company.companyName}}</span>
+                  <span>{{list.company.size}} | {{list.company.industry}}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- <div class="demo">
             <div class="desc">
               <div class="desc-first">
                 <span>产品经理</span>
@@ -69,7 +89,10 @@
               <div class="desc-second">上海 徐汇区 | 1-3年 | 本科</div>
               <div class="line"></div>
               <div class="desc-third">
-                <img @click="desc" style="width:50px;margin:10px 0 0 5px" :src="require('../assets/images/company1.jpg')" />
+                <img
+                  style="width:50px;margin:10px 0 0 5px"
+                  :src="require('../assets/images/company1.jpg')"
+                />
                 <div class="third-content">
                   <span>迪卡侬</span>
                   <span>50-100人 | 电子商务，文化...</span>
@@ -84,7 +107,10 @@
               <div class="desc-second">上海 徐汇区 | 1-3年 | 本科</div>
               <div class="line"></div>
               <div class="desc-third">
-                <img style="width:50px;margin:10px 0 0 5px" :src="require('../assets/images/company1.jpg')" />
+                <img
+                  style="width:50px;margin:10px 0 0 5px"
+                  :src="require('../assets/images/company1.jpg')"
+                />
                 <div class="third-content">
                   <span>迪卡侬</span>
                   <span>50-100人 | 电子商务，文化...</span>
@@ -99,7 +125,10 @@
               <div class="desc-second">上海 徐汇区 | 1-3年 | 本科</div>
               <div class="line"></div>
               <div class="desc-third">
-                <img style="width:50px;margin:10px 0 0 5px" :src="require('../assets/images/company1.jpg')" />
+                <img
+                  style="width:50px;margin:10px 0 0 5px"
+                  :src="require('../assets/images/company1.jpg')"
+                />
                 <div class="third-content">
                   <span>迪卡侬</span>
                   <span>50-100人 | 电子商务，文化...</span>
@@ -116,7 +145,10 @@
               <div class="desc-second">上海 徐汇区 | 1-3年 | 本科</div>
               <div class="line"></div>
               <div class="desc-third">
-                <img style="width:50px;margin:10px 0 0 5px" :src="require('../assets/images/company1.jpg')" />
+                <img
+                  style="width:50px;margin:10px 0 0 5px"
+                  :src="require('../assets/images/company1.jpg')"
+                />
                 <div class="third-content">
                   <span>迪卡侬</span>
                   <span>50-100人 | 电子商务，文化...</span>
@@ -131,7 +163,10 @@
               <div class="desc-second">上海 徐汇区 | 1-3年 | 本科</div>
               <div class="line"></div>
               <div class="desc-third">
-                <img style="width:50px;margin:10px 0 0 5px" :src="require('../assets/images/company1.jpg')" />
+                <img
+                  style="width:50px;margin:10px 0 0 5px"
+                  :src="require('../assets/images/company1.jpg')"
+                />
                 <div class="third-content">
                   <span>迪卡侬</span>
                   <span>50-100人 | 电子商务，文化...</span>
@@ -146,7 +181,10 @@
               <div class="desc-second">上海 徐汇区 | 1-3年 | 本科</div>
               <div class="line"></div>
               <div class="desc-third">
-                <img style="width:50px;margin:10px 0 0 5px" :src="require('../assets/images/company1.jpg')" />
+                <img
+                  style="width:50px;margin:10px 0 0 5px"
+                  :src="require('../assets/images/company1.jpg')"
+                />
                 <div class="third-content">
                   <span>迪卡侬</span>
                   <span>50-100人 | 电子商务，文化...</span>
@@ -163,7 +201,10 @@
               <div class="desc-second">上海 徐汇区 | 1-3年 | 本科</div>
               <div class="line"></div>
               <div class="desc-third">
-                <img style="width:50px;margin:10px 0 0 5px" :src="require('../assets/images/company1.jpg')" />
+                <img
+                  style="width:50px;margin:10px 0 0 5px"
+                  :src="require('../assets/images/company1.jpg')"
+                />
                 <div class="third-content">
                   <span>迪卡侬</span>
                   <span>50-100人 | 电子商务，文化...</span>
@@ -178,7 +219,10 @@
               <div class="desc-second">上海 徐汇区 | 1-3年 | 本科</div>
               <div class="line"></div>
               <div class="desc-third">
-                <img style="width:50px;margin:10px 0 0 5px" :src="require('../assets/images/company1.jpg')" />
+                <img
+                  style="width:50px;margin:10px 0 0 5px"
+                  :src="require('../assets/images/company1.jpg')"
+                />
                 <div class="third-content">
                   <span>迪卡侬</span>
                   <span>50-100人 | 电子商务，文化...</span>
@@ -193,61 +237,17 @@
               <div class="desc-second">上海 徐汇区 | 1-3年 | 本科</div>
               <div class="line"></div>
               <div class="desc-third">
-                <img style="width:50px;margin:10px 0 0 5px" :src="require('../assets/images/company1.jpg')" />
+                <img
+                  style="width:50px;margin:10px 0 0 5px"
+                  :src="require('../assets/images/company1.jpg')"
+                />
                 <div class="third-content">
                   <span>迪卡侬</span>
                   <span>50-100人 | 电子商务，文化...</span>
                 </div>
               </div>
             </div>
-          </div>
-          <div class="demo">
-            <div class="desc">
-              <div class="desc-first">
-                <span>产品经理</span>
-                <span>4-5k</span>
-              </div>
-              <div class="desc-second">上海 徐汇区 | 1-3年 | 本科</div>
-              <div class="line"></div>
-              <div class="desc-third">
-                <img style="width:50px;margin:10px 0 0 5px" :src="require('../assets/images/company1.jpg')" />
-                <div class="third-content">
-                  <span>迪卡侬</span>
-                  <span>50-100人 | 电子商务，文化...</span>
-                </div>
-              </div>
-            </div>
-            <div class="desc">
-              <div class="desc-first">
-                <span>产品经理</span>
-                <span>4-5k</span>
-              </div>
-              <div class="desc-second">上海 徐汇区 | 1-3年 | 本科</div>
-              <div class="line"></div>
-              <div class="desc-third">
-                <img style="width:50px;margin:10px 0 0 5px" :src="require('../assets/images/company1.jpg')" />
-                <div class="third-content">
-                  <span>迪卡侬</span>
-                  <span>50-100人 | 电子商务，文化...</span>
-                </div>
-              </div>
-            </div>
-            <div class="desc">
-              <div class="desc-first">
-                <span>产品经理</span>
-                <span>4-5k</span>
-              </div>
-              <div class="desc-second">上海 徐汇区 | 1-3年 | 本科</div>
-              <div class="line"></div>
-              <div class="desc-third">
-                <img style="width:50px;margin:10px 0 0 5px" :src="require('../assets/images/company1.jpg')" />
-                <div class="third-content">
-                  <span>迪卡侬</span>
-                  <span>50-100人 | 电子商务，文化...</span>
-                </div>
-              </div>
-            </div>
-          </div>
+          </div> -->
         </el-tab-pane>
         <el-tab-pane label="热门职位" name="second">
           <div class="demo">
@@ -259,7 +259,10 @@
               <div class="desc-second">上海 徐汇区 | 1-3年 | 本科</div>
               <div class="line"></div>
               <div class="desc-third">
-                <img style="width:50px;margin:10px 0 0 5px" :src="require('../assets/images/company1.jpg')" />
+                <img
+                  style="width:50px;margin:10px 0 0 5px"
+                  :src="require('../assets/images/company1.jpg')"
+                />
                 <div class="third-content">
                   <span>迪卡侬</span>
                   <span>50-100人 | 电子商务，文化...</span>
@@ -274,7 +277,10 @@
               <div class="desc-second">上海 徐汇区 | 1-3年 | 本科</div>
               <div class="line"></div>
               <div class="desc-third">
-                <img style="width:50px;margin:10px 0 0 5px" :src="require('../assets/images/company1.jpg')" />
+                <img
+                  style="width:50px;margin:10px 0 0 5px"
+                  :src="require('../assets/images/company1.jpg')"
+                />
                 <div class="third-content">
                   <span>迪卡侬</span>
                   <span>50-100人 | 电子商务，文化...</span>
@@ -289,54 +295,10 @@
               <div class="desc-second">上海 徐汇区 | 1-3年 | 本科</div>
               <div class="line"></div>
               <div class="desc-third">
-                <img style="width:50px;margin:10px 0 0 5px" :src="require('../assets/images/company1.jpg')" />
-                <div class="third-content">
-                  <span>迪卡侬</span>
-                  <span>50-100人 | 电子商务，文化...</span>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="demo">
-            <div class="desc">
-              <div class="desc-first">
-                <span>产品经理</span>
-                <span>4-5k</span>
-              </div>
-              <div class="desc-second">上海 徐汇区 | 1-3年 | 本科</div>
-              <div class="line"></div>
-              <div class="desc-third">
-                <img style="width:50px;margin:10px 0 0 5px" :src="require('../assets/images/company1.jpg')" />
-                <div class="third-content">
-                  <span>迪卡侬</span>
-                  <span>50-100人 | 电子商务，文化...</span>
-                </div>
-              </div>
-            </div>
-            <div class="desc">
-              <div class="desc-first">
-                <span>产品经理</span>
-                <span>4-5k</span>
-              </div>
-              <div class="desc-second">上海 徐汇区 | 1-3年 | 本科</div>
-              <div class="line"></div>
-              <div class="desc-third">
-                <img style="width:50px;margin:10px 0 0 5px" :src="require('../assets/images/company1.jpg')" />
-                <div class="third-content">
-                  <span>迪卡侬</span>
-                  <span>50-100人 | 电子商务，文化...</span>
-                </div>
-              </div>
-            </div>
-            <div class="desc">
-              <div class="desc-first">
-                <span>产品经理</span>
-                <span>4-5k</span>
-              </div>
-              <div class="desc-second">上海 徐汇区 | 1-3年 | 本科</div>
-              <div class="line"></div>
-              <div class="desc-third">
-                <img style="width:50px;margin:10px 0 0 5px" :src="require('../assets/images/company1.jpg')" />
+                <img
+                  style="width:50px;margin:10px 0 0 5px"
+                  :src="require('../assets/images/company1.jpg')"
+                />
                 <div class="third-content">
                   <span>迪卡侬</span>
                   <span>50-100人 | 电子商务，文化...</span>
@@ -353,7 +315,10 @@
               <div class="desc-second">上海 徐汇区 | 1-3年 | 本科</div>
               <div class="line"></div>
               <div class="desc-third">
-                <img style="width:50px;margin:10px 0 0 5px" :src="require('../assets/images/company1.jpg')" />
+                <img
+                  style="width:50px;margin:10px 0 0 5px"
+                  :src="require('../assets/images/company1.jpg')"
+                />
                 <div class="third-content">
                   <span>迪卡侬</span>
                   <span>50-100人 | 电子商务，文化...</span>
@@ -368,7 +333,10 @@
               <div class="desc-second">上海 徐汇区 | 1-3年 | 本科</div>
               <div class="line"></div>
               <div class="desc-third">
-                <img style="width:50px;margin:10px 0 0 5px" :src="require('../assets/images/company1.jpg')" />
+                <img
+                  style="width:50px;margin:10px 0 0 5px"
+                  :src="require('../assets/images/company1.jpg')"
+                />
                 <div class="third-content">
                   <span>迪卡侬</span>
                   <span>50-100人 | 电子商务，文化...</span>
@@ -383,7 +351,10 @@
               <div class="desc-second">上海 徐汇区 | 1-3年 | 本科</div>
               <div class="line"></div>
               <div class="desc-third">
-                <img style="width:50px;margin:10px 0 0 5px" :src="require('../assets/images/company1.jpg')" />
+                <img
+                  style="width:50px;margin:10px 0 0 5px"
+                  :src="require('../assets/images/company1.jpg')"
+                />
                 <div class="third-content">
                   <span>迪卡侬</span>
                   <span>50-100人 | 电子商务，文化...</span>
@@ -400,7 +371,10 @@
               <div class="desc-second">上海 徐汇区 | 1-3年 | 本科</div>
               <div class="line"></div>
               <div class="desc-third">
-                <img style="width:50px;margin:10px 0 0 5px" :src="require('../assets/images/company1.jpg')" />
+                <img
+                  style="width:50px;margin:10px 0 0 5px"
+                  :src="require('../assets/images/company1.jpg')"
+                />
                 <div class="third-content">
                   <span>迪卡侬</span>
                   <span>50-100人 | 电子商务，文化...</span>
@@ -415,7 +389,10 @@
               <div class="desc-second">上海 徐汇区 | 1-3年 | 本科</div>
               <div class="line"></div>
               <div class="desc-third">
-                <img style="width:50px;margin:10px 0 0 5px" :src="require('../assets/images/company1.jpg')" />
+                <img
+                  style="width:50px;margin:10px 0 0 5px"
+                  :src="require('../assets/images/company1.jpg')"
+                />
                 <div class="third-content">
                   <span>迪卡侬</span>
                   <span>50-100人 | 电子商务，文化...</span>
@@ -430,7 +407,66 @@
               <div class="desc-second">上海 徐汇区 | 1-3年 | 本科</div>
               <div class="line"></div>
               <div class="desc-third">
-                <img style="width:50px;margin:10px 0 0 5px" :src="require('../assets/images/company1.jpg')" />
+                <img
+                  style="width:50px;margin:10px 0 0 5px"
+                  :src="require('../assets/images/company1.jpg')"
+                />
+                <div class="third-content">
+                  <span>迪卡侬</span>
+                  <span>50-100人 | 电子商务，文化...</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="demo">
+            <div class="desc">
+              <div class="desc-first">
+                <span>产品经理</span>
+                <span>4-5k</span>
+              </div>
+              <div class="desc-second">上海 徐汇区 | 1-3年 | 本科</div>
+              <div class="line"></div>
+              <div class="desc-third">
+                <img
+                  style="width:50px;margin:10px 0 0 5px"
+                  :src="require('../assets/images/company1.jpg')"
+                />
+                <div class="third-content">
+                  <span>迪卡侬</span>
+                  <span>50-100人 | 电子商务，文化...</span>
+                </div>
+              </div>
+            </div>
+            <div class="desc">
+              <div class="desc-first">
+                <span>产品经理</span>
+                <span>4-5k</span>
+              </div>
+              <div class="desc-second">上海 徐汇区 | 1-3年 | 本科</div>
+              <div class="line"></div>
+              <div class="desc-third">
+                <img
+                  style="width:50px;margin:10px 0 0 5px"
+                  :src="require('../assets/images/company1.jpg')"
+                />
+                <div class="third-content">
+                  <span>迪卡侬</span>
+                  <span>50-100人 | 电子商务，文化...</span>
+                </div>
+              </div>
+            </div>
+            <div class="desc">
+              <div class="desc-first">
+                <span>产品经理</span>
+                <span>4-5k</span>
+              </div>
+              <div class="desc-second">上海 徐汇区 | 1-3年 | 本科</div>
+              <div class="line"></div>
+              <div class="desc-third">
+                <img
+                  style="width:50px;margin:10px 0 0 5px"
+                  :src="require('../assets/images/company1.jpg')"
+                />
                 <div class="third-content">
                   <span>迪卡侬</span>
                   <span>50-100人 | 电子商务，文化...</span>
@@ -449,7 +485,11 @@
               <div class="desc-second">上海 徐汇区 | 1-3年 | 本科</div>
               <div class="line"></div>
               <div class="desc-third">
-                <img @click="desc" style="width:50px;margin:10px 0 0 5px" :src="require('../assets/images/company1.jpg')" />
+                <img
+                  @click="desc"
+                  style="width:50px;margin:10px 0 0 5px"
+                  :src="require('../assets/images/company1.jpg')"
+                />
                 <div class="third-content">
                   <span>迪卡侬</span>
                   <span>50-100人 | 电子商务，文化...</span>
@@ -461,9 +501,8 @@
       </el-tabs>
     </div>
     <div class="button">
-      <el-button plain  @click="search" style="width:210px;height:43px;font-size:14px">查看更多</el-button>
+      <el-button plain @click="search" style="width:210px;height:43px;font-size:14px">查看更多</el-button>
     </div>
-    
   </div>
 </template>
 
@@ -474,8 +513,9 @@ export default {
   name: "home",
   data() {
     return {
-      recommend:true,
-      activeName:"first",
+      listRecommend:[],
+      recommend: true,
+      activeName: "first",
       value: "上海",
       company: "职位",
       dialogVisible: false,
@@ -490,16 +530,65 @@ export default {
         }
       ],
       carouselImgs: [
-        require('../assets/images/loop1.jpg'),
-        require('../assets/images/loop2.png'),
-        require('../assets/images/loop1.jpg'),
-      ],
+        require("../assets/images/loop1.jpg"),
+        require("../assets/images/loop2.png")
+        // require('../assets/images/loop1.jpg'),
+      ]
     };
   },
   methods: {
-     handleClick() {
-
-      },
+    // handleClick(e) {
+    //   if (e.index == 1) {
+    //   }
+    //   this.$http.get("/home/recommended/position").then(res => {
+    //     console.log("22222222222");
+    //     console.log(res.data);
+    //   });
+    // },
+    //tabs--推荐
+    recommendation() {
+       this.$http.get("/home/recommended/position").then(res => {
+         if (res.data.code == 200) {
+              this.listRecommend = res.data.data
+          }
+      });
+    },
+    //热门企业
+    hotcompany () {
+       this.$http.get("/popular/company").then(res => {
+         if (res.data.code == 200) {
+              // 
+              console.log(res)
+          }
+      });
+    },
+    //热门词
+    hotkeyword () {
+       this.$http.get("/popular/keyword").then(res => {
+         if (res.data.code == 200) {
+              // 
+              console.log(res)
+          }
+      });
+    },
+    //热门词
+    hotkeyword () {
+       this.$http.get("/popular/keyword").then(res => {
+         if (res.data.code == 200) {
+              // 
+              console.log(res)
+          }
+      });
+    },
+    //热门职位
+    hotposition () {
+       this.$http.get("/popular/position").then(res => {
+         if (res.data.code == 200) {
+              // 
+              console.log(res)
+          }
+      });
+    },
     handleOpenMenu() {},
     handleChangeLocation() {},
     doLogin() {
@@ -513,11 +602,11 @@ export default {
     desc() {
       this.$router.push({ path: "/position" });
     },
-    dealMenuClick(command) {
-      if (command === "logout") {
-        this.isLogin = false;
-      }
-    },
+    // dealMenuClick(command) {
+    //   if (command === "logout") {
+    //     this.isLogin = false;
+    //   }
+    // },
     doLogot() {
       this.isLogin = false;
     },
@@ -538,15 +627,18 @@ export default {
     }
   },
   created() {
-    if(this.recommend == false) {
-        this.activeName = 'second'
-    }else{
-        this.activeName = 'first';
+    this.recommendation();
+    if (this.recommend == false) {
+      this.activeName = "second";
+    } else {
+      this.activeName = "first";
     }
-
-},
+  },
   mounted() {
     this.companyScrolling();
+    this.hotcompany();
+    this.hotkeyword();
+    this.hotposition();
   }
 };
 </script>
@@ -594,6 +686,7 @@ export default {
         .demo
           display flex
           flex-direction row
+          flex-wrap  wrap
           .desc:hover
             background #f7f7f7
           .desc
@@ -602,6 +695,8 @@ export default {
             text-align left
             margin 3px 3px 0 0 
             background white
+            
+            border 1px solid red
             .desc-first
               display flex
               flex-direction row

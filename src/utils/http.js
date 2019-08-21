@@ -2,13 +2,13 @@
 
 import Vue from 'vue';
 import axios from "axios";
-import queryString from 'querystring'
+// import queryString from 'querystring'
 
-
-axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8';
-axios.defaults.transformRequest = [function (data) {
-    return queryString.stringify(data)
-}]
+// application/x-www-from-urlencode mime
+axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
+// axios.defaults.transformRequest = [function (data) {
+//     return queryString.stringify(data)
+// }]
 let config = {
     //判断当前开发环境，切换代理配置
     baseURL: process.env.NODE_ENV === 'production' ? '/basic/' : 'api',
@@ -22,10 +22,10 @@ _axios.interceptors.response.use(response => {
     return response;
 }, error => {
     // logger and notification;
-    Notification.error({
-        title: '错误',
-        message: error.message
-    });
+    // Notification.error({
+    //     title: '错误',
+    //     message: error.message
+    // });
     return Promise.reject(error);
 });
 

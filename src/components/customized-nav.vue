@@ -9,21 +9,6 @@
                         <router-link to="/joblist" index="2">职位</router-link>
                         <router-link to="/gap" index="3">简历</router-link>
                  <router-link to="/aboutus" index="4">联系我们</router-link>
-            <!-- <el-menu
-              :default-active="activeIndex2"
-              class="el-menu-demo"
-              mode="horizontal"
-              @select="handleSelect"
-              background-color="#1f368d"
-              text-color="white"
-              active-text-color="white"
-              style="height:70px;"
-            >
-              <el-menu-item index="1" to="/" style="margin-top:5px">首页</el-menu-item>
-              <el-menu-item index="/joblist" to="/joblist" style="margin-top:5px">职位</el-menu-item>
-              <el-menu-item index="3" to="/gap" style="margin-top:5px">简历</el-menu-item>
-              <el-menu-item index="4" to="/aboutus" style="margin-top:5px">联系我们</el-menu-item>
-            </el-menu> -->
           </div>
           <div class="btn-set" v-if="!hasLogin">
             <router-link tag="button" :to="{name:'login'}" index="1">登录</router-link>
@@ -36,66 +21,6 @@
               </el-badge>
               <el-dropdown-menu slot="dropdown" style="width:372px;height:200px;">
                 <div style="overflow:scroll;width:372px;height:180px;overflow-x:hidden">
-                  <div class="badge">
-                    <span
-                      style="color:#4a4a4a;font-size:12px;margin-left:10px;"
-                    >你投递的“产品经理”(xx公司) 已被查看简历</span>
-                    <span style="color:#909090;font-size:10px;margin-left:35px;">昨天15：30</span>
-                  </div>
-                  <div class="badge">
-                    <span
-                      style="color:#4a4a4a;font-size:12px;margin-left:10px;"
-                    >你投递的“产品经理”(xx公司) 已被查看简历</span>
-                    <span style="color:#909090;font-size:10px;margin-left:35px;">昨天15：30</span>
-                  </div>
-                  <div class="badge">
-                    <span
-                      style="color:#4a4a4a;font-size:12px;margin-left:10px;"
-                    >你投递的“产品经理”(xx公司) 已被查看简历</span>
-                    <span style="color:#909090;font-size:10px;margin-left:35px;">昨天15：30</span>
-                  </div>
-                  <div class="badge">
-                    <span
-                      style="color:#4a4a4a;font-size:12px;margin-left:10px;"
-                    >你投递的“产品经理”(xx公司) 已被查看简历</span>
-                    <span style="color:#909090;font-size:10px;margin-left:35px;">昨天15：30</span>
-                  </div>
-                  <div class="badge">
-                    <span
-                      style="color:#4a4a4a;font-size:12px;margin-left:10px;"
-                    >你投递的“产品经理”(xx公司) 已被查看简历</span>
-                    <span style="color:#909090;font-size:10px;margin-left:35px;">昨天15：30</span>
-                  </div>
-                  <div class="badge">
-                    <span
-                      style="color:#4a4a4a;font-size:12px;margin-left:10px;"
-                    >你投递的“产品经理”(xx公司) 已被查看简历</span>
-                    <span style="color:#909090;font-size:10px;margin-left:35px;">昨天15：30</span>
-                  </div>
-                  <div class="badge">
-                    <span
-                      style="color:#4a4a4a;font-size:12px;margin-left:10px;"
-                    >你投递的“产品经理”(xx公司) 已被查看简历</span>
-                    <span style="color:#909090;font-size:10px;margin-left:35px;">昨天15：30</span>
-                  </div>
-                  <div class="badge">
-                    <span
-                      style="color:#4a4a4a;font-size:12px;margin-left:10px;"
-                    >你投递的“产品经理”(xx公司) 已被查看简历</span>
-                    <span style="color:#909090;font-size:10px;margin-left:35px;">昨天15：30</span>
-                  </div>
-                  <div class="badge">
-                    <span
-                      style="color:#4a4a4a;font-size:12px;margin-left:10px;"
-                    >你投递的“产品经理”(xx公司) 已被查看简历</span>
-                    <span style="color:#909090;font-size:10px;margin-left:35px;">昨天15：30</span>
-                  </div>
-                  <div class="badge">
-                    <span
-                      style="color:#4a4a4a;font-size:12px;margin-left:10px;"
-                    >你投递的“产品经理”(xx公司) 已被查看简历</span>
-                    <span style="color:#909090;font-size:10px;margin-left:35px;">昨天15：30</span>
-                  </div>
                   <div class="badge">
                     <span
                       style="color:#4a4a4a;font-size:12px;margin-left:10px;"
@@ -161,6 +86,17 @@
             personal() {
                  this.$router.push({path:'/personal'})
             },
+            //用户通知
+            notification() {
+              this.$http.get('/notification/recent').then(res => {
+                if (res.data.code == 200) {
+                  console.log(res) 
+                }
+              });
+            } 
+        },
+        created () {
+          this.notification()
         }
     }
 </script>

@@ -61,13 +61,13 @@
                   <img class="img-first" style="margin-right:9px;height:12px"
                        :src="require('../assets/images/10.png')"/><span @click="showdialog()" style="margin-right:20px">删除</span>
                   <img class="img-second" style="margin-right:9px;height:12px"
-                       :src="require('../assets/images/1.png')"/><span style="margin-right:3px">编辑</span>
+                       :src="require('../assets/images/1.png')"/><span style="margin-right:3px" @click="showeducationalList(index)">编辑</span>
               </span>
             <educationexperience-From :from-data="list" :index="index"></educationexperience-From>
             <br>
           </li>
         </ul>
-        <div class="showeducation" v-if="showeducation">
+        <div class="showeducation" v-if="showeducation" @sendiptVal='showeducation'>
           <Education-Experience/>
         </div>
         <div class="content-line"></div>
@@ -348,9 +348,7 @@
     },
     data() {
       return {
-
         dialog: false,
-
         personalinformation: false,
         showPersonalinformation: true,
         showDemo: false,
@@ -375,6 +373,7 @@
         showpersonalskills: true,
         showaward: true,
         showpersonappraisal: true,
+        index:'a',
         listjobintension: [{
           postType: "产品经理",
           city: "上海/北京",
@@ -384,6 +383,11 @@
           jobType: "实习"
         }],
         listeducational: [{
+          educationName: "华东理工大学",
+          educationTime: "2018/12",
+          educationDegree: "工业设计 | 硕士"
+        },
+        {
           educationName: "华东理工大学",
           educationTime: "2018/12",
           educationDegree: "工业设计 | 硕士"
@@ -437,6 +441,9 @@
       }
     },
     methods: {
+      showeducationalList(index) {
+        console.log(index)
+      },
       testRef(ref) {
         if (ref) {
           const y = this.$refs[ref].offsetTop - 100

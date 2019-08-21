@@ -27,167 +27,9 @@
                 </el-tooltip>
               </span>
             </div>
+            <div class="tabs-line"></div>
           </div>
-          <div class="tabs-line"></div>
-
-          <div style="width:630px">
-            <div class="tabs-first">
-              <span>产品经理助理</span>
-              <span>5-10k</span>
-            </div>
-            <div class="tabs-second">
-              <span>迪卡侬</span>
-              <span>上海 徐汇区 | 1-3年 | 本科</span>
-              <span>
-                今天 15:30
-                <el-tooltip
-                  style="padding-left:19px;font-size:14px;color:#909090"
-                  class="item"
-                  effect="dark"
-                  placement="top-end"
-                >
-                  <div slot="content">
-                    多行信息
-                    <br />第二行信息
-                  </div>
-                  <span>被查看</span>
-                </el-tooltip>
-              </span>
-            </div>
-          </div>
-          <div class="tabs-line"></div>
-
-          <div style="width:630px">
-            <div class="tabs-first">
-              <span>产品经理助理</span>
-              <span>5-10k</span>
-            </div>
-            <div class="tabs-second">
-              <span>迪卡侬</span>
-              <span>上海 徐汇区 | 1-3年 | 本科</span>
-              <span>
-                今天 15:30
-                <el-tooltip
-                  style="padding-left:19px;font-size:14px;color:#909090"
-                  class="item"
-                  effect="dark"
-                  placement="top-end"
-                >
-                  <div slot="content">
-                    多行信息
-                    <br />第二行信息
-                  </div>
-                  <span>被查看</span>
-                </el-tooltip>
-              </span>
-            </div>
-          </div>
-          <div class="tabs-line"></div>
-
-          <div style="width:630px">
-            <div class="tabs-first">
-              <span>产品经理助理</span>
-              <span>5-10k</span>
-            </div>
-            <div class="tabs-second">
-              <span>迪卡侬</span>
-              <span>上海 徐汇区 | 1-3年 | 本科</span>
-              <span>
-                今天 15:30
-                <el-tooltip
-                  style="padding-left:19px;font-size:14px;color:#909090"
-                  class="item"
-                  effect="dark"
-                  placement="top-end"
-                >
-                  <div slot="content">
-                    多行信息
-                    <br />第二行信息
-                  </div>
-                  <span>被查看</span>
-                </el-tooltip>
-              </span>
-            </div>
-          </div>
-          <div class="tabs-line"></div>
-          <div style="width:630px">
-            <div class="tabs-first">
-              <span>产品经理助理</span>
-              <span>5-10k</span>
-            </div>
-            <div class="tabs-second">
-              <span>迪卡侬</span>
-              <span>上海 徐汇区 | 1-3年 | 本科</span>
-              <span>
-                今天 15:30
-                <el-tooltip
-                  style="padding-left:19px;font-size:14px;color:#909090"
-                  class="item"
-                  effect="dark"
-                  placement="top-end"
-                >
-                  <div slot="content">
-                    多行信息
-                    <br />第二行信息
-                  </div>
-                  <span>被查看</span>
-                </el-tooltip>
-              </span>
-            </div>
-          </div>
-          <div class="tabs-line"></div>
-          <div style="width:630px">
-            <div class="tabs-first">
-              <span>产品经理助理</span>
-              <span>5-10k</span>
-            </div>
-            <div class="tabs-second">
-              <span>迪卡侬</span>
-              <span>上海 徐汇区 | 1-3年 | 本科</span>
-              <span>
-                今天 15:30
-                <el-tooltip
-                  style="padding-left:19px;font-size:14px;color:#909090"
-                  class="item"
-                  effect="dark"
-                  placement="top-end"
-                >
-                  <div slot="content">
-                    多行信息
-                    <br />第二行信息
-                  </div>
-                  <span>被查看</span>
-                </el-tooltip>
-              </span>
-            </div>
-          </div>
-          <div class="tabs-line"></div>
-          <div style="width:630px">
-            <div class="tabs-first">
-              <span>产品经理助理</span>
-              <span>5-10k</span>
-            </div>
-            <div class="tabs-second">
-              <span>迪卡侬</span>
-              <span>上海 徐汇区 | 1-3年 | 本科</span>
-              <span>
-                今天 15:30
-                <el-tooltip
-                  style="padding-left:19px;font-size:14px;color:#909090"
-                  class="item"
-                  effect="dark"
-                  placement="top-end"
-                >
-                  <div slot="content">
-                    多行信息
-                    <br />第二行信息
-                  </div>
-                  <span>被查看</span>
-                </el-tooltip>
-              </span>
-            </div>
-          </div>
-          <div class="tabs-line"></div>
+          
           <div class="tabs-pagination">
             <el-pagination
               @size-change="handleSizeChange"
@@ -202,104 +44,19 @@
         </el-tab-pane>
         <el-tab-pane style="margin:0 20px 0 0" :label="`我的收藏（${collectNum}）`" name="second">
           <div style="width:630px;height:70px" class="hover">
-          <div class="tabs-first">
-            <span>产品经理助理</span>
-            <span>5-10k</span>
+            <div class="tabs-first">
+              <span>产品经理助理</span>
+              <span>5-10k</span>
+            </div>
+            <div class="collect-second">
+              <span class="collect-company">迪卡侬</span>
+              <span class="collect-city">上海 徐汇区 | 1-3年 | 本科</span>
+              <span class="collect-button">
+                <el-button class="button" type="primary" @click="iscancel" size="mini">取消收藏</el-button>
+              </span>
+            </div>
+            <div class="collect-line"></div>
           </div>
-          <div class="collect-second">
-            <span class="collect-company">迪卡侬</span>
-            <span class="collect-city">上海 徐汇区 | 1-3年 | 本科</span>
-            <span class="collect-button">
-              <el-button class="button" type="primary" size="mini">超小按钮</el-button>
-            </span>
-          </div>
-          </div>
-          <div class="collect-line"></div>
-          <div style="width:630px;height:70px">
-          <div class="tabs-first">
-            <span>产品经理助理</span>
-            <span>5-10k</span>
-          </div>
-          <div class="collect-second">
-            <span class="collect-company">迪卡侬</span>
-            <span class="collect-city">上海 徐汇区 | 1-3年 | 本科</span>
-            <span class="collect-button">
-              <el-button class="button" type="primary" size="mini">超小按钮</el-button>
-            </span>
-          </div>
-          </div>
-          <div class="collect-line"></div>
-          <div style="width:630px;height:70px">
-          <div class="tabs-first">
-            <span>产品经理助理</span>
-            <span>5-10k</span>
-          </div>
-          <div class="collect-second">
-            <span class="collect-company">迪卡侬</span>
-            <span class="collect-city">上海 徐汇区 | 1-3年 | 本科</span>
-            <span class="collect-button">
-              <el-button class="button" type="primary" size="mini">超小按钮</el-button>
-            </span>
-          </div>
-          </div>
-          <div class="collect-line"></div>
-          <div style="width:630px;height:70px">
-          <div class="tabs-first">
-            <span>产品经理助理</span>
-            <span>5-10k</span>
-          </div>
-          <div class="collect-second">
-            <span class="collect-company">迪卡侬</span>
-            <span class="collect-city">上海 徐汇区 | 1-3年 | 本科</span>
-            <span class="collect-button">
-              <el-button class="button" type="primary" size="mini">超小按钮</el-button>
-            </span>
-          </div>
-          </div>
-          <div class="collect-line"></div>
-
-          <div style="width:630px;height:70px">
-          <div class="tabs-first">
-            <span>产品经理助理</span>
-            <span>5-10k</span>
-          </div>
-          <div class="collect-second">
-            <span class="collect-company">迪卡侬</span>
-            <span class="collect-city">上海 徐汇区 | 1-3年 | 本科</span>
-            <span class="collect-button">
-              <el-button class="button" type="primary" size="mini">超小按钮</el-button>
-            </span>
-          </div>
-          </div>
-          <div class="collect-line"></div>
-          <div style="width:630px;height:70px">
-          <div class="tabs-first">
-            <span>产品经理助理</span>
-            <span>5-10k</span>
-          </div>
-          <div class="collect-second">
-            <span class="collect-company">迪卡侬</span>
-            <span class="collect-city">上海 徐汇区 | 1-3年 | 本科</span>
-            <span class="collect-button">
-              <el-button class="button" type="primary" size="mini">超小按钮</el-button>
-            </span>
-          </div>
-          </div>
-          <div class="collect-line"></div>
-          <div style="width:630px;height:70px">
-          <div class="tabs-first">
-            <span>产品经理助理</span>
-            <span>5-10k</span>
-          </div>
-          <div class="collect-second">
-            <span class="collect-company">迪卡侬</span>
-            <span class="collect-city">上海 徐汇区 | 1-3年 | 本科</span>
-            <span class="collect-button">
-              <el-button class="button" type="primary" size="mini">超小按钮</el-button>
-            </span>
-          </div>
-          </div>
-          <div class="collect-line"></div>
           <div class="collect-pagination">
             <el-pagination
               @size-change="handleSizeChange"
@@ -399,13 +156,43 @@ export default {
         showInfor:true,
         showWarn:false,
         showTabs:true,
-        isshowTabs:false
+        isshowTabs:false,
+        submittedList:[],
+        favoriteList:[],
     }
   },
   methods: {
       toPerson() { 
            this.$router.push({path:'/inforchange'})
-      }
+      },
+      //获取投递过的岗位(接口需要登陆)
+      submitted() {
+          this.$http.get('/submitted/position').then(res => {
+          if (res.data.code == 200) {
+            this.submittedList = res.data.data; 
+          }
+        });
+      },
+      //获取收藏的岗位(接口需要登陆)
+      favorite() {
+          this.$http.get('/favorite/position').then(res => {
+          if (res.data.code == 200) {
+            this.favoriteList = res.data.data; 
+          }
+        });
+      },
+      iscancel() {
+          this.$http.delete(`/favorite/position/${2}`).then(res => {
+          if (res.data.code == 200) {
+            // this.favoriteList = res.data.data; 
+          }
+        });
+      },
+    },
+    created() {
+      this.submitted();
+      this.favorite();
+      this.iscancel();
     },
 }
 </script>
@@ -440,13 +227,13 @@ export default {
         display flex
         flex-direction row 
         justify-content space-between
-        margin 10px 0 0 0
+        margin 10px 0 15px 0
       .collect-line
         width 630px
         margin 8px 0 0 0
         border 0.5px solid #f0f0f0
       .collect-pagination
-        margin 30px 0 0 20px
+        margin 39px 0 0 20px
         padding 0 0 20px 0    
       .collect-company
         font-size 16px

@@ -335,6 +335,7 @@ export default {
       value:'上海',
       company:'职位',
       dialogVisible:false,
+      positionIdList:[],
       perList:[
         {
         value:'111',
@@ -539,6 +540,8 @@ export default {
           }]
         }]
       };
+
+      
       
   },
   methods: {
@@ -556,6 +559,15 @@ export default {
             this.close()
         }, 500);
       },
+      //获取岗位详情（接口不能用）
+      positionId() {
+        this.$http.get(`/position/${2}`).then(res => {
+          if (res.data.code == 200) {
+            this.positionIdList = res.data
+            console.log(this.positionIdList);
+          }
+        });
+      },
       // getVendorId(val) {
       //       alert(val.label)
       //       // let that = this;
@@ -565,6 +577,9 @@ export default {
             
       //   }
  
+    },
+    created () {
+      this.positionId();
     }
 }
 </script>
