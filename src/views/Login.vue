@@ -71,8 +71,11 @@ export default {
           // if (res.result) {
           //   this[DONE_LOGIN]();
           // }
-          this.$http.post('/login',{username:'678',password:this.form.password}).then(res => {
-          if (res.data.code == 200) {
+          this.$_http.post('/login',{username:'1100',password:'110'}).then(res => {
+            this.$store.commit('SET_TOKEN', res.data.token)
+            console.log(res.set-cookie)
+          if (res.data.code == 302) {
+            this.$router.push({ path: 'reset-password' });
             console.log(res) 
           }
         });

@@ -15,22 +15,37 @@
         <div class="content-article">
            <span>发布时间：今天 15：00</span>
         </div>
-        <div v-if="showDeliver">
+        <div style="margin:0 0 0 290px" v-if="showDeliver">
           <span style="margin:0 20px 0 0">
             <el-button id="deliver" style="width:140px;height:40px;" type="primary" @click="isclick()"> 投递简历</el-button>
           </span>
           <span>
-            <el-button id="collect" style="width:140px;height:40px" plain>收藏</el-button>
+            <el-button id="collect" style="width:140px;height:40px" @click="iscollect()" plain>收藏</el-button>
           </span>
-        </div>
-        <div v-if="mapList">
-          <span >
+        </div>  
+        <div style="margin:0 0 0 290px" v-if="showCollect">
+          <span>
             <el-button
-            
               type="primary"
               icon="el-icon-check"
               style="width:140px;height:40px;margin:0 20px 0 0;background:#617dbc;border:0px solid red"
             >已投递</el-button>
+          </span>
+          <span>
+            <el-button
+              @click="iscollect()"
+              plain
+              style="width:140px;height:40px;"
+            >收藏</el-button>
+          </span>
+        </div>
+        <div style="margin:0 0 0 290px" v-if="isshowCollect">
+          <span>
+            <el-button
+              @click="isclick()"
+              type="primary"
+              style="width:140px;height:40px;margin:0 20px 0 0;"
+            >投递简历</el-button>
           </span>
           <span>
             <el-button
@@ -199,10 +214,11 @@ export default {
         stationFoot:true,
         dialogVisibleOne: true,
         dialogVisible: false,
-        map:false,
-        mapList:false,
+        // map:false,
+        // mapList:false,
         showDeliver:true,
-        showCollect:true,
+        isshowCollect:false,
+        showCollect:false,
         isshow:true,  
         url: 'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',  
       }
@@ -216,6 +232,9 @@ export default {
       },
       //向岗位投递简历（登陆之后）
       isclick () {
+        this.showCollect = true,
+        this.showDeliver = false
+        this.isshowCollect = false,
         this.$http.put(`/submitted/position/${2}/resume/${2}`).then(res => {
           if (res.data.code == 200) {
             // this.resumeIdList = res.data
@@ -233,6 +252,9 @@ export default {
           // this.mapList = true
       },
       iscollect () {
+        this.showDeliver = false,
+        this.showCollect = false,
+        this.isshowCollect = true,
         this.$http.put(`/favorite/position/${2}`).then(res => {
           if (res.data.code == 200) {
             // this.resumeIdList = res.data
@@ -257,8 +279,8 @@ export default {
       }
     },
     created () {
-      this.isclick();
-      this.iscollect();
+      // this.isclick();
+      // this.iscollect();
     }
 };
 </script>
@@ -290,7 +312,7 @@ export default {
       .station-nav-content
         display flex
         flex-direction row
-        justify-content space-between
+        
         font-size 15px
         line-height 60px
         .content-nav
@@ -300,6 +322,7 @@ export default {
         .content-article 
           color #9b9b9b
           font-size 14px
+          margin 0 0 0 300px
       .cancel:hover
         background #1f368d  
         color white

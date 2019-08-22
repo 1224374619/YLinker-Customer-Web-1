@@ -73,9 +73,10 @@ export default {
     onSubmit() {
       this.$refs['form'].validate((valid) => {
         if (valid) {
-          this.$http.post('/account/register',{phone:this.form.tel,password:this.form.password}).then(res => {
-          if (res.data.code == 200) {
+          this.$http.post('/account/register',{phone:'11100',password:'110'}).then(res => {
             console.log(res) 
+          if (res.data.code == 200) {
+            
             this.$router.push({ path: '/login' });
           }
         });

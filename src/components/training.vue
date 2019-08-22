@@ -43,7 +43,27 @@ export default {
           trainTime: '',
         }
     }
+  },
+  methods: {
+    //新增
+    keep() {
+      // this.$emit("skill",this.formInline.technicalName,this.formInline.level)
+      this.$http.post(`/resume/${2}/training`,{beginTime:'',institution:'',lesson:''}).then(res => {
+        if (res.data.code == 200) {
+          console.log(res);
+        }
+      });
+    },
+    //更新
+    keep() {
+      // this.$emit("skill",this.formInline.technicalName,this.formInline.level)
+      this.$http.put(`/resume/${2}/training/${1}`,{beginTime:'',institution:'',lesson:''}).then(res => {
+        if (res.data.code == 200) {
+          console.log(res);
+        }
+      });
   }
+}
 }
 </script>
 

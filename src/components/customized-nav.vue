@@ -21,10 +21,8 @@
               </el-badge>
               <el-dropdown-menu slot="dropdown" style="width:372px;height:200px;">
                 <div style="overflow:scroll;width:372px;height:180px;overflow-x:hidden">
-                  <div class="badge">
-                    <span
-                      style="color:#4a4a4a;font-size:12px;margin-left:10px;"
-                    >你投递的“产品经理”(xx公司) 已被查看简历</span>
+                  <div class="badge" v-for="item in notificationlist" :key="item">
+                    <span style="color:#4a4a4a;font-size:12px;margin-left:10px;">{{item.description}}</span>
                     <span style="color:#909090;font-size:10px;margin-left:35px;">昨天15：30</span>
                   </div>
                 </div>
@@ -41,7 +39,7 @@
               <el-dropdown-menu slot="dropdown">
                 <el-dropdown-item @click.native="personal">个人信息</el-dropdown-item>
                 <el-dropdown-item @click.native="inforchange">账号设置</el-dropdown-item>
-                <el-dropdown-item divided command="logout">退出</el-dropdown-item>
+                <el-dropdown-item @click.native="detrusion" divided command="logout">退出</el-dropdown-item>
               </el-dropdown-menu>
             </el-dropdown>
           </div>
@@ -63,7 +61,19 @@
             }
         },
         data() {
-            return {}
+            return {
+              notificationlist:[
+              {
+                description:'你投递的“产品经理”(xx公司) 已被查看简历'
+              },
+              {
+                description:'你投递的“产品经理”(xx公司) 已被查看简历'
+              },
+              {
+                description:'你投递的“产品经理”(xx公司) 已被查看简历'
+              },
+              ] 
+            }
         },
         computed: mapState({
             hasLogin(state) {
@@ -71,6 +81,14 @@
             }
         }),
         methods: {
+          //退出
+            detrusion() {
+              this.$http.get('/logout').then(res => {
+                if (res.data.code == 200) {
+                  console.log(res);
+                }
+              });
+            },
             gotoHomeUI() {
                 this.$router.push({path: '/'});
             },

@@ -14,7 +14,7 @@
         </el-form-item>
         <el-form-item label="验证码" prop="code">
           <span style="margin-right:12px"><el-input v-model="ruleForm.code"  style="width:135px;height:43px" placeholder="请输入验证码" clearable></el-input></span>
-          <span><el-button style="width:123px;height:43px" plain>获取验证码</el-button></span>
+          <span><el-button @click="codeclick" style="width:123px;height:43px" plain>获取验证码</el-button></span>
         </el-form-item>
         <el-form-item label="新密码" prop="newPassword">
           <span><el-input style="width:270px;height:43px" v-model="ruleForm.newPassword"  placeholder="请输入新密码（6-24位数字和字母）" suffix-icon="el-icon-view"></el-input></span>
@@ -41,7 +41,7 @@
         </el-form-item>
         <el-form-item label="验证码" prop="newCode">
           <span style="margin-right:12px"><el-input v-model="ruleForm.newCode" style="width:135px;height:43px" placeholder="请输入验证码" clearable></el-input></span>
-          <span><el-button style="width:123px;height:43px" plain>获取验证码</el-button></span>
+          <span><el-button @click="codeclick" style="width:123px;height:43px" plain>获取验证码</el-button></span>
         </el-form-item>
         <el-form-item>
           <el-button  @click="phoneSubmitForm('newRuleForm')" style="width:270px;height:43px" type="primary">换绑手机</el-button>
@@ -105,13 +105,26 @@
       }
     },
     methods: {
+      //获取验证码
+      codeclick() {
+        this.$http.post('/account/vcode').then(res => {
+              if (res.data.code == 200) {
+                console.log(res);
+              }
+            });
+      },
       handleActive(index) {
         this.active = index
       },
+      //重置密码
       submitForm(formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
-            alert('submit!');
+            this.$http.put('/account/password', { password: "", phone: "", vcode: "" }).then(res => {
+              if (res.data.code == 200) {
+                console.log(res);
+              }
+            });
           } else {
             // this.active = 0
             // this.inforchangeLeft = false
@@ -120,10 +133,15 @@
           }
         });
       },
+      //修改手机号
       phoneSubmitForm(formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
-            alert('submit!');
+            this.$http.put('/account/phone', { password: "", phone: "", vcode: "" }).then(res => {
+              if (res.data.code == 200) {
+                console.log(res);
+              }
+            });
           } else {
             // this.active = 0
             // this.inforchangeLeft = false

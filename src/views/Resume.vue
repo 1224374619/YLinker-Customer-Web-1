@@ -61,14 +61,14 @@
                   <img class="img-first" style="margin-right:9px;height:12px"
                        :src="require('../assets/images/10.png')"/><span @click="showdialog()" style="margin-right:20px">删除</span>
                   <img class="img-second" style="margin-right:9px;height:12px"
-                       :src="require('../assets/images/1.png')"/><span style="margin-right:3px" @click="showeducationalList(index)">编辑</span>
+                       :src="require('../assets/images/1.png')"/><span style="margin-right:3px" @click="showeducationalList(list)">编辑</span>
               </span>
             <educationexperience-From :from-data="list" :index="index"></educationexperience-From>
             <br>
           </li>
         </ul>
-        <div class="showeducation" v-if="showeducation" @sendiptVal='showeducation'>
-          <Education-Experience/>
+        <div class="showeducation" v-if="showeducation" >
+          <Education-Experience @sendiptVal='sendiptVal' :educationDegree='educationDegree' />
         </div>
         <div class="content-line"></div>
         <div ref="work" class="main-content">
@@ -175,14 +175,14 @@
                   <img style="margin-right:9px;height:12px" :src="require('../assets/images/10.png')"/><span
                       @click="showdialog()" style="margin-right:20px">删除</span>
                   <img style="margin-right:9px;height:12px" :src="require('../assets/images/1.png')"/><span
-                      style="margin-right:3px">编辑</span>
+                      style="margin-right:3px" @click="editskill">编辑</span>
               </span><br>
             <personalskill-from :from-data="list" :index="index"></personalskill-from>
             <br>
           </li>
         </ul>
         <div v-if="showpersonalskill">
-          <personal-skill/>
+          <personal-skill @skill='skill(arguments)'/>
         </div>
         <div class="content-line"></div>
         <div ref="awards" class="main-content">
@@ -232,7 +232,7 @@
           <div class="aside-foot-first">附件简历</div>
           <div class="aside-foot-second"><span>支持格式包括： 支持DOC，DOCX,PDF,JPG,PNG格式<br>文件,大小不超过2M</span></div>
           <div class="aside-foot-third">
-            <el-button type="primary" size="medium">立即上传</el-button>
+            <el-button type="primary" @click="upload" size="medium">立即上传</el-button>
           </div>
         </div>
         <Affix :offset="60">
@@ -354,7 +354,7 @@
         showDemo: false,
         showJob: false,
         showadd: true,
-        showeducation: false,
+        showeducation: '',
         showwork: false,
         showproject: false,
         showtraining: false,
@@ -388,7 +388,7 @@
           educationDegree: "工业设计 | 硕士"
         },
         {
-          educationName: "华东理工大学",
+          educationName: "华东大学",
           educationTime: "2018/12",
           educationDegree: "工业设计 | 硕士"
         }],
@@ -417,7 +417,10 @@
         listpersonalskill: [{
           technicalName: '2',
           level: '2'
-
+        },
+        {
+          technicalName: '4',
+          level: '4'
         },],
         listaward: [{
           prizeName: "xxxx比赛三等奖",
@@ -426,6 +429,8 @@
         listpersonappraisal: [{
           personalDescription: "年轻有为",
         }],
+
+        educationDegree:'',
 
         activejobintension: '',
         active: '',
@@ -441,8 +446,93 @@
       }
     },
     methods: {
-      showeducationalList(index) {
-        console.log(index)
+      //上传附件简历
+      upload() {
+         this.$http.post(`/resume/${2}/file`,{skill:''}).then(res => {
+          if (res.data.code == 200) {
+            console.log(res);
+          }
+        });
+      },
+      //专业技能编辑
+      editskill() {
+        this.showpersonalskill = true
+      },
+      //专业技能
+      skill(c) {
+        console.log(c[1])
+      },
+      //专业技能删除
+      deleteskill() {
+        this.$http.delete(`/resume/${2}/skill/${1}`,{skill:''}).then(res => {
+          if (res.data.code == 200) {
+            console.log(res);
+          }
+        });
+      },
+      //工作经历删除
+      deletework() {
+        this.$http.delete(`/resume/${2}/work/${1}`,{beginTime:'',company:'',position:''}).then(res => {
+          if (res.data.code == 200) {
+            console.log(res);
+          }
+        });
+      },
+       //荣誉奖项删除
+      deleteaward() {
+        this.$http.delete(`/resume/${2}/award/${1}`,{acquiredTime:'',award:''}).then(res => {
+          if (res.data.code == 200) {
+            console.log(res);
+          }
+        });
+      },
+       //教育经历删除
+      deleteaward() {
+        this.$http.delete(`/resume/${2}/education/${1}`,{beginTime: "",degree: "",major: "",school:''}).then(res => {
+          if (res.data.code == 200) {
+            console.log(res);
+          }
+        });
+      },
+      //职称等级删除
+      deleteaward() {
+        this.$http.delete(`/resume/${2}/qualification/${1}`,{qual: ""}).then(res => {
+          if (res.data.code == 200) {
+            console.log(res);
+          }
+        });
+      },
+       //培训经历删除
+      deleteaward() {
+        this.$http.delete(`/resume/${2}/training/${1}`,{beginTime: "",institution:'',lesson:''}).then(res => {
+          if (res.data.code == 200) {
+            console.log(res);
+          }
+        });
+      },
+       //语言能力删除
+      deleteaward() {
+        this.$http.delete(`/resume/${2}/language/${1}`,{language:'',listenAndSpeak:'',readAndWrite:''}).then(res => {
+          if (res.data.code == 200) {
+            console.log(res);
+          }
+        });
+      },
+       //项目经历删除
+      deleteaward() {
+        this.$http.delete(`/resume/${2}/project/${1}`,{beginTime:'',project:''}).then(res => {
+          if (res.data.code == 200) {
+            console.log(res);
+          }
+        });
+      },
+      sendiptVal(c) {
+        this.showeducation = c
+      },
+      showeducationalList(list) {
+        this.showeducation = true
+        this.educationDegree = list.educationDegree
+         console.log(this.educationDegree) 
       },
       testRef(ref) {
         if (ref) {
@@ -469,7 +559,9 @@
         this.showjobintension = false
       },
       education() {
-        this.showeducation = true;
+        this.showeducation = false;
+        setTimeout(this.showeducation = true, 5000)
+        
         this.showeducational = false
       },
       work() {
@@ -576,6 +668,10 @@
       },
 
     },
+    // created () {
+    //   this.showeducation=this.showe
+    //   alert(this.showeducation)
+    // }
 
   }
 

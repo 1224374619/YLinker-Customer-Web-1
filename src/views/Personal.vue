@@ -3,16 +3,16 @@
     <div class="personal-left">
       <el-tabs v-model="activeName" @tab-click="handleClick" class="personal-tabs" v-if="showTabs">
         <el-tab-pane :label="`投递记录（${throwNum}）`" name="first">
-          <div style="width:630px" class="hover">
+          <div style="width:630px" class="hover"  v-for="(list,index) in submittedList" :key="index">
             <div class="tabs-first">
-              <span>产品经理助理</span>
-              <span>5-10k</span>
+              <span>{{list.positionName}}</span>
+              <span>{{list.salaryMin}}-{{list.salaryMax}}k</span>
             </div>
             <div class="tabs-second">
-              <span>迪卡侬</span>
-              <span>上海 徐汇区 | 1-3年 | 本科</span>
+              <span>{{list.companyName}}</span>
+              <span>上海 徐汇区 | {{list.workAgeMin}}-{{list.workAgeMax}}年 | {{list.degreeMin}}</span>
               <span>
-                今天 15:30
+                {{list.publishedTime	}}
                 <el-tooltip
                   style="padding-left:19px;font-size:14px;color:#909090"
                   class="item"
@@ -29,7 +29,6 @@
             </div>
             <div class="tabs-line"></div>
           </div>
-          
           <div class="tabs-pagination">
             <el-pagination
               @size-change="handleSizeChange"
@@ -42,15 +41,15 @@
             ></el-pagination>
           </div>
         </el-tab-pane>
-        <el-tab-pane style="margin:0 20px 0 0" :label="`我的收藏（${collectNum}）`" name="second">
-          <div style="width:630px;height:70px" class="hover">
+        <el-tab-pane :label="`我的收藏（${collectNum}）`" name="second">
+          <div style="width:630px;" class="hover" v-for="(list,index) in favoriteList" :key="index">
             <div class="tabs-first">
-              <span>产品经理助理</span>
-              <span>5-10k</span>
+              <span>{{list.positionName}}</span>
+              <span>{{list.salaryMin}}-{{list.salaryMax}}k</span>
             </div>
             <div class="collect-second">
               <span class="collect-company">迪卡侬</span>
-              <span class="collect-city">上海 徐汇区 | 1-3年 | 本科</span>
+              <span class="collect-city">上海 徐汇区 | {{list.workAgeMin}}-{{list.workAgeMax}}年 | {{list.degreeMin}}</span>
               <span class="collect-button">
                 <el-button class="button" type="primary" @click="iscancel" size="mini">取消收藏</el-button>
               </span>
@@ -157,8 +156,41 @@ export default {
         showWarn:false,
         showTabs:true,
         isshowTabs:false,
-        submittedList:[],
-        favoriteList:[],
+        submittedList:[{
+          companyName:'迪卡侬',
+          degreeMin:'本科',
+          positionName:'产品经理',
+          publishedTime:'今天 15:30',
+          salaryMax:'5',
+          salaryMin:'3',
+          workAgeMax:'3',
+          workAgeMin:'1'
+        },
+        {
+          companyName:'引领',
+          degreeMin:'本科',
+          positionName:'产品经理',
+          publishedTime:'今天 15:30',
+          salaryMax:'8',
+          salaryMin:'7',
+          workAgeMax:'3',
+          workAgeMin:'1'
+        }],
+        favoriteList:[{
+          degreeMin:'大专',
+          positionName:'前端',
+          salaryMax:'9',
+          salaryMin:'3',
+          workAgeMax:'5',
+          workAgeMin:'3'
+        },{
+          degreeMin:'硕士',
+          positionName:'JAVA',
+          salaryMax:'9',
+          salaryMin:'3',
+          workAgeMax:'5',
+          workAgeMin:'3'
+        }],
     }
   },
   methods: {
@@ -181,6 +213,7 @@ export default {
           }
         });
       },
+      //取消对岗位的收藏
       iscancel() {
           this.$http.delete(`/favorite/position/${2}`).then(res => {
           if (res.data.code == 200) {
@@ -233,11 +266,13 @@ export default {
         margin 8px 0 0 0
         border 0.5px solid #f0f0f0
       .collect-pagination
-        margin 39px 0 0 20px
+        margin 30px 0 0 0
         padding 0 0 20px 0    
       .collect-company
         font-size 16px
         margin 0 0 0 10px
+        width 100px
+        text-align left
       .collect-city
         margin 2px 230px 1px 0
         font-size 14px 
@@ -257,20 +292,25 @@ export default {
         font-family PingFangSC-Regular
         font-size 15px
         margin 16px 0 0 0
+        text-align left
       .tabs-first span:nth-child(1)
         color #1f368d
         margin 10px 0 0 10px
+        width 120px
       .tabs-first span:nth-child(2)
         color #617dcb
-        margin 10px 0 0 60px
+        margin 10px 0 0 0
+        width 120px
       .tabs-second
         display flex
         flex-direction row
         justify-content space-between
+        text-align left
         margin 10px 0 0 0
       .tabs-second span:nth-child(1)
         font-size 16px 
-        margin 0 0 0 10px 
+        margin 0 0 0 10px
+        width 100px
       .tabs-second span:nth-child(2)
         margin 2px 180px 7px 0
         font-size 14px

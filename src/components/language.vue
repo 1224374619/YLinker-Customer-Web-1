@@ -35,6 +35,26 @@ export default {
           readAbility:''
         }
     }
+  },
+  methods: {
+    //新增
+    keep() {
+      // this.$emit("skill",this.formInline.technicalName,this.formInline.level)
+      this.$http.post(`/resume/${2}/language`,{language:'',listenAndSpeak:'',readAndWrite:''}).then(res => {
+        if (res.data.code == 200) {
+          console.log(res);
+        }
+      });
+    },
+    //更新
+    keep() {
+      // this.$emit("skill",this.formInline.technicalName,this.formInline.level)
+      this.$http.put(`/resume/${2}/language/${1}`,{language:'',listenAndSpeak:'',readAndWrite:''}).then(res => {
+        if (res.data.code == 200) {
+          console.log(res);
+        }
+      });
+  }
   }
 }
 </script>

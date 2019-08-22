@@ -6,8 +6,8 @@
             </el-form-item>
             <el-form-item label="掌握程度">
                 <el-select style="width:242px;height:36px" v-model="formInline.level" placeholder="">
-                <el-option label="" value="shanghai"></el-option>
-                <el-option label="" value="beijing"></el-option>
+                <el-option label="shanghai" value="shanghai"></el-option>
+                <el-option label="beijing" value="beijing"></el-option>
                 </el-select>
             </el-form-item>
             <el-form-item label="获奖证书" style="margin-left:-90px">
@@ -23,7 +23,7 @@
             </el-form-item><br>
             <el-form-item style="margin:0 0 20px 450px">
             <el-button plain style="margin:0 10px 0 0">取消</el-button>
-            <el-button type="primary">保存</el-button>
+            <el-button @click="keep" type="primary">保存</el-button>
             </el-form-item>
           </el-form>
   </div>
@@ -41,6 +41,27 @@ export default {
           level: ''
         }
     }
+  },
+  methods: {
+    //新增
+    keep() {
+      this.$emit("skill",this.formInline.technicalName,this.formInline.level)
+      this.$http.post(`/resume/${2}/skill`,{skill:this.formInline.technicalName,level:this.formInline.level}).then(res => {
+        if (res.data.code == 200) {
+          
+          console.log(res);
+        }
+      });
+    },
+    //更新
+    keep() {
+      this.$emit("skill",this.formInline.technicalName,this.formInline.level)
+      this.$http.put(`/resume/${2}/skill/${1}`,{skill:this.formInline.technicalName,level:this.formInline.level}).then(res => {
+        if (res.data.code == 200) {
+          console.log(res);
+        }
+      });
+    },
   }
 }
 </script>

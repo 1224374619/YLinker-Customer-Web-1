@@ -52,7 +52,27 @@ export default {
           post: '',
         }
     }
-  }
+  },
+  methods: {
+    //新增
+    keep() {
+      this.$emit("skill",this.formInline.technicalName,this.formInline.level)
+      this.$http.post(`/resume/${2}/work`,{beginTime:'',company:'',position:''}).then(res => {
+        if (res.data.code == 200) {
+          console.log(res);
+        }
+      });
+    },
+    //更新
+    keep() {
+      this.$emit("skill",this.formInline.technicalName,this.formInline.level)
+      this.$http.put(`/resume/${2}/work/${1}`,{beginTime:'',company:'',position:''}).then(res => {
+        if (res.data.code == 200) {
+          console.log(res);
+        }
+      });
+  },
+}
 }
 </script>
 

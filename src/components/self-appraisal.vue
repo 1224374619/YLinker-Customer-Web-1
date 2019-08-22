@@ -6,7 +6,7 @@
             </el-form-item><br>
             <el-form-item style="margin:0 0 20px 420px">
                 <el-button plain style="margin:0 10px 0 0">取消</el-button>
-                <el-button type="primary">保存</el-button>
+                <el-button @click="keep" type="primary">保存</el-button>
             </el-form-item>
           </el-form>
   </div>
@@ -21,6 +21,15 @@ export default {
          formInline: {
           personalDescription: '',
         }
+    }
+  },
+  methods: {
+    keep () {
+      this.$http.put(`/resume/${2}/evaluation`,{content:''}).then(res => {
+        if (res.data.code == 200) {
+          console.log(res);
+        }
+      });
     }
   }
 }

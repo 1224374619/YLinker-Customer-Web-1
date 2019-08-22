@@ -187,6 +187,12 @@ export default {
     },
     next() {
         this.$router.push({path:'/resume'})
+        this.$http.post('/resume').then(res => {
+        if (res.data.code == 200) {
+          console.log(res) 
+        }else {
+        }
+      });
     },
     submitForm(formName) {
         this.$refs[formName].validate((valid) => {

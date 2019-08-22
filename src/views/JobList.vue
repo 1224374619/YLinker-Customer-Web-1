@@ -4,7 +4,7 @@
         <el-select  v-model="value" @focus="next"  style="width:77px;height:44px;font-size:14px;" >
           <el-option label="上海" value=""></el-option>
         </el-select>
-        <span style="font-size:20px">|</span>
+        <span class="joblist-after"></span>
         <el-select   slot="prepend"  v-model="company" @change="getVendorId" style="width:77px;height:44px;font-size:14px" :label-in-value="true">
           <el-option
             v-for="item in perList"
@@ -14,9 +14,9 @@
           </el-option>
           <!-- <option v-for="item in perList" :value="item.value" :key="item.value">{{ item.label }}</option> -->
         </el-select>
-        <span style="font-size:20px">|</span>
+        <span class="joblist-after"></span>
         <el-input style="width:600px;" placeholder="请输入内容"></el-input>
-        <el-button class="search-button" style="border-radius:0 2px 2px 0" type="primary"  icon="el-icon-search">搜索</el-button>
+        <el-button class="search-button" style="border-radius:0 2px 2px 0" type="primary" @click="search"  icon="el-icon-search">搜索</el-button>
     </div>
     <div class="joblist-article">
         <div class="article" style="margin-top:-2px">
@@ -110,13 +110,13 @@
         </div>
     </div>
     <div class="joblist-content">
-      <div class="content">
+      <div class="content" v-for="item in companyList" :key='item'>
         <div class="content-img">
             <img :src="require('../assets/images/company1.jpg')"/>
         </div>
         <div class="content-infor">
-            <span>迪卡侬</span>
-            <span>上海 | 150-500 | 移动互联网/交通出行</span>
+            <span>{{item.companyName}}</span>
+            <span>上海 | {{item.size}} | {{item.industry}}</span>
         </div>
         <div class="content-button">
             <span>
@@ -124,154 +124,25 @@
             </span>
         </div>
         <div class="content-job">
-            <span>在招职位<br>12个</span>
+            <span>在招职位<br>{{item.recruitedPositionNum}}</span>
         </div>
+        <div class="content-line"></div>
       </div>
-      <div class="content-line"></div>
-      <div class="content">
-        <div class="content-img">
-            <img :src="require('../assets/images/company1.jpg')"/>
-        </div>
-        <div class="content-infor">
-            <span>迪卡侬</span>
-            <span>上海 | 150-500 | 移动互联网/交通出行</span>
-        </div>
-        <div class="content-button">
-            <span>
-                <el-button class="button" type="primary">进入企业主页</el-button>
-            </span>
-        </div>
-        <div class="content-job">
-            <span>在招职位<br>12个</span>
-        </div>
-      </div>
-      <div class="content-line"></div>
-      <div class="content">
-        <div class="content-img">
-            <img :src="require('../assets/images/company1.jpg')"/>
-        </div>
-        <div class="content-infor">
-            <span>迪卡侬</span>
-            <span>上海 | 150-500 | 移动互联网/交通出行</span>
-        </div>
-        <div class="content-button">
-            <span>
-                <el-button class="button" type="primary">进入企业主页</el-button>
-            </span>
-        </div>
-        <div class="content-job">
-            <span>在招职位<br>12个</span>
-        </div>
-      </div>
-      <div class="content-line"></div>
-      <div class="content">
-        <div class="content-img">
-            <img :src="require('../assets/images/company1.jpg')"/>
-        </div>
-        <div class="content-infor">
-            <span>迪卡侬</span>
-            <span>上海 | 150-500 | 移动互联网/交通出行</span>
-        </div>
-        <div class="content-button">
-            <span>
-                <el-button class="button" type="primary">进入企业主页</el-button>
-            </span>
-        </div>
-        <div class="content-job">
-            <span>在招职位<br>12个</span>
-        </div>
-      </div>
-      <div class="content-line"></div> 
-      <div class="content">
-        <div class="content-img">
-            <img :src="require('../assets/images/company1.jpg')"/>
-        </div>
-        <div class="content-infor">
-            <span>迪卡侬</span>
-            <span>上海 | 150-500 | 移动互联网/交通出行</span>
-        </div>
-        <div class="content-button">
-            <span>
-                <el-button class="button" type="primary">进入企业主页</el-button>
-            </span>
-        </div>
-        <div class="content-job">
-            <span>在招职位<br>12个</span>
-        </div>
-      </div>
-      <div class="content-line"></div>  
     </div>
     <div class="joblist-footer">
-      <div class="joblist-hover" style="border:1px solid white">
+      <div class="joblist-hover" style="border:1px solid white" v-for="item in positionList" :key='item'>
         <div class="footer-first" style="margin-top:-20px">
-            <span>产品经理</span>
-            <span>5-10k</span>
-            <span>迪卡侬</span>
+            <span>{{item.positionName}}</span>
+            <span>{{item.salaryMin}}-{{item.salaryMax}}k</span>
+            <span>{{item.companyName}}</span>
         </div>
         <div class="footer-second">
-            <span>上海 徐汇区 | 1-3年 | 本科</span>
-            <span>今天 15:30</span>
-            <span>电子商务，文化娱乐 | 150-500人</span>
+            <span>上海 徐汇区 | {{item.workAgeMin}}-{{item.workAgeMax}}年 | {{item.degreeMin}}</span>
+            <span>今天 {{item.publishedTime}}</span>
+            <span>{{item.positionCatalog}} | {{item.size}}</span>
         </div>
         <div class="footer-line"></div>
       </div>  
-      <div class="joblist-hover" style="border:1px solid white">  
-        <div class="footer-first" style="margin-top:-20px">
-            <span>产品经理</span>
-            <span>5-10k</span>
-            <span>迪卡侬</span>
-        </div>
-        <div class="footer-second">
-            <span>上海 徐汇区 | 1-3年 | 本科</span>
-            <span>今天 15:30</span>
-            <span>电子商务，文化娱乐 | 150-500人</span>
-        </div>
-        <div class="footer-line"></div>
-      </div>  
-        <div class="footer-first" style="margin-top:-20px">
-            <span>产品经理</span>
-            <span>5-10k</span>
-            <span>迪卡侬</span>
-        </div>
-        <div class="footer-second">
-            <span>上海 徐汇区 | 1-3年 | 本科</span>
-            <span>今天 15:30</span>
-            <span>电子商务，文化娱乐 | 150-500人</span>
-        </div>
-        <div class="footer-line"></div>
-        <div class="footer-first" style="margin-top:-20px">
-            <span>产品经理</span>
-            <span>5-10k</span>
-            <span>迪卡侬</span>
-        </div>
-        <div class="footer-second">
-            <span>上海 徐汇区 | 1-3年 | 本科</span>
-            <span>今天 15:30</span>
-            <span>电子商务，文化娱乐 | 150-500人</span>
-        </div>
-        <div class="footer-line"></div>
-        <div class="footer-first" style="margin-top:-20px">
-            <span>产品经理</span>
-            <span>5-10k</span>
-            <span>迪卡侬</span>
-        </div>
-        <div class="footer-second">
-            <span>上海 徐汇区 | 1-3年 | 本科</span>
-            <span>今天 15:30</span>
-            <span>电子商务，文化娱乐 | 150-500人</span>
-        </div>
-        <div class="footer-line"></div>
-        <div class="footer-first" style="margin-top:-20px">
-            <span>产品经理</span>
-            <span>5-10k</span>
-            <span>迪卡侬</span>
-        </div>
-        <div class="footer-second">
-            <span>上海 徐汇区 | 1-3年 | 本科</span>
-            <span>今天 15:30</span>
-            <span>电子商务，文化娱乐 | 150-500人</span>
-        </div>
-        <div class="footer-line"></div>
         <div class="footer-pagination">
             <el-pagination
                 @size-change="handleSizeChange"
@@ -338,12 +209,58 @@ export default {
       positionIdList:[],
       perList:[
         {
-        value:'111',
+        value:'职位',
         label:'职位'
         },{
-        value:'222',
+        value:'公司',
         label:'公司'
         }],
+      companyList:[
+        {
+          companyName:"银领科技",
+          industry:'IT',
+          recruitedPositionNum:'12',
+          size:'100'
+        },
+        {
+          companyName:"银领科技",
+          industry:'IT',
+          recruitedPositionNum:'12',
+          size:'100'
+        },
+        {
+          companyName:"银领科技",
+          industry:'IT',
+          recruitedPositionNum:'12',
+          size:'100'
+        }
+      ], 
+      positionList:[
+        {
+          degreeMin:"本科",
+          positionCatalog:'IT',
+          positionName:'产品经理',
+          publishedTime:'19:00',
+          salaryMax:'7',
+          salaryMin:'2',
+          workAgeMax:'5',
+          workAgeMin:'1',
+          companyName:'迪卡侬',
+          size:'300'
+        },
+        {
+          degreeMin:"本科",
+          positionCatalog:'IT',
+          positionName:'产品经理',
+          publishedTime:'19:00',
+          salaryMax:'7',
+          salaryMin:'2',
+          workAgeMax:'5',
+          workAgeMin:'1',
+          companyName:'迪卡侬',
+          size:'300'
+        },
+      ], 
       options: [{
           value: 'zhinan',
           label: '指南',
@@ -540,11 +457,24 @@ export default {
           }]
         }]
       };
-
-      
       
   },
   methods: {
+      search () {
+        if(this.company =='职位') {
+          this.$http.get('/searched/company').then(res => {
+          if (res.data.code == 200) {
+            console.log(res);
+          }
+        });
+        }else {
+          this.$http.post('/searched/position').then(res => {
+          if (res.data.code == 200) {
+            console.log(res);
+          }
+        });
+        }
+      },
       next() {
         this.dialogVisible = true
       },
@@ -592,6 +522,8 @@ export default {
       width 880px
       height 44px
       background white
+      .joblist-after                  
+        border 0.5px solid #455379
       .el-icon-search:before
         color white
         font-size 17px 
@@ -646,11 +578,11 @@ export default {
       background white
       display flex
       flex-direction column
-      .content-line
-        width 810px
-        border 0.5px solid #f0f0f0
-        margin 10px 0 0 38px
       .content  
+        .content-line
+          width 810px
+          border 0.5px solid #f0f0f0
+          margin 0 0 0 38px  
         .content-img img
           width 60px
           height 60px
@@ -674,7 +606,7 @@ export default {
           margin 0 0 8px 8px
         .content-job
           float right
-          margin 20px 15px 0 0
+          margin 20px 15px 20px 0
         .content-job span
           font-family PingFangSC-Regular
           color #455379
@@ -737,6 +669,8 @@ export default {
         font-family PingFangSC-Regular
         color #1f368d
         font-size 14px
+        width 208px
+        text-align left
       .footer-line
         width 810px
         border 0.5px solid #f0f0f0

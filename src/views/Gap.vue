@@ -14,7 +14,7 @@
           <div class="right-footer">
               <span>附件简历</span>
               <p>支持格式包括： 支持DOC，DOCX,PDF,JPG,PNG格式<br>文件,大小不超过2M</p>
-              <el-button style="width:108px;height:34px" @click="next" type="primary">立即上传</el-button>
+              <el-button style="width:108px;height:34px"  @click="upload" type="primary">立即上传</el-button>
           </div>
       </div>
   </div>
@@ -34,11 +34,12 @@ export default {
   },
   methods: {
      next() {
-       this.$http.post('/resume').then(res => {
+       this.$router.push({path:'/specialty'})  
+    },
+     upload() {
+       this.$http.post('/resume/file').then(res => {
         if (res.data.code == 200) {
-          console.log(res) 
-        }else {
-           this.$router.push({path:'/specialty'})
+          console.log(res);
         }
       });
     },

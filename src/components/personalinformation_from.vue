@@ -24,7 +24,7 @@
             </div>
             <div style="margin:35px 0 0 93px">
               <span class="actions-span">
-                  <img style="margin-right:9px;height:12px" :src="require('../assets/images/1.png')"/><span style="margin-right:3px">编辑</span> 
+                  <img style="margin-right:9px;height:12px" @click="editsinformation" :src="require('../assets/images/1.png')"/><span style="margin-right:3px">编辑</span> 
               </span>
             </div>
         </div>
@@ -38,11 +38,19 @@
             return {
             };
         },
+        methods: {
+          editsinformation() {
+            this.$http.post(`/resume/${2}/base`,{fullName:'',county:''}).then(res => {
+              if (res.data.code == 200) {
+                console.log(res);
+              }
+            });
+          }
+        },
     }
 </script>
 
 <style lang="stylus" scoped>
-  
   .personalinformation
     .information
       display flex

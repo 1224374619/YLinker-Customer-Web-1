@@ -83,6 +83,12 @@ export default {
       if(this.formInline.status == "离职-延时到岗"){
          this.datePicker = true
       }
+      //编辑求职意向
+      this.$http.put(`/resume/${2}/target`,{county:'',industries:'',jobSearchStatus:'',jobType:'',province:'',salaryMin:''}).then(res => {
+        if (res.data.code == 200) {
+          console.log(res);
+        }
+      });
     }
   }
 }

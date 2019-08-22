@@ -51,7 +51,7 @@
 
 export default {
   name: 'education',
-  props:['showeducation'],
+  props:['educationDegree'],
   data() {
     return {
          formInline: {
@@ -67,10 +67,30 @@ export default {
   methods: {
     cancel() {
       this.$emit("sendiptVal",false) 
-      // alert(2222)
-      // this.showeducation = false
-      // alert(33333)
+    },
+    //新增
+    keep() {
+      this.$emit("skill", this.formInline.technicalName, this.formInline.level);
+      this.$http.post(`/resume/${2}/education`, { beginTime: "", degree: "", major: "",school:''}).then(res => {
+          if (res.data.code == 200) {
+            console.log(res);
+          }
+        });
+    },
+    //更新
+    keep() {
+      this.$emit("skill", this.formInline.technicalName, this.formInline.level);
+      this.$http
+        .put(`/resume/${2}/education/${1}`,{beginTime: "",degree: "",major: "",school:''})
+        .then(res => {
+          if (res.data.code == 200) {
+            console.log(res);
+          }
+        });
     }
+  },
+  created() {
+    this.formInline.major = this.educationDegree
   }
 }
 </script>
