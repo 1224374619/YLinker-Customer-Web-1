@@ -41,7 +41,7 @@
             <br>
             <el-form-item style="margin:0 0 20px 450px"> 
             <el-button @click="cancel" style="margin:0 10px 0 0" plain>取消</el-button>
-            <el-button type="primary">保存</el-button>
+            <el-button @click="keep" type="primary">保存</el-button>
             </el-form-item>
           </el-form>
   </div>

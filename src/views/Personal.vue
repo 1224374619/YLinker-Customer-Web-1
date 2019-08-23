@@ -77,11 +77,11 @@
         <img @click="toPerson" :src="require('../assets/images/tou.png')" />
         <span class="span-name">
           李康
-          <img :src="require('../assets/images/xing.png')" />
+          <img :src="require('../assets/images/xingbie.png')" />
         </span>
         <div v-if="showInfor" class="infor">
-          <span class="span-city">现居上海 | 2年工作经验 | 23岁</span>
-          <span class="span-type">求职状态|离职-随时到岗</span>
+        <span class="span-city">现居{{city}} | {{workAge}}工作经验 | {{age}}</span>
+          <span class="span-type">{{state}}|{{workState}}</span>
         </div>
         <div v-if="showWarn" style="font-size:14px;padding:10px 0 10px 0">个人信息未填写完整，快快来补充吧</div>
       </div>
@@ -90,51 +90,17 @@
           <span>推荐职位</span>
           <span>查看更多 》</span>
         </div>
-        <div class="footer-article">
-          <span>产品经理助理</span>
-          <span>5-10k</span>
+        <div v-for="list in searchedList" :key="list">
+          <div class="footer-article">
+            <span>{{list.postion}}</span>
+            <span>{{list.salaryMin}}-{{list.salaryMax}}k</span>
+          </div>
+          <div class="footer-foot">
+            <span>{{list.companyName}}</span>
+            <span>上海长宁区</span>
+          </div>
+          <div class="footer-line"></div>
         </div>
-        <div class="footer-foot">
-          <span>迪卡侬公司</span>
-          <span>上海长宁区</span>
-        </div>
-        <div class="footer-line"></div>
-        <div class="footer-article">
-          <span>产品经理助理</span>
-          <span>5-10k</span>
-        </div>
-        <div class="footer-foot">
-          <span>迪卡侬公司</span>
-          <span>上海长宁区</span>
-        </div>
-        <div class="footer-line"></div>
-        <div class="footer-article">
-          <span>产品经理助理</span>
-          <span>5-10k</span>
-        </div>
-        <div class="footer-foot">
-          <span>迪卡侬公司</span>
-          <span>上海长宁区</span>
-        </div>
-        <div class="footer-line"></div>
-        <div class="footer-article">
-          <span>产品经理助理</span>
-          <span>5-10k</span>
-        </div>
-        <div class="footer-foot">
-          <span>迪卡侬公司</span>
-          <span>上海长宁区</span>
-        </div>
-        <div class="footer-line"></div>
-        <div class="footer-article">
-          <span>产品经理助理</span>
-          <span>5-10k</span>
-        </div>
-        <div class="footer-foot">
-          <span>迪卡侬公司</span>
-          <span>上海长宁区</span>
-        </div>
-        <div class="footer-line"></div>
       </div>
     </div>
   </div>
@@ -191,6 +157,38 @@ export default {
           workAgeMax:'5',
           workAgeMin:'3'
         }],
+        searchedList:[{
+          postion:'产品经理',
+          salaryMin:'3',
+          salaryMax:'5',
+          companyName:'迪卡侬',
+        },
+        {
+          postion:'前端',
+          salaryMin:'3',
+          salaryMax:'5',
+          companyName:'迪卡侬',
+        },{
+          postion:'前端',
+          salaryMin:'3',
+          salaryMax:'5',
+          companyName:'迪卡侬',
+        },{
+          postion:'前端',
+          salaryMin:'3',
+          salaryMax:'5',
+          companyName:'迪卡侬',
+        },{
+          postion:'前端',
+          salaryMin:'3',
+          salaryMax:'5',
+          companyName:'迪卡侬',
+        }],
+        city:'上海',
+        workAge:'2年',
+        age:'24岁',
+        state:'离职',
+        workState:'离职-随时到岗'
     }
   },
   methods: {
@@ -221,11 +219,28 @@ export default {
           }
         });
       },
+      //获取个人简讯
+      brief() {
+        this.$http.delete('/resume/biref').then(res => {
+          if (res.data.code == 200) {
+            // this.favoriteList = res.data.data; 
+          }
+        });
+      },
+      //获取推荐岗位
+      searched() {
+        this.$http.delete('/searched/position').then(res => {
+          if (res.data.code == 200) {
+            // this.favoriteList = res.data.data; 
+          }
+        });
+      }
     },
     created() {
       this.submitted();
       this.favorite();
       this.iscancel();
+      this.searched();
     },
 }
 </script>
@@ -353,7 +368,7 @@ export default {
           margin 10px 0 0 10px
           text-align center
         .span-name img 
-          width 20px
+          width 15px
           height 15px
           margin 0 0 0 5px
         .infor

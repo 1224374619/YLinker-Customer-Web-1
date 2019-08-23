@@ -378,7 +378,7 @@ export default {
         flex-direction column
         margin 0 0 0 0
         .aside-footer
-          margin 10px 0 0 0  
+          margin 7px 0 0 0  
           .company-post 
             display flex
             flex-direction row

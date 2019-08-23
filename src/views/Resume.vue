@@ -12,13 +12,118 @@
             <span style="font-size:14px;line-height:20px;margin:0 0 0 20px">删除后不能恢复，请确定删除？</span>
           </div>
           <div slot="footer" class="dialog-footer" style="margin-top:-30px">
-            <el-button class="cancel" @click="dialog = false">取 消</el-button>
+            <el-button style="margin:0 20px 0 0" @click="dialog = false" plain>取 消</el-button>
             <el-button type="primary" style="margin:0 160px 0 0" @click="dialog = false">确 定</el-button>
           </div>
           <div style="height:30px"></div>
         </el-dialog>
+        <!-- 基本信息编辑 -->
+        <!-- <el-dialog title="外层 Dialog" :visible.sync="outerVisible">
+          <el-dialog
+            width="30%"
+            title="内层 Dialog"
+            :visible.sync="innerVisible"
+            append-to-body>
+          </el-dialog>
+          <div slot="footer" class="dialog-footer">
+            <el-button @click="outerVisible = false">取 消</el-button>
+            <el-button type="primary" @click="innerVisible = true">打开内层 Dialog</el-button>
+          </div>
+        </el-dialog> -->
+        <!-- 求职意向编辑 -->
+        <!-- <el-dialog title="外层 Dialog" :visible.sync="outerVisible">
+          <el-dialog
+            width="30%"
+            title="内层 Dialog"
+            :visible.sync="innerVisible"
+            append-to-body>
+          </el-dialog>
+          <div slot="footer" class="dialog-footer">
+            <el-button @click="outerVisible = false">取 消</el-button>
+            <el-button type="primary" @click="innerVisible = true">打开内层 Dialog</el-button>
+          </div>
+        </el-dialog> -->
+        <!-- 工作经历编辑 -->
+        <!-- <el-dialog title="外层 Dialog" :visible.sync="outerVisible">
+          <el-dialog
+            width="30%"
+            title="内层 Dialog"
+            :visible.sync="innerVisible"
+            append-to-body>
+          </el-dialog>
+          <div slot="footer" class="dialog-footer">
+            <el-button @click="outerVisible = false">取 消</el-button>
+            <el-button type="primary" @click="innerVisible = true">打开内层 Dialog</el-button>
+          </div>
+        </el-dialog> -->
+        <!-- 教育经历编辑 -->
+        <el-dialog title="教育经历编辑" width="30%" :visible.sync="outerVisible">
+          <div>
+            <el-form :model="formEducation" class="demo-form-inline" label-width="100px">
+              <el-form-item label="学校名称">
+                  <el-input v-model="formEducation.educationName" style="width:400px;height:36px;margin-right:50px" placeholder=""></el-input>
+              </el-form-item>
+              <el-form-item label="在校时间" class="block">
+                  <el-date-picker
+                  style="width:400px;height:36px;margin-right:50px"
+                  type="daterange"
+                  range-separator="至"
+                  start-placeholder="开始日期"
+                  end-placeholder="结束日期">
+                  </el-date-picker>
+              </el-form-item>
+               <el-form-item label="专业">
+                <el-input style="width:400px;height:36px;margin-right:50px" placeholder=""></el-input>
+              </el-form-item>
+              <!-- <el-form-item label="是否统招" style="width:340px;">
+                  <el-radio  label="1">是</el-radio>
+                  <el-radio  label="2">否</el-radio>
+              </el-form-item> -->
+              <el-form-item label="学历">
+                  <el-select style="width:400px;height:36px;margin-right:50px" placeholder="">
+                  <el-option label="" value="初中及以下"></el-option>
+                  <el-option label="" value="大专/职中"></el-option>
+                  <el-option label="" value="高中"></el-option>
+                  <el-option label="" value="大专"></el-option>
+                  <el-option label="" value="本科"></el-option>
+                  <el-option label="" value="硕士"></el-option>
+                  <el-option label="" value="博士"></el-option>
+                  </el-select>
+              </el-form-item>
+            </el-form>
+          </div>
+          <el-dialog
+            width="20%"
+            :visible.sync="innerVisible"
+            append-to-body>
+             <div style="display:flex;flex-direction:row;margin-left:80px">
+               <img style="height:18px;" :src="require('../assets/images/222.png')"/>
+               <span style="font-size:14px;line-height:20px;margin:0 0 0 20px">离开修改内容将不会保存</span>
+             </div>
+             <div slot="footer" class="dialog-footer">
+              <el-button style="margin:0 20px 0 0" @click="innerVisible = false" plain>取 消</el-button>
+              <el-button style="margin:0 60px 0 0" type="primary" @click="outerVisible = false,innerVisible = false">确定</el-button>
+             </div>
+          </el-dialog>
+          <div slot="footer" class="dialog-footer">
+            <el-button style="margin:0 20px 0 0" @click="innerVisible = true" plain>取 消</el-button>
+            <el-button style="margin:0 35px 0 0" type="primary" @click="outerVisible = false">保存</el-button>
+          </div>
+        </el-dialog>
+        
         <div class="personalinformation" v-if="personalinformation">
-          <div class="personalinformation-img"><img :src="require('../assets/images/11.png')"/></div>
+          <div class="personalinformation-img">
+            <el-upload
+              style='width:80px;height:80px;margin:32px 0 0 42px'
+              class="avatar-uploader"
+              action="https://jsonplaceholder.typicode.com/posts/"
+              :show-file-list="false"
+              :on-success="handleAvatarSuccess"
+              :before-upload="beforeAvatarUpload">
+              <img v-if="imageUrl" :src="imageUrl" class="avatar">
+              <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+            </el-upload>
+          </div>
           <div class="img-add" @click="isshowpersonalinformation"><img :src="require('../assets/images/add.png')"/><span
                   class="add">添加个人信息</span></div>
         </div>
@@ -26,18 +131,18 @@
           <Basic-Info/>
         </div>
         <div ref="personalinformation" @mouseover="over(11)" v-if="showPersonalinformation" @mouseleave="leave(11)">
-          <Personalinformation-From/>
+          <Personalinformation-From @editsinformation='editsinformation'/>
         </div>
         <div class="content-line"></div>
         <div ref="jobintension" class="main-content">
-          <div class="main-content-first"><img :src="require('../assets/images/44.png')"/><span>求职意向</span></div>
+          <div class="main-content-first"><img :src="require('../assets/images/qiuzhi.png')"/><span>求职意向</span></div>
           <div class="main-content-second" @click="jobintension" v-if="showadd"><img
                   :src="require('../assets/images/add.png')"/> <span>添加</span></div>
         </div>
         <ul v-if="showjobintension" style="margin:-15px 0 10px 5px" @mouseover="over(10)" @mouseleave="leave(10)">
           <li v-for="(list,index) in listjobintension" :key="index" class="ul-a">
               <span class="actions-span">
-                  <img style="margin-right:9px;height:12px" :src="require('../assets/images/1.png')"/><span
+                  <img style="margin-right:9px;height:12px" :src="require('../assets/images/ziwo.png')"/><span
                       style="margin-right:3px">编辑</span>
               </span>
             <div style="width:879px">
@@ -51,7 +156,7 @@
         </div>
         <div class="content-line"></div>
         <div ref="educational" class="main-content">
-          <div class="main-content-first"><img :src="require('../assets/images/55.png')"/><span>教育经历</span></div>
+          <div class="main-content-first"><img :src="require('../assets/images/edu.png')"/><span>教育经历</span></div>
           <div class="main-content-second" @click="education"><img :src="require('../assets/images/add.png')"/>
             <span>添加</span></div>
         </div>
@@ -59,9 +164,9 @@
           <li v-for="(list,index) in listeducational" :key="index" class="ul-a">
               <span class="actions-span">
                   <img class="img-first" style="margin-right:9px;height:12px"
-                       :src="require('../assets/images/10.png')"/><span @click="showdialog()" style="margin-right:20px">删除</span>
+                       :src="require('../assets/images/shan.png')"/><span @click="showdialog()" style="margin-right:20px">删除</span>
                   <img class="img-second" style="margin-right:9px;height:12px"
-                       :src="require('../assets/images/1.png')"/><span style="margin-right:3px" @click="showeducationalList(list)">编辑</span>
+                       :src="require('../assets/images/ziwo.png')"/><span style="margin-right:3px" @click="showeducationalList(list)">编辑</span>
               </span>
             <educationexperience-From :from-data="list" :index="index"></educationexperience-From>
             <br>
@@ -72,16 +177,16 @@
         </div>
         <div class="content-line"></div>
         <div ref="work" class="main-content">
-          <div class="main-content-first"><img :src="require('../assets/images/33.png')"/><span>工作经历</span></div>
+          <div class="main-content-first"><img :src="require('../assets/images/work.png')"/><span>工作经历</span></div>
           <div class="main-content-second" @click="work"><img :src="require('../assets/images/add.png')"/>
             <span>添加</span></div>
         </div>
         <ul v-if="showworkperience" style="margin:-5px 0 10px 5px" @mouseover="over(8)" @mouseleave="leave(8)">
           <li v-for="(list,index) in listwork" :key="index" class="ul-a">
               <span class="actions-span">
-                  <img style="margin-right:9px;height:12px" :src="require('../assets/images/10.png')"/><span
+                  <img style="margin-right:9px;height:12px" :src="require('../assets/images/shan.png')"/><span
                       @click="showdialog()" style="margin-right:20px">删除</span>
-                  <img style="margin-right:9px;height:12px" :src="require('../assets/images/1.png')"/><span
+                  <img style="margin-right:9px;height:12px" :src="require('../assets/images/ziwo.png')"/><span
                       style="margin-right:3px">编辑</span>
               </span>
             <work-from :from-data="list" :index="index"></work-from>
@@ -93,16 +198,16 @@
         </div>
         <div class="content-line"></div>
         <div ref="progect" class="main-content">
-          <div class="main-content-first"><img :src="require('../assets/images/66.png')"/><span>项目经历</span></div>
+          <div class="main-content-first"><img :src="require('../assets/images/language.png')"/><span>项目经历</span></div>
           <div class="main-content-second" @click="project"><img :src="require('../assets/images/add.png')"/>
             <span>添加</span></div>
         </div>
         <ul v-if="showprogectperience" style="margin:-5px 0 10px 5px" @mouseover="over(7)" @mouseleave="leave(7)">
           <li v-for="(list,index) in listprogectperience" :key="index" class="ul-a">
               <span class="actions-span">
-                  <img style="margin-right:9px;height:12px" :src="require('../assets/images/10.png')"/><span
+                  <img style="margin-right:9px;height:12px" :src="require('../assets/images/shan.png')"/><span
                       @click="showdialog()" style="margin-right:20px">删除</span>
-                  <img style="margin-right:9px;height:12px" :src="require('../assets/images/1.png')"/><span
+                  <img style="margin-right:9px;height:12px" :src="require('../assets/images/ziwo.png')"/><span
                       style="margin-right:3px">编辑</span>
               </span>
             <progect-from :from-data="list" :index="index"></progect-from>
@@ -114,16 +219,16 @@
         </div>
         <div class="content-line"></div>
         <div ref="training" class="main-content">
-          <div class="main-content-first"><img :src="require('../assets/images/77.png')"/><span>培训经历</span></div>
+          <div class="main-content-first"><img :src="require('../assets/images/train.png')"/><span>培训经历</span></div>
           <div class="main-content-second" @click="training"><img :src="require('../assets/images/add.png')"/>
             <span>添加</span></div>
         </div>
         <ul v-if="showtrain" style="margin:-5px 0 10px 5px;" @mouseover="over(6)" @mouseleave="leave(6)">
           <li v-for="(list,index) in listtrain" :key="index" class="ul-a">
               <span class="actions-span">
-                  <img style="margin-right:9px;height:12px" :src="require('../assets/images/10.png')"/><span
+                  <img style="margin-right:9px;height:12px" :src="require('../assets/images/shan.png')"/><span
                       @click="showdialog()" style="margin-right:20px">删除</span>
-                  <img style="margin-right:9px;height:12px" :src="require('../assets/images/1.png')"/><span
+                  <img style="margin-right:9px;height:12px" :src="require('../assets/images/ziwo.png')"/><span
                       style="margin-right:3px">编辑</span>
               </span><br>
             <training-from :from-data="list" :index="index"></training-from>
@@ -135,16 +240,16 @@
         </div>
         <div class="content-line"></div>
         <div ref="language" class="main-content">
-          <div class="main-content-first"><img :src="require('../assets/images/66.png')"/><span>语言能力</span></div>
+          <div class="main-content-first"><img :src="require('../assets/images/language.png')"/><span>语言能力</span></div>
           <div class="main-content-second" @click="language"><img :src="require('../assets/images/add.png')"/>
             <span>添加</span></div>
         </div>
         <ul v-if="showlanguages" style="margin:-5px 0 10px 5px" @mouseover="over(5)" @mouseleave="leave(5)">
           <li v-for="(list,index) in listlanguages" :key="index" class="ul-a">
               <span class="actions-span">
-                  <img style="margin-right:9px;height:12px" :src="require('../assets/images/10.png')"/><span
+                  <img style="margin-right:9px;height:12px" :src="require('../assets/images/shan.png')"/><span
                       @click="showdialog()" style="margin-right:20px">删除</span>
-                  <img style="margin-right:9px;height:12px" :src="require('../assets/images/1.png')"/><span
+                  <img style="margin-right:9px;height:12px" :src="require('../assets/images/ziwo.png')"/><span
                       style="margin-right:3px">编辑</span>
               </span><br>
             <language-from :from-data="list" :index="index"></language-from>
@@ -156,7 +261,7 @@
         </div>
         <div class="content-line"></div>
         <div ref="professional" class="main-content" @mouseover="over(4)" @mouseleave="leave(4)">
-          <div class="main-content-first"><img :src="require('../assets/images/88.png')"/><span>职称等级</span></div>
+          <div class="main-content-first"><img :src="require('../assets/images/zhicheng.png')"/><span>职称等级</span></div>
           <div class="main-content-second" @click="professional()"><img :src="require('../assets/images/add.png')"/>
             <span>添加</span></div>
         </div>
@@ -165,16 +270,16 @@
         </div>
         <div class="content-line"></div>
         <div ref="personal_skill" class="main-content">
-          <div class="main-content-first"><img :src="require('../assets/images/99.png')"/><span>专业技能</span></div>
+          <div class="main-content-first"><img :src="require('../assets/images/zhuanye.png')"/><span>专业技能</span></div>
           <div class="main-content-second" @click="personal_skill()"><img :src="require('../assets/images/add.png')"/>
             <span>添加</span></div>
         </div>
         <ul v-if="showpersonalskills" style="margin:-5px 0 10px 5px" @mouseover="over(3)" @mouseleave="leave(3)">
           <li v-for="(list,index) in listpersonalskill" :key="index" class="ul-a">
               <span class="actions-span">
-                  <img style="margin-right:9px;height:12px" :src="require('../assets/images/10.png')"/><span
+                  <img style="margin-right:9px;height:12px" :src="require('../assets/images/shan.png')"/><span
                       @click="showdialog()" style="margin-right:20px">删除</span>
-                  <img style="margin-right:9px;height:12px" :src="require('../assets/images/1.png')"/><span
+                  <img style="margin-right:9px;height:12px" :src="require('../assets/images/ziwo.png')"/><span
                       style="margin-right:3px" @click="editskill">编辑</span>
               </span><br>
             <personalskill-from :from-data="list" :index="index"></personalskill-from>
@@ -186,16 +291,16 @@
         </div>
         <div class="content-line"></div>
         <div ref="awards" class="main-content">
-          <div class="main-content-first"><img :src="require('../assets/images/0.png')"/><span>荣誉奖项</span></div>
+          <div class="main-content-first"><img :src="require('../assets/images/rong.png')"/><span>荣誉奖项</span></div>
           <div class="main-content-second" @click="awards"><img :src="require('../assets/images/add.png')"/>
             <span>添加</span></div>
         </div>
         <ul v-if="showaward" style="margin:-5px 0 10px 5px" @mouseover="over(2)" @mouseleave="leave(2)">
           <li v-for="(list,index) in listaward" :key="index" class="ul-a">
               <span class="actions-span">
-                  <img style="margin-right:9px;height:12px" :src="require('../assets/images/10.png')"/><span
+                  <img style="margin-right:9px;height:12px" :src="require('../assets/images/shan.png')"/><span
                       @click="showdialog()" style="margin-right:20px">删除</span>
-                  <img style="margin-right:9px;height:12px" :src="require('../assets/images/1.png')"/><span
+                  <img style="margin-right:9px;height:12px" :src="require('../assets/images/ziwo.png')"/><span
                       style="margin-right:3px">编辑</span>
               </span><br>
             <awards-from :from-data="list" :index="index"></awards-from>
@@ -207,16 +312,16 @@
         </div>
         <div class="content-line"></div>
         <div ref="self-appraisal" class="main-content">
-          <div class="main-content-first"><img :src="require('../assets/images/1.png')"/><span>自我评价</span></div>
+          <div class="main-content-first"><img :src="require('../assets/images/ziwo.png')"/><span>自我评价</span></div>
           <div class="main-content-second" @click="selfappraisal"><img :src="require('../assets/images/add.png')"/>
             <span>添加</span></div>
         </div>
         <ul v-if="showpersonappraisal" style="margin:-5px 0 10px 5px" @mouseover="over(1)" @mouseleave="leave(1)">
           <li v-for="(list,index) in listpersonappraisal" :key="index" class="ul-a">
               <span class="actions-span">
-                  <img style="margin-right:9px;height:12px" :src="require('../assets/images/10.png')"/><span
+                  <img style="margin-right:9px;height:12px" :src="require('../assets/images/shan.png')"/><span
                       @click="showdialog()" style="margin-right:20px">删除</span>
-                  <img style="margin-right:9px;height:12px" :src="require('../assets/images/1.png')"/><span
+                  <img style="margin-right:9px;height:12px" :src="require('../assets/images/ziwo.png')"/><span
                       style="margin-right:3px">编辑</span>
               </span>
             <selfappraisal-from :from-data="list" :index="index"></selfappraisal-from>
@@ -230,9 +335,22 @@
       <div class="aside-body">
         <div class="aside-foot">
           <div class="aside-foot-first">附件简历</div>
-          <div class="aside-foot-second"><span>支持格式包括： 支持DOC，DOCX,PDF,JPG,PNG格式<br>文件,大小不超过2M</span></div>
+          <div class="aside-foot-second" v-if="file"><span>支持格式包括： 支持DOC，DOCX,PDF,JPG,PNG格式<br>文件,大小不超过2M</span></div>
           <div class="aside-foot-third">
-            <el-button type="primary" @click="upload" size="medium">立即上传</el-button>
+            <el-upload
+              style='width:220px;margin:0 0 15px 0'
+              class="upload-demo"
+              action="https://jsonplaceholder.typicode.com/posts/"
+              :on-preview="handlePreview"
+              :on-remove="handleRemove"
+              :before-remove="beforeRemove"
+              multiple
+              :limit="3"
+              :on-exceed="handleExceed"
+              :file-list="fileList">
+              <el-button style="margin:10px 0 0 60px" type="primary" @click="upload" size="medium">简历上传</el-button>
+            </el-upload>
+            <div style="height:5px"></div>
           </div>
         </div>
         <Affix :offset="60">
@@ -247,43 +365,43 @@
             <div class="aside-tabulation">
               <div class="aside-line"></div>
               <div class="tabulation"><a @click="testRef('personalinformation')"><img
-                      :src="require('../assets/images/2.png')"/><span :style="active"
+                      :src="require('../assets/images/ji.png')"/><span :style="active"
                                                                       class="tabulation-language">基本信息</span> </a></div>
               <div class="aside-line"></div>
               <div class="tabulation"><a @click="testRef('jobintension')" href="#jobintension"><img
-                      :src="require('../assets/images/44.png')"/> <span :style="activejobintension"
+                      :src="require('../assets/images/qiuzhi.png')"/> <span :style="activejobintension"
                                                                         class="tabulation-language">求职意向</span></a></div>
               <div class="aside-line"></div>
               <div class="tabulation"><a @click="testRef('educational')"><img
-                      :src="require('../assets/images/55.png')"/><span :style="activeeducation"
+                      :src="require('../assets/images/edu.png')"/><span :style="activeeducation"
                                                                        class="tabulation-language">教育经历</span></a></div>
               <div class="aside-line"></div>
-              <div class="tabulation"><a @click="testRef('work')"><img :src="require('../assets/images/33.png')"/> <span
+              <div class="tabulation"><a @click="testRef('work')"><img :src="require('../assets/images/work.png')"/> <span
                       :style="activework" class="tabulation-language">工作经历</span></a></div>
               <div class="aside-line"></div>
-              <div class="tabulation"><a @click="testRef('progect')"><img :src="require('../assets/images/66.png')"/>
+              <div class="tabulation"><a @click="testRef('progect')"><img :src="require('../assets/images/language.png')"/>
                 <span :style="activeproject" class="tabulation-language">项目经历</span></a></div>
               <div class="aside-line"></div>
               <div class="tabulation"><a @click="testRef('training')"><img
-                      :src="require('../assets/images/77.png')"/><span :style="activetraining"
+                      :src="require('../assets/images/train.png')"/><span :style="activetraining"
                                                                        class="tabulation-language">培训经历</span></a></div>
               <div class="aside-line"></div>
               <div class="tabulation"><a @click="testRef('language')"><img
-                      :src="require('../assets/images/66.png')"/><span :style="activelanguage"
+                      :src="require('../assets/images/language.png')"/><span :style="activelanguage"
                                                                        class="tabulation-language">语言能力</span></a></div>
               <div class="aside-line"></div>
-              <div class="tabulation"><a @click="testRef('professional')"><img :src="require('../assets/images/88.png')"/>
+              <div class="tabulation"><a @click="testRef('professional')"><img :src="require('../assets/images/zhicheng.png')"/>
                 <span :style="activeOne" class="tabulation-language">职称等级</span></a></div>
               <div class="aside-line"></div>
               <div class="tabulation"><a @click="testRef('personal_skill')"><img
-                      :src="require('../assets/images/99.png')"/><span :style="activeprofessional"
+                      :src="require('../assets/images/zhuanye.png')"/><span :style="activeprofessional"
                                                                        class="tabulation-language">专业技能</span></a></div>
               <div class="aside-line"></div>
-              <div class="tabulation"><a @click="testRef('awards')"><img :src="require('../assets/images/0.png')"/> <span
+              <div class="tabulation"><a @click="testRef('awards')"><img :src="require('../assets/images/rong.png')"/> <span
                       :style="activeawards" class="tabulation-language">荣誉奖项</span></a></div>
               <div class="aside-line"></div>
               <div class="tabulation"><a @click="testRef('self-appraisal')"><img
-                      :src="require('../assets/images/1.png')"/> <span :style="activeselfAppraisal"
+                      :src="require('../assets/images/ziwo.png')"/> <span :style="activeselfAppraisal"
                                                                        class="tabulation-language">自我介绍</span></a></div>
             </div>
           </div>
@@ -374,6 +492,9 @@
         showaward: true,
         showpersonappraisal: true,
         index:'a',
+        file:true,
+        outerVisible: false,
+        innerVisible: false,
         listjobintension: [{
           postType: "产品经理",
           city: "上海/北京",
@@ -429,9 +550,11 @@
         listpersonappraisal: [{
           personalDescription: "年轻有为",
         }],
-
-        educationDegree:'',
-
+        formEducation: {
+          educationDegree:'',
+          educationName:'',
+          educationTime:'',
+        },
         activejobintension: '',
         active: '',
         activeeducation: '',
@@ -446,9 +569,18 @@
       }
     },
     methods: {
+      //获取简历详情
+      resumeId () {
+        this.$http.post(`/resume/${2}`).then(res => {
+          if (res.data.code == 200) {
+            console.log(res);
+          }
+        });
+      },
       //上传附件简历
       upload() {
-         this.$http.post(`/resume/${2}/file`,{skill:''}).then(res => {
+         this.file = false
+         this.$http.post(`/resume/${2}/file`).then(res => {
           if (res.data.code == 200) {
             console.log(res);
           }
@@ -529,10 +661,14 @@
       sendiptVal(c) {
         this.showeducation = c
       },
+      editsinformation(c) {
+        console.log(c)
+        this.showPersonalinformation = c
+        this.personalinformation = true
+      },
       showeducationalList(list) {
-        this.showeducation = true
-        this.educationDegree = list.educationDegree
-         console.log(this.educationDegree) 
+        this.outerVisible = true
+        this.formEducation.educationName = list.educationName 
       },
       testRef(ref) {
         if (ref) {
@@ -551,7 +687,7 @@
       },
       isshowpersonalinformation() {
         this.personalinformation = false
-        this.showdemo = true
+        this.showDemo = true
       },
       jobintension() {
         this.showadd = false;
@@ -624,10 +760,10 @@
           this.activeeducation = "font-weight:bold;line-height:61px;font-size:16px;color:black"
         }
         if (index == 10) {
-          this.activejobintension = "font-weight:bold;line-height:41px;font-size:16px;color:black"
+          this.activejobintension = "font-weight:bold;line-height:61px;font-size:16px;color:black"
         }
         if (index == 11) {
-          this.active = "font-weight:bold;line-height:41px;font-size:16px;color:black"
+          this.active = "font-weight:bold;line-height:61px;font-size:16px;color:black"
         }
 
       },
@@ -668,10 +804,9 @@
       },
 
     },
-    // created () {
-    //   this.showeducation=this.showe
-    //   alert(this.showeducation)
-    // }
+    created () {
+      this.resumeId()
+    }
 
   }
 
@@ -713,26 +848,16 @@
 
       .cancel
         margin 0 20px 0 0
-
-      .personalinformation div:nth-child(1) img
-        width 80px
-        height 80px
-        margin 32px 0 0 42px
-
       .personalinformation div:nth-child(2)
         margin 0 75px 15px 0
-
       .content-line
         width 682px
         border 0.5px solid #eeeeee
         margin 0 44px 0 44px
-
       ul
         width 675px
-
       ul li
         list-style none
-
       .ul-a
         .actions-span
           float right
@@ -740,83 +865,65 @@
           font-size 15px
           color #1f368d
           opacity 0
-
         &:hover
           background #f7f7f7
-
           .actions-span
             opacity 1
-
       .actions-span span:hover
         color #7d8dcb
-
       .actions-span span:active
         color #617dcb
-
       .main-content
         display flex
         flex-direction row
         justify-content space-between
-
         .main-content-first
           font-weight bold
           line-height 50px
           margin 0 0 0 52px
-
         .main-content-first span
           font-size 18px
           font-family PingFangSC-Regular
           color #111D4B 100%
           margin 0 0 0 10px
-
         .main-content-first img
           height 16px
           vertical-align middle
           margin 0 0 4px 0
-
         .main-content-second
           color #1f368d
           line-height 50px
           margin 0 74px 0 0
-
         .main-content-second span
           font-family PingFangSC-Regular
           color #111D4B
           font-size 14px
           margin 0 0 0 10px
-
         .main-content-second img
           height 12px
           vertical-align middle
           margin 0 0 2px 10px
-
         .main-content-second span:hover
           color #7d8dcd
-
         .main-content-second span:active
           color #617dcb
-
     .aside-body
       position relative
-
       .aside
         width 220px
         height 760px
         background #FFFFFF
         margin-top 10px
-
         .aside-nav
           display flex
           flex-direction column
           text-align left
-
           .aside-nav-first
             font-family PingFangSC-Regular
             color #111D4B 100%
             font-size 14px
             font-weight bold
-            margin 0 0 0 32px
-
+            margin 25px 0 0 32px
           .aside-nav-second
             display flex
             flex-direction row
@@ -846,23 +953,18 @@
             margin 0 0 0 44px
             font-size 13px
             text-align left
-
           .tabulation a
             text-decoration none
             color #455379
-
             .tabulation-language
               margin 0 0 0 10px
               font-family PingFangSC-Regular
-              color #455379 100%
+              color #455379
               font-size 14px
-
             .tabulation-language:hover
               color #7d8dcd
-
             .tabulation-language:active
               color #617dcb
-
           .tabulation img
             height 16px
             vertical-align middle
@@ -874,7 +976,7 @@
         /*margin 0 0 0 790px*/
         text-align left
         /*position fixed*/
-        height 143px
+        
         padding-top 11px
 
         .aside-foot-first
@@ -889,10 +991,6 @@
           color #909090
           font-size 12px
           margin 5px 0 0 30px
-
-        .aside-foot-third
-          margin 10px 57px 92px 55px
-
 
 </style>
 <style lang="stylus">

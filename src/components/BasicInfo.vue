@@ -2,7 +2,15 @@
   <div class="basicinfo">
     <div class="basicinfo-first">
       <div class="basicinfo-left">
-        <img :src="require('../assets/images/11.png')" />
+        <el-upload
+          class="avatar-uploader"
+          action="https://jsonplaceholder.typicode.com/posts/"
+          :show-file-list="false"
+          :on-success="handleAvatarSuccess"
+          :before-upload="beforeAvatarUpload">
+          <img v-if="imageUrl" :src="imageUrl" class="avatar">
+          <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+        </el-upload>
       </div>
       <div class="basicinfo-right" style="margin:53px 0 0 0">
         <el-form :inline="true" :model="formInline" class="demo-form-inline">
@@ -150,10 +158,11 @@ export default {
     width 800px
     display flex
     flex-direction row
-    .basicinfo-left img 
-      width 80px
-      height 80px
-      margin 32px 0 0 42px
+    .basicinfo-left 
+      .avatar-uploader 
+        width 80px
+        height 80px
+        margin 32px 0 0 42px
     .cancel:hover
       background #1f368d  
       color white
@@ -165,4 +174,24 @@ export default {
 <style lang="stylus">
   .el-cascader__label:hover
     border-color blue
+  .avatar-uploader .el-upload
+    border 1px dashed #d9d9d9
+    border-radius 39px
+    cursor pointer
+    position relative
+    overflow hidden
+  .avatar-uploader .el-upload:hover
+    border-color #409EFF
+  .avatar-uploader-icon
+    font-size 28px
+    color #8c939d
+    width 78px
+    height 78px
+    line-height 78px
+    text-align center
+  .avatar
+    width 78px
+    height 78px
+    display block
+    
 </style>

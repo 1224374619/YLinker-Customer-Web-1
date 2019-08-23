@@ -222,7 +222,8 @@ export default {
     recommendation() {
        this.$http.get("/home/recommended/position").then(res => {
          if (res.data.code == 200) {
-           console.log(res)
+           console.log(res.data.data)
+           this.listRecommend = res.data.data
           }
       });
     },

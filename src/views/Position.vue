@@ -79,7 +79,7 @@
                 <el-table-column prop="address" label></el-table-column>
                 <el-table-column prop="address" label></el-table-column>
               </el-table>
-              <div class="footer-pagination">
+              <div class="footer-pagination" style="margin:15px 0 15px 0">
                   <el-pagination
                       @size-change="handleSizeChange"
                       @current-change="handleCurrentChange"

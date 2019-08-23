@@ -16,8 +16,8 @@
           </div>
           <div class="user-operations" v-else>
             <el-dropdown trigger="click">
-              <el-badge class="item" style="margin:5px 10px 0 0">
-                <img style="height:18px" :src="require('../assets/images/1111.png')" />
+              <el-badge :is-dot = 'chorus'  class="item" size="mini" style="margin:5px 10px 0 0">
+                <img style="width:18px;height:18px" :src="require('../assets/images/ling.png')" />
               </el-badge>
               <el-dropdown-menu slot="dropdown" style="width:372px;height:200px;">
                 <div style="overflow:scroll;width:372px;height:180px;overflow-x:hidden">
@@ -28,7 +28,7 @@
                 </div>
                 <div>
                   <span
-                    style="font-size:14px;color:#1f368d;margin-left:10px;line-height:30px"
+                    style="font-size:14px;color:#1f368d;margin-left:10px;line-height:30px" @click="chorusle"
                   >全部标为已读</span>
                 </div>
               </el-dropdown-menu>
@@ -62,6 +62,7 @@
         },
         data() {
             return {
+              chorus:true,
               notificationlist:[
               {
                 description:'你投递的“产品经理”(xx公司) 已被查看简历'
@@ -81,6 +82,10 @@
             }
         }),
         methods: {
+          //全部标记
+          chorusle() {
+            this.chorus = false
+          },
           //退出
             detrusion() {
               this.$http.get('/logout').then(res => {
@@ -189,10 +194,13 @@
                         &:last-child
                             border none
 </style>
-<style lang="stylus" scoped>
+<style lang="stylus">
   .badge
     height 30px 
     line-height 30px 
   .badge:hover
     background #e5e8f5
+  .el-badge__content
+  .el-badge__content
+    margin 17px 0 0 0 
 </style>
