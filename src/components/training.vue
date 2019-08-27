@@ -24,8 +24,8 @@
                 </el-select>
             </el-form-item>
             <el-form-item style="margin:0 0 20px 450px">
-            <el-button plain style="margin:0 10px 0 0">取消</el-button>
-            <el-button type="primary">保存</el-button>
+            <el-button @click="cancel" plain style="margin:0 10px 0 0">取消</el-button>
+            <el-button @click="keep" type="primary">保存</el-button>
             </el-form-item>
           </el-form>
   </div>
@@ -45,9 +45,12 @@ export default {
     }
   },
   methods: {
+    cancel() {
+      this.$emit("trainEmit",false,true)
+    },
     //新增
     keep() {
-      // this.$emit("skill",this.formInline.technicalName,this.formInline.level)
+      this.$emit("trainEmit",false,true)
       this.$http.post(`/resume/${2}/training`,{beginTime:'',institution:'',lesson:''}).then(res => {
         if (res.data.code == 200) {
           console.log(res);
@@ -55,14 +58,14 @@ export default {
       });
     },
     //更新
-    keep() {
-      // this.$emit("skill",this.formInline.technicalName,this.formInline.level)
-      this.$http.put(`/resume/${2}/training/${1}`,{beginTime:'',institution:'',lesson:''}).then(res => {
-        if (res.data.code == 200) {
-          console.log(res);
-        }
-      });
-  }
+  //   keep() {
+  //     // this.$emit("skill",this.formInline.technicalName,this.formInline.level)
+  //     this.$http.put(`/resume/${2}/training/${1}`,{beginTime:'',institution:'',lesson:''}).then(res => {
+  //       if (res.data.code == 200) {
+  //         console.log(res);
+  //       }
+  //     });
+  // }
 }
 }
 </script>

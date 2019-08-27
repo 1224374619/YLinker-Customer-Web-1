@@ -33,7 +33,7 @@
         <el-form-item label="手机号" style="margin:20px 0 10px 0">
           <span style="font-size:14px;color:#1f368d;margin-left:-180px">15513779331</span>
         </el-form-item>
-        <el-form-item label="当前登陆密码" prop="nowPassword">
+        <el-form-item label="当前登录密码" prop="nowPassword">
           <span><el-input style="width:270px;height:43px" v-model="ruleForm.nowPassword" placeholder="请输入当前登陆密码" suffix-icon="el-icon-view"></el-input></span>
         </el-form-item>
         <el-form-item label="新手机号" prop="newPhone">

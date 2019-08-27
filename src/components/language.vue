@@ -16,8 +16,8 @@
                 <el-input style="width:108px;height:36px" v-model="formInline.readAbility" placeholder=""></el-input>
             </el-form-item><br>
             <el-form-item style="margin:0 0 20px 420px">
-            <el-button style="margin:0 10px 0 0" plain>取消</el-button>
-            <el-button type="primary">保存</el-button>
+            <el-button @click='cancel' style="margin:0 10px 0 0" plain>取消</el-button>
+            <el-button @click='keep' type="primary">保存</el-button>
             </el-form-item>
           </el-form>
   </div>
@@ -37,24 +37,28 @@ export default {
     }
   },
   methods: {
+    cancel() {
+      this.$emit("languageEmit",false,true)
+    },
     //新增
     keep() {
       // this.$emit("skill",this.formInline.technicalName,this.formInline.level)
+      this.$emit("languageEmit",false,true)
       this.$http.post(`/resume/${2}/language`,{language:'',listenAndSpeak:'',readAndWrite:''}).then(res => {
         if (res.data.code == 200) {
           console.log(res);
         }
       });
     },
-    //更新
-    keep() {
-      // this.$emit("skill",this.formInline.technicalName,this.formInline.level)
-      this.$http.put(`/resume/${2}/language/${1}`,{language:'',listenAndSpeak:'',readAndWrite:''}).then(res => {
-        if (res.data.code == 200) {
-          console.log(res);
-        }
-      });
-  }
+  //   //更新
+  //   keep() {
+  //     // this.$emit("skill",this.formInline.technicalName,this.formInline.level)
+  //     this.$http.put(`/resume/${2}/language/${1}`,{language:'',listenAndSpeak:'',readAndWrite:''}).then(res => {
+  //       if (res.data.code == 200) {
+  //         console.log(res);
+  //       }
+  //     });
+  // }
   }
 }
 </script>

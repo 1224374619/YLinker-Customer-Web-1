@@ -19,7 +19,7 @@
         ></el-option>
       </el-select>
       <span class="joblist-after"></span>
-      <el-input style="width:478px;" placeholder="请输入内容"></el-input>
+      <el-input style="width:477px;" placeholder="请输入内容"></el-input>
       <el-button
         class="search-button"
         style="border-radius:0 2px 2px 0"
@@ -317,7 +317,7 @@ export default {
       height 44px
       background white
       .joblist-after                  
-        border 0.5px solid #455379
+        border 0.5px solid #dbdbdb
       .el-icon-search:before
         color white
         font-size 17px 

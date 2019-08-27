@@ -73,8 +73,8 @@
         <el-form-item label="政治面貌" prop="politicCountenance">
           <el-select style="width:168px;height:36px" v-model="formInline.politicCountenance" placeholder="请选择政治面貌">
             <el-option label value="群众"></el-option>
-            <el-option label value="党员"></el-option>
-            <el-option label value="中共团员"></el-option>
+            <el-option label value="团员"></el-option>
+            <el-option label value="中共党员"></el-option>
           </el-select>
         </el-form-item>
         <el-form-item label="手机" prop="phone">

@@ -72,7 +72,11 @@
             <el-input v-model="formInline.phone" style="width:168px;height:36px" placeholder></el-input>
           </el-form-item>
           <el-form-item label="政治面貌">
-            <el-input v-model="formInline.politicCountenance" style="width:168px;height:36px" placeholder></el-input>
+            <el-select style="width:168px;height:36px" v-model="formInline.politicCountenance" placeholder>
+              <el-option label value="群众"></el-option>
+              <el-option label value="团员"></el-option>
+              <el-option label value="中共党员"></el-option>
+            </el-select>
           </el-form-item><br>
           <el-form-item style="float:right;margin:0 100px 20px 0">
             <el-button  @click="cancel()" style="margin:0 10px 0 0" plain>取消</el-button>
@@ -137,13 +141,13 @@ export default {
         .then(() => {
           this.$message({
             type: "success",
-            message: "删除成功!"
+            message: "操作成功!"
           });
         })
         .catch(() => {
           this.$message({
             type: "info",
-            message: "已取消删除"
+            message: "已取消操作"
           });
         });
     }

@@ -73,7 +73,7 @@
     </div>
     <div class="personal-right">
       <div class="right-nav">
-        <span class="span-hover">编辑</span>
+        <span class="span-hover" @click="edit">编辑</span>
         <img @click="toPerson" :src="require('../assets/images/tou.png')" />
         <span class="span-name">
           李康
@@ -88,7 +88,7 @@
       <div class="right-footer">
         <div class="footer-nav">
           <span>推荐职位</span>
-          <span>查看更多 》</span>
+          <span @click="next">查看更多 》</span>
         </div>
         <div v-for="list in searchedList" :key="list">
           <div class="footer-article">
@@ -107,7 +107,7 @@
 </template>
 
 <script>
-
+import datacenterBus from '../apis/datacenterBus.js';
 export default {
   name: 'personal',
   components: {
@@ -192,8 +192,16 @@ export default {
     }
   },
   methods: {
+      next() {
+        this.$router.push({path:'/joblist'})
+      },
       toPerson() { 
            this.$router.push({path:'/inforchange'})
+      },
+      //编辑个人信息
+      edit() {
+        // datacenterBus.$emit("myFun",false)   //$emit这个方法会触发一个事件
+        this.$router.push({path:'/resume'})
       },
       //获取投递过的岗位(接口需要登陆)
       submitted() {

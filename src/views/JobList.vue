@@ -20,93 +20,93 @@
     </div>
     <div class="joblist-article">
         <div class="article" style="margin-top:-2px">
-            <el-radio-group size="small">
+            <el-radio-group size="small" v-model="district">
             <span style="margin-left:-48px" class="article-title">行政区：</span>
-            <el-radio-button class="article-content" label="">黄埔区</el-radio-button>
-            <el-radio-button class="article-content" label="">徐汇区</el-radio-button>
-            <el-radio-button class="article-content" label="">长宁区</el-radio-button>
-            <el-radio-button class="article-content" label="">浦东新区</el-radio-button>
-            <el-radio-button class="article-content" label="">奉贤区</el-radio-button>
+            <el-radio-button class="article-content" label="1">黄埔区</el-radio-button>
+            <el-radio-button class="article-content" label="2">徐汇区</el-radio-button>
+            <el-radio-button class="article-content" label="3">长宁区</el-radio-button>
+            <el-radio-button class="article-content" label="4">浦东新区</el-radio-button>
+            <el-radio-button class="article-content" label="5">奉贤区</el-radio-button>
             </el-radio-group>
         </div>
         <div class="article" style="margin-top:-42px">
-            <el-radio-group size="small">
+            <el-radio-group size="small" v-model="workExperience">
             <span style="margin-left:-50px" class="article-title">工作经验：</span>
-            <el-radio-button class="article-content" label="">经验不限</el-radio-button>
-            <el-radio-button class="article-content" label="">应届生</el-radio-button>
-            <el-radio-button class="article-content" label="">1-3年</el-radio-button>
-            <el-radio-button class="article-content" label="">3-5年</el-radio-button>
-            <el-radio-button class="article-content" label="">10年以上</el-radio-button>
+            <el-radio-button class="article-content" label="1">经验不限</el-radio-button>
+            <el-radio-button class="article-content" label="2">应届生</el-radio-button>
+            <el-radio-button class="article-content" label="3">1-3年</el-radio-button>
+            <el-radio-button class="article-content" label="4">3-5年</el-radio-button>
+            <el-radio-button class="article-content" label="5">10年以上</el-radio-button>
             </el-radio-group>
         </div>
         <div class="article" style="margin-top:-42px">
-            <el-radio-group size="small">
+            <el-radio-group size="small" v-model="Education">
             <span style="margin-left:-50px" class="article-title">学历要求：</span>
-            <el-radio-button class="article-content" label="">学历不限</el-radio-button>
-            <el-radio-button class="article-content" label="">本科</el-radio-button>
-            <el-radio-button class="article-content" label="">硕士</el-radio-button>
-            <el-radio-button class="article-content" label="">博士</el-radio-button>
-            <el-radio-button class="article-content" label="">大专</el-radio-button>
-            <el-radio-button class="article-content" label="">中技</el-radio-button>
-            <el-radio-button class="article-content" label="">中专</el-radio-button>
+            <el-radio-button class="article-content" label="1">学历不限</el-radio-button>
+            <el-radio-button class="article-content" label="2">本科</el-radio-button>
+            <el-radio-button class="article-content" label="3">硕士</el-radio-button>
+            <el-radio-button class="article-content" label="4">博士</el-radio-button>
+            <el-radio-button class="article-content" label="5">大专</el-radio-button>
+            <el-radio-button class="article-content" label="6">中技</el-radio-button>
+            <el-radio-button class="article-content" label="7">中专</el-radio-button>
             </el-radio-group>
         </div>
         <div class="article" style="margin-top:-42px">
-            <el-radio-group size="small">
+            <el-checkbox-group size="small" v-model="monthPay">
             <span style="margin-left:-50px" class="article-title">月薪范围：</span>
-            <el-radio-button class="article-content" label="">3k以下</el-radio-button>
-            <el-radio-button class="article-content" label="">3k-5k</el-radio-button>
-            <el-radio-button class="article-content" label="">5k-10k</el-radio-button>
-            <el-radio-button class="article-content" label="">10k-15k</el-radio-button>
-            <el-radio-button class="article-content" label="">15k-20k</el-radio-button>
-            <el-radio-button class="article-content" label="">20k-30k</el-radio-button>
-            <el-radio-button class="article-content" label="">30k-50k</el-radio-button>
-            <el-radio-button class="article-content" label="">50k以上</el-radio-button>
-            </el-radio-group>
+            <el-checkbox-button class="article-content" label="1">3k以下</el-checkbox-button>
+            <el-checkbox-button class="article-content" label="2">3k-5k</el-checkbox-button>
+            <el-checkbox-button class="article-content" label="3">5k-10k</el-checkbox-button>
+            <el-checkbox-button class="article-content" label="4">10k-15k</el-checkbox-button>
+            <el-checkbox-button class="article-content" label="5">15k-20k</el-checkbox-button>
+            <el-checkbox-button class="article-content" label="6">20k-30k</el-checkbox-button>
+            <el-checkbox-button class="article-content" label="7">30k-50k</el-checkbox-button>
+            <el-checkbox-button class="article-content" label="8">50k以上</el-checkbox-button>
+            </el-checkbox-group>
         </div>
         <div class="article" style="margin-top:-42px">
-            <el-radio-group size="small">
+            <el-radio-group size="small" v-model="workState">
             <span style="margin-left:-50px" class="article-title">工作类型：</span>
-            <el-radio-button class="article-content" label="">全职</el-radio-button>
-            <el-radio-button class="article-content" label="">兼职</el-radio-button>
-            <el-radio-button class="article-content" label="">实习</el-radio-button>
-            <el-radio-button class="article-content" label="">校园</el-radio-button>
+            <el-radio-button class="article-content" label="1">全职</el-radio-button>
+            <el-radio-button class="article-content" label="2">兼职</el-radio-button>
+            <el-radio-button class="article-content" label="3">实习</el-radio-button>
+            <el-radio-button class="article-content" label="4">校园</el-radio-button>
             </el-radio-group>
         </div>
         <div class="article" style="margin-top:-42px">
-            <el-radio-group size="small">
+            <el-radio-group size="small" v-model="industry">
             <span style="margin-left:-50px" class="article-title">公司行业：</span>
-            <el-radio-button class="article-content" label="">行业</el-radio-button>
-            <el-radio-button class="article-content" label="">行业</el-radio-button>
-            <el-radio-button class="article-content" label="">行业</el-radio-button>
-            <el-radio-button class="article-content" label="">行业</el-radio-button>
+            <el-radio-button class="article-content" label="1">行业</el-radio-button>
+            <el-radio-button class="article-content" label="2">行业</el-radio-button>
+            <el-radio-button class="article-content" label="3">行业</el-radio-button>
+            <el-radio-button class="article-content" label="4">行业</el-radio-button>
             </el-radio-group>
         </div>
         <div class="article" style="margin-top:-42px">
-            <el-radio-group size="small">
+            <el-checkbox-group size="small" v-model="scale">
             <span style="margin-left:-50px" class="article-title">公司规模：</span>
-            <el-radio-button  class="article-content" label="">少于50人</el-radio-button>
-            <el-radio-button class="article-content" label="">50-150人</el-radio-button>
-            <el-radio-button class="article-content" label="">150-500人</el-radio-button>
-            <el-radio-button class="article-content" label="">500-1千人</el-radio-button>
-            <el-radio-button class="article-content" label="">1千-5千人</el-radio-button>
-            <el-radio-button class="article-content" label="">5千-1万人</el-radio-button>
-            <el-radio-button class="article-content" label="">1万人以上</el-radio-button>
-            </el-radio-group>
+            <el-checkbox-button  class="article-content" label="1">少于50人</el-checkbox-button>
+            <el-checkbox-button class="article-content" label="2">50-150人</el-checkbox-button>
+            <el-checkbox-button class="article-content" label="3">150-500人</el-checkbox-button>
+            <el-checkbox-button class="article-content" label="4">500-1千人</el-checkbox-button>
+            <el-checkbox-button class="article-content" label="5">1千-5千人</el-checkbox-button>
+            <el-checkbox-button class="article-content" label="6">5千-1万人</el-checkbox-button>
+            <el-checkbox-button class="article-content" label="7">1万人以上</el-checkbox-button>
+            </el-checkbox-group>
         </div>
         <div class="article" style="margin-top:-42px">
-            <el-radio-group size="small">
-            <span style="margin-left:-50px" class="article-title">发布时间：</span>
-            <el-radio-button class="article-content" label="">一天以内</el-radio-button>
-            <el-radio-button class="article-content" label="">三天以内</el-radio-button>
-            <el-radio-button class="article-content" label="">五天以内</el-radio-button>
-            <el-radio-button class="article-content" label="">七天以内</el-radio-button>
-             <el-radio-button class="article-content" label="">十五天以内</el-radio-button>
-            </el-radio-group>
+            <el-checkbox-group size="small" v-model="releaseTime">
+              <span style="margin-left:-50px" class="article-title">发布时间：</span>
+              <el-checkbox-button class="article-content" label="1">一天以内</el-checkbox-button>
+              <el-checkbox-button class="article-content" label="2">三天以内</el-checkbox-button>
+              <el-checkbox-button class="article-content" label="3">五天以内</el-checkbox-button>
+              <el-checkbox-button class="article-content" label="4">七天以内</el-checkbox-button>
+              <el-checkbox-button class="article-content" label="5">十五天以内</el-checkbox-button>
+            </el-checkbox-group>
         </div>
-        <div class="article-button">
-            <el-button class="button" type="primary" style="margin:0 0 16px 564px;width:105px;height:35px;line-height:3px;color:white;font-size:12px;padding:0px;">清除筛选条件</el-button>
-            <el-button class="button" type="primary" style="margin:0 0 16px 30px;width:105px;height:35px;line-height:3px;color:white;font-size:12px;padding:0px;">立即筛选</el-button>
+        <div class="article-button" v-if="articleButton">
+            <el-button @click="cancelButton" class="button" type="primary" style="margin:0 0 16px 564px;width:105px;height:35px;line-height:3px;color:white;font-size:12px;padding:0px;">清除筛选条件</el-button>
+            <el-button @click="keepButton" class="button" type="primary" style="margin:0 0 16px 30px;width:105px;height:35px;line-height:3px;color:white;font-size:12px;padding:0px;">立即筛选</el-button>
         </div>
     </div>
     <div class="joblist-content">
@@ -203,6 +203,15 @@ export default {
   },
   data() {
     return {
+      articleButton:false,
+      district:'0',
+      workExperience:'0',
+      Education:'0',
+      monthPay:[],
+      workState:'0',
+      industry:'0',
+      scale:[],
+      releaseTime:[],
       value:'上海',
       company:'职位',
       dialogVisible:false,
@@ -460,6 +469,19 @@ export default {
       
   },
   methods: {
+      cancelButton() {
+        this.district = ''
+        this.workExperience = ''
+        this.Education = ''
+        this.monthPay = ''
+        this.workState = ''
+        this.industry = ''
+        this.scale = ''
+        this.releaseTime = ''
+        setTimeout(() => {
+            this.articleButton = false
+        }, 300);
+      },
       search () {
         if(this.company =='职位') {
           this.$http.get('/searched/company').then(res => {
@@ -508,8 +530,41 @@ export default {
       //   }
  
     },
+    watch: {
+            //使用这个可以监听data中指定数据的变化,然后触发watch中对应的function的处理
+            'monthPay': function () {
+              this.articleButton = true
+            },
+            'district': function () {
+              this.articleButton = true
+            },
+            'workExperience': function () {
+              this.articleButton = true
+            },
+            'Education': function () {
+              this.articleButton = true
+            },
+            'workState': function () {
+              this.articleButton = true
+            },
+            'industry': function () {
+              this.articleButton = true
+            },
+            'scale': function () {
+              this.articleButton = true
+            },
+             'releaseTime': function () {
+              this.articleButton = true
+            },
+        },
     created () {
       this.positionId();
+      // console.log(this.monthPay+"78787877")
+      // if(this.monthPay == ''&&this.district =='0'&&this.workExperience =='0'&&this.Education =='0'&&this.workState =='0'&&this.industry =='0'&&this.scale ==''&&this.releaseTime =='') {
+      //   this.articleButton = false
+      // }else{
+      //   this.articleButton = true
+      // }
     }
 }
 </script>
@@ -523,7 +578,7 @@ export default {
       height 44px
       background white
       .joblist-after                  
-        border 0.5px solid #455379
+        border 0.5px solid #dbdbdb
       .el-icon-search:before
         color white
         font-size 17px 
@@ -719,4 +774,16 @@ export default {
 <style lang="stylus">
   .el-icon-arrow-up:before
     color #617dcb
+  .el-checkbox-button__inner
+    border 0px solid #617dcb
+  .el-checkbox-button.is-checked .el-checkbox-button__inner
+    background-color #617dcb
+    box-shadow -1px 0 0 0 #617dcb
+    border-radius 0 0 0 0
+    color white
+  .el-checkbox-button--small .el-checkbox-button__inner
+    padding 4px 6px 
+    line-height 15px
+    font-size 12px 
+    color #1f368d   
 </style>
