@@ -15,7 +15,7 @@
           <!-- <option v-for="item in perList" :value="item.value" :key="item.value">{{ item.label }}</option> -->
         </el-select>
         <span class="joblist-after"></span>
-        <el-input style="width:600px;" placeholder="请输入内容"></el-input>
+        <el-input v-model="searchContent" style="width:600px;" placeholder="请输入内容"></el-input>
         <el-button class="search-button" style="border-radius:0 2px 2px 0" type="primary" @click="search"  icon="el-icon-search">搜索</el-button>
     </div>
     <div class="joblist-article">
@@ -42,26 +42,29 @@
         <div class="article" style="margin-top:-42px">
             <el-radio-group size="small" v-model="Education">
             <span style="margin-left:-50px" class="article-title">学历要求：</span>
-            <el-radio-button class="article-content" label="1">学历不限</el-radio-button>
-            <el-radio-button class="article-content" label="2">本科</el-radio-button>
-            <el-radio-button class="article-content" label="3">硕士</el-radio-button>
-            <el-radio-button class="article-content" label="4">博士</el-radio-button>
-            <el-radio-button class="article-content" label="5">大专</el-radio-button>
-            <el-radio-button class="article-content" label="6">中技</el-radio-button>
-            <el-radio-button class="article-content" label="7">中专</el-radio-button>
+            <el-radio-button class="article-content" label="1">博士</el-radio-button>
+            <el-radio-button class="article-content" label="2">硕士</el-radio-button>
+            <el-radio-button class="article-content" label="3">本科</el-radio-button>
+            <el-radio-button class="article-content" label="4">大专</el-radio-button>
+            <el-radio-button class="article-content" label="5">中技</el-radio-button>
+            <el-radio-button class="article-content" label="6">中专</el-radio-button>
+            <el-radio-button class="article-content" label="7">高中</el-radio-button>
+            <el-radio-button class="article-content" label="8">初中</el-radio-button>
             </el-radio-group>
         </div>
         <div class="article" style="margin-top:-42px">
             <el-checkbox-group size="small" v-model="monthPay">
             <span style="margin-left:-50px" class="article-title">月薪范围：</span>
-            <el-checkbox-button class="article-content" label="1">3k以下</el-checkbox-button>
-            <el-checkbox-button class="article-content" label="2">3k-5k</el-checkbox-button>
-            <el-checkbox-button class="article-content" label="3">5k-10k</el-checkbox-button>
-            <el-checkbox-button class="article-content" label="4">10k-15k</el-checkbox-button>
-            <el-checkbox-button class="article-content" label="5">15k-20k</el-checkbox-button>
-            <el-checkbox-button class="article-content" label="6">20k-30k</el-checkbox-button>
-            <el-checkbox-button class="article-content" label="7">30k-50k</el-checkbox-button>
-            <el-checkbox-button class="article-content" label="8">50k以上</el-checkbox-button>
+            <el-checkbox-button class="article-content" label="1">1k以下</el-checkbox-button>
+            <el-checkbox-button class="article-content" label="2">1k-2k</el-checkbox-button>
+            <el-checkbox-button class="article-content" label="3">2k-4k</el-checkbox-button>
+            <el-checkbox-button class="article-content" label="4">4k-6k</el-checkbox-button>
+            <el-checkbox-button class="article-content" label="5">6k-8k</el-checkbox-button>
+            <el-checkbox-button class="article-content" label="6">8k-10k</el-checkbox-button>
+            <el-checkbox-button class="article-content" label="7">10k-15k</el-checkbox-button>
+            <el-checkbox-button class="article-content" label="8">15k-25k</el-checkbox-button>
+            <el-checkbox-button class="article-content" label="9">25k-35k</el-checkbox-button>
+            <el-checkbox-button class="article-content" label="10">35k以上</el-checkbox-button>
             </el-checkbox-group>
         </div>
         <div class="article" style="margin-top:-42px">
@@ -85,13 +88,19 @@
         <div class="article" style="margin-top:-42px">
             <el-checkbox-group size="small" v-model="scale">
             <span style="margin-left:-50px" class="article-title">公司规模：</span>
-            <el-checkbox-button  class="article-content" label="1">少于50人</el-checkbox-button>
-            <el-checkbox-button class="article-content" label="2">50-150人</el-checkbox-button>
-            <el-checkbox-button class="article-content" label="3">150-500人</el-checkbox-button>
-            <el-checkbox-button class="article-content" label="4">500-1千人</el-checkbox-button>
-            <el-checkbox-button class="article-content" label="5">1千-5千人</el-checkbox-button>
-            <el-checkbox-button class="article-content" label="6">5千-1万人</el-checkbox-button>
-            <el-checkbox-button class="article-content" label="7">1万人以上</el-checkbox-button>
+            <el-checkbox-button  class="article-content" label="1">10人以下</el-checkbox-button>
+            <el-checkbox-button class="article-content" label="2">10-100人</el-checkbox-button>
+            <el-checkbox-button class="article-content" label="3">100-500人</el-checkbox-button>
+            <el-checkbox-button class="article-content" label="4">500以上</el-checkbox-button>
+            </el-checkbox-group>
+        </div>
+        <div class="article" style="margin-top:-42px">
+            <el-checkbox-group size="small" v-model="scale">
+            <span style="margin-left:-50px" class="article-title">公司规模：</span>
+            <el-checkbox-button  class="article-content" label="1">10人以下</el-checkbox-button>
+            <el-checkbox-button class="article-content" label="2">10-100人</el-checkbox-button>
+            <el-checkbox-button class="article-content" label="3">100-500人</el-checkbox-button>
+            <el-checkbox-button class="article-content" label="4">500以上</el-checkbox-button>
             </el-checkbox-group>
         </div>
         <div class="article" style="margin-top:-42px">
@@ -183,13 +192,25 @@
             <span>按省份选择</span>
         </div>
         <div class="dialog-cascader">
-            <el-cascader
-                :options="options"
-                :show-all-levels="false"
-                @change="handleItemChange"
-                style="height:36px"
-                >
-            </el-cascader>
+            <el-tooltip class="item" effect="light"  placement="bottom-start">
+              <el-input
+                placeholder="请选择省份"
+                suffix-icon="el-icon-arrow-down"
+                v-model="cityButton"
+               >
+              </el-input>
+              <div style="width:510px" slot="content"><span class="spanCity" @click="citys(item)" style="float:left;padding:10px 0 10px 10px" v-for="item in city" :key="item">{{item.value}}</span></div>
+            </el-tooltip>
+            <el-tooltip  class="item" effect="light"  placement="bottom-end">
+              <el-input
+                placeholder="请选择城市"
+                suffix-icon="el-icon-arrow-down"
+                v-model="cityButton"
+                style="margin:0 0 0 100px"
+               >
+              </el-input>
+              <div style="width:510px" slot="content"><span class="spanCity" @click="citys(item)" style="float:left;padding:10px 0 10px 10px" v-for="item in city" :key="item">{{item.value}}</span></div>
+            </el-tooltip>
         </div>
         <div style="height:220px"></div>
     </el-dialog>
@@ -203,6 +224,8 @@ export default {
   },
   data() {
     return {
+      searchContent:'',
+      cityButton:'',
       articleButton:false,
       district:'0',
       workExperience:'0',
@@ -270,205 +293,78 @@ export default {
           size:'300'
         },
       ], 
-      options: [{
-          value: 'zhinan',
-          label: '指南',
-          children: [{
-            value: 'shejiyuanze',
-            label: '设计原则',
-            children: [{
-              value: 'yizhi',
-              label: '一致'
-            }, {
-              value: 'fankui',
-              label: '反馈'
-            }, {
-              value: 'xiaolv',
-              label: '效率'
-            }, {
-              value: 'kekong',
-              label: '可控'
-            }]
-          }, {
-            value: 'daohang',
-            label: '导航',
-            children: [{
-              value: 'cexiangdaohang',
-              label: '侧向导航'
-            }, {
-              value: 'dingbudaohang',
-              label: '顶部导航'
-            }]
-          }]
-        }, {
-          value: 'zujian',
-          label: '组件',
-          children: [{
-            value: 'basic',
-            label: 'Basic',
-            children: [{
-              value: 'layout',
-              label: 'Layout 布局'
-            }, {
-              value: 'color',
-              label: 'Color 色彩'
-            }, {
-              value: 'typography',
-              label: 'Typography 字体'
-            }, {
-              value: 'icon',
-              label: 'Icon 图标'
-            }, {
-              value: 'button',
-              label: 'Button 按钮'
-            }]
-          }, {
-            value: 'form',
-            label: 'Form',
-            children: [{
-              value: 'radio',
-              label: 'Radio 单选框'
-            }, {
-              value: 'checkbox',
-              label: 'Checkbox 多选框'
-            }, {
-              value: 'input',
-              label: 'Input 输入框'
-            }, {
-              value: 'input-number',
-              label: 'InputNumber 计数器'
-            }, {
-              value: 'select',
-              label: 'Select 选择器'
-            }, {
-              value: 'cascader',
-              label: 'Cascader 级联选择器'
-            }, {
-              value: 'switch',
-              label: 'Switch 开关'
-            }, {
-              value: 'slider',
-              label: 'Slider 滑块'
-            }, {
-              value: 'time-picker',
-              label: 'TimePicker 时间选择器'
-            }, {
-              value: 'date-picker',
-              label: 'DatePicker 日期选择器'
-            }, {
-              value: 'datetime-picker',
-              label: 'DateTimePicker 日期时间选择器'
-            }, {
-              value: 'upload',
-              label: 'Upload 上传'
-            }, {
-              value: 'rate',
-              label: 'Rate 评分'
-            }, {
-              value: 'form',
-              label: 'Form 表单'
-            }]
-          }, {
-            value: 'data',
-            label: 'Data',
-            children: [{
-              value: 'table',
-              label: 'Table 表格'
-            }, {
-              value: 'tag',
-              label: 'Tag 标签'
-            }, {
-              value: 'progress',
-              label: 'Progress 进度条'
-            }, {
-              value: 'tree',
-              label: 'Tree 树形控件'
-            }, {
-              value: 'pagination',
-              label: 'Pagination 分页'
-            }, {
-              value: 'badge',
-              label: 'Badge 标记'
-            }]
-          }, {
-            value: 'notice',
-            label: 'Notice',
-            children: [{
-              value: 'alert',
-              label: 'Alert 警告'
-            }, {
-              value: 'loading',
-              label: 'Loading 加载'
-            }, {
-              value: 'message',
-              label: 'Message 消息提示'
-            }, {
-              value: 'message-box',
-              label: 'MessageBox 弹框'
-            }, {
-              value: 'notification',
-              label: 'Notification 通知'
-            }]
-          }, {
-            value: 'navigation',
-            label: 'Navigation',
-            children: [{
-              value: 'menu',
-              label: 'NavMenu 导航菜单'
-            }, {
-              value: 'tabs',
-              label: 'Tabs 标签页'
-            }, {
-              value: 'breadcrumb',
-              label: 'Breadcrumb 面包屑'
-            }, {
-              value: 'dropdown',
-              label: 'Dropdown 下拉菜单'
-            }, {
-              value: 'steps',
-              label: 'Steps 步骤条'
-            }]
-          }, {
-            value: 'others',
-            label: 'Others',
-            children: [{
-              value: 'dialog',
-              label: 'Dialog 对话框'
-            }, {
-              value: 'tooltip',
-              label: 'Tooltip 文字提示'
-            }, {
-              value: 'popover',
-              label: 'Popover 弹出框'
-            }, {
-              value: 'card',
-              label: 'Card 卡片'
-            }, {
-              value: 'carousel',
-              label: 'Carousel 走马灯'
-            }, {
-              value: 'collapse',
-              label: 'Collapse 折叠面板'
-            }]
-          }]
-        }, {
-          value: 'ziyuan',
-          label: '资源',
-          children: [{
-            value: 'axure',
-            label: 'Axure Components'
-          }, {
-            value: 'sketch',
-            label: 'Sketch Templates'
-          }, {
-            value: 'jiaohu',
-            label: '组件交互文档'
-          }]
-        }]
+      city:[
+        {
+          value:'北京'
+        },
+        {
+          value:'上海'
+        },
+        {
+          value:'北京'
+        },
+        {
+          value:'北京'
+        },
+        {
+          value:'北京'
+        },
+        {
+          value:'北京'
+        },
+        {
+          value:'北京'
+        },
+        {
+          value:'北京'
+        },
+        {
+          value:'北京'
+        },
+        {
+          value:'北京'
+        },
+        {
+          value:'北京'
+        },
+        {
+          value:'北京'
+        },
+        {
+          value:'北京'
+        },
+        {
+          value:'北京'
+        },
+        {
+          value:'北京'
+        },
+        {
+          value:'北京'
+        },
+
+        {
+          value:'北京'
+        },
+        {
+          value:'北京'
+        },
+        {
+          value:'北京'
+        },
+        {
+          value:'北京'
+        },
+        
+      ]
       };
       
   },
   methods: {
+      citys(c) {
+        alert(0)
+        console.log(c)
+      },
       cancelButton() {
         this.district = ''
         this.workExperience = ''
@@ -768,6 +664,8 @@ export default {
         float left
         margin 18px 0 0 0
       .dialog-cascader
+        display flex
+        flex-direction row
         float left
         margin 50px 0 0 -73px
 </style>
@@ -785,5 +683,9 @@ export default {
     padding 4px 6px 
     line-height 15px
     font-size 12px 
-    color #1f368d   
+    color #1f368d 
+  .spanCity:hover
+    color #617dcb 
+  .spanCity  
+    font-size 13px
 </style>
