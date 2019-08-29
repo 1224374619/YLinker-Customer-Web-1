@@ -1,7 +1,7 @@
 <template>
    <div class="from">
-        <span style="margin:15px 0 10px 50px;color:#61687c;line-height:10px"></span>
-        <span style="margin:15px 0 0 106px;color:#61687c"></span>
+        <span style="margin:15px 0 10px 50px;color:#61687c;line-height:10px">CET6</span>
+        <span style="margin:15px 0 0 106px;color:#61687c">良好</span>
         <span style="margin:15px 25px 0 165px"><a href="#" style="color:#61687c">点击查看证书<img style="margin:0 0 0 5px" :src="require('../assets/images/090.png')"/></a></span>
     </div>
 </template>

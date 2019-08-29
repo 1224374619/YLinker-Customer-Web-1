@@ -19,7 +19,7 @@
         <el-button class="search-button" style="border-radius:0 2px 2px 0" type="primary" @click="search"  icon="el-icon-search">搜索</el-button>
     </div>
     <div class="joblist-article">
-        <div class="article" style="margin-top:-2px">
+        <div class="article" style="margin-top:-22px" v-if="isshow">
             <el-radio-group size="small" v-model="district">
             <span style="margin-left:-48px" class="article-title">行政区：</span>
             <el-radio-button class="article-content" label="1">黄埔区</el-radio-button>
@@ -29,7 +29,7 @@
             <el-radio-button class="article-content" label="5">奉贤区</el-radio-button>
             </el-radio-group>
         </div>
-        <div class="article" style="margin-top:-42px">
+        <div class="article" style="margin-top:-42px" v-if="isshow">
             <el-radio-group size="small" v-model="workExperience">
             <span style="margin-left:-50px" class="article-title">工作经验：</span>
             <el-radio-button class="article-content" label="1">经验不限</el-radio-button>
@@ -39,7 +39,7 @@
             <el-radio-button class="article-content" label="5">10年以上</el-radio-button>
             </el-radio-group>
         </div>
-        <div class="article" style="margin-top:-42px">
+        <div class="article" style="margin-top:-42px" v-if="isshow">
             <el-radio-group size="small" v-model="Education">
             <span style="margin-left:-50px" class="article-title">学历要求：</span>
             <el-radio-button class="article-content" label="1">博士</el-radio-button>
@@ -52,7 +52,7 @@
             <el-radio-button class="article-content" label="8">初中</el-radio-button>
             </el-radio-group>
         </div>
-        <div class="article" style="margin-top:-42px">
+        <div class="article" style="margin-top:-42px" v-if="isshow">
             <el-checkbox-group size="small" v-model="monthPay">
             <span style="margin-left:-50px" class="article-title">月薪范围：</span>
             <el-checkbox-button class="article-content" label="1">1k以下</el-checkbox-button>
@@ -67,7 +67,7 @@
             <el-checkbox-button class="article-content" label="10">35k以上</el-checkbox-button>
             </el-checkbox-group>
         </div>
-        <div class="article" style="margin-top:-42px">
+        <div class="article" style="margin-top:-42px" v-if="isshow">
             <el-radio-group size="small" v-model="workState">
             <span style="margin-left:-50px" class="article-title">工作类型：</span>
             <el-radio-button class="article-content" label="1">全职</el-radio-button>
@@ -76,7 +76,17 @@
             <el-radio-button class="article-content" label="4">校园</el-radio-button>
             </el-radio-group>
         </div>
-        <div class="article" style="margin-top:-42px">
+        <div></div>
+        <div class="article" style="margin-top:-42px" >
+            <el-checkbox-group size="small" v-model="scale">
+            <span style="margin-left:-50px" class="article-title">公司规模：</span>
+            <el-checkbox-button  class="article-content" label="1">10人以下</el-checkbox-button>
+            <el-checkbox-button class="article-content" label="2">10-100人</el-checkbox-button>
+            <el-checkbox-button class="article-content" label="3">100-500人</el-checkbox-button>
+            <el-checkbox-button class="article-content" label="4">500以上</el-checkbox-button>
+            </el-checkbox-group>
+        </div>
+        <div class="article" style="margin-top:-42px" >
             <el-radio-group size="small" v-model="industry">
             <span style="margin-left:-50px" class="article-title">公司行业：</span>
             <el-radio-button class="article-content" label="1">行业</el-radio-button>
@@ -85,25 +95,19 @@
             <el-radio-button class="article-content" label="4">行业</el-radio-button>
             </el-radio-group>
         </div>
-        <div class="article" style="margin-top:-42px">
-            <el-checkbox-group size="small" v-model="scale">
-            <span style="margin-left:-50px" class="article-title">公司规模：</span>
-            <el-checkbox-button  class="article-content" label="1">10人以下</el-checkbox-button>
-            <el-checkbox-button class="article-content" label="2">10-100人</el-checkbox-button>
-            <el-checkbox-button class="article-content" label="3">100-500人</el-checkbox-button>
-            <el-checkbox-button class="article-content" label="4">500以上</el-checkbox-button>
+        
+        <div class="article" style="margin-top:-42px" >
+            <el-checkbox-group size="small" v-model="quality">
+            <span style="margin-left:-50px" class="article-title">企业性质：</span>
+            <el-checkbox-button  class="article-content" label="1">国有企业</el-checkbox-button>
+            <el-checkbox-button class="article-content" label="2">外资企业</el-checkbox-button>
+            <el-checkbox-button class="article-content" label="3">合资企业</el-checkbox-button>
+            <el-checkbox-button class="article-content" label="4">民营企业</el-checkbox-button>
+            <el-checkbox-button class="article-content" label="5">事业单位</el-checkbox-button>
+            <el-checkbox-button class="article-content" label="6">上市公司</el-checkbox-button>
             </el-checkbox-group>
         </div>
-        <div class="article" style="margin-top:-42px">
-            <el-checkbox-group size="small" v-model="scale">
-            <span style="margin-left:-50px" class="article-title">公司规模：</span>
-            <el-checkbox-button  class="article-content" label="1">10人以下</el-checkbox-button>
-            <el-checkbox-button class="article-content" label="2">10-100人</el-checkbox-button>
-            <el-checkbox-button class="article-content" label="3">100-500人</el-checkbox-button>
-            <el-checkbox-button class="article-content" label="4">500以上</el-checkbox-button>
-            </el-checkbox-group>
-        </div>
-        <div class="article" style="margin-top:-42px">
+        <div class="article" style="margin-top:-42px;margin-bottom:10px" >
             <el-checkbox-group size="small" v-model="releaseTime">
               <span style="margin-left:-50px" class="article-title">发布时间：</span>
               <el-checkbox-button class="article-content" label="1">一天以内</el-checkbox-button>
@@ -118,7 +122,7 @@
             <el-button @click="keepButton" class="button" type="primary" style="margin:0 0 16px 30px;width:105px;height:35px;line-height:3px;color:white;font-size:12px;padding:0px;">立即筛选</el-button>
         </div>
     </div>
-    <div class="joblist-content">
+    <div class="joblist-content" v-if="joblistCompany">
       <div class="content" v-for="item in companyList" :key='item'>
         <div class="content-img">
             <img :src="require('../assets/images/company1.jpg')"/>
@@ -138,7 +142,7 @@
         <div class="content-line"></div>
       </div>
     </div>
-    <div class="joblist-footer">
+    <div class="joblist-footer" v-if="joblistJob">
       <div class="joblist-hover" style="border:1px solid white" v-for="item in positionList" :key='item'>
         <div class="footer-first" style="margin-top:-20px">
             <span>{{item.positionName}}</span>
@@ -224,6 +228,9 @@ export default {
   },
   data() {
     return {
+      joblistCompany:false,
+      joblistJob:true,
+      isshow:true,
       searchContent:'',
       cityButton:'',
       articleButton:false,
@@ -234,6 +241,7 @@ export default {
       workState:'0',
       industry:'0',
       scale:[],
+      quality:[],
       releaseTime:[],
       value:'上海',
       company:'职位',
@@ -268,6 +276,78 @@ export default {
         }
       ], 
       positionList:[
+        {
+          degreeMin:"本科",
+          positionCatalog:'IT',
+          positionName:'产品经理',
+          publishedTime:'19:00',
+          salaryMax:'7',
+          salaryMin:'2',
+          workAgeMax:'5',
+          workAgeMin:'1',
+          companyName:'迪卡侬',
+          size:'300'
+        },
+        {
+          degreeMin:"本科",
+          positionCatalog:'IT',
+          positionName:'产品经理',
+          publishedTime:'19:00',
+          salaryMax:'7',
+          salaryMin:'2',
+          workAgeMax:'5',
+          workAgeMin:'1',
+          companyName:'迪卡侬',
+          size:'300'
+        },
+        {
+          degreeMin:"本科",
+          positionCatalog:'IT',
+          positionName:'产品经理',
+          publishedTime:'19:00',
+          salaryMax:'7',
+          salaryMin:'2',
+          workAgeMax:'5',
+          workAgeMin:'1',
+          companyName:'迪卡侬',
+          size:'300'
+        },
+        {
+          degreeMin:"本科",
+          positionCatalog:'IT',
+          positionName:'产品经理',
+          publishedTime:'19:00',
+          salaryMax:'7',
+          salaryMin:'2',
+          workAgeMax:'5',
+          workAgeMin:'1',
+          companyName:'迪卡侬',
+          size:'300'
+        },
+        {
+          degreeMin:"本科",
+          positionCatalog:'IT',
+          positionName:'产品经理',
+          publishedTime:'19:00',
+          salaryMax:'7',
+          salaryMin:'2',
+          workAgeMax:'5',
+          workAgeMin:'1',
+          companyName:'迪卡侬',
+          size:'300'
+        },
+        {
+          degreeMin:"本科",
+          positionCatalog:'IT',
+          positionName:'产品经理',
+          publishedTime:'19:00',
+          salaryMax:'7',
+          salaryMin:'2',
+          workAgeMax:'5',
+          workAgeMin:'1',
+          companyName:'迪卡侬',
+          size:'300'
+        },
         {
           degreeMin:"本科",
           positionCatalog:'IT',
@@ -416,15 +496,15 @@ export default {
           }
         });
       },
-      // getVendorId(val) {
-      //       alert(val.label)
-      //       // let that = this;
-      //       // // that.addForm.vendorName=val.label;//获取label
-      //       // that.company=val.label;//获取value
-      //       // alert(that.company)
-            
-      //   }
- 
+      getVendorId() {
+        if(this.company == '公司') {
+          this.isshow = false
+          this.joblistCompany = true
+          this.joblistJob = false
+        }else{
+          this.isshow = true
+        }
+        }
     },
     watch: {
             //使用这个可以监听data中指定数据的变化,然后触发watch中对应的function的处理

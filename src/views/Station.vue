@@ -1,7 +1,7 @@
 <template>
   <div class="station">
     <div v-if="deliver">
-        <deliver></deliver>
+      <deliver></deliver>
     </div>
     <div class="station-nav" v-if="stationNav">
       <div class="station-nav-name">
@@ -13,41 +13,30 @@
           <span>上海 徐汇区 | 1-3年 | 应届生 | 实习</span>
         </div>
         <div class="content-article">
-           <span>发布时间：今天 15：00</span>
+          <span>发布时间：今天 15：00</span>
         </div>
-        <div style="margin:0 0 0 290px" v-if="showDeliver">
-          <span style="margin:0 20px 0 0">
-            <el-button id="deliver" style="width:140px;height:40px;" type="primary" @click="isclick()"> 投递简历</el-button>
+        <div style="margin:0 0 0 290px">
+          <span style="margin:0 20px 0 0" v-if="almsg">
+            <el-button
+              id="deliver"
+              style="width:140px;height:40px;"
+              type="primary"
+              @click="isclick()"
+            >投递简历</el-button>
           </span>
-          <span>
-            <el-button id="collect" style="width:140px;height:40px" @click="iscollect()" plain>收藏</el-button>
-          </span>
-        </div>  
-        <div style="margin:0 0 0 290px" v-if="showCollect">
-          <span>
+          <span v-if="msg">
             <el-button
               type="primary"
               icon="el-icon-check"
               style="width:140px;height:40px;margin:0 20px 0 0;background:#617dbc;border:0px solid red"
             >已投递</el-button>
-          </span>
-          <span>
-            <el-button
-              @click="iscollect()"
-              plain
-              style="width:140px;height:40px;"
-            >收藏</el-button>
-          </span>
+          </span> 
         </div>
-        <div style="margin:0 0 0 290px" v-if="isshowCollect">
-          <span>
-            <el-button
-              @click="isclick()"
-              type="primary"
-              style="width:140px;height:40px;margin:0 20px 0 0;"
-            >投递简历</el-button>
+        <div>
+          <span v-if="isshowCollect">
+            <el-button style="width:140px;height:40px" @click="iscollect()" plain>收藏</el-button>
           </span>
-          <span>
+          <span v-if="showCollect">
             <el-button
               type="primary"
               icon="el-icon-star-off"
@@ -55,19 +44,67 @@
             >已收藏</el-button>
           </span>
         </div>
+        <div style="margin:0 0 0 290px" v-if="showDeliver">
+          <span style="margin:0 20px 0 0">
+            <el-button
+              style="width:280px;height:40px;"
+              type="primary"
+            >已失效</el-button>
+          </span>
+        </div>
       </div>
-      <el-dialog  :visible.sync="dialogVisible" width="30%" :before-close="handleClose">
+      <el-dialog :visible.sync="dialogVisible" width="30%" :before-close="handleClose">
         <span style="font-size:16px;color:#455379">简历中要至少要填写"基本信息"和"校园经历",否则无法投递呦</span>
-        <span slot="footer" class="dialog-footer" >
-          <el-button style="width:94px;height:34px" @click="dialogVisible = false" class="cancel">取 消</el-button>
-          <el-button type="primary" style="margin-right:160px;width:94px;height:34px;" @click="dialogVisible = false">完善简历</el-button>
+        <span slot="footer" class="dialog-footer">
+          <el-button
+            style="width:94px;height:34px"
+            @click="dialogVisible = false"
+            class="cancel"
+          >取 消</el-button>
+          <el-button
+            type="primary"
+            style="margin-right:160px;width:94px;height:34px;"
+            @click="dialogVisible = false"
+          >完善简历</el-button>
         </span>
       </el-dialog>
-      <el-dialog  :visible.sync="dialogVisibleOne" width="30%" :before-close="handleClose">
-        <span style="font-size:34px;color:#52c41a;"><i class="el-icon-circle-check"></i></span><br>
+      <el-dialog :visible.sync="dialogVisibleTwo" width="30%" :before-close="handleClose">
+        <div style="font-size:15px;color:#1f368d;margin:-30px 0 20px 0">请选择想要投递的快递</div>
+        <div>
+          <el-radio-group v-model="radio" style="margin-right:100px">
+            <el-radio :label="3"><span style="font-size:11px">在线简历：完整度80%</span><br><span style="margin:0 0 0 73px;color:#b1b1b1;font-size:11px">上传时间：2019-11-09 23：20</span></el-radio>
+          </el-radio-group>
+          <el-divider></el-divider>
+          <el-radio-group v-model="radio" style="margin-right:100px">
+            <el-radio :label="4"><span style="font-size:11px">在线简历：完整度80%</span><br><span style="margin:0 0 0 73px;color:#b1b1b1;font-size:11px">上传时间：2019-11-09 23：20</span></el-radio>
+          </el-radio-group>
+        </div>
+        <div slot="footer" class="dialog-footer">
+          <el-button
+            style="width:94px;height:34px"
+            @click="dialogVisible = false"
+            class="cancel"
+            plain
+          >取 消</el-button>
+          <el-button
+            type="primary"
+            style="margin-right:160px;width:94px;height:34px;"
+            @click="showdeliver"
+          >确认投递</el-button>
+        </div>
+      </el-dialog>
+      <el-dialog :visible.sync="dialogVisibleOne" width="30%" :before-close="handleClose">
+        <span style="font-size:34px;color:#52c41a;">
+          <i class="el-icon-circle-check"></i>
+        </span>
+        <br />
         <span style="font-size:16px;color:#455379;">投递成功，静候佳音吧~~~</span>
         <span slot="footer" class="dialog-footer">
-          <el-button type="primary" @click="isdeliver()" style="margin:0 40% 5px 0;width:94px;height:34px">好的</el-button>
+          <el-button
+            type="primary"
+            @click="isdeliver()"
+            style="margin:0 40% 5px 0;width:94px;height:34px"
+          >好的</el-button>
         </span>
       </el-dialog>
     </div>
@@ -75,15 +112,23 @@
       <div class="station-foot-content">
         <p>职位描述</p>
         <p>
-          1、在上级的领导和监督下定期完成量化的工作要求；<br><br> 
-          2、能独立处理和解决所负责的任务；<br> <br>
-          3、根据开发进度和任务分配，完成相应模块软件的设计、开发、编程任务；<br> <br>
-          二、招聘要求：<br> <br>
-          1、本科在读，20年应届生，计算机、软件工程、网络类及相关理工科专业毕业优先；<br><br> 
-          2、有充裕时间，即日起可稳定实习，一周三天以上，至少6个月，可长期实习最佳；<br><br>
-          3、热爱软件开发行业，善于学习和总结分析； <br><br>
-          4、做事认真、细心、负责，能够专心学习技术；<br> <br>
-          5、有良好的工作态度和团队合作精神； 
+          1、在上级的领导和监督下定期完成量化的工作要求；
+          <br />
+          <br />2、能独立处理和解决所负责的任务；
+          <br />
+          <br />3、根据开发进度和任务分配，完成相应模块软件的设计、开发、编程任务；
+          <br />
+          <br />二、招聘要求：
+          <br />
+          <br />1、本科在读，20年应届生，计算机、软件工程、网络类及相关理工科专业毕业优先；
+          <br />
+          <br />2、有充裕时间，即日起可稳定实习，一周三天以上，至少6个月，可长期实习最佳；
+          <br />
+          <br />3、热爱软件开发行业，善于学习和总结分析；
+          <br />
+          <br />4、做事认真、细心、负责，能够专心学习技术；
+          <br />
+          <br />5、有良好的工作态度和团队合作精神；
         </p>
 
         <div class="station-foot-foot">
@@ -92,8 +137,13 @@
             <span>上海市徐汇区梅陇路139号</span>
             <span>查看地图</span>
           </div>
-          <baidu-map class="bm-view" :center="center" :zoom="zoom" @ready="handler" ak="LGSF5bLoRGYzsOBrr20kXazopMHxLgL1">
-          </baidu-map>
+          <baidu-map
+            class="bm-view"
+            :center="center"
+            :zoom="zoom"
+            @ready="handler"
+            ak="LGSF5bLoRGYzsOBrr20kXazopMHxLgL1"
+          ></baidu-map>
         </div>
       </div>
       <div class="station-foot-aside">
@@ -123,71 +173,75 @@
           </div>
         </div>
         <div class="station-foot-aside-footer">
-          <div class="aside-footer">
-          <div class="company-post">
-            <span>产品经理</span>
-            <span>4-5k</span>
-          </div>
-          <div class="company-address">
-            <span>上海YY公司</span>
-            <span>长宁区</span>
-          </div>
-          <div class="line"></div>
+          <div class="footer-nav">
+            <span>相似职位</span>
+            <span @click="more">查看更多 》</span>
           </div>
           <div class="aside-footer">
-          <div class="company-post">
-            <span>产品经理</span>
-            <span>4-5k</span>
-          </div>
-          <div class="company-address">
-            <span>上海YY公司</span>
-            <span>长宁区</span>
-          </div>
-          <div class="line"></div>
-          </div>
-          <div class="aside-footer">
-          <div class="company-post">
-            <span>产品经理</span>
-            <span>4-5k</span>
-          </div>
-          <div class="company-address">
-            <span>上海YY公司</span>
-            <span>长宁区</span>
-          </div>
-          <div class="line"></div>
+            <div class="company-post">
+              <span>产品经理</span>
+              <span>4-5k</span>
+            </div>
+            <div class="company-address">
+              <span>上海YY公司</span>
+              <span>长宁区</span>
+            </div>
+            <div class="line"></div>
           </div>
           <div class="aside-footer">
-          <div class="company-post">
-            <span>产品经理</span>
-            <span>4-5k</span>
-          </div>
-          <div class="company-address">
-            <span>上海YY公司</span>
-            <span>长宁区</span>
-          </div>
-          <div class="line"></div>
-          </div>
-          <div class="aside-footer">
-          <div class="company-post">
-            <span>产品经理</span>
-            <span>4-5k</span>
-          </div>
-          <div class="company-address">
-            <span>上海YY公司</span>
-            <span>长宁区</span>
-          </div>
-          <div class="line"></div>
+            <div class="company-post">
+              <span>产品经理</span>
+              <span>4-5k</span>
+            </div>
+            <div class="company-address">
+              <span>上海YY公司</span>
+              <span>长宁区</span>
+            </div>
+            <div class="line"></div>
           </div>
           <div class="aside-footer">
-          <div class="company-post">
-            <span>产品经理</span>
-            <span>4-5k</span>
+            <div class="company-post">
+              <span>产品经理</span>
+              <span>4-5k</span>
+            </div>
+            <div class="company-address">
+              <span>上海YY公司</span>
+              <span>长宁区</span>
+            </div>
+            <div class="line"></div>
           </div>
-          <div class="company-address">
-            <span>上海YY公司</span>
-            <span>长宁区</span>
+          <div class="aside-footer">
+            <div class="company-post">
+              <span>产品经理</span>
+              <span>4-5k</span>
+            </div>
+            <div class="company-address">
+              <span>上海YY公司</span>
+              <span>长宁区</span>
+            </div>
+            <div class="line"></div>
           </div>
-          <div class="line"></div>
+          <div class="aside-footer">
+            <div class="company-post">
+              <span>产品经理</span>
+              <span>4-5k</span>
+            </div>
+            <div class="company-address">
+              <span>上海YY公司</span>
+              <span>长宁区</span>
+            </div>
+            <div class="line"></div>
+          </div>
+          <div class="aside-footer">
+            <div class="company-post">
+              <span>产品经理</span>
+              <span>4-5k</span>
+            </div>
+            <div class="company-address">
+              <span>上海YY公司</span>
+              <span>长宁区</span>
+            </div>
+            <div class="line"></div>
           </div>
         </div>
       </div>
@@ -196,92 +250,104 @@
 </template>    
 
 <script>
-import Deliver from 'components/Deliver.vue';
-import BaiduMap from 'vue-baidu-map/components/map/Map.vue'
+import Deliver from "components/Deliver.vue";
+import BaiduMap from "vue-baidu-map/components/map/Map.vue";
 export default {
   name: "station",
   components: {
-      Deliver,
-      BaiduMap
-        },
+    Deliver,
+    BaiduMap
+  },
   data() {
     return {
-        center: {lng: 0, lat: 0},
-        zoom: 3,
-        num:1,
-        deliver:false,
-        stationNav:true,
-        stationFoot:true,
-        dialogVisibleOne: true,
-        dialogVisible: false,
-        // map:false,
-        // mapList:false,
-        showDeliver:true,
-        isshowCollect:false,
-        showCollect:false,
-        isshow:true,  
-        url: 'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',  
-      }
+      radio:3,
+      dialogVisibleTwo:false,
+      almsg:true,
+      msg:false,
+      center: { lng: 0, lat: 0 },
+      zoom: 3,
+      num: 1,
+      deliver: false,
+      stationNav: true,
+      stationFoot: true,
+      dialogVisibleOne: false,
+      dialogVisible: false,
+      // map:false,
+      // mapList:false,
+      showDeliver: false,
+      isshowCollect: true,
+      showCollect: false,
+      isshow: true,
+      url:
+        "https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg"
+    };
   },
   methods: {
+    //确认投递
+    showdeliver() {
+      this.almsg = true
+      this.msg = false
+      this.dialogVisibleTwo = false
+      this.dialogVisibleOne = true
+    },
+    more() {
+      this.$router.push({path:'/joblist'})
+    },
     // 地图加载完毕事件
-      handler () {
-          this.center.lng = 116.404
-          this.center.lat = 39.915
-          this.zoom = 15
-      },
-      //向岗位投递简历（登陆之后）
-      isclick () {
-        this.showCollect = true,
-        this.showDeliver = false
-        this.isshowCollect = false,
+    handler() {
+      this.center.lng = 116.404;
+      this.center.lat = 39.915;
+      this.zoom = 15;
+    },
+    //向岗位投递简历（登陆之后）
+    isclick() {
+        this.dialogVisibleTwo = true
         this.$http.put(`/submitted/position/${2}/resume/${2}`).then(res => {
           if (res.data.code == 200) {
             // this.resumeIdList = res.data
             console.log(res);
           }
         });
-          // if(this.num == 1) {
-          //     this.dialogVisible = true
-          // }else{
-          //     this.dialogVisibleOne = true
-          // }
-          // this.showDeliver = false,
-          // this.showCollect = false,
-          // this.map = true,
-          // this.mapList = true
-      },
-      iscollect () {
-        this.showDeliver = false,
-        this.showCollect = false,
-        this.isshowCollect = true,
+      // if(this.num == 1) {
+      //     this.dialogVisible = true
+      // }else{
+      //     this.dialogVisibleOne = true
+      // }
+      // this.showDeliver = false,
+      // this.showCollect = false,
+      // this.map = true,
+      // this.mapList = true
+    },
+    iscollect() {
+        this.isshowCollect = false
+        this.showCollect = true
         this.$http.put(`/favorite/position/${2}`).then(res => {
           if (res.data.code == 200) {
             // this.resumeIdList = res.data
             console.log(res);
           }
         });
-          // if(this.num == 1) {
-          //     this.dialogVisible = true
-          // }else{
-          //     this.dialogVisibleOne = true
-          // }
-          // this.showDeliver = false,
-          // this.showCollect = false,
-          // this.map = true,
-          // this.mapList = true
-      },
-      isdeliver () {
-          this.dialogVisibleOne = false
-          this.stationNav = false
-          this.stationFoot = false
-          this.deliver = true
-      }
+      // if(this.num == 1) {
+      //     this.dialogVisible = true
+      // }else{
+      //     this.dialogVisibleOne = true
+      // }
+      // this.showDeliver = false,
+      // this.showCollect = false,
+      // this.map = true,
+      // this.mapList = true
     },
-    created () {
-      // this.isclick();
-      // this.iscollect();
+    isdeliver() {
+      this.dialogVisibleOne = false;
+      this.stationNav = false;
+      this.stationFoot = false;
+      this.deliver = true;
     }
+  },
+  created() {
+    // this.isclick();
+    // this.iscollect();
+  }
 };
 </script>
 
@@ -377,6 +443,21 @@ export default {
         display flex
         flex-direction column
         margin 0 0 0 0
+        .footer-nav
+          display flex
+          flex-direction row
+          justify-content space-between
+          padding 24px 0 0 0
+        .footer-nav span:nth-child(1)
+          font-family PingFangSC-Semibold
+          color #1f368d
+          font-size 14px
+          margin 0 0 0 6% 
+        .footer-nav span:nth-child(2)
+          font-family PingFangSC-Semibold
+          color #617DCB
+          font-size 12px 
+          margin 0 4% 0 0
         .aside-footer
           margin 7px 0 0 0  
           .company-post 

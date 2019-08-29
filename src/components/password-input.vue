@@ -42,6 +42,8 @@ export default {
 .passwordInput
   .input
     position relative
+    width 270px
+    height 43px
   span
     position absolute
     right 5px

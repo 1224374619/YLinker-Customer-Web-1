@@ -514,8 +514,6 @@
         <!-- 求职意向 -->
         <div ref="jobintension" class="main-content">
           <div class="main-content-first"><img :src="require('../assets/images/qiuzhi.png')"/><span>求职意向</span></div>
-          <div class="main-content-second" @click="jobintension" v-if="showadd"><img
-                  :src="require('../assets/images/add.png')"/> <span>添加</span></div>
         </div>
         <ul v-if="showjobintension" style="margin:-15px 0 10px 5px" @mouseover="over(10)" @mouseleave="leave(10)">
           <li v-for="(list,index) in listjobintension" :key="index" class="ul-a">
@@ -697,14 +695,10 @@
         <div class="content-line"></div>
         <div ref="self-appraisal" class="main-content">
           <div class="main-content-first"><img :src="require('../assets/images/ziwo.png')"/><span>自我评价</span></div>
-          <div class="main-content-second" @click="selfappraisal"><img :src="require('../assets/images/add.png')"/>
-            <span>添加</span></div>
         </div>
         <ul v-if="showpersonappraisal" style="margin:-5px 0 10px 5px" @mouseover="over(1)" @mouseleave="leave(1)">
           <li v-for="(list,index) in listpersonappraisal" :key="index" class="ul-a">
               <span class="actions-span">
-                  <img style="margin-right:9px;height:12px" :src="require('../assets/images/shan.png')"/><span
-                      @click="showdialog()" style="margin-right:20px">删除</span>
                   <img style="margin-right:9px;height:12px" :src="require('../assets/images/ziwo.png')"/><span
                       style="margin-right:3px" @click="showselfappraisalList(list)">编辑</span>
               </span>

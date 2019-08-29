@@ -35,9 +35,11 @@
         </el-form-item>
         <el-form-item label="最高学历" prop="educationLevel" >
           <el-select style="width:168px;height:36px" v-model="formInline.educationLevel" placeholder="请选择学历">
-            <el-option label value="初中及以下"></el-option>
-            <el-option label value="中专/职中"></el-option>
+            <el-option label value="初中"></el-option>
             <el-option label value="高中"></el-option>
+            <el-option label value="中专"></el-option>
+            <el-option label value="中技"></el-option>
+            <el-option label value="高职"></el-option>
             <el-option label value="大专"></el-option>
             <el-option label value="本科"></el-option>
             <el-option label value="硕士"></el-option>
@@ -53,7 +55,7 @@
           ></el-date-picker>
         </el-form-item>
         <el-form-item label="海外工作年限" prop="outWorkingSeniority">
-          <el-select style="width:168px;height:36px" v-model="formInline.outWorkingSeniority" :disabled="formInline.workingSeniority === '无工作年限'?true:false" placeholder="请选择年限">
+          <el-select style="width:168px;height:36px" v-model="formInline.outWorkingSeniority" :disabled="formInline.workingSeniority === '无工作年限'||formInline.workingSeniority === ''?true:false" placeholder="请选择年限">
             <el-option label value="无工作年限"></el-option>
             <el-option label value="1-3年"></el-option>
             <el-option label value="3-5年"></el-option>
@@ -74,6 +76,8 @@
           <el-select style="width:168px;height:36px" v-model="formInline.politicCountenance" placeholder="请选择政治面貌">
             <el-option label value="群众"></el-option>
             <el-option label value="团员"></el-option>
+            <el-option label value="民主党派"></el-option>
+            <el-option label value="预备党员"></el-option>
             <el-option label value="中共党员"></el-option>
           </el-select>
         </el-form-item>
@@ -110,7 +114,8 @@ export default {
         rules: {
           name: [
             { required: true, message: '请输入姓名', trigger: 'blur' },
-            { min: 3, max: 5, message: '长度在 3 到 5 个字符', trigger: 'blur' }
+            { min: 0, max: 24, message: '长度在 0 到 24 个字符', trigger: 'blur' },
+            { pattern:/^[a-zA-Z\u4e00-\u9fa5\s]{0,24}$/, message: '姓名仅支持中文汉字与英文字母', trigger: 'blur' },
           ],
           gender: [
             { required: true, message: '请选择性别', trigger: 'change' }
@@ -131,10 +136,12 @@ export default {
             { required: true, message: '请选择政治面貌', trigger: 'change' }
           ],
           phone: [
-            { required: true, message: '请填写手机号', trigger: 'change' }
+            { required: true, message: '请填写手机号', trigger: 'change' },
+            { pattern:/^[1][3578][0-9]{9}$/,message: '请输入正确的手机号', trigger: ['change','blur'] },
           ],
           email: [
-            { required: true, message: '请填写邮箱', trigger: 'change' }
+            { required: true, message: '请填写邮箱', trigger: 'change' },
+            { pattern:/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/,message: '请输入正确的邮箱', trigger: ['change','blur'] },
           ],
         }
     };
