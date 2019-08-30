@@ -1,14 +1,16 @@
 <template>
   <div class="jobintension">
-      <el-form :inline="true" :model="formInline" class="demo-form-inline">
-            <el-form-item label="技能名称" style="margin:0 0 0 20px">
+      <el-form :inline="true" :model="formInline" class="demo-form-inline" :rules="rules" ref="formInline">
+            <el-form-item label="技能名称" style="margin:0 0 0 20px" prop="technicalName">
                 <el-input style="width:242px;height:36px" v-model="formInline.technicalName" placeholder=""></el-input>
             </el-form-item>
-            <el-form-item label="掌握程度">
-                <el-select style="width:242px;height:36px" v-model="formInline.level" placeholder="">
-                <el-option label="shanghai" value="shanghai"></el-option>
-                <el-option label="beijing" value="beijing"></el-option>
-                </el-select>
+            <el-form-item label="掌握程度" prop="level">
+                 <el-select style="width:242px;height:36px" v-model="formInline.level" placeholder="">
+                  <el-option label="" value="一般"></el-option>
+                  <el-option label="" value="良好"></el-option>
+                  <el-option label="" value="熟练"></el-option>
+                  <el-option label="" value="精通"></el-option>
+                 </el-select>
             </el-form-item>
             <el-form-item label="获奖证书" style="margin-left:-90px">
                 <el-upload
@@ -23,7 +25,7 @@
             </el-form-item><br>
             <el-form-item style="margin:0 0 20px 450px">
             <el-button @click='cancel' plain style="margin:0 10px 0 0">取消</el-button>
-            <el-button @click="keep" type="primary">保存</el-button>
+            <el-button @click="keep('formInline')" type="primary">保存</el-button>
             </el-form-item>
           </el-form>
   </div>
@@ -39,6 +41,16 @@ export default {
          formInline: {
           technicalName: '',
           level: ''
+        },
+        rules: {
+          technicalName: [
+            { required: true, message: "请输入技能名称", trigger: "blur" },
+            { min: 0, max: 50, message: "长度在 0 到 50 个字符", trigger: "blur" }
+            // { pattern:/^[a-zA-Z\u4e00-\u9fa5\s]{0,24}$/, message: '姓名仅支持中文汉字与英文字母', trigger: 'blur' },
+          ],
+          level: [
+            { required: true, message: "请选择掌握程度", trigger: "blur" },
+          ],
         }
     }
   },
@@ -47,14 +59,21 @@ export default {
       this.$emit("skillEmit",false,true)
     },
     //新增
-    keep() {
-      this.$emit("skillEmit",false,true)
-      this.$http.post(`/resume/${2}/skill`,{skill:this.formInline.technicalName,level:this.formInline.level}).then(res => {
-        if (res.data.code == 200) {
-          
-          console.log(res);
+    keep(formName) {
+       this.$refs[formName].validate(valid => {
+        if (valid) {
+          this.$emit("skillEmit",false,true)
+          // this.$http.post(`/resume/${2}/skill`,{skill:this.formInline.technicalName,level:this.formInline.level}).then(res => {
+          //   if (res.data.code == 200) {
+              
+          //     console.log(res);
+          //   }
+          // });
+        } else {
+          return false;
         }
       });
+     
     },
     //更新
     // keep() {

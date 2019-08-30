@@ -33,24 +33,34 @@
             </div>
           </el-dialog>
           <div>
-            <el-form :model="formInformation" class="demo-form-inline" label-width="100px">
-              <el-form-item label="姓名">
+            <el-form :model="formInformation" class="demo-form-inline" label-width="100px" :rules="personalrules"  ref="formInformation">
+              <el-form-item label="姓名" prop='name'>
                 <el-input style="width:400px;height:36px;margin-right:50px" v-model='formInformation.name'  placeholder="请输入姓名"></el-input>
               </el-form-item>
-              <el-form-item label="求职状态">
+              <el-form-item label="求职状态" prop='state'>
                 <el-select style="width:400px;height:36px;margin-right:50px" v-model='formInformation.state'  placeholder>
-                  <el-option label value="积极找工作"></el-option>
-                  <el-option label value="随便看看"></el-option>
-                  <el-option label value="暂时不换工作"></el-option>
+                  <el-option label value="离职-随时到岗"></el-option>
+                  <el-option label value="离职-延时到岗"></el-option>
+                  <el-option label value="在职-考虑机会"></el-option>
+                  <el-option label value="在职-暂不考虑"></el-option>
                 </el-select>
               </el-form-item>
-              <el-form-item label="性别" style="margin:0 290px 0 0">
-                <el-radio-group  v-model='formInformation.sex'>
+              <el-form-item label="到岗时间" prop='dutyTime'>
+                <el-date-picker
+                  :disabled="formInformation.state === '离职-延时到岗'?false:true"
+                  v-model='formInformation.dutyTime'
+                  style="width:400px;height:36px;margin-right:50px"
+                  type="date"
+                  placeholder="选择日期"
+                ></el-date-picker>
+              </el-form-item>
+              <el-form-item label="性别" style="margin:0 290px 0 0" prop='sex'>
+                <el-radio-group v-model='formInformation.sex'>
                   <el-radio-button  label="男性"></el-radio-button>
                   <el-radio-button  label="女性"></el-radio-button>
                 </el-radio-group>
               </el-form-item><br>
-              <el-form-item label="工作年限">
+              <el-form-item label="工作年限" prop='workAge'>
                 <el-select style="width:400px;height:36px;margin-right:50px" v-model='formInformation.workAge'  placeholder>
                   <el-option label value="无工作年限"></el-option>
                   <el-option label value="1-3年"></el-option>
@@ -59,14 +69,14 @@
                   <el-option label value="手动输入"></el-option>
                 </el-select>
               </el-form-item>
-              <el-form-item label="所在城市">
+              <el-form-item label="所在城市" prop='city'>
                 <el-select style="width:400px;height:36px;margin-right:50px" v-model='formInformation.city'  placeholder>
                   <el-option label value="上海"></el-option>
                   <el-option label value="天津"></el-option>
                   <el-option label value="北京"></el-option>
                 </el-select>
               </el-form-item>
-              <el-form-item label="最高学历">
+              <el-form-item label="最高学历" prop='educationLevel'>
                 <el-select style="width:400px;height:36px;margin-right:50px" v-model='formInformation.educationLevel' placeholder>
                   <el-option label value="初中及以下"></el-option>
                   <el-option label value="中专/职中"></el-option>
@@ -77,7 +87,7 @@
                   <el-option label value="博士"></el-option>
                 </el-select>
               </el-form-item>
-              <el-form-item label="生日">
+              <el-form-item label="生日" prop='birthday'>
                 <el-date-picker
                   v-model='formInformation.birthday'
                   style="width:400px;height:36px;margin-right:50px"
@@ -85,20 +95,26 @@
                   placeholder="选择日期"
                 ></el-date-picker>
               </el-form-item>
-              <el-form-item label="邮箱">
+              <el-form-item label="邮箱" prop='email'>
                 <el-input style="width:400px;height:36px;margin-right:50px" v-model='formInformation.email' placeholder></el-input>
               </el-form-item>
-              <el-form-item label="手机">
+              <el-form-item label="手机" prop='phone'>
                 <el-input  style="width:400px;height:36px;margin-right:50px" v-model='formInformation.phone' placeholder></el-input>
               </el-form-item>
-              <el-form-item label="政治面貌">
-                <el-input style="width:400px;height:36px;margin-right:50px" v-model='formInformation.politicCountenance' placeholder></el-input>
+              <el-form-item label="政治面貌" prop='politicCountenance'>
+                <el-select style="width:400px;height:36px;margin-right:50px" v-model="formInformation.politicCountenance" placeholder="请选择政治面貌">
+                  <el-option label value="群众"></el-option>
+                  <el-option label value="团员"></el-option>
+                  <el-option label value="民主党派"></el-option>
+                  <el-option label value="预备党员"></el-option>
+                  <el-option label value="中共党员"></el-option>
+                </el-select>
               </el-form-item>
             </el-form>
           </div>
            <div slot="footer" class="dialog-footer">
             <el-button style="margin:0 20px 0 0" @click="informationinnerVisible = true" plain>取 消</el-button>
-            <el-button style="margin:0 35px 0 0" type="primary" @click="informationouterVisible = false">保存</el-button>
+            <el-button style="margin:0 35px 0 0" type="primary" @click="informationkeep('formInformation')">保存</el-button>
           </div>
         </el-dialog>
         <!-- 求职意向编辑 -->
@@ -113,15 +129,15 @@
              </div>
              <div slot="footer" class="dialog-footer">
                 <el-button style="margin:0 20px 0 0" @click="jobintensioninnerVisible = false" plain>取 消</el-button>
-                <el-button style="margin:0 60px 0 0" type="primary" @click="jobintensionouterVisible = false,informationinnerVisible = false">确定</el-button>
+                <el-button style="margin:0 60px 0 0" type="primary" @click="jobintensionouterVisible = false,jobintensioninnerVisible = false">确定</el-button>
              </div>
           </el-dialog>
           <div>
-            <el-form :model="formJobintension" class="demo-form-inline" label-width="100px">
-              <el-form-item label="职位类型">
+            <el-form :model="formJobintension" class="demo-form-inline" label-width="100px" :rules="jobintensionrules"  ref="formJobintension">
+              <el-form-item label="职位类型" prop='postType'>
                   <el-input style="width:400px;height:36px;margin-right:50px" v-model="formJobintension.postType" placeholder=""></el-input>
               </el-form-item>
-              <el-form-item label="工作城市">
+              <el-form-item label="工作城市" prop='city'>
                   <el-cascader style="width:400px;height:36px;margin-right:50px"
                       :options="options"
                       :show-all-levels="false"
@@ -129,13 +145,13 @@
                       >
                   </el-cascader>
               </el-form-item>
-              <el-form-item label="企业行业">
+              <el-form-item label="企业行业" prop='trade'>
                   <el-select style="width:400px;height:36px;margin-right:50px" v-model="formJobintension.trade" placeholder="">
                   <el-option label="" value=""></el-option>
                   <el-option label="" value=""></el-option>
                   </el-select>
               </el-form-item>
-              <el-form-item label="薪资范围">
+              <el-form-item label="薪资范围" prop='scope'>
                   <el-select style="width:400px;height:36px;margin-right:50px" v-model="formJobintension.scope" placeholder="">
                   <el-option label="" value="1千以下"></el-option>
                   <el-option label="" value="1k-2k"></el-option>
@@ -144,7 +160,7 @@
                   <el-option label="" value="6k-8k"></el-option>
                   </el-select>
               </el-form-item>
-              <el-form-item label="求职状态">
+              <el-form-item label="求职状态" prop='status'>
                   <el-select id="name" style="width:400px;height:36px;margin-right:50px" v-model="formJobintension.status" placeholder="" @change="JobType()">
                   <el-option label="" value="离职-随时到岗"></el-option>
                   <el-option label="" value="离职-延时到岗"></el-option>
@@ -152,28 +168,27 @@
                   <el-option label="" value="在职-暂不考虑"></el-option>
                   </el-select>
               </el-form-item>
-              <el-form-item label="工作类型">
+              <el-form-item label="工作类型" prop='jobType'>
                   <el-select style="width:400px;height:36px;margin-right:50px" v-model="formJobintension.jobType" placeholder="">
                   <el-option label="" value="实习"></el-option>
                   <el-option label="" value="全职"></el-option>
                   <el-option label="" value="兼职"></el-option>
                   </el-select>
-              </el-form-item><br>
-              <el-form-item label="到岗时间" class="block" v-if="datePicker">
+              </el-form-item>
+              <el-form-item label="到岗时间" class="block" prop='reportTime'>
                   <el-date-picker
+                  :disabled="formJobintension.status === '离职-延时到岗'?false:true"
+                  v-model='formJobintension.reportTime'
                   style="width:400px;height:36px;margin-right:50px"
-                  v-model="formJobintension.reportTime"
-                  type="daterange"
-                  range-separator="至"
-                  start-placeholder="开始日期"
-                  end-placeholder="结束日期">
-                  </el-date-picker>
+                  type="date"
+                  placeholder="选择日期"
+                ></el-date-picker>
               </el-form-item>
             </el-form>
           </div>
           <div slot="footer" class="dialog-footer">
             <el-button style="margin:0 20px 0 0" @click="jobintensioninnerVisible = true" plain>取 消</el-button>
-            <el-button style="margin:0 35px 0 0" type="primary" @click="jobintensionouterVisible = false">保存</el-button>
+            <el-button style="margin:0 35px 0 0" type="primary" @click="jobintensionkeep('formJobintension')">保存</el-button>
           </div>
         </el-dialog>
         <!-- 工作经历编辑 -->
@@ -192,53 +207,54 @@
              </div>
           </el-dialog>
           <div>
-            <el-form :model="formWork" class="demo-form-inline" label-width="100px">
-              <el-form-item label="公司名称">
+            <el-form :model="formWork" class="demo-form-inline" label-width="100px" :rules="workrules"  ref="formWork">
+              <el-form-item label="公司名称" prop='companyName'>
                   <el-input style="width:400px;height:36px" v-model="formWork.companyName" placeholder=""></el-input>
               </el-form-item>
-              <el-form-item label="职位名称">
+              <el-form-item label="职位名称" prop='postName'>
                   <el-input style="width:400px;height:36px" v-model="formWork.postName" placeholder=""></el-input>
               </el-form-item>
-              <el-form-item label="行业">
+              <el-form-item label="行业" prop='trade'>
                   <el-select style="width:400px;height:36px" v-model="formWork.trade" placeholder="">
                   <el-option label="" value="shanghai"></el-option>
                   <el-option label="" value="beijing"></el-option>
                   </el-select>
               </el-form-item>
-              <el-form-item label="所在部门">
+              <el-form-item label="所在部门" prop='branch'>
                   <el-input style="width:400px;height:36px" v-model="formWork.branch" placeholder=""></el-input>
               </el-form-item>
-              <el-form-item label="工作描述">
+              <el-form-item label="工作描述" prop='jobDescription'>
                   <el-input type="textarea" v-model="formWork.jobDescription"  style="width:400px" ></el-input>
               </el-form-item>
             </el-form>
           </div>
           <div slot="footer" class="dialog-footer">
             <el-button style="margin:0 20px 0 0" @click="workinnerVisible = true" plain>取 消</el-button>
-            <el-button style="margin:0 35px 0 0" type="primary" @click="workouterVisible = false">保存</el-button>
+            <el-button style="margin:0 35px 0 0" type="primary" @click="workkeep('formWork')">保存</el-button>
           </div>
         </el-dialog>
         <!-- 教育经历编辑 -->
         <el-dialog title="教育经历编辑" width="30%" :visible.sync="educationouterVisible">
           <div>
-            <el-form :model="formEducation" class="demo-form-inline" label-width="100px">
-              <el-form-item label="学校名称">
+            <el-form :model="formEducation" class="demo-form-inline" label-width="100px" :rules="edurules" ref="formEducation">
+              <el-form-item label="学校名称" prop='educationName'>
                   <el-input v-model="formEducation.educationName" style="width:400px;height:36px;margin-right:50px" placeholder=""></el-input>
               </el-form-item>
-              <el-form-item label="在校时间" class="block">
+              <el-form-item label="在校时间" class="block" prop='educationTime'>
                   <el-date-picker
                   style="width:400px;height:36px;margin-right:50px"
+                  v-model="formEducation.educationTime"
                   type="daterange"
                   range-separator="至"
                   start-placeholder="开始日期"
                   end-placeholder="结束日期">
                   </el-date-picker>
               </el-form-item>
-               <el-form-item label="专业">
-                <el-input style="width:400px;height:36px;margin-right:50px" placeholder=""></el-input>
+               <el-form-item label="专业" prop='educationSpecialty'>
+                <el-input style="width:400px;height:36px;margin-right:50px" placeholder="" v-model="formEducation.educationSpecialty"></el-input>
               </el-form-item>
-              <el-form-item label="学历">
-                  <el-select style="width:400px;height:36px;margin-right:50px" placeholder="">
+              <el-form-item label="学历" prop='educationDegree'>
+                  <el-select style="width:400px;height:36px;margin-right:50px" placeholder="" v-model="formEducation.educationDegree">
                   <el-option label="" value="初中及以下"></el-option>
                   <el-option label="" value="大专/职中"></el-option>
                   <el-option label="" value="高中"></el-option>
@@ -265,20 +281,20 @@
           </el-dialog>
           <div slot="footer" class="dialog-footer">
             <el-button style="margin:0 20px 0 0" @click="educationinnerVisible = true" plain>取 消</el-button>
-            <el-button style="margin:0 35px 0 0" type="primary" @click="educationouterVisible = false">保存</el-button>
+            <el-button style="margin:0 35px 0 0" type="primary" @click="educationkeep('formEducation')">保存</el-button>
           </div>
         </el-dialog>
         <!-- 项目经历编辑 -->
         <el-dialog title="项目经历编辑" width="30%" :visible.sync="progectouterVisible">
           <div>
-            <el-form :model="formProject" class="demo-form-inline" label-width="100px">
-              <el-form-item label="项目名称">
+            <el-form :model="formProject" class="demo-form-inline" label-width="100px" :rules="progectrules" ref="formProject">
+              <el-form-item label="项目名称" prop='itemName'>
                   <el-input style="width:400px;height:36px;margin-right:50px" v-model="formProject.itemName" placeholder=""></el-input>
               </el-form-item>
-              <el-form-item label="公司名称">
+              <el-form-item label="公司名称" prop='companyName'>
                   <el-input style="width:400px;height:36px;margin-right:50px" v-model="formProject.companyName" placeholder=""></el-input>
               </el-form-item>
-              <el-form-item label="项目时间" class="block">
+              <el-form-item label="项目时间" class="block" prop='schoolTime'>
                   <el-date-picker
                   style="width:400px;height:36px;margin-right:50px"
                   v-model="formProject.schoolTime"
@@ -288,10 +304,10 @@
                   end-placeholder="结束日期">
                   </el-date-picker>
               </el-form-item>
-              <el-form-item label="个人职责">
+              <el-form-item label="个人职责" prop='duty'>
                   <el-input type="textarea" v-model="formProject.duty" style="width:400px;margin-right:50px" ></el-input>
               </el-form-item>
-              <el-form-item label="项目介绍">
+              <el-form-item label="项目介绍" prop='project'>
                   <el-input type="textarea" v-model="formProject.project" style="width:400px;margin-right:50px" ></el-input>
               </el-form-item>
             </el-form>
@@ -311,20 +327,20 @@
           </el-dialog>
           <div slot="footer" class="dialog-footer">
             <el-button style="margin:0 20px 0 0" @click="progectinnerVisible = true" plain>取 消</el-button>
-            <el-button style="margin:0 35px 0 0" type="primary" @click="progectouterVisible = false">保存</el-button>
+            <el-button style="margin:0 35px 0 0" type="primary" @click="progectkeep('formProject')">保存</el-button>
           </div>
         </el-dialog>
         <!-- 培训经历编辑 -->
         <el-dialog title="培训经历编辑" width="30%" :visible.sync="trainingouterVisible">
           <div>
-            <el-form :model="formtraining" class="demo-form-inline" label-width="100px">
-              <el-form-item label="培训课程">
+            <el-form :model="formtraining" class="demo-form-inline" label-width="100px" :rules="trainrules" ref="formtraining">
+              <el-form-item label="培训课程" prop='trainCourse'>
                   <el-input style="width:400px;height:36px;margin-right:50px" v-model="formtraining.trainCourse" placeholder=""></el-input>
               </el-form-item>
-              <el-form-item label="培训课程">
-                  <el-input style="width:400px;height:36px;margin-right:50px" v-model="formtraining.trainCourse" placeholder=""></el-input>
+              <el-form-item label="培训机构" prop='trainCours'>
+                  <el-input style="width:400px;height:36px;margin-right:50px" v-model="formtraining.trainCours" placeholder=""></el-input>
               </el-form-item>
-              <el-form-item label="培训时间" class="block">
+              <el-form-item label="培训时间" class="block" prop='trainTime'>
                   <el-date-picker
                   style="width:400px;height:36px;margin-right:50px"
                   v-model="formtraining.trainTime"
@@ -351,17 +367,17 @@
           </el-dialog>
           <div slot="footer" class="dialog-footer">
             <el-button style="margin:0 20px 0 0" @click="traininginnerVisible = true" plain>取 消</el-button>
-            <el-button style="margin:0 35px 0 0" type="primary" @click="trainingouterVisible = false">保存</el-button>
+            <el-button style="margin:0 35px 0 0" type="primary" @click="trainingkeep('formtraining')">保存</el-button>
           </div>
         </el-dialog>
         <!-- 语言能力编辑 -->
         <el-dialog title="语言能力编辑" width="30%" :visible.sync="languageouterVisible">
           <div>
-            <el-form  :model="formlanguage" class="demo-form-inline" label-width="100px">
-              <el-form-item label="语种">
+            <el-form  :model="formlanguage" class="demo-form-inline" label-width="100px" :rules="languagerules" ref="formlanguage">
+              <el-form-item label="语种" prop='languages'>
                   <el-input style="width:400px;height:36px;margin-right:50px" v-model="formlanguage.languages" placeholder=""></el-input>
               </el-form-item>
-              <el-form-item label="听力能力">
+              <el-form-item label="听力能力" prop='listenAbility'>
                   <el-select style="width:400px;height:36px;margin-right:50px" v-model="formlanguage.listenAbility" placeholder="">
                   <el-option label="" value="一般"></el-option>
                   <el-option label="" value="良好"></el-option>
@@ -369,7 +385,7 @@
                   <el-option label="" value="精通"></el-option>
                   </el-select>
               </el-form-item>
-              <el-form-item label="读写能力">
+              <el-form-item label="读写能力" prop='readAbility'>
                   <el-input style="width:400px;height:36px;margin-right:50px" v-model="formlanguage.readAbility" placeholder=""></el-input>
               </el-form-item>
             </el-form>
@@ -389,17 +405,17 @@
           </el-dialog>
           <div slot="footer" class="dialog-footer">
             <el-button style="margin:0 20px 0 0" @click="languageinnerVisible = true" plain>取 消</el-button>
-            <el-button style="margin:0 35px 0 0" type="primary" @click="languageouterVisible = false">保存</el-button>
+            <el-button style="margin:0 35px 0 0" type="primary" @click="languagekeep('formlanguage')">保存</el-button>
           </div>
         </el-dialog>
         <!-- 专业技能 -->
          <el-dialog title="专业技能编辑" width="30%" :visible.sync="personalskillouterVisible">
           <div>
-            <el-form :model="formPersonalskill" class="demo-form-inline" label-width="100px">
-              <el-form-item label="技能名称">
+            <el-form :model="formPersonalskill" class="demo-form-inline" label-width="100px" :rules="skillrules" ref="formPersonalskill">
+              <el-form-item label="技能名称" prop='technicalName'>
                   <el-input style="width:400px;height:36px;margin-right:50px" v-model="formPersonalskill.technicalName" placeholder=""></el-input>
               </el-form-item>
-              <el-form-item label="掌握程度">
+              <el-form-item label="掌握程度" prop='level'>
                   <el-select style="width:400px;height:36px;margin-right:50px" v-model="formPersonalskill.level" placeholder="">
                   <el-option label="shanghai" value="shanghai"></el-option>
                   <el-option label="beijing" value="beijing"></el-option>
@@ -422,17 +438,17 @@
           </el-dialog>
           <div slot="footer" class="dialog-footer">
             <el-button style="margin:0 20px 0 0" @click="personalskillinnerVisible = true" plain>取 消</el-button>
-            <el-button style="margin:0 35px 0 0" type="primary" @click="personalskillouterVisible = false">保存</el-button>
+            <el-button style="margin:0 35px 0 0" type="primary" @click="skillkeep('formPersonalskill')">保存</el-button>
           </div>
         </el-dialog>
          <!-- 荣誉奖项 -->
          <el-dialog title="荣誉奖项编辑" width="30%" :visible.sync="awardsouterVisible">
           <div>
-            <el-form :model="formAwards" class="demo-form-inline" label-width="100px">
-              <el-form-item label="奖项名称">
+            <el-form :model="formAwards" class="demo-form-inline" label-width="100px" :rules="awardsrules" ref="formAwards">
+              <el-form-item label="奖项名称" prop='prizeAward'>
                   <el-input style="width:400px;height:36px;margin-right:50px" v-model="formAwards.prizeAward" placeholder=""></el-input>
               </el-form-item>
-              <el-form-item label="获奖时间">
+              <el-form-item label="获奖时间" prop='prizeTime'>
                 <el-date-picker
                   style="width:400px;height:36px;margin-right:50px"
                   v-model="formAwards.prizeTime"
@@ -457,14 +473,14 @@
           </el-dialog>
           <div slot="footer" class="dialog-footer">
             <el-button style="margin:0 20px 0 0" @click="awardsinnerVisible = true" plain>取 消</el-button>
-            <el-button style="margin:0 35px 0 0" type="primary" @click="awardsouterVisible = false">保存</el-button>
+            <el-button style="margin:0 35px 0 0" type="primary" @click="awardskeep('formAwards')">保存</el-button>
           </div>
         </el-dialog>
          <!-- 自我评价 -->
          <el-dialog title="自我评价编辑" width="30%" :visible.sync="selfappraisalouterVisible">
           <div>
-            <el-form :model="formSelfappraisal" class="demo-form-inline" label-width="100px">
-              <el-form-item label="奖项名称">
+            <el-form :model="formSelfappraisal" class="demo-form-inline" label-width="100px" :rules="selfappraisalrules" ref="formSelfappraisal">
+              <el-form-item label="自我评价" prop='personalDescription'>
                   <el-input type="textarea" v-model="formSelfappraisal.personalDescription" style="width:400px;margin-right:50px" placeholder="资料完善程度高，被选中的几率越大呦" ></el-input>
               </el-form-item>
             </el-form>
@@ -484,7 +500,7 @@
           </el-dialog>
           <div slot="footer" class="dialog-footer">
             <el-button style="margin:0 20px 0 0" @click="selfappraisalinnerVisible = true" plain>取 消</el-button>
-            <el-button style="margin:0 35px 0 0" type="primary" @click="selfappraisalouterVisible = false">保存</el-button>
+            <el-button style="margin:0 35px 0 0" type="primary" @click="selfappraisalkeep('formSelfappraisal')">保存</el-button>
           </div>
         </el-dialog>
         <!-- 添加个人信息 -->
@@ -889,6 +905,7 @@
         personalskillouterVisible:false,
         personalskillinnerVisible:false,
         awardsouterVisible:false,
+        awardsinnerVisible:false,
         selfappraisalinnerVisible:false,
         selfappraisalouterVisible:false,
         listjobintension: [{
@@ -953,6 +970,7 @@
           educationDegree:'',
           educationName:'',
           educationTime:'',
+          educationSpecialty:''
         },
         formInformation: {
           name:'',
@@ -964,7 +982,8 @@
           birthday:'',
           email:'',
           phone:'',
-          politicCountenance:''
+          politicCountenance:'',
+          dutyTime:''
         },
         formJobintension: {
           postType: '',
@@ -1019,9 +1038,308 @@
         activeawards: '',
         activeselfAppraisal: '',
         activeOne: '',
+        edurules: {
+          educationName: [
+            { required: true, message: "请输入学校名称", trigger: "blur" }
+            // { min: 0, max: 24, message: '长度在 0 到 24 个字符', trigger: 'blur' },
+            // { pattern:/^[a-zA-Z\u4e00-\u9fa5\s]{0,24}$/, message: '姓名仅支持中文汉字与英文字母', trigger: 'blur' },
+          ],
+          educationTime: [
+            { required: true, message: "请选择在校时间", trigger: "blur" }
+          ],
+          educationSpecialty: [
+            {
+              type: "date",
+              required: true,
+              message: "请填写专业",
+              trigger: "change"
+            },
+            { min: 0, max: 36, message: "长度在 0 到 36 个字符", trigger: "blur" }
+          ],
+          educationDegree: [
+            { required: true, message: "请选择学历", trigger: "change" }
+          ]
+        },
+        workrules: {
+          companyName: [
+            { required: true, message: "请输入公司名称", trigger: "blur" }
+            // { min: 0, max: 24, message: '长度在 0 到 24 个字符', trigger: 'blur' },
+            // { pattern:/^[a-zA-Z\u4e00-\u9fa5\s]{0,24}$/, message: '姓名仅支持中文汉字与英文字母', trigger: 'blur' },
+          ],
+          postName: [
+            {required: true, message: "请输入职位名称", trigger: "blur" },
+            { min: 0, max: 50, message: '长度在 0 到 50 个字符', trigger: 'blur' },
+          ],
+          trade: [
+          { required: true, message: "请输入行业名称", trigger: "blur" }
+          ],
+          branch: [
+          { required: true, message: "请输入所在部门", trigger: "blur" }
+          ],
+          monthPay: [
+            
+          { min: 0, max: 7, message: '长度在 0 到 7 个字符', trigger: 'blur' },],
+          jobDescription: [
+            { min: 0, max: 800, message: '长度在 0 到 800 个字符', trigger: 'blur' },
+            { required: true, message: "请填写工作描述", trigger: "change" }
+          ]
+        },
+        progectrules: {
+          itemName: [
+            { required: true, message: "请输入项目名称", trigger: "blur" },
+            { min: 0, max: 50, message: "长度在 0 到 50 个字符", trigger: "blur" }
+            // { pattern:/^[a-zA-Z\u4e00-\u9fa5\s]{0,24}$/, message: '姓名仅支持中文汉字与英文字母', trigger: 'blur' },
+          ],
+          companyName: [
+            { min: 0, max: 50, message: "长度在 0 到 50 个字符", trigger: "blur" }
+          ],
+          schoolTime: [
+            { required: true, message: "请选择项目时间", trigger: "blur" }
+          ],
+          record: [{ required: true, message: "请选择学历", trigger: "blur" }],
+          duty: [
+            { required: true, message: "请填写个人职责", trigger: "change" },
+            {
+              min: 0,
+              max: 800,
+              message: "长度在 0 到 800 个字符",
+              trigger: "blur"
+            }
+          ],
+          project: [
+            {
+              min: 0,
+              max: 800,
+              message: "长度在 0 到 800 个字符",
+              trigger: "blur"
+            },
+            { required: true, message: "请填写项目介绍", trigger: "change" }
+          ]
+        },
+        trainrules: {
+          trainCourse: [
+            { required: true, message: "请输入培训课程", trigger: "blur" },
+            { min: 0, max: 50, message: "长度在 0 到 50 个字符", trigger: "blur" }
+            // { pattern:/^[a-zA-Z\u4e00-\u9fa5\s]{0,24}$/, message: '姓名仅支持中文汉字与英文字母', trigger: 'blur' },
+          ],
+          trainCours: [
+            { required: true, message: "请输入培训机构", trigger: "blur" },
+            { min: 0, max: 50, message: "长度在 0 到 50 个字符", trigger: "blur" }
+          ],
+          trainTime: []
+        },
+        languagerules: {
+          languages: [
+            { required: true, message: "请输入语种", trigger: "blur" },
+            { min: 0, max: 30, message: "长度在 0 到 30 个字符", trigger: "blur" }
+            // { pattern:/^[a-zA-Z\u4e00-\u9fa5\s]{0,24}$/, message: '姓名仅支持中文汉字与英文字母', trigger: 'blur' },
+          ],
+          listenAbility: [
+            { required: true, message: "请选择听力能力", trigger: "blur" },
+          ],
+          readAbility: [
+            { required: true, message: "请选择读写能力", trigger: "blur" }
+          ],
+        },
+        skillrules: {
+          technicalName: [
+            { required: true, message: "请输入技能名称", trigger: "blur" },
+            { min: 0, max: 50, message: "长度在 0 到 50 个字符", trigger: "blur" }
+            // { pattern:/^[a-zA-Z\u4e00-\u9fa5\s]{0,24}$/, message: '姓名仅支持中文汉字与英文字母', trigger: 'blur' },
+          ],
+          level: [
+            { required: true, message: "请选择掌握程度", trigger: "blur" },
+          ],
+        },
+        awardsrules: {
+          prizeAward: [
+            { required: true, message: "请输入奖项名称", trigger: "blur" },
+            { min: 0, max: 30, message: "长度在 0 到 30 个字符", trigger: "blur" }
+            // { pattern:/^[a-zA-Z\u4e00-\u9fa5\s]{0,24}$/, message: '姓名仅支持中文汉字与英文字母', trigger: 'blur' },
+          ],
+          prizeTime: [
+            { required: true, message: "请选择获奖时间", trigger: "blur" },
+          ],
+        },
+        selfappraisalrules: {
+          personalDescription: [
+            { required: true, message: "请填写个人介绍", trigger: "blur" },
+            { min: 0, max: 20000, message: "长度在 0 到 2000 个字符", trigger: "blur" }
+          ]
+        },
+        personalrules: {
+          name: [
+            { required: true, message: '请输入姓名', trigger: 'blur' },
+            { min: 0, max: 24, message: '长度在 0 到 24 个字符', trigger: 'blur' },
+            { pattern:/^[a-zA-Z\u4e00-\u9fa5\s]{0,24}$/, message: '姓名仅支持中文汉字与英文字母', trigger: 'blur' },
+          ],
+          state: [
+            { required: true, message: '请选择求职状态', trigger: 'change' },
+          ],
+          city: [
+            { required: true, message: '请选择城市', trigger: 'change' },
+          ],
+          sex: [
+            { required: true, message: '请选择性别', trigger: 'change' }
+          ],
+          birthday: [
+            { type: 'date', required: true, message: '请选择日期', trigger: 'change' }
+          ],
+          educationLevel: [
+            { required: true, message: '请选择学历', trigger: 'change' }
+          ],
+          workAge: [
+            { required: true, message: '请选择工作年限', trigger: 'blur' }
+          ],
+          politicCountenance: [
+            { required: true, message: '请选择政治面貌', trigger: 'change' }
+          ],
+          phone: [
+            { required: true, message: '请填写手机号', trigger: 'change' },
+            { pattern:/^[1][3578][0-9]{9}$/,message: '请输入正确的手机号', trigger: ['change','blur'] },
+          ],
+          email: [
+            { required: true, message: '请填写邮箱', trigger: 'change' },
+            { pattern:/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/,message: '请输入正确的邮箱', trigger: ['change','blur'] },
+          ],
+        },
+        jobintensionrules: {
+          postType: [
+            { required: true, message: '请输入职位类型', trigger: 'blur' },
+            { min: 0, max: 24, message: '长度在 0 到 24 个字符', trigger: 'blur' },
+          ],
+          status: [
+            { required: true, message: '请选择求职状态', trigger: 'change' },
+          ],
+          reportTime: [
+            { required: true, message: '请选择到岗时间', trigger: 'change' },
+          ],
+          trade: [
+            { required: true, message: '请选择企业行业', trigger: 'change' },
+          ],
+          scope: [
+            { required: true, message: '请选择薪资范围', trigger: 'change' }
+          ],
+          city: [
+            { required: true, message: '请选择城市', trigger: 'change' }
+          ],
+          jobType: [
+            { required: true, message: '请选择工作类型', trigger: 'change' }
+          ],
+        },
       }
     },
     methods: {
+      //求职意向保存
+      jobintensionkeep(formName) {
+        this.$refs[formName].validate(valid => {
+          if (valid) {
+            this.jobintensionouterVisible = false
+          } else {
+            // this.informationouterVisible = false
+            return false;
+          }
+      });
+      },
+      //个人信息
+      informationkeep(formName) {
+        this.$refs[formName].validate(valid => {
+          if (valid) {
+            this.informationouterVisible = false
+          } else {
+            // this.informationouterVisible = false
+            return false;
+          }
+      });
+      },
+      //自我介绍
+      selfappraisalkeep(formName) {
+        this.$refs[formName].validate(valid => {
+          if (valid) {
+            this.selfappraisalouterVisible = false
+          } else {
+            // this.selfappraisalouterVisible = false
+            return false;
+          }
+      });
+      },
+      //荣誉奖项保存
+      awardskeep(formName) {
+        this.$refs[formName].validate(valid => {
+          if (valid) {
+            this.awardsouterVisible = false
+          } else {
+            // this.awardsouterVisible = false
+            return false;
+          }
+      });
+      },
+      //专业技能
+      skillkeep(formName) {
+        this.$refs[formName].validate(valid => {
+          if (valid) {
+            this.personalskillouterVisible = false
+          } else {
+            // this.personalskillouterVisible = false
+            return false;
+          }
+      });
+      },
+      //语言能力
+      languagekeep(formName) {
+         this.$refs[formName].validate(valid => {
+          if (valid) {
+            this.languageouterVisible = false
+          } else {
+            // this.languageouterVisible = false
+            return false;
+          }
+      });
+      },
+      //培训经历保存
+      trainingkeep(formName) {
+        this.$refs[formName].validate(valid => {
+          if (valid) {
+            this.trainingouterVisible = false
+          } else {
+            // this.trainingouterVisible = false
+            return false;
+          }
+      });
+      },
+      //项目经历保存
+      progectkeep(formName) {
+         this.$refs[formName].validate(valid => {
+          if (valid) {
+            this.progectouterVisible = false
+          } else {
+            // this.progectouterVisible = false
+            return false;
+          }
+      });
+      },
+      //工作保存
+      workkeep(formName) {
+         this.$refs[formName].validate(valid => {
+          if (valid) {
+            this.workouterVisible = false
+          } else {
+            // this.workouterVisible = false
+            return false;
+          }
+      });
+      },
+      //教育保存
+      educationkeep(formName) {
+         this.$refs[formName].validate(valid => {
+          if (valid) {
+            this.educationouterVisible = false
+          } else {
+            this.educationouterVisible = false
+            return false;
+          }
+      });
+      },
       //获取简历详情
       resumeId () {
         this.$http.post(`/resume/${2}`).then(res => {
@@ -1145,7 +1463,7 @@
       //工作经历
       workEmit(c) {
         this.showwork = c[0],
-        this.showtrain = c[1]
+        this.showworkperience = c[1]
       },
       //求职意向（$emit）
       jobintensionEmit(c) {
@@ -1175,6 +1493,8 @@
       editskill(list) {
         console.log(list)
         this.personalskillouterVisible = true
+        this.formPersonalskill.technicalName = ''
+        this.formPersonalskill.level = ''
         this.formPersonalskill.technicalName = list.technicalName
         this.formPersonalskill.level = list.level
       },

@@ -1,10 +1,10 @@
 <template>
   <div class="jobintension">
-    <el-form :inline="true" :model="formInline" class="demo-form-inline">
-      <el-form-item label="奖项名称" style="margin:0 0 0 20px">
+    <el-form :inline="true" :model="formInline" class="demo-form-inline" :rules="rules" ref="formInline">
+      <el-form-item label="奖项名称" style="margin:0 0 0 20px" prop="prizeAward">
         <el-input style="width:242px;height:36px" v-model="formInline.prizeAward" placeholder></el-input>
       </el-form-item>
-      <el-form-item label="获奖时间">
+      <el-form-item label="获奖时间" prop="prizeTime">
         <el-date-picker
           style="width:242px;height:36px"
           v-model="formInline.prizeTime"
@@ -27,7 +27,7 @@
       <br />
       <el-form-item style="margin:0 0 20px 450px">
         <el-button @click="cancel"  style="margin:0 10px 0 0" plain>取消</el-button>
-        <el-button @click="keep" type="primary">保存</el-button>
+        <el-button @click="keep('formInline')" type="primary">保存</el-button>
       </el-form-item>
     </el-form>
   </div>
@@ -41,7 +41,17 @@ export default {
       formInline: {
         prizeAward: "",
         prizeTime: ""
-      }
+      },
+       rules: {
+          prizeAward: [
+            { required: true, message: "请输入奖项名称", trigger: "blur" },
+            { min: 0, max: 30, message: "长度在 0 到 30 个字符", trigger: "blur" }
+            // { pattern:/^[a-zA-Z\u4e00-\u9fa5\s]{0,24}$/, message: '姓名仅支持中文汉字与英文字母', trigger: 'blur' },
+          ],
+          prizeTime: [
+            { required: true, message: "请选择获奖时间", trigger: "blur" },
+          ],
+        }
     };
   },
   methods: {
@@ -49,13 +59,20 @@ export default {
       this.$emit("awardsemit",false,true) 
     },
     //新增
-    keep() {
-      this.$emit("awardsemit",false,true)
-      this.$http.post(`/resume/${2}/award`, { beginTime: "", company: "", position: "" }).then(res => {
-          if (res.data.code == 200) {
-            console.log(res);
-          }
-        });
+    keep(formName) {
+      this.$refs[formName].validate(valid => {
+        if (valid) {
+          //  this.$emit("awardsemit",false,true)
+          //   this.$http.post(`/resume/${2}/award`, { beginTime: "", company: "", position: "" }).then(res => {
+          //       if (res.data.code == 200) {
+          //         console.log(res);
+          //       }
+          //     });
+        } else {
+          return false;
+        }
+      });
+     
     },
     //更新
     // keep() {

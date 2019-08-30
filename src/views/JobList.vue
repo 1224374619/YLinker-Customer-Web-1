@@ -1,11 +1,9 @@
 <template>
   <div class="joblist">
     <div class="joblist-search">
-        <el-select  v-model="value" @focus="next"  style="width:77px;height:44px;font-size:14px;" >
-          <el-option label="上海" value=""></el-option>
-        </el-select>
+        <el-input v-model="value" @focus="next" suffix-icon="el-icon-arrow-down" style="width:77px;height:44px;font-size:14px;"></el-input>
         <span class="joblist-after"></span>
-        <el-select   slot="prepend"  v-model="company" @change="getVendorId" style="width:77px;height:44px;font-size:14px" :label-in-value="true">
+        <el-select   slot="prepend" suffix-icon="el-icon-arrow-down"  v-model="company" @change="getVendorId" style="width:77px;height:44px;font-size:14px" :label-in-value="true">
           <el-option
             v-for="item in perList"
             :key="item.value"
@@ -768,4 +766,6 @@ export default {
     color #617dcb 
   .spanCity  
     font-size 13px
+  .el-icon-arrow-up:before
+    color #dbdbdb
 </style>

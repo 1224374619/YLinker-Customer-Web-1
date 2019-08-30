@@ -11,33 +11,29 @@
       <el-form-item label="学校名称" style="margin:0 0 0 20px" prop="schoolName">
         <el-input style="width:202px;height:36px" v-model="formInline.schoolName" placeholder></el-input>
       </el-form-item>
-      <el-form-item label="在校时间" prop="endDate">
-            <!-- <el-form-item prop="date1">
-              <el-date-picker type="date" placeholder="选择日期" style="width:140px;height:36px" v-model="startDate"></el-date-picker>
-            </el-form-item>
-            <el-form-item prop="date2">
-              <el-time-picker placeholder="选择时间" style="width:140px;height:36px" v-model="endDate"></el-time-picker>
-            </el-form-item> -->
-      <el-form-item prop="date1">      
+      <el-form-item label="在校时间" class="block" prop="schoolTime">
         <el-date-picker
-          prop="startDate"
+          v-model="formInline.schoolTime"
+          type="daterange"
+          style="width:290px;height:36px"
+          range-separator="至"
+          start-placeholder="开始日期"
+          end-placeholder="结束日期">
+        </el-date-picker>
+        <!-- <el-date-picker
           style="width:140px;height:36px"
           v-model="startDate"
           type="date"
           placeholder="选择日期"
         ></el-date-picker>
-      </el-form-item>  
         <span>--</span>
-      <el-form-item prop="date1">       
         <el-date-picker
-          prop="endDate"
           style="width:140px;height:36px"
           v-model="endDate"
           type="date"
           :picker-options="endDateOpt"
           placeholder="选择日期"
-        ></el-date-picker>
-      </el-form-item>
+        ></el-date-picker> -->
       </el-form-item>
       <el-form-item label="专业" style="margin:0 0 0 0" prop="major">
         <el-input style="width:202px;height:36px" v-model="formInline.major" placeholder></el-input>
@@ -79,8 +75,6 @@ export default {
   props: ["educationDegree"],
   data() {
     return {
-      startDate: "",
-      endDate: "",
       formInline: {
         schoolName: "",
         schoolTime: "",
@@ -94,7 +88,7 @@ export default {
           // { min: 0, max: 24, message: '长度在 0 到 24 个字符', trigger: 'blur' },
           // { pattern:/^[a-zA-Z\u4e00-\u9fa5\s]{0,24}$/, message: '姓名仅支持中文汉字与英文字母', trigger: 'blur' },
         ],
-        endDate: [
+        schoolTime: [
           { required: true, message: "请选择在校时间", trigger: "blur" }
         ],
         major: [
@@ -112,12 +106,12 @@ export default {
         ]
       },
       //设置当前日期之后不能选中
-       endDateOpt: {
-          disabledDate(time) {
-            return time.getTime() > Date.now();
-            return time.getTime() < this.startDate; 
-          }
-       }
+      endDateOpt: {
+        disabledDate(time) {
+          return time.getTime() > Date.now();
+          return time.getTime() < this.startDate;
+        }
+      }
     };
   },
   methods: {
@@ -129,17 +123,17 @@ export default {
       // this.$emit("sendiptVal",false,true)
       this.$refs[formName].validate(valid => {
         if (valid) {
-          // this.$router.push({path:'/resume'})
-        } else {
-          this.$router.push({ path: "/resume" });
-          return false;
-        }
-      });
-      // this.$http.post(`/resume/${2}/education`, { beginTime: "", degree: "", major: "",school:''}).then(res => {
+          // this.$http.post(`/resume/${2}/education`, { beginTime: "", degree: "", major: "",school:''}).then(res => {
       //     if (res.data.code == 200) {
       //       console.log(res);
       //     }
       //   });
+          // this.$router.push({path:'/resume'})
+        } else {
+          return false;
+        }
+      });
+      
     }
     //更新
     // keep() {
