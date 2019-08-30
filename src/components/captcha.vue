@@ -44,7 +44,10 @@ export default {
 <style lang="stylus" scoped>
 .captcha
   .input
-    width 110px
+    width 135px
+    height 43px
   .btn
+    width 123px
+    height 43px
     margin-left 10px
 </style>

@@ -2,15 +2,15 @@
     <div class="from">
         <div style="display:flex;flex-direction:row">
             <div class="fromfirst">
-                <div class="fromfirst-one"><span>公司名称</span></div>
-                <div class="fromfirst-one"><span>产品经理 | 4K-6K</span></div>
+                <div class="fromfirst-one"><span>{{ruleForm.companyName}} | {{ruleForm.trade}}</span></div>
+                <div class="fromfirst-one"><span>{{ruleForm.branch}} | {{ruleForm.postName}}</span></div>
             </div>
             <div class="fromsecond">
-                <div class="fromfirst-two"><span>2018-12/至今</span></div>
+                <div class="fromfirst-two"><span>{{ruleForm.jobTime}}/至今</span></div>
             </div>
         </div>
         <div style="margin:10px 0 0 47px;color:#61687c">
-            <span>工作内容：<span>文案文案文案文案文案文案文案文案文案文案文案文案</span></span>
+            <span>工作内容：<span>{{ruleForm.jobDescription}}</span></span>
         </div>
     </div>
 </template>
@@ -22,10 +22,12 @@
         data() {
             return {
                 ruleForm: {
-                  jobDescription: '',
-                  companyName: '',
-                  post: '',
-                  jobTime: '',
+                  jobDescription: '22电动车v发射点发射点犯得上犯得上发射点',
+                  branch: '技术部',
+                  jobTime: '2018/12',
+                  trade: 'IT',
+                  companyName: '银领',
+                  postName: '产品经理',
                 },
             };
         },

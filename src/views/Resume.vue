@@ -18,69 +18,243 @@
           <div style="height:30px"></div>
         </el-dialog>
         <!-- 基本信息编辑 -->
-        <!-- <el-dialog title="外层 Dialog" :visible.sync="outerVisible">
+        <el-dialog title="基本信息编辑" width="30%" :visible.sync="informationouterVisible">
           <el-dialog
-            width="30%"
-            title="内层 Dialog"
-            :visible.sync="innerVisible"
+            width="20%"
+            :visible.sync="informationinnerVisible"
             append-to-body>
+            <div style="display:flex;flex-direction:row;margin-left:80px">
+              <img style="height:18px;" :src="require('../assets/images/222.png')"/>
+              <span style="font-size:14px;line-height:20px;margin:0 0 0 20px">离开修改内容将不会保存</span>
+            </div>
+            <div slot="footer" class="dialog-footer">
+              <el-button style="margin:0 20px 0 0" @click="informationinnerVisible = false" plain>取 消</el-button>
+              <el-button style="margin:0 60px 0 0" type="primary" @click="informationouterVisible = false,informationinnerVisible = false">确定</el-button>
+            </div>
           </el-dialog>
-          <div slot="footer" class="dialog-footer">
-            <el-button @click="outerVisible = false">取 消</el-button>
-            <el-button type="primary" @click="innerVisible = true">打开内层 Dialog</el-button>
-          </div>
-        </el-dialog> -->
-        <!-- 求职意向编辑 -->
-        <!-- <el-dialog title="外层 Dialog" :visible.sync="outerVisible">
-          <el-dialog
-            width="30%"
-            title="内层 Dialog"
-            :visible.sync="innerVisible"
-            append-to-body>
-          </el-dialog>
-          <div slot="footer" class="dialog-footer">
-            <el-button @click="outerVisible = false">取 消</el-button>
-            <el-button type="primary" @click="innerVisible = true">打开内层 Dialog</el-button>
-          </div>
-        </el-dialog> -->
-        <!-- 工作经历编辑 -->
-        <!-- <el-dialog title="外层 Dialog" :visible.sync="outerVisible">
-          <el-dialog
-            width="30%"
-            title="内层 Dialog"
-            :visible.sync="innerVisible"
-            append-to-body>
-          </el-dialog>
-          <div slot="footer" class="dialog-footer">
-            <el-button @click="outerVisible = false">取 消</el-button>
-            <el-button type="primary" @click="innerVisible = true">打开内层 Dialog</el-button>
-          </div>
-        </el-dialog> -->
-        <!-- 教育经历编辑 -->
-        <el-dialog title="教育经历编辑" width="30%" :visible.sync="outerVisible">
           <div>
-            <el-form :model="formEducation" class="demo-form-inline" label-width="100px">
-              <el-form-item label="学校名称">
+            <el-form :model="formInformation" class="demo-form-inline" label-width="100px" :rules="personalrules"  ref="formInformation">
+              <el-form-item label="姓名" prop='name'>
+                <el-input style="width:400px;height:36px;margin-right:50px" v-model='formInformation.name'  placeholder="请输入姓名"></el-input>
+              </el-form-item>
+              <el-form-item label="求职状态" prop='state'>
+                <el-select style="width:400px;height:36px;margin-right:50px" v-model='formInformation.state'  placeholder>
+                  <el-option label value="离职-随时到岗"></el-option>
+                  <el-option label value="离职-延时到岗"></el-option>
+                  <el-option label value="在职-考虑机会"></el-option>
+                  <el-option label value="在职-暂不考虑"></el-option>
+                </el-select>
+              </el-form-item>
+              <el-form-item label="到岗时间" prop='dutyTime'>
+                <el-date-picker
+                  :disabled="formInformation.state === '离职-延时到岗'?false:true"
+                  v-model='formInformation.dutyTime'
+                  style="width:400px;height:36px;margin-right:50px"
+                  type="date"
+                  placeholder="选择日期"
+                ></el-date-picker>
+              </el-form-item>
+              <el-form-item label="性别" style="margin:0 290px 0 0" prop='sex'>
+                <el-radio-group v-model='formInformation.sex'>
+                  <el-radio-button  label="男性"></el-radio-button>
+                  <el-radio-button  label="女性"></el-radio-button>
+                </el-radio-group>
+              </el-form-item><br>
+              <el-form-item label="工作年限" prop='workAge'>
+                <el-select style="width:400px;height:36px;margin-right:50px" v-model='formInformation.workAge'  placeholder>
+                  <el-option label value="无工作年限"></el-option>
+                  <el-option label value="1-3年"></el-option>
+                  <el-option label value="3-5年"></el-option>
+                  <el-option label value="5-10年"></el-option>
+                  <el-option label value="手动输入"></el-option>
+                </el-select>
+              </el-form-item>
+              <el-form-item label="所在城市" prop='city'>
+                <el-select style="width:400px;height:36px;margin-right:50px" v-model='formInformation.city'  placeholder>
+                  <el-option label value="上海"></el-option>
+                  <el-option label value="天津"></el-option>
+                  <el-option label value="北京"></el-option>
+                </el-select>
+              </el-form-item>
+              <el-form-item label="最高学历" prop='educationLevel'>
+                <el-select style="width:400px;height:36px;margin-right:50px" v-model='formInformation.educationLevel' placeholder>
+                  <el-option label value="初中及以下"></el-option>
+                  <el-option label value="中专/职中"></el-option>
+                  <el-option label value="高中"></el-option>
+                  <el-option label value="大专"></el-option>
+                  <el-option label value="本科"></el-option>
+                  <el-option label value="硕士"></el-option>
+                  <el-option label value="博士"></el-option>
+                </el-select>
+              </el-form-item>
+              <el-form-item label="生日" prop='birthday'>
+                <el-date-picker
+                  v-model='formInformation.birthday'
+                  style="width:400px;height:36px;margin-right:50px"
+                  type="date"
+                  placeholder="选择日期"
+                ></el-date-picker>
+              </el-form-item>
+              <el-form-item label="邮箱" prop='email'>
+                <el-input style="width:400px;height:36px;margin-right:50px" v-model='formInformation.email' placeholder></el-input>
+              </el-form-item>
+              <el-form-item label="手机" prop='phone'>
+                <el-input  style="width:400px;height:36px;margin-right:50px" v-model='formInformation.phone' placeholder></el-input>
+              </el-form-item>
+              <el-form-item label="政治面貌" prop='politicCountenance'>
+                <el-select style="width:400px;height:36px;margin-right:50px" v-model="formInformation.politicCountenance" placeholder="请选择政治面貌">
+                  <el-option label value="群众"></el-option>
+                  <el-option label value="团员"></el-option>
+                  <el-option label value="民主党派"></el-option>
+                  <el-option label value="预备党员"></el-option>
+                  <el-option label value="中共党员"></el-option>
+                </el-select>
+              </el-form-item>
+            </el-form>
+          </div>
+           <div slot="footer" class="dialog-footer">
+            <el-button style="margin:0 20px 0 0" @click="informationinnerVisible = true" plain>取 消</el-button>
+            <el-button style="margin:0 35px 0 0" type="primary" @click="informationkeep('formInformation')">保存</el-button>
+          </div>
+        </el-dialog>
+        <!-- 求职意向编辑 -->
+        <el-dialog title="求职意向编辑" width="30%" :visible.sync="jobintensionouterVisible">
+          <el-dialog
+            width="20%"
+            :visible.sync="jobintensioninnerVisible"
+            append-to-body>
+             <div style="display:flex;flex-direction:row;margin-left:80px">
+              <img style="height:18px;" :src="require('../assets/images/222.png')"/>
+              <span style="font-size:14px;line-height:20px;margin:0 0 0 20px">离开修改内容将不会保存</span>
+             </div>
+             <div slot="footer" class="dialog-footer">
+                <el-button style="margin:0 20px 0 0" @click="jobintensioninnerVisible = false" plain>取 消</el-button>
+                <el-button style="margin:0 60px 0 0" type="primary" @click="jobintensionouterVisible = false,jobintensioninnerVisible = false">确定</el-button>
+             </div>
+          </el-dialog>
+          <div>
+            <el-form :model="formJobintension" class="demo-form-inline" label-width="100px" :rules="jobintensionrules"  ref="formJobintension">
+              <el-form-item label="职位类型" prop='postType'>
+                  <el-input style="width:400px;height:36px;margin-right:50px" v-model="formJobintension.postType" placeholder=""></el-input>
+              </el-form-item>
+              <el-form-item label="工作城市" prop='city'>
+                  <el-cascader style="width:400px;height:36px;margin-right:50px"
+                      :options="options"
+                      :show-all-levels="false"
+                      v-model="formJobintension.city"
+                      >
+                  </el-cascader>
+              </el-form-item>
+              <el-form-item label="企业行业" prop='trade'>
+                  <el-select style="width:400px;height:36px;margin-right:50px" v-model="formJobintension.trade" placeholder="">
+                  <el-option label="" value=""></el-option>
+                  <el-option label="" value=""></el-option>
+                  </el-select>
+              </el-form-item>
+              <el-form-item label="薪资范围" prop='scope'>
+                  <el-select style="width:400px;height:36px;margin-right:50px" v-model="formJobintension.scope" placeholder="">
+                  <el-option label="" value="1千以下"></el-option>
+                  <el-option label="" value="1k-2k"></el-option>
+                  <el-option label="" value="2k-4k"></el-option>
+                  <el-option label="" value="4k-6k"></el-option>
+                  <el-option label="" value="6k-8k"></el-option>
+                  </el-select>
+              </el-form-item>
+              <el-form-item label="求职状态" prop='status'>
+                  <el-select id="name" style="width:400px;height:36px;margin-right:50px" v-model="formJobintension.status" placeholder="" @change="JobType()">
+                  <el-option label="" value="离职-随时到岗"></el-option>
+                  <el-option label="" value="离职-延时到岗"></el-option>
+                  <el-option label="" value="在职-考虑机会"></el-option>
+                  <el-option label="" value="在职-暂不考虑"></el-option>
+                  </el-select>
+              </el-form-item>
+              <el-form-item label="工作类型" prop='jobType'>
+                  <el-select style="width:400px;height:36px;margin-right:50px" v-model="formJobintension.jobType" placeholder="">
+                  <el-option label="" value="实习"></el-option>
+                  <el-option label="" value="全职"></el-option>
+                  <el-option label="" value="兼职"></el-option>
+                  </el-select>
+              </el-form-item>
+              <el-form-item label="到岗时间" class="block" prop='reportTime'>
+                  <el-date-picker
+                  :disabled="formJobintension.status === '离职-延时到岗'?false:true"
+                  v-model='formJobintension.reportTime'
+                  style="width:400px;height:36px;margin-right:50px"
+                  type="date"
+                  placeholder="选择日期"
+                ></el-date-picker>
+              </el-form-item>
+            </el-form>
+          </div>
+          <div slot="footer" class="dialog-footer">
+            <el-button style="margin:0 20px 0 0" @click="jobintensioninnerVisible = true" plain>取 消</el-button>
+            <el-button style="margin:0 35px 0 0" type="primary" @click="jobintensionkeep('formJobintension')">保存</el-button>
+          </div>
+        </el-dialog>
+        <!-- 工作经历编辑 -->
+        <el-dialog title="工作经历编辑" width="30%" :visible.sync="workouterVisible">
+          <el-dialog
+            width="20%"
+            :visible.sync="workinnerVisible"
+            append-to-body>
+            <div style="display:flex;flex-direction:row;margin-left:80px">
+              <img style="height:18px;" :src="require('../assets/images/222.png')"/>
+              <span style="font-size:14px;line-height:20px;margin:0 0 0 20px">离开修改内容将不会保存</span>
+             </div>
+             <div slot="footer" class="dialog-footer">
+                <el-button style="margin:0 20px 0 0" @click="workinnerVisible = false" plain>取 消</el-button>
+                <el-button style="margin:0 60px 0 0" type="primary" @click="workouterVisible = false,workinnerVisible = false">确定</el-button>
+             </div>
+          </el-dialog>
+          <div>
+            <el-form :model="formWork" class="demo-form-inline" label-width="100px" :rules="workrules"  ref="formWork">
+              <el-form-item label="公司名称" prop='companyName'>
+                  <el-input style="width:400px;height:36px" v-model="formWork.companyName" placeholder=""></el-input>
+              </el-form-item>
+              <el-form-item label="职位名称" prop='postName'>
+                  <el-input style="width:400px;height:36px" v-model="formWork.postName" placeholder=""></el-input>
+              </el-form-item>
+              <el-form-item label="行业" prop='trade'>
+                  <el-select style="width:400px;height:36px" v-model="formWork.trade" placeholder="">
+                  <el-option label="" value="shanghai"></el-option>
+                  <el-option label="" value="beijing"></el-option>
+                  </el-select>
+              </el-form-item>
+              <el-form-item label="所在部门" prop='branch'>
+                  <el-input style="width:400px;height:36px" v-model="formWork.branch" placeholder=""></el-input>
+              </el-form-item>
+              <el-form-item label="工作描述" prop='jobDescription'>
+                  <el-input type="textarea" v-model="formWork.jobDescription"  style="width:400px" ></el-input>
+              </el-form-item>
+            </el-form>
+          </div>
+          <div slot="footer" class="dialog-footer">
+            <el-button style="margin:0 20px 0 0" @click="workinnerVisible = true" plain>取 消</el-button>
+            <el-button style="margin:0 35px 0 0" type="primary" @click="workkeep('formWork')">保存</el-button>
+          </div>
+        </el-dialog>
+        <!-- 教育经历编辑 -->
+        <el-dialog title="教育经历编辑" width="30%" :visible.sync="educationouterVisible">
+          <div>
+            <el-form :model="formEducation" class="demo-form-inline" label-width="100px" :rules="edurules" ref="formEducation">
+              <el-form-item label="学校名称" prop='educationName'>
                   <el-input v-model="formEducation.educationName" style="width:400px;height:36px;margin-right:50px" placeholder=""></el-input>
               </el-form-item>
-              <el-form-item label="在校时间" class="block">
+              <el-form-item label="在校时间" class="block" prop='educationTime'>
                   <el-date-picker
                   style="width:400px;height:36px;margin-right:50px"
+                  v-model="formEducation.educationTime"
                   type="daterange"
                   range-separator="至"
                   start-placeholder="开始日期"
                   end-placeholder="结束日期">
                   </el-date-picker>
               </el-form-item>
-               <el-form-item label="专业">
-                <el-input style="width:400px;height:36px;margin-right:50px" placeholder=""></el-input>
+               <el-form-item label="专业" prop='educationSpecialty'>
+                <el-input style="width:400px;height:36px;margin-right:50px" placeholder="" v-model="formEducation.educationSpecialty"></el-input>
               </el-form-item>
-              <!-- <el-form-item label="是否统招" style="width:340px;">
-                  <el-radio  label="1">是</el-radio>
-                  <el-radio  label="2">否</el-radio>
-              </el-form-item> -->
-              <el-form-item label="学历">
-                  <el-select style="width:400px;height:36px;margin-right:50px" placeholder="">
+              <el-form-item label="学历" prop='educationDegree'>
+                  <el-select style="width:400px;height:36px;margin-right:50px" placeholder="" v-model="formEducation.educationDegree">
                   <el-option label="" value="初中及以下"></el-option>
                   <el-option label="" value="大专/职中"></el-option>
                   <el-option label="" value="高中"></el-option>
@@ -94,23 +268,242 @@
           </div>
           <el-dialog
             width="20%"
-            :visible.sync="innerVisible"
+            :visible.sync="educationinnerVisible"
             append-to-body>
              <div style="display:flex;flex-direction:row;margin-left:80px">
                <img style="height:18px;" :src="require('../assets/images/222.png')"/>
                <span style="font-size:14px;line-height:20px;margin:0 0 0 20px">离开修改内容将不会保存</span>
              </div>
              <div slot="footer" class="dialog-footer">
-              <el-button style="margin:0 20px 0 0" @click="innerVisible = false" plain>取 消</el-button>
-              <el-button style="margin:0 60px 0 0" type="primary" @click="outerVisible = false,innerVisible = false">确定</el-button>
+              <el-button style="margin:0 20px 0 0" @click="educationinnerVisible = false" plain>取 消</el-button>
+              <el-button style="margin:0 60px 0 0" type="primary" @click="educationouterVisible = false,educationinnerVisible = false">确定</el-button>
              </div>
           </el-dialog>
           <div slot="footer" class="dialog-footer">
-            <el-button style="margin:0 20px 0 0" @click="innerVisible = true" plain>取 消</el-button>
-            <el-button style="margin:0 35px 0 0" type="primary" @click="outerVisible = false">保存</el-button>
+            <el-button style="margin:0 20px 0 0" @click="educationinnerVisible = true" plain>取 消</el-button>
+            <el-button style="margin:0 35px 0 0" type="primary" @click="educationkeep('formEducation')">保存</el-button>
           </div>
         </el-dialog>
-        
+        <!-- 项目经历编辑 -->
+        <el-dialog title="项目经历编辑" width="30%" :visible.sync="progectouterVisible">
+          <div>
+            <el-form :model="formProject" class="demo-form-inline" label-width="100px" :rules="progectrules" ref="formProject">
+              <el-form-item label="项目名称" prop='itemName'>
+                  <el-input style="width:400px;height:36px;margin-right:50px" v-model="formProject.itemName" placeholder=""></el-input>
+              </el-form-item>
+              <el-form-item label="公司名称" prop='companyName'>
+                  <el-input style="width:400px;height:36px;margin-right:50px" v-model="formProject.companyName" placeholder=""></el-input>
+              </el-form-item>
+              <el-form-item label="项目时间" class="block" prop='schoolTime'>
+                  <el-date-picker
+                  style="width:400px;height:36px;margin-right:50px"
+                  v-model="formProject.schoolTime"
+                  type="daterange"
+                  range-separator="至"
+                  start-placeholder="开始日期"
+                  end-placeholder="结束日期">
+                  </el-date-picker>
+              </el-form-item>
+              <el-form-item label="个人职责" prop='duty'>
+                  <el-input type="textarea" v-model="formProject.duty" style="width:400px;margin-right:50px" ></el-input>
+              </el-form-item>
+              <el-form-item label="项目介绍" prop='project'>
+                  <el-input type="textarea" v-model="formProject.project" style="width:400px;margin-right:50px" ></el-input>
+              </el-form-item>
+            </el-form>
+          </div>
+          <el-dialog
+            width="20%"
+            :visible.sync="progectinnerVisible"
+            append-to-body>
+             <div style="display:flex;flex-direction:row;margin-left:80px">
+               <img style="height:18px;" :src="require('../assets/images/222.png')"/>
+               <span style="font-size:14px;line-height:20px;margin:0 0 0 20px">离开修改内容将不会保存</span>
+             </div>
+             <div slot="footer" class="dialog-footer">
+              <el-button style="margin:0 20px 0 0" @click="progectinnerVisible = false" plain>取 消</el-button>
+              <el-button style="margin:0 60px 0 0" type="primary" @click="progectouterVisible = false,progectinnerVisible = false">确定</el-button>
+             </div>
+          </el-dialog>
+          <div slot="footer" class="dialog-footer">
+            <el-button style="margin:0 20px 0 0" @click="progectinnerVisible = true" plain>取 消</el-button>
+            <el-button style="margin:0 35px 0 0" type="primary" @click="progectkeep('formProject')">保存</el-button>
+          </div>
+        </el-dialog>
+        <!-- 培训经历编辑 -->
+        <el-dialog title="培训经历编辑" width="30%" :visible.sync="trainingouterVisible">
+          <div>
+            <el-form :model="formtraining" class="demo-form-inline" label-width="100px" :rules="trainrules" ref="formtraining">
+              <el-form-item label="培训课程" prop='trainCourse'>
+                  <el-input style="width:400px;height:36px;margin-right:50px" v-model="formtraining.trainCourse" placeholder=""></el-input>
+              </el-form-item>
+              <el-form-item label="培训机构" prop='trainCours'>
+                  <el-input style="width:400px;height:36px;margin-right:50px" v-model="formtraining.trainCours" placeholder=""></el-input>
+              </el-form-item>
+              <el-form-item label="培训时间" class="block" prop='trainTime'>
+                  <el-date-picker
+                  style="width:400px;height:36px;margin-right:50px"
+                  v-model="formtraining.trainTime"
+                  type="daterange"
+                  range-separator="至"
+                  start-placeholder="开始日期"
+                  end-placeholder="结束日期">
+                  </el-date-picker>
+              </el-form-item>
+            </el-form>
+          </div>
+          <el-dialog
+            width="20%"
+            :visible.sync="traininginnerVisible"
+            append-to-body>
+             <div style="display:flex;flex-direction:row;margin-left:80px">
+               <img style="height:18px;" :src="require('../assets/images/222.png')"/>
+               <span style="font-size:14px;line-height:20px;margin:0 0 0 20px">离开修改内容将不会保存</span>
+             </div>
+             <div slot="footer" class="dialog-footer">
+              <el-button style="margin:0 20px 0 0" @click="traininginnerVisible = false" plain>取 消</el-button>
+              <el-button style="margin:0 60px 0 0" type="primary" @click="trainingouterVisible = false,traininginnerVisible = false">确定</el-button>
+             </div>
+          </el-dialog>
+          <div slot="footer" class="dialog-footer">
+            <el-button style="margin:0 20px 0 0" @click="traininginnerVisible = true" plain>取 消</el-button>
+            <el-button style="margin:0 35px 0 0" type="primary" @click="trainingkeep('formtraining')">保存</el-button>
+          </div>
+        </el-dialog>
+        <!-- 语言能力编辑 -->
+        <el-dialog title="语言能力编辑" width="30%" :visible.sync="languageouterVisible">
+          <div>
+            <el-form  :model="formlanguage" class="demo-form-inline" label-width="100px" :rules="languagerules" ref="formlanguage">
+              <el-form-item label="语种" prop='languages'>
+                  <el-input style="width:400px;height:36px;margin-right:50px" v-model="formlanguage.languages" placeholder=""></el-input>
+              </el-form-item>
+              <el-form-item label="听力能力" prop='listenAbility'>
+                  <el-select style="width:400px;height:36px;margin-right:50px" v-model="formlanguage.listenAbility" placeholder="">
+                  <el-option label="" value="一般"></el-option>
+                  <el-option label="" value="良好"></el-option>
+                  <el-option label="" value="熟练"></el-option>
+                  <el-option label="" value="精通"></el-option>
+                  </el-select>
+              </el-form-item>
+              <el-form-item label="读写能力" prop='readAbility'>
+                  <el-input style="width:400px;height:36px;margin-right:50px" v-model="formlanguage.readAbility" placeholder=""></el-input>
+              </el-form-item>
+            </el-form>
+          </div>
+          <el-dialog
+            width="20%"
+            :visible.sync="languageinnerVisible"
+            append-to-body>
+             <div style="display:flex;flex-direction:row;margin-left:80px">
+               <img style="height:18px;" :src="require('../assets/images/222.png')"/>
+               <span style="font-size:14px;line-height:20px;margin:0 0 0 20px">离开修改内容将不会保存</span>
+             </div>
+             <div slot="footer" class="dialog-footer">
+              <el-button style="margin:0 20px 0 0" @click="languageinnerVisible = false" plain>取 消</el-button>
+              <el-button style="margin:0 60px 0 0" type="primary" @click="languageouterVisible = false,languageinnerVisible = false">确定</el-button>
+             </div>
+          </el-dialog>
+          <div slot="footer" class="dialog-footer">
+            <el-button style="margin:0 20px 0 0" @click="languageinnerVisible = true" plain>取 消</el-button>
+            <el-button style="margin:0 35px 0 0" type="primary" @click="languagekeep('formlanguage')">保存</el-button>
+          </div>
+        </el-dialog>
+        <!-- 专业技能 -->
+         <el-dialog title="专业技能编辑" width="30%" :visible.sync="personalskillouterVisible">
+          <div>
+            <el-form :model="formPersonalskill" class="demo-form-inline" label-width="100px" :rules="skillrules" ref="formPersonalskill">
+              <el-form-item label="技能名称" prop='technicalName'>
+                  <el-input style="width:400px;height:36px;margin-right:50px" v-model="formPersonalskill.technicalName" placeholder=""></el-input>
+              </el-form-item>
+              <el-form-item label="掌握程度" prop='level'>
+                  <el-select style="width:400px;height:36px;margin-right:50px" v-model="formPersonalskill.level" placeholder="">
+                  <el-option label="shanghai" value="shanghai"></el-option>
+                  <el-option label="beijing" value="beijing"></el-option>
+                  </el-select>
+              </el-form-item>
+            </el-form>
+          </div>
+          <el-dialog
+            width="20%"
+            :visible.sync="personalskillinnerVisible"
+            append-to-body>
+             <div style="display:flex;flex-direction:row;margin-left:80px">
+               <img style="height:18px;" :src="require('../assets/images/222.png')"/>
+               <span style="font-size:14px;line-height:20px;margin:0 0 0 20px">离开修改内容将不会保存</span>
+             </div>
+             <div slot="footer" class="dialog-footer">
+              <el-button style="margin:0 20px 0 0" @click="personalskillinnerVisible = false" plain>取 消</el-button>
+              <el-button style="margin:0 60px 0 0" type="primary" @click="personalskillouterVisible = false,personalskillinnerVisible = false">确定</el-button>
+             </div>
+          </el-dialog>
+          <div slot="footer" class="dialog-footer">
+            <el-button style="margin:0 20px 0 0" @click="personalskillinnerVisible = true" plain>取 消</el-button>
+            <el-button style="margin:0 35px 0 0" type="primary" @click="skillkeep('formPersonalskill')">保存</el-button>
+          </div>
+        </el-dialog>
+         <!-- 荣誉奖项 -->
+         <el-dialog title="荣誉奖项编辑" width="30%" :visible.sync="awardsouterVisible">
+          <div>
+            <el-form :model="formAwards" class="demo-form-inline" label-width="100px" :rules="awardsrules" ref="formAwards">
+              <el-form-item label="奖项名称" prop='prizeAward'>
+                  <el-input style="width:400px;height:36px;margin-right:50px" v-model="formAwards.prizeAward" placeholder=""></el-input>
+              </el-form-item>
+              <el-form-item label="获奖时间" prop='prizeTime'>
+                <el-date-picker
+                  style="width:400px;height:36px;margin-right:50px"
+                  v-model="formAwards.prizeTime"
+                  type="month"
+                  placeholder="选择月">
+                </el-date-picker>
+              </el-form-item>
+            </el-form>
+          </div>
+          <el-dialog
+            width="20%"
+            :visible.sync="awardsinnerVisible"
+            append-to-body>
+             <div style="display:flex;flex-direction:row;margin-left:80px">
+               <img style="height:18px;" :src="require('../assets/images/222.png')"/>
+               <span style="font-size:14px;line-height:20px;margin:0 0 0 20px">离开修改内容将不会保存</span>
+             </div>
+             <div slot="footer" class="dialog-footer">
+              <el-button style="margin:0 20px 0 0" @click="awardsinnerVisible = false" plain>取 消</el-button>
+              <el-button style="margin:0 60px 0 0" type="primary" @click="awardsouterVisible = false,awardsinnerVisible = false">确定</el-button>
+             </div>
+          </el-dialog>
+          <div slot="footer" class="dialog-footer">
+            <el-button style="margin:0 20px 0 0" @click="awardsinnerVisible = true" plain>取 消</el-button>
+            <el-button style="margin:0 35px 0 0" type="primary" @click="awardskeep('formAwards')">保存</el-button>
+          </div>
+        </el-dialog>
+         <!-- 自我评价 -->
+         <el-dialog title="自我评价编辑" width="30%" :visible.sync="selfappraisalouterVisible">
+          <div>
+            <el-form :model="formSelfappraisal" class="demo-form-inline" label-width="100px" :rules="selfappraisalrules" ref="formSelfappraisal">
+              <el-form-item label="自我评价" prop='personalDescription'>
+                  <el-input type="textarea" v-model="formSelfappraisal.personalDescription" style="width:400px;margin-right:50px" placeholder="资料完善程度高，被选中的几率越大呦" ></el-input>
+              </el-form-item>
+            </el-form>
+          </div>
+          <el-dialog
+            width="20%"
+            :visible.sync="selfappraisalinnerVisible"
+            append-to-body>
+             <div style="display:flex;flex-direction:row;margin-left:80px">
+               <img style="height:18px;" :src="require('../assets/images/222.png')"/>
+               <span style="font-size:14px;line-height:20px;margin:0 0 0 20px">离开修改内容将不会保存</span>
+             </div>
+             <div slot="footer" class="dialog-footer">
+              <el-button style="margin:0 20px 0 0" @click="selfappraisalinnerVisible = false" plain>取 消</el-button>
+              <el-button style="margin:0 60px 0 0" type="primary" @click="selfappraisalouterVisible = false,selfappraisalinnerVisible = false">确定</el-button>
+             </div>
+          </el-dialog>
+          <div slot="footer" class="dialog-footer">
+            <el-button style="margin:0 20px 0 0" @click="selfappraisalinnerVisible = true" plain>取 消</el-button>
+            <el-button style="margin:0 35px 0 0" type="primary" @click="selfappraisalkeep('formSelfappraisal')">保存</el-button>
+          </div>
+        </el-dialog>
+        <!-- 添加个人信息 -->
         <div class="personalinformation" v-if="personalinformation">
           <div class="personalinformation-img">
             <el-upload
@@ -131,19 +524,18 @@
           <Basic-Info/>
         </div>
         <div ref="personalinformation" @mouseover="over(11)" v-if="showPersonalinformation" @mouseleave="leave(11)">
-          <Personalinformation-From @editsinformation='editsinformation'/>
+          <Personalinformation-From @editsinformation='editsinformation(arguments)'/>
         </div>
         <div class="content-line"></div>
+        <!-- 求职意向 -->
         <div ref="jobintension" class="main-content">
           <div class="main-content-first"><img :src="require('../assets/images/qiuzhi.png')"/><span>求职意向</span></div>
-          <div class="main-content-second" @click="jobintension" v-if="showadd"><img
-                  :src="require('../assets/images/add.png')"/> <span>添加</span></div>
         </div>
         <ul v-if="showjobintension" style="margin:-15px 0 10px 5px" @mouseover="over(10)" @mouseleave="leave(10)">
           <li v-for="(list,index) in listjobintension" :key="index" class="ul-a">
               <span class="actions-span">
                   <img style="margin-right:9px;height:12px" :src="require('../assets/images/ziwo.png')"/><span
-                      style="margin-right:3px">编辑</span>
+                      style="margin-right:3px" @click="showjobintensionList(list)">编辑</span>
               </span>
             <div style="width:879px">
               <from :from-data="list" :index="index"></from>
@@ -152,9 +544,10 @@
           </li>
         </ul>
         <div @mouseover="over(10)" @mouseleave="leave(10)" class="showJob" v-if="showJob">
-          <job-intension/>
+          <job-intension @jobintensionEmit='jobintensionEmit(arguments)'/>
         </div>
         <div class="content-line"></div>
+        <!-- 教育经历 -->
         <div ref="educational" class="main-content">
           <div class="main-content-first"><img :src="require('../assets/images/edu.png')"/><span>教育经历</span></div>
           <div class="main-content-second" @click="education"><img :src="require('../assets/images/add.png')"/>
@@ -173,9 +566,10 @@
           </li>
         </ul>
         <div class="showeducation" v-if="showeducation" >
-          <Education-Experience @sendiptVal='sendiptVal' :educationDegree='educationDegree' />
+          <Education-Experience @sendiptVal='sendiptVal(arguments)' :educationDegree='educationDegree' />
         </div>
         <div class="content-line"></div>
+        <!-- 工作经历 -->
         <div ref="work" class="main-content">
           <div class="main-content-first"><img :src="require('../assets/images/work.png')"/><span>工作经历</span></div>
           <div class="main-content-second" @click="work"><img :src="require('../assets/images/add.png')"/>
@@ -187,16 +581,17 @@
                   <img style="margin-right:9px;height:12px" :src="require('../assets/images/shan.png')"/><span
                       @click="showdialog()" style="margin-right:20px">删除</span>
                   <img style="margin-right:9px;height:12px" :src="require('../assets/images/ziwo.png')"/><span
-                      style="margin-right:3px">编辑</span>
+                      style="margin-right:3px" @click="showworkperienceList(list)">编辑</span>
               </span>
             <work-from :from-data="list" :index="index"></work-from>
             <br>
           </li>
         </ul>
         <div v-if="showwork">
-          <work-experience/>
+          <work-experience @workEmit='workEmit(arguments)'/>
         </div>
         <div class="content-line"></div>
+        <!-- 项目经历 -->
         <div ref="progect" class="main-content">
           <div class="main-content-first"><img :src="require('../assets/images/language.png')"/><span>项目经历</span></div>
           <div class="main-content-second" @click="project"><img :src="require('../assets/images/add.png')"/>
@@ -208,16 +603,17 @@
                   <img style="margin-right:9px;height:12px" :src="require('../assets/images/shan.png')"/><span
                       @click="showdialog()" style="margin-right:20px">删除</span>
                   <img style="margin-right:9px;height:12px" :src="require('../assets/images/ziwo.png')"/><span
-                      style="margin-right:3px">编辑</span>
+                      style="margin-right:3px" @click="showprogectperienceList(list)">编辑</span>
               </span>
             <progect-from :from-data="list" :index="index"></progect-from>
             <br>
           </li>
         </ul>
         <div v-if="showproject">
-          <project-experience/>
+          <project-experience @progectEmit='progectEmit(arguments)' />
         </div>
         <div class="content-line"></div>
+        <!-- 培训经历 -->
         <div ref="training" class="main-content">
           <div class="main-content-first"><img :src="require('../assets/images/train.png')"/><span>培训经历</span></div>
           <div class="main-content-second" @click="training"><img :src="require('../assets/images/add.png')"/>
@@ -229,16 +625,17 @@
                   <img style="margin-right:9px;height:12px" :src="require('../assets/images/shan.png')"/><span
                       @click="showdialog()" style="margin-right:20px">删除</span>
                   <img style="margin-right:9px;height:12px" :src="require('../assets/images/ziwo.png')"/><span
-                      style="margin-right:3px">编辑</span>
+                      style="margin-right:3px" @click="showtrainList(list)">编辑</span>
               </span><br>
             <training-from :from-data="list" :index="index"></training-from>
             <br>
           </li>
         </ul>
         <div v-if="showtraining">
-          <training-experience/>
+          <training-experience @trainEmit='trainEmit(arguments)'/>
         </div>
         <div class="content-line"></div>
+        <!-- 语言能力 -->
         <div ref="language" class="main-content">
           <div class="main-content-first"><img :src="require('../assets/images/language.png')"/><span>语言能力</span></div>
           <div class="main-content-second" @click="language"><img :src="require('../assets/images/add.png')"/>
@@ -250,23 +647,24 @@
                   <img style="margin-right:9px;height:12px" :src="require('../assets/images/shan.png')"/><span
                       @click="showdialog()" style="margin-right:20px">删除</span>
                   <img style="margin-right:9px;height:12px" :src="require('../assets/images/ziwo.png')"/><span
-                      style="margin-right:3px">编辑</span>
+                      style="margin-right:3px" @click="showlanguagesList(list)">编辑</span>
               </span><br>
             <language-from :from-data="list" :index="index"></language-from>
             <br>
           </li>
         </ul>
         <div v-if="showlanguage">
-          <language-experience/>
+          <language-experience @languageEmit='languageEmit(arguments)'/>
         </div>
         <div class="content-line"></div>
+        <!-- 职称等级 -->
         <div ref="professional" class="main-content" @mouseover="over(4)" @mouseleave="leave(4)">
           <div class="main-content-first"><img :src="require('../assets/images/zhicheng.png')"/><span>职称等级</span></div>
           <div class="main-content-second" @click="professional()"><img :src="require('../assets/images/add.png')"/>
             <span>添加</span></div>
         </div>
         <div v-if="showprofessional">
-          <professional-experience/>
+          <professional-experience @professionalEmit='professionalEmit(arguments)'/>
         </div>
         <div class="content-line"></div>
         <div ref="personal_skill" class="main-content">
@@ -280,14 +678,14 @@
                   <img style="margin-right:9px;height:12px" :src="require('../assets/images/shan.png')"/><span
                       @click="showdialog()" style="margin-right:20px">删除</span>
                   <img style="margin-right:9px;height:12px" :src="require('../assets/images/ziwo.png')"/><span
-                      style="margin-right:3px" @click="editskill">编辑</span>
+                      style="margin-right:3px" @click="editskill(list)">编辑</span>
               </span><br>
             <personalskill-from :from-data="list" :index="index"></personalskill-from>
             <br>
           </li>
         </ul>
         <div v-if="showpersonalskill">
-          <personal-skill @skill='skill(arguments)'/>
+          <personal-skill @skillEmit='skillEmit(arguments)'/>
         </div>
         <div class="content-line"></div>
         <div ref="awards" class="main-content">
@@ -301,35 +699,31 @@
                   <img style="margin-right:9px;height:12px" :src="require('../assets/images/shan.png')"/><span
                       @click="showdialog()" style="margin-right:20px">删除</span>
                   <img style="margin-right:9px;height:12px" :src="require('../assets/images/ziwo.png')"/><span
-                      style="margin-right:3px">编辑</span>
+                      style="margin-right:3px" @click="showawardList(list)">编辑</span>
               </span><br>
             <awards-from :from-data="list" :index="index"></awards-from>
             <br>
           </li>
         </ul>
         <div v-if="showawards">
-          <Aw-Ards/>
+          <Aw-Ards @awardsemit='awardsemit(arguments)' />
         </div>
         <div class="content-line"></div>
         <div ref="self-appraisal" class="main-content">
           <div class="main-content-first"><img :src="require('../assets/images/ziwo.png')"/><span>自我评价</span></div>
-          <div class="main-content-second" @click="selfappraisal"><img :src="require('../assets/images/add.png')"/>
-            <span>添加</span></div>
         </div>
         <ul v-if="showpersonappraisal" style="margin:-5px 0 10px 5px" @mouseover="over(1)" @mouseleave="leave(1)">
           <li v-for="(list,index) in listpersonappraisal" :key="index" class="ul-a">
               <span class="actions-span">
-                  <img style="margin-right:9px;height:12px" :src="require('../assets/images/shan.png')"/><span
-                      @click="showdialog()" style="margin-right:20px">删除</span>
                   <img style="margin-right:9px;height:12px" :src="require('../assets/images/ziwo.png')"/><span
-                      style="margin-right:3px">编辑</span>
+                      style="margin-right:3px" @click="showselfappraisalList(list)">编辑</span>
               </span>
             <selfappraisal-from :from-data="list" :index="index"></selfappraisal-from>
             <br>
           </li>
         </ul>
         <div v-if="showselfappraisal">
-          <self-appraisal/>
+          <self-appraisal @selfappraisalemit='selfappraisalemit(arguments)'/>
         </div>
       </div>
       <div class="aside-body">
@@ -372,7 +766,7 @@
                       :src="require('../assets/images/qiuzhi.png')"/> <span :style="activejobintension"
                                                                         class="tabulation-language">求职意向</span></a></div>
               <div class="aside-line"></div>
-              <div class="tabulation"><a @click="testRef('educational')"><img
+              <div class="tabulation"><a @click="testRef('educational')"><img class="tabulation-img"
                       :src="require('../assets/images/edu.png')"/><span :style="activeeducation"
                                                                        class="tabulation-language">教育经历</span></a></div>
               <div class="aside-line"></div>
@@ -413,6 +807,7 @@
 
 <script>
   // import PersonalinformationFrom from 'components/personalinformation_from.vue'
+  import datacenterBus from '../apis/datacenterBus.js';
   import BasicInfo from 'components/BasicInfo.vue';
   import JobIntension from 'components/Jobintension.vue';
   import EducationExperience from 'components/education.vue';
@@ -493,14 +888,32 @@
         showpersonappraisal: true,
         index:'a',
         file:true,
-        outerVisible: false,
-        innerVisible: false,
+        languageouterVisible: false,
+        languageinnerVisible: false,
+        educationouterVisible: false,
+        educationinnerVisible: false,
+        informationouterVisible: false,
+        informationinnerVisible: false, 
+        jobintensionouterVisible:false,
+        jobintensioninnerVisible:false,
+        workouterVisible:false,
+        workinnerVisible:false,
+        progectouterVisible:false,
+        progectinnerVisible:false,
+        traininginnerVisible:false,
+        trainingouterVisible:false,
+        personalskillouterVisible:false,
+        personalskillinnerVisible:false,
+        awardsouterVisible:false,
+        awardsinnerVisible:false,
+        selfappraisalinnerVisible:false,
+        selfappraisalouterVisible:false,
         listjobintension: [{
           postType: "产品经理",
           city: "上海/北京",
           trade: "互联网金融/公关",
           scope: "5k~10k",
-          status: "随时到岗",
+          status: "离职-随时到岗",
           jobType: "实习"
         }],
         listeducational: [{
@@ -514,17 +927,20 @@
           educationDegree: "工业设计 | 硕士"
         }],
         listwork: [{
-          jobDescription: '公司名称',
-          companyName: '2018/12',
-          post: '工业设计 | 硕士',
-          jobTime: '22电动车v发射点发射点犯得上犯得上发射点',
+          jobDescription: '22电动车v发射点发射点犯得上犯得上发射点',
+          companyName: '银领',
+          monthPay: '4-6k',
+          postName: '产品经理',
+          jobTime: '2018/12',
+          branch: '技术部',
+          trade: 'IT',
         }],
         listprogectperience: [{
-          itemName: '项目名称',
-          companyName: '2018/12',
-          schoolTime: '担任角色',
-          duty: '个人职责',
-          project: '项目介绍',
+          itemName: '银领人才',
+          companyName: '银领',
+          schoolTime: '2018/09',
+          duty: '文案文案文案文案文案文案文案文案文案文案文案文案文案',
+          project: '文案文案文案文案文案文案文案文案文案文案文案文案文案',
         }],
         listtrain: [{
           trainCourse: '培训课程',
@@ -554,6 +970,62 @@
           educationDegree:'',
           educationName:'',
           educationTime:'',
+          educationSpecialty:''
+        },
+        formInformation: {
+          name:'',
+          state:'',
+          sex:'',
+          workAge:'',
+          city:'',
+          educationLevel:'',
+          birthday:'',
+          email:'',
+          phone:'',
+          politicCountenance:'',
+          dutyTime:''
+        },
+        formJobintension: {
+          postType: '',
+          trade: '',
+          scope:'',
+          status:'',
+          jobType:'',
+          reportTime:'', 
+        },
+        formWork: {
+          jobDescription: '',
+          companyName: '',
+          postName: '',
+          branch: '',
+          trade:''
+        },
+        formProject: {
+          itemName: '',
+          companyName: '',
+          schoolTime: '',
+          duty: '',
+          project: '',
+        },
+        formtraining: {
+          trainCourse:'',
+          trainTime:''
+        },
+        formlanguage: {
+          languages: '',
+          listenAbility: '',
+          readAbility:''
+        },
+        formPersonalskill: {
+          technicalName: '',
+          level: ''
+        },
+        formAwards: {
+           prizeAward: "",
+           prizeTime: ""
+        },
+        formSelfappraisal: {
+          personalDescription:''
         },
         activejobintension: '',
         active: '',
@@ -566,9 +1038,308 @@
         activeawards: '',
         activeselfAppraisal: '',
         activeOne: '',
+        edurules: {
+          educationName: [
+            { required: true, message: "请输入学校名称", trigger: "blur" }
+            // { min: 0, max: 24, message: '长度在 0 到 24 个字符', trigger: 'blur' },
+            // { pattern:/^[a-zA-Z\u4e00-\u9fa5\s]{0,24}$/, message: '姓名仅支持中文汉字与英文字母', trigger: 'blur' },
+          ],
+          educationTime: [
+            { required: true, message: "请选择在校时间", trigger: "blur" }
+          ],
+          educationSpecialty: [
+            {
+              type: "date",
+              required: true,
+              message: "请填写专业",
+              trigger: "change"
+            },
+            { min: 0, max: 36, message: "长度在 0 到 36 个字符", trigger: "blur" }
+          ],
+          educationDegree: [
+            { required: true, message: "请选择学历", trigger: "change" }
+          ]
+        },
+        workrules: {
+          companyName: [
+            { required: true, message: "请输入公司名称", trigger: "blur" }
+            // { min: 0, max: 24, message: '长度在 0 到 24 个字符', trigger: 'blur' },
+            // { pattern:/^[a-zA-Z\u4e00-\u9fa5\s]{0,24}$/, message: '姓名仅支持中文汉字与英文字母', trigger: 'blur' },
+          ],
+          postName: [
+            {required: true, message: "请输入职位名称", trigger: "blur" },
+            { min: 0, max: 50, message: '长度在 0 到 50 个字符', trigger: 'blur' },
+          ],
+          trade: [
+          { required: true, message: "请输入行业名称", trigger: "blur" }
+          ],
+          branch: [
+          { required: true, message: "请输入所在部门", trigger: "blur" }
+          ],
+          monthPay: [
+            
+          { min: 0, max: 7, message: '长度在 0 到 7 个字符', trigger: 'blur' },],
+          jobDescription: [
+            { min: 0, max: 800, message: '长度在 0 到 800 个字符', trigger: 'blur' },
+            { required: true, message: "请填写工作描述", trigger: "change" }
+          ]
+        },
+        progectrules: {
+          itemName: [
+            { required: true, message: "请输入项目名称", trigger: "blur" },
+            { min: 0, max: 50, message: "长度在 0 到 50 个字符", trigger: "blur" }
+            // { pattern:/^[a-zA-Z\u4e00-\u9fa5\s]{0,24}$/, message: '姓名仅支持中文汉字与英文字母', trigger: 'blur' },
+          ],
+          companyName: [
+            { min: 0, max: 50, message: "长度在 0 到 50 个字符", trigger: "blur" }
+          ],
+          schoolTime: [
+            { required: true, message: "请选择项目时间", trigger: "blur" }
+          ],
+          record: [{ required: true, message: "请选择学历", trigger: "blur" }],
+          duty: [
+            { required: true, message: "请填写个人职责", trigger: "change" },
+            {
+              min: 0,
+              max: 800,
+              message: "长度在 0 到 800 个字符",
+              trigger: "blur"
+            }
+          ],
+          project: [
+            {
+              min: 0,
+              max: 800,
+              message: "长度在 0 到 800 个字符",
+              trigger: "blur"
+            },
+            { required: true, message: "请填写项目介绍", trigger: "change" }
+          ]
+        },
+        trainrules: {
+          trainCourse: [
+            { required: true, message: "请输入培训课程", trigger: "blur" },
+            { min: 0, max: 50, message: "长度在 0 到 50 个字符", trigger: "blur" }
+            // { pattern:/^[a-zA-Z\u4e00-\u9fa5\s]{0,24}$/, message: '姓名仅支持中文汉字与英文字母', trigger: 'blur' },
+          ],
+          trainCours: [
+            { required: true, message: "请输入培训机构", trigger: "blur" },
+            { min: 0, max: 50, message: "长度在 0 到 50 个字符", trigger: "blur" }
+          ],
+          trainTime: []
+        },
+        languagerules: {
+          languages: [
+            { required: true, message: "请输入语种", trigger: "blur" },
+            { min: 0, max: 30, message: "长度在 0 到 30 个字符", trigger: "blur" }
+            // { pattern:/^[a-zA-Z\u4e00-\u9fa5\s]{0,24}$/, message: '姓名仅支持中文汉字与英文字母', trigger: 'blur' },
+          ],
+          listenAbility: [
+            { required: true, message: "请选择听力能力", trigger: "blur" },
+          ],
+          readAbility: [
+            { required: true, message: "请选择读写能力", trigger: "blur" }
+          ],
+        },
+        skillrules: {
+          technicalName: [
+            { required: true, message: "请输入技能名称", trigger: "blur" },
+            { min: 0, max: 50, message: "长度在 0 到 50 个字符", trigger: "blur" }
+            // { pattern:/^[a-zA-Z\u4e00-\u9fa5\s]{0,24}$/, message: '姓名仅支持中文汉字与英文字母', trigger: 'blur' },
+          ],
+          level: [
+            { required: true, message: "请选择掌握程度", trigger: "blur" },
+          ],
+        },
+        awardsrules: {
+          prizeAward: [
+            { required: true, message: "请输入奖项名称", trigger: "blur" },
+            { min: 0, max: 30, message: "长度在 0 到 30 个字符", trigger: "blur" }
+            // { pattern:/^[a-zA-Z\u4e00-\u9fa5\s]{0,24}$/, message: '姓名仅支持中文汉字与英文字母', trigger: 'blur' },
+          ],
+          prizeTime: [
+            { required: true, message: "请选择获奖时间", trigger: "blur" },
+          ],
+        },
+        selfappraisalrules: {
+          personalDescription: [
+            { required: true, message: "请填写个人介绍", trigger: "blur" },
+            { min: 0, max: 20000, message: "长度在 0 到 2000 个字符", trigger: "blur" }
+          ]
+        },
+        personalrules: {
+          name: [
+            { required: true, message: '请输入姓名', trigger: 'blur' },
+            { min: 0, max: 24, message: '长度在 0 到 24 个字符', trigger: 'blur' },
+            { pattern:/^[a-zA-Z\u4e00-\u9fa5\s]{0,24}$/, message: '姓名仅支持中文汉字与英文字母', trigger: 'blur' },
+          ],
+          state: [
+            { required: true, message: '请选择求职状态', trigger: 'change' },
+          ],
+          city: [
+            { required: true, message: '请选择城市', trigger: 'change' },
+          ],
+          sex: [
+            { required: true, message: '请选择性别', trigger: 'change' }
+          ],
+          birthday: [
+            { type: 'date', required: true, message: '请选择日期', trigger: 'change' }
+          ],
+          educationLevel: [
+            { required: true, message: '请选择学历', trigger: 'change' }
+          ],
+          workAge: [
+            { required: true, message: '请选择工作年限', trigger: 'blur' }
+          ],
+          politicCountenance: [
+            { required: true, message: '请选择政治面貌', trigger: 'change' }
+          ],
+          phone: [
+            { required: true, message: '请填写手机号', trigger: 'change' },
+            { pattern:/^[1][3578][0-9]{9}$/,message: '请输入正确的手机号', trigger: ['change','blur'] },
+          ],
+          email: [
+            { required: true, message: '请填写邮箱', trigger: 'change' },
+            { pattern:/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/,message: '请输入正确的邮箱', trigger: ['change','blur'] },
+          ],
+        },
+        jobintensionrules: {
+          postType: [
+            { required: true, message: '请输入职位类型', trigger: 'blur' },
+            { min: 0, max: 24, message: '长度在 0 到 24 个字符', trigger: 'blur' },
+          ],
+          status: [
+            { required: true, message: '请选择求职状态', trigger: 'change' },
+          ],
+          reportTime: [
+            { required: true, message: '请选择到岗时间', trigger: 'change' },
+          ],
+          trade: [
+            { required: true, message: '请选择企业行业', trigger: 'change' },
+          ],
+          scope: [
+            { required: true, message: '请选择薪资范围', trigger: 'change' }
+          ],
+          city: [
+            { required: true, message: '请选择城市', trigger: 'change' }
+          ],
+          jobType: [
+            { required: true, message: '请选择工作类型', trigger: 'change' }
+          ],
+        },
       }
     },
     methods: {
+      //求职意向保存
+      jobintensionkeep(formName) {
+        this.$refs[formName].validate(valid => {
+          if (valid) {
+            this.jobintensionouterVisible = false
+          } else {
+            // this.informationouterVisible = false
+            return false;
+          }
+      });
+      },
+      //个人信息
+      informationkeep(formName) {
+        this.$refs[formName].validate(valid => {
+          if (valid) {
+            this.informationouterVisible = false
+          } else {
+            // this.informationouterVisible = false
+            return false;
+          }
+      });
+      },
+      //自我介绍
+      selfappraisalkeep(formName) {
+        this.$refs[formName].validate(valid => {
+          if (valid) {
+            this.selfappraisalouterVisible = false
+          } else {
+            // this.selfappraisalouterVisible = false
+            return false;
+          }
+      });
+      },
+      //荣誉奖项保存
+      awardskeep(formName) {
+        this.$refs[formName].validate(valid => {
+          if (valid) {
+            this.awardsouterVisible = false
+          } else {
+            // this.awardsouterVisible = false
+            return false;
+          }
+      });
+      },
+      //专业技能
+      skillkeep(formName) {
+        this.$refs[formName].validate(valid => {
+          if (valid) {
+            this.personalskillouterVisible = false
+          } else {
+            // this.personalskillouterVisible = false
+            return false;
+          }
+      });
+      },
+      //语言能力
+      languagekeep(formName) {
+         this.$refs[formName].validate(valid => {
+          if (valid) {
+            this.languageouterVisible = false
+          } else {
+            // this.languageouterVisible = false
+            return false;
+          }
+      });
+      },
+      //培训经历保存
+      trainingkeep(formName) {
+        this.$refs[formName].validate(valid => {
+          if (valid) {
+            this.trainingouterVisible = false
+          } else {
+            // this.trainingouterVisible = false
+            return false;
+          }
+      });
+      },
+      //项目经历保存
+      progectkeep(formName) {
+         this.$refs[formName].validate(valid => {
+          if (valid) {
+            this.progectouterVisible = false
+          } else {
+            // this.progectouterVisible = false
+            return false;
+          }
+      });
+      },
+      //工作保存
+      workkeep(formName) {
+         this.$refs[formName].validate(valid => {
+          if (valid) {
+            this.workouterVisible = false
+          } else {
+            // this.workouterVisible = false
+            return false;
+          }
+      });
+      },
+      //教育保存
+      educationkeep(formName) {
+         this.$refs[formName].validate(valid => {
+          if (valid) {
+            this.educationouterVisible = false
+          } else {
+            this.educationouterVisible = false
+            return false;
+          }
+      });
+      },
       //获取简历详情
       resumeId () {
         this.$http.post(`/resume/${2}`).then(res => {
@@ -585,14 +1356,6 @@
             console.log(res);
           }
         });
-      },
-      //专业技能编辑
-      editskill() {
-        this.showpersonalskill = true
-      },
-      //专业技能
-      skill(c) {
-        console.log(c[1])
       },
       //专业技能删除
       deleteskill() {
@@ -658,22 +1421,148 @@
           }
         });
       },
-      sendiptVal(c) {
-        this.showeducation = c
+      //自我评价
+      selfappraisalemit(c) {
+        this.showpersonappraisal = c[1]
+        this.showselfappraisal = c[0]
       },
+      //荣誉奖项（$emit）
+      awardsEmit(c) {
+        this.showpersonalskills = c[1]
+        this.showpersonalskill = c[0]
+      },
+      //专业技能（$emit）
+      skillEmit(c) {
+        this.showpersonalskills = c[1]
+        this.showpersonalskill = c[0]
+      },
+      //职称等级（$emit）
+      professionalEmit(c) {
+        this.showprofessional = c[0]
+      },
+      //语言能力（$emit）
+      languageEmit(c) {
+        this.showlanguage = c[0]
+        this.showlanguages = c[1]
+      },
+      //培训经历（$emit）
+      trainEmit(c) {
+        this.showtraining = c[0]
+        this.showtrain = c[1]
+      },
+      //项目经历（$emit）
+      progectEmit(c) {
+        this.showproject = c[0]
+        this.showprogectperience = c[1]
+      },
+      //教育经历（$emit）
+      sendiptVal(c) {
+        this.showeducation = c[0]
+        this.showeducational = c[1]
+      },
+      //工作经历
+      workEmit(c) {
+        this.showwork = c[0],
+        this.showworkperience = c[1]
+      },
+      //求职意向（$emit）
+      jobintensionEmit(c) {
+        this.showJob = c[0],
+        this.showjobintension = c[1]
+        this.showadd = c[1]
+      },
+      //荣誉奖项（$emit）
+      awardsemit(c) {
+        this.showawards = c[0]
+        this.showaward = c[1]
+      },
+      //自我介绍
+      showselfappraisalList(list) {
+        console.log(list)
+        this.selfappraisalouterVisible = true
+        this.formSelfappraisal.personalDescription = list.personalDescription
+      },
+      //荣誉奖项
+      showawardList(list) {
+        console.log(list)
+        this.awardsouterVisible = true
+        this.formAwards.prizeAward = list.prizeAward
+        this.formAwards.prizeTime = list.prizeTime
+      },
+       //专业技能编辑
+      editskill(list) {
+        console.log(list)
+        this.personalskillouterVisible = true
+        this.formPersonalskill.technicalName = ''
+        this.formPersonalskill.level = ''
+        this.formPersonalskill.technicalName = list.technicalName
+        this.formPersonalskill.level = list.level
+      },
+      //语言能力
+      showlanguagesList(list) {
+        console.log(list)
+        this.languageouterVisible = true
+        this.formlanguage.listenAbility = list.listenAbility
+        this.formlanguage.readAbility = list.readAbility
+        this.formlanguage.languages = list.languages
+      },
+      //培训经历
+      showtrainList(list) {
+        console.log(list)
+        this.trainingouterVisible = true
+        this.formtraining.trainCourse = list.trainCourse
+        this.formtraining.trainTime = list.trainTime
+
+      },
+      //项目经历编辑
+      showprogectperienceList(list) {
+        console.log(list)
+        this.progectouterVisible = true
+        this.formProject.itemName = list.itemName
+        this.formProject.companyName = list.companyName
+        this.formProject.schoolTime = list.schoolTime
+        this.formProject.duty = list.duty
+        this.formProject.project = list.project
+      },
+      //工作经历编辑
+      showworkperienceList(list) {
+        console.log(list)
+        this.workouterVisible = true
+        this.formWork.companyName = list.companyName
+        this.formWork.postName = list.postName
+        this.formWork.jobDescription = list.jobDescription  
+      },
+      //个人信息编辑
       editsinformation(c) {
         console.log(c)
-        this.showPersonalinformation = c
-        this.personalinformation = true
+        this.informationouterVisible = c[0]
+        this.formInformation.name = c[2]
+        this.formInformation.city = c[3]
+        this.formInformation.workAge = c[4]
+        this.formInformation.age = c[5]
+        this.formInformation.phone = c[6]
+        this.formInformation.email = c[7]
+        // this.personalinformation = true
       },
+      //教育经历编辑
       showeducationalList(list) {
-        this.outerVisible = true
+        this.educationouterVisible = true
         this.formEducation.educationName = list.educationName 
+      },
+      //求职意向编辑
+      showjobintensionList (list) {
+        console.log(list)
+        this.jobintensionouterVisible = true
+        this.formJobintension.postType = list.postType
+        this.formJobintension.trade = list.trade
+        this.formJobintension.scope = list.scope
+        this.formJobintension.status = list.status
+        this.formJobintension.jobType = list.jobType
+        this.formJobintension.reportTime = list.reportTime
       },
       testRef(ref) {
         if (ref) {
           const y = this.$refs[ref].offsetTop - 100
-          // alert(y)
           window.scrollTo({top: y, behavior: "smooth"});
         } else {
           // alert("222222")
@@ -805,9 +1694,11 @@
 
     },
     created () {
-      this.resumeId()
+      this.resumeId(),
+      datacenterBus.$on("myFun",(message)=>{   //这里最好用箭头函数，不然this指向有问题
+               this.informationouterVisible = false
+            })
     }
-
   }
 
 </script>
@@ -818,7 +1709,6 @@
     margin 90px 120px 0 140px
     display flex
     flex-direction row
-
     .content
       width 770px
       background #FFFFFF
@@ -969,7 +1859,6 @@
             height 16px
             vertical-align middle
             margin 0 0 4px 0
-
       .aside-foot
         width 220px
         background #FFFFFF

@@ -2,18 +2,18 @@
     <div class="from">
         <div style="display:flex;flex-direction:row">
             <div class="fromfirst">
-                <div class="fromfirst-one"><span>公司名称</span></div>
-                <div class="fromfirst-one" style="color:#61687c"><span>产品经理 | 4K-6K</span></div>
+                <div class="fromfirst-one"><span>{{companyName}} | {{itemName}}</span></div>
+                <div class="fromfirst-one" style="color:#61687c"><span>产品经理</span></div>
             </div>
             <div class="fromsecond">
-                <div class="fromfirst-two" style="color:#61687c"><span>2018-12/至今</span></div>
+                <div class="fromfirst-two" style="color:#61687c"><span>{{schoolTime}}/至今</span></div>
             </div>
         </div>
         <div style="margin:10px 0 0 47px;color:#61687c">
-            <span>个人职责：<span>文案文案文案文案文案文案文案文案文案文案文案文案文案</span></span>
+            <span>个人职责：<span>{{duty}}</span></span>
         </div>
         <div style="margin:10px 0 0 47px;color:#61687c">
-            <span>项目介绍：<span>文案文案文案文案文案文案文案文案文案文案文案文案文案</span></span>
+            <span>项目介绍：<span>{{project}}</span></span>
         </div>
     </div>
 </template>
@@ -24,13 +24,11 @@
         props:['fromData','index'],
         data() {
             return {
-                ruleForm: {
-                   itemName: '',
-                   companyName: '',
-                   schoolTime: '',
-                   duty: '',
-                   project: '',
-                },
+                   itemName: '银领人才',
+                   companyName: '银领',
+                   schoolTime: '2018/09',
+                   duty: '文案文案文案文案文案文案文案文案文案文案文案文案文案',
+                   project: '文案文案文案文案文案文案文案文案文案文案文案文案文案',
             };
         },
         created(){

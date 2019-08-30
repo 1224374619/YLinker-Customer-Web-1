@@ -14,9 +14,9 @@
       <div class="group">
         <span style="text-align:left">使用与帮助</span>
         <ul>
-          <li>企业介绍</li>
-          <li>投诉建议</li>
-          <li>用户协议</li>
+          <li @click="introduce">企业介绍</li>
+          <li @click="introduce">投诉建议</li>
+          <li @click="introduce">用户协议</li>
         </ul>
       </div>
     </div>
@@ -37,7 +37,12 @@ export default {
   },
   data() {
     return {}
-  }
+  },
+  methods: {
+    introduce() {
+      this.$router.push({ path: "/aboutus" });
+    }
+  },
 }
 </script>
 

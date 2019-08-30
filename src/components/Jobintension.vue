@@ -53,7 +53,7 @@
             </el-form-item>
             
             <el-form-item style="margin:0 41px 20px 0">
-            <el-button style="margin:0 10px 0 490px" plain>取消</el-button>
+            <el-button @click="cancel" style="margin:0 10px 0 490px" plain>取消</el-button>
             <el-button type="primary" @click="JobType">保存</el-button>
             </el-form-item>
           </el-form>
@@ -79,7 +79,11 @@ export default {
     }
   },
   methods:{
+    cancel() {
+      this.$emit("jobintensionEmit",false,true) 
+    },
     JobType () {
+      this.$emit("jobintensionEmit",false,true) 
       if(this.formInline.status == "离职-延时到岗"){
          this.datePicker = true
       }

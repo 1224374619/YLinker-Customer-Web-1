@@ -4,20 +4,20 @@
             <div><img style="width:95px" :src="require('../assets/images/89.png')"/></div>
             <div class="informationright">
                 <div class="information-first">
-                <span>李康</span>
+                <span>{{fullName}}</span>
                 <span><img style="width:26px" :src="require('../assets/images/xing.png')"/></span>
                 <span>离职-随时到岗</span>
                 </div>
                 <div class="information-second">
-                  <span>现居上海</span>
+                  <span>现居{{county}}</span>
                   <span>|</span>
-                  <span>1-3年海外工作经验</span>
-                  <span>23岁(1996/09/09)</span>
+                  <span>{{overseasAge}}海外工作经验</span>
+                  <span>{{age}}岁(1996/09/09)</span>
                 </div>
                 <div class="information-third">
-                  <span><img style="width:8px;height:14px;" :src="require('../assets/images/copy.png')"/><span style="margin:0 0 0 13px">1222112233</span></span>
+                  <span><img style="width:8px;height:14px;" :src="require('../assets/images/copy.png')"/><span style="margin:0 0 0 13px">{{phone}}</span></span>
                   <span>|</span>
-                  <span><img style="width:11px;height:8px;margin-left:25px" :src="require('../assets/images/00.png')"/><span style="margin:0 0 0 13px">2222222</span></span>
+                  <span><img style="width:11px;height:8px;margin-left:25px" :src="require('../assets/images/00.png')"/><span style="margin:0 0 0 13px">{{email}}</span></span>
                   <span style="margin-left:25px">|</span>
                   <span style="margin-left:25px">政治面貌：党员</span>
                 </div>
@@ -36,11 +36,19 @@
         name:'personalinformation_from',
         data() {
             return {
+              fullName:'李康',
+              county:'上海',
+              overseasAge:'1-3年',
+              age:'23',
+              phone:'1222112233',
+              email:'2222222',
             };
         },
         methods: {
+          //编辑传值
+          
           editsinformation() {
-            this.$emit("editsinformation", false);
+            this.$emit("editsinformation", true,false,this.fullName,this.county,this.overseasAge,this.age,this.phone,this.email);
             this.$http.post(`/resume/${2}/base`,{fullName:'',county:''}).then(res => {
               if (res.data.code == 200) {
                 console.log(res);

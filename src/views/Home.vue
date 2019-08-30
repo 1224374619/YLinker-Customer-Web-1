@@ -19,7 +19,7 @@
         ></el-option>
       </el-select>
       <span class="joblist-after"></span>
-      <el-input style="width:478px;" placeholder="请输入内容"></el-input>
+      <el-input v-model="searchContent" style="width:477px;" placeholder="请输入内容"></el-input>
       <el-button
         class="search-button"
         style="border-radius:0 2px 2px 0"
@@ -30,7 +30,7 @@
     </div>
     <div style="text-align:left;margin:4px 0 0 15px">
       <span style="font-size:12px;color:#617dcb">热门搜索：</span>
-      <span style="font-size:12px;color:#7d8dcd" ><span style="padding:0 0 0 5px" v-for="item in keywordList" :key="item">{{item.content}}</span></span>
+      <span style="font-size:12px;color:#7d8dcd" ><a href="#" style="padding:0 0 0 5px;text-decoration:none" v-for="item in keywordList" :key="item">{{item.content}}</a></span>
     </div>
     <div class="carousel">
       <el-carousel height="307px" :interval="5000">
@@ -40,8 +40,10 @@
       </el-carousel>
     </div>
     <div style="text-align:left;color:#455379;font-size:14px;margin:10px 0 0 15px">热门企业</div>
-    <div class="company" ref="company-holder">
-      <img v-for="item in imgList" :key="item.id" ref="imgHeight" :src="item.idView" class="banner_img"/>
+    <div class="company">
+      <vue-seamless-scroll :data="imgList" :class-option="optionLeft" class="seamless-warp2">
+              <img v-for="item in imgList" :src="item.idView"  class="banner_img"/>
+      </vue-seamless-scroll>
     </div>
     <div class="tabs">
       <el-tabs v-model="activeName">
@@ -164,6 +166,8 @@ export default {
   name: "home",
   data() {
     return {
+      searchContent:'',
+      animate:false,
       listRecommend:[],
       recommend: true,
       activeName: "first",
@@ -200,6 +204,14 @@ export default {
       keywordList:[{content:'哈哈哈'},{content:'哈哈哈'},{content:'哈哈哈'}],
       hotpositionList:[]
     };
+  },
+  computed: {
+      optionLeft () {
+          return {
+                  direction: 2,
+                  limitMoveNum: 4
+              }
+      }
   },
   methods: {
     // handleClick(e) {
@@ -280,18 +292,29 @@ export default {
     redirectToSearchResult() {
       this.$router.push({ path: "/search" });
     },
-    companyScrolling() {
-      const holder = this.$refs["company-holder"];
-      if (
-        holder &&
-        document.body.clientWidth === holder.scrollWidth - holder.scrollLeft
-      )
-        holder.scrollLeft = 0;
-      holder.scrollLeft += 1;
-      requestAnimationFrame(this.companyScrolling);
-    }
+    // companyScrolling() {
+    //   const holder = this.$refs["company-holder"];
+    //   if (
+    //     holder &&
+    //     document.body.clientWidth === holder.scrollWidth - holder.scrollLeft
+    //   )
+    //     holder.scrollLeft = 0;
+    //   holder.scrollLeft += 1;
+    //   requestAnimationFrame(this.companyScrolling);
+    // },
+
+
+    //  scroll(){
+    //    this.animate=true; // 因为在消息向上滚动的时候需要添加css3过渡动画，所以这里需要设置true
+    //    setTimeout(()=>{      //  这里直接使用了es6的箭头函数，省去了处理this指向偏移问题，代码也比之前简化了很多
+    //            this.imgList.push(this.imgList[0]);  // 将数组的第一个元素添加到数组的
+    //            this.imgList.shift();               //删除数组的第一个元素
+    //            this.animate=false;  // margin-top 为0 的时候取消过渡动画，实现无缝滚动
+    //    },1000)
+    // }
   },
   created() {
+    setInterval(this.scroll,1000)
     this.recommendation();
     if (this.recommend == false) {
       this.activeName = "second";
@@ -317,7 +340,7 @@ export default {
       height 44px
       background white
       .joblist-after                  
-        border 0.5px solid #455379
+        border 0.5px solid #dbdbdb
       .el-icon-search:before
         color white
         font-size 17px 
@@ -333,15 +356,10 @@ export default {
     .carousel
       margin 3px 0 0 0
     .company
-      display flex
-      flex-direction row
-      justify-content space-evenly
-      align-items center
+      
       border: solid 1px #eee
       margin: 10px auto
-      overflow scroll
-      overflow-y hidden
-      overflow-x:hidden
+      overflow hidden
     .company img
       height 100px
       padding 0 15px 0 0 
@@ -402,4 +420,16 @@ export default {
 <style lang="stylus">
  .el-tabs__nav-wrap:after
    background-color #f0f0f0
+  a  
+    color #1f368d
+  a:active
+    color #617dcb
+  a:hover
+    color #7d8dcd  
+  .seamless-warp2 
+    overflow hidden
+    width 1500px
+  .banner_img
+    height 100px 
+    width 100px        
 </style>
