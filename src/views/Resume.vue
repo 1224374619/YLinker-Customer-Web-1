@@ -18,18 +18,18 @@
           <div style="height:30px"></div>
         </el-dialog>
         <!-- 基本信息编辑 -->
-        <el-dialog title="基本信息编辑" width="30%" :visible.sync="informationouterVisible">
+        <el-dialog title="基本信息编辑" style="width:1150px;margin-left:15%" :visible.sync="informationouterVisible">
           <el-dialog
-            width="20%"
+            style="width:900px;margin-left:21%"
             :visible.sync="informationinnerVisible"
             append-to-body>
-            <div style="display:flex;flex-direction:row;margin-left:80px">
+            <div style="display:flex;flex-direction:row;margin-left:120px">
               <img style="height:18px;" :src="require('../assets/images/222.png')"/>
               <span style="font-size:14px;line-height:20px;margin:0 0 0 20px">离开修改内容将不会保存</span>
             </div>
             <div slot="footer" class="dialog-footer">
               <el-button style="margin:0 20px 0 0" @click="informationinnerVisible = false" plain>取 消</el-button>
-              <el-button style="margin:0 60px 0 0" type="primary" @click="informationouterVisible = false,informationinnerVisible = false">确定</el-button>
+              <el-button style="margin:0 80px 0 0" type="primary" @click="informationouterVisible = false,informationinnerVisible = false">确定</el-button>
             </div>
           </el-dialog>
           <div>
@@ -54,7 +54,7 @@
                   placeholder="选择日期"
                 ></el-date-picker>
               </el-form-item>
-              <el-form-item label="性别" style="margin:0 290px 0 0" prop='sex'>
+              <el-form-item label="性别" style="margin:0 285px 0 0" prop='sex'>
                 <el-radio-group v-model='formInformation.sex'>
                   <el-radio-button  label="男性"></el-radio-button>
                   <el-radio-button  label="女性"></el-radio-button>
@@ -118,18 +118,18 @@
           </div>
         </el-dialog>
         <!-- 求职意向编辑 -->
-        <el-dialog title="求职意向编辑" width="30%" :visible.sync="jobintensionouterVisible">
+        <el-dialog title="求职意向编辑" style="width:1150px;margin-left:15%" :visible.sync="jobintensionouterVisible">
           <el-dialog
-            width="20%"
+            style="width:900px;margin-left:21%"
             :visible.sync="jobintensioninnerVisible"
             append-to-body>
-             <div style="display:flex;flex-direction:row;margin-left:80px">
+             <div style="display:flex;flex-direction:row;margin-left:120px">
               <img style="height:18px;" :src="require('../assets/images/222.png')"/>
               <span style="font-size:14px;line-height:20px;margin:0 0 0 20px">离开修改内容将不会保存</span>
              </div>
              <div slot="footer" class="dialog-footer">
                 <el-button style="margin:0 20px 0 0" @click="jobintensioninnerVisible = false" plain>取 消</el-button>
-                <el-button style="margin:0 60px 0 0" type="primary" @click="jobintensionouterVisible = false,jobintensioninnerVisible = false">确定</el-button>
+                <el-button style="margin:0 80px 0 0" type="primary" @click="jobintensionouterVisible = false,jobintensioninnerVisible = false">确定</el-button>
              </div>
           </el-dialog>
           <div>
@@ -192,39 +192,39 @@
           </div>
         </el-dialog>
         <!-- 工作经历编辑 -->
-        <el-dialog title="工作经历编辑" width="30%" :visible.sync="workouterVisible">
+        <el-dialog title="工作经历编辑" style="width:1150px;margin-left:15%"  :visible.sync="workouterVisible">
           <el-dialog
-            width="20%"
+            style="width:900px;margin-left:21%"
             :visible.sync="workinnerVisible"
             append-to-body>
-            <div style="display:flex;flex-direction:row;margin-left:80px">
+            <div style="display:flex;flex-direction:row;margin-left:120px">
               <img style="height:18px;" :src="require('../assets/images/222.png')"/>
               <span style="font-size:14px;line-height:20px;margin:0 0 0 20px">离开修改内容将不会保存</span>
              </div>
              <div slot="footer" class="dialog-footer">
                 <el-button style="margin:0 20px 0 0" @click="workinnerVisible = false" plain>取 消</el-button>
-                <el-button style="margin:0 60px 0 0" type="primary" @click="workouterVisible = false,workinnerVisible = false">确定</el-button>
+                <el-button style="margin:0 80px 0 0" type="primary" @click="workouterVisible = false,workinnerVisible = false">确定</el-button>
              </div>
           </el-dialog>
           <div>
             <el-form :model="formWork" class="demo-form-inline" label-width="100px" :rules="workrules"  ref="formWork">
               <el-form-item label="公司名称" prop='companyName'>
-                  <el-input style="width:400px;height:36px" v-model="formWork.companyName" placeholder=""></el-input>
+                  <el-input style="width:400px;height:36px;margin-right:50px" v-model="formWork.companyName" placeholder=""></el-input>
               </el-form-item>
               <el-form-item label="职位名称" prop='postName'>
-                  <el-input style="width:400px;height:36px" v-model="formWork.postName" placeholder=""></el-input>
+                  <el-input style="width:400px;height:36px;margin-right:50px" v-model="formWork.postName" placeholder=""></el-input>
               </el-form-item>
               <el-form-item label="行业" prop='trade'>
-                  <el-select style="width:400px;height:36px" v-model="formWork.trade" placeholder="">
+                  <el-select style="width:400px;height:36px;margin-right:50px" v-model="formWork.trade" placeholder="">
                   <el-option label="" value="shanghai"></el-option>
                   <el-option label="" value="beijing"></el-option>
                   </el-select>
               </el-form-item>
               <el-form-item label="所在部门" prop='branch'>
-                  <el-input style="width:400px;height:36px" v-model="formWork.branch" placeholder=""></el-input>
+                  <el-input style="width:400px;height:36px;margin-right:50px" v-model="formWork.branch" placeholder=""></el-input>
               </el-form-item>
               <el-form-item label="工作描述" prop='jobDescription'>
-                  <el-input type="textarea" v-model="formWork.jobDescription"  style="width:400px" ></el-input>
+                  <el-input type="textarea" v-model="formWork.jobDescription"  style="width:400px;margin-right:50px" ></el-input>
               </el-form-item>
             </el-form>
           </div>
@@ -234,7 +234,7 @@
           </div>
         </el-dialog>
         <!-- 教育经历编辑 -->
-        <el-dialog title="教育经历编辑" width="30%" :visible.sync="educationouterVisible">
+        <el-dialog title="教育经历编辑" style="width:1150px;margin-left:15%" :visible.sync="educationouterVisible">
           <div>
             <el-form :model="formEducation" class="demo-form-inline" label-width="100px" :rules="edurules" ref="formEducation">
               <el-form-item label="学校名称" prop='educationName'>
@@ -267,16 +267,16 @@
             </el-form>
           </div>
           <el-dialog
-            width="20%"
+            style="width:900px;margin-left:21%"
             :visible.sync="educationinnerVisible"
             append-to-body>
-             <div style="display:flex;flex-direction:row;margin-left:80px">
+             <div style="display:flex;flex-direction:row;margin-left:120px">
                <img style="height:18px;" :src="require('../assets/images/222.png')"/>
                <span style="font-size:14px;line-height:20px;margin:0 0 0 20px">离开修改内容将不会保存</span>
              </div>
              <div slot="footer" class="dialog-footer">
               <el-button style="margin:0 20px 0 0" @click="educationinnerVisible = false" plain>取 消</el-button>
-              <el-button style="margin:0 60px 0 0" type="primary" @click="educationouterVisible = false,educationinnerVisible = false">确定</el-button>
+              <el-button style="margin:0 80px 0 0" type="primary" @click="educationouterVisible = false,educationinnerVisible = false">确定</el-button>
              </div>
           </el-dialog>
           <div slot="footer" class="dialog-footer">
@@ -285,7 +285,7 @@
           </div>
         </el-dialog>
         <!-- 项目经历编辑 -->
-        <el-dialog title="项目经历编辑" width="30%" :visible.sync="progectouterVisible">
+        <el-dialog title="项目经历编辑" style="width:1150px;margin-left:15%" :visible.sync="progectouterVisible">
           <div>
             <el-form :model="formProject" class="demo-form-inline" label-width="100px" :rules="progectrules" ref="formProject">
               <el-form-item label="项目名称" prop='itemName'>
@@ -313,16 +313,16 @@
             </el-form>
           </div>
           <el-dialog
-            width="20%"
+            style="width:900px;margin-left:21%"
             :visible.sync="progectinnerVisible"
             append-to-body>
-             <div style="display:flex;flex-direction:row;margin-left:80px">
+             <div style="display:flex;flex-direction:row;margin-left:120px">
                <img style="height:18px;" :src="require('../assets/images/222.png')"/>
                <span style="font-size:14px;line-height:20px;margin:0 0 0 20px">离开修改内容将不会保存</span>
              </div>
              <div slot="footer" class="dialog-footer">
               <el-button style="margin:0 20px 0 0" @click="progectinnerVisible = false" plain>取 消</el-button>
-              <el-button style="margin:0 60px 0 0" type="primary" @click="progectouterVisible = false,progectinnerVisible = false">确定</el-button>
+              <el-button style="margin:0 80px 0 0" type="primary" @click="progectouterVisible = false,progectinnerVisible = false">确定</el-button>
              </div>
           </el-dialog>
           <div slot="footer" class="dialog-footer">
@@ -331,7 +331,7 @@
           </div>
         </el-dialog>
         <!-- 培训经历编辑 -->
-        <el-dialog title="培训经历编辑" width="30%" :visible.sync="trainingouterVisible">
+        <el-dialog title="培训经历编辑" style="width:1150px;margin-left:15%" :visible.sync="trainingouterVisible">
           <div>
             <el-form :model="formtraining" class="demo-form-inline" label-width="100px" :rules="trainrules" ref="formtraining">
               <el-form-item label="培训课程" prop='trainCourse'>
@@ -353,16 +353,16 @@
             </el-form>
           </div>
           <el-dialog
-            width="20%"
+            style="width:900px;margin-left:21%"
             :visible.sync="traininginnerVisible"
             append-to-body>
-             <div style="display:flex;flex-direction:row;margin-left:80px">
+             <div style="display:flex;flex-direction:row;margin-left:120px">
                <img style="height:18px;" :src="require('../assets/images/222.png')"/>
                <span style="font-size:14px;line-height:20px;margin:0 0 0 20px">离开修改内容将不会保存</span>
              </div>
              <div slot="footer" class="dialog-footer">
               <el-button style="margin:0 20px 0 0" @click="traininginnerVisible = false" plain>取 消</el-button>
-              <el-button style="margin:0 60px 0 0" type="primary" @click="trainingouterVisible = false,traininginnerVisible = false">确定</el-button>
+              <el-button style="margin:0 80px 0 0" type="primary" @click="trainingouterVisible = false,traininginnerVisible = false">确定</el-button>
              </div>
           </el-dialog>
           <div slot="footer" class="dialog-footer">
@@ -371,7 +371,7 @@
           </div>
         </el-dialog>
         <!-- 语言能力编辑 -->
-        <el-dialog title="语言能力编辑" width="30%" :visible.sync="languageouterVisible">
+        <el-dialog title="语言能力编辑" style="width:1150px;margin-left:15%" :visible.sync="languageouterVisible">
           <div>
             <el-form  :model="formlanguage" class="demo-form-inline" label-width="100px" :rules="languagerules" ref="formlanguage">
               <el-form-item label="语种" prop='languages'>
@@ -391,16 +391,16 @@
             </el-form>
           </div>
           <el-dialog
-            width="20%"
+            style="width:900px;margin-left:21%"
             :visible.sync="languageinnerVisible"
             append-to-body>
-             <div style="display:flex;flex-direction:row;margin-left:80px">
+             <div style="display:flex;flex-direction:row;margin-left:120px">
                <img style="height:18px;" :src="require('../assets/images/222.png')"/>
                <span style="font-size:14px;line-height:20px;margin:0 0 0 20px">离开修改内容将不会保存</span>
              </div>
              <div slot="footer" class="dialog-footer">
               <el-button style="margin:0 20px 0 0" @click="languageinnerVisible = false" plain>取 消</el-button>
-              <el-button style="margin:0 60px 0 0" type="primary" @click="languageouterVisible = false,languageinnerVisible = false">确定</el-button>
+              <el-button style="margin:0 80px 0 0" type="primary" @click="languageouterVisible = false,languageinnerVisible = false">确定</el-button>
              </div>
           </el-dialog>
           <div slot="footer" class="dialog-footer">
@@ -409,7 +409,7 @@
           </div>
         </el-dialog>
         <!-- 专业技能 -->
-         <el-dialog title="专业技能编辑" width="30%" :visible.sync="personalskillouterVisible">
+         <el-dialog title="专业技能编辑" style="width:1150px;margin-left:15%" :visible.sync="personalskillouterVisible">
           <div>
             <el-form :model="formPersonalskill" class="demo-form-inline" label-width="100px" :rules="skillrules" ref="formPersonalskill">
               <el-form-item label="技能名称" prop='technicalName'>
@@ -424,16 +424,16 @@
             </el-form>
           </div>
           <el-dialog
-            width="20%"
+            style="width:900px;margin-left:21%"
             :visible.sync="personalskillinnerVisible"
             append-to-body>
-             <div style="display:flex;flex-direction:row;margin-left:80px">
+             <div style="display:flex;flex-direction:row;margin-left:120px">
                <img style="height:18px;" :src="require('../assets/images/222.png')"/>
                <span style="font-size:14px;line-height:20px;margin:0 0 0 20px">离开修改内容将不会保存</span>
              </div>
              <div slot="footer" class="dialog-footer">
               <el-button style="margin:0 20px 0 0" @click="personalskillinnerVisible = false" plain>取 消</el-button>
-              <el-button style="margin:0 60px 0 0" type="primary" @click="personalskillouterVisible = false,personalskillinnerVisible = false">确定</el-button>
+              <el-button style="margin:0 80px 0 0" type="primary" @click="personalskillouterVisible = false,personalskillinnerVisible = false">确定</el-button>
              </div>
           </el-dialog>
           <div slot="footer" class="dialog-footer">
@@ -442,7 +442,7 @@
           </div>
         </el-dialog>
          <!-- 荣誉奖项 -->
-         <el-dialog title="荣誉奖项编辑" width="30%" :visible.sync="awardsouterVisible">
+         <el-dialog title="荣誉奖项编辑" style="width:1150px;margin-left:15%" :visible.sync="awardsouterVisible">
           <div>
             <el-form :model="formAwards" class="demo-form-inline" label-width="100px" :rules="awardsrules" ref="formAwards">
               <el-form-item label="奖项名称" prop='prizeAward'>
@@ -459,16 +459,16 @@
             </el-form>
           </div>
           <el-dialog
-            width="20%"
+            style="width:900px;margin-left:21%"
             :visible.sync="awardsinnerVisible"
             append-to-body>
-             <div style="display:flex;flex-direction:row;margin-left:80px">
+             <div style="display:flex;flex-direction:row;margin-left:120px">
                <img style="height:18px;" :src="require('../assets/images/222.png')"/>
                <span style="font-size:14px;line-height:20px;margin:0 0 0 20px">离开修改内容将不会保存</span>
              </div>
              <div slot="footer" class="dialog-footer">
               <el-button style="margin:0 20px 0 0" @click="awardsinnerVisible = false" plain>取 消</el-button>
-              <el-button style="margin:0 60px 0 0" type="primary" @click="awardsouterVisible = false,awardsinnerVisible = false">确定</el-button>
+              <el-button style="margin:0 80px 0 0" type="primary" @click="awardsouterVisible = false,awardsinnerVisible = false">确定</el-button>
              </div>
           </el-dialog>
           <div slot="footer" class="dialog-footer">
@@ -477,7 +477,7 @@
           </div>
         </el-dialog>
          <!-- 自我评价 -->
-         <el-dialog title="自我评价编辑" width="30%" :visible.sync="selfappraisalouterVisible">
+         <el-dialog title="自我评价编辑" style="width:1150px;margin-left:15%" :visible.sync="selfappraisalouterVisible">
           <div>
             <el-form :model="formSelfappraisal" class="demo-form-inline" label-width="100px" :rules="selfappraisalrules" ref="formSelfappraisal">
               <el-form-item label="自我评价" prop='personalDescription'>
@@ -486,16 +486,16 @@
             </el-form>
           </div>
           <el-dialog
-            width="20%"
+            style="width:900px;margin-left:21%"
             :visible.sync="selfappraisalinnerVisible"
             append-to-body>
-             <div style="display:flex;flex-direction:row;margin-left:80px">
+             <div style="display:flex;flex-direction:row;margin-left:120px">
                <img style="height:18px;" :src="require('../assets/images/222.png')"/>
                <span style="font-size:14px;line-height:20px;margin:0 0 0 20px">离开修改内容将不会保存</span>
              </div>
              <div slot="footer" class="dialog-footer">
               <el-button style="margin:0 20px 0 0" @click="selfappraisalinnerVisible = false" plain>取 消</el-button>
-              <el-button style="margin:0 60px 0 0" type="primary" @click="selfappraisalouterVisible = false,selfappraisalinnerVisible = false">确定</el-button>
+              <el-button style="margin:0 80px 0 0" type="primary" @click="selfappraisalouterVisible = false,selfappraisalinnerVisible = false">确定</el-button>
              </div>
           </el-dialog>
           <div slot="footer" class="dialog-footer">
@@ -533,7 +533,7 @@
         </div>
         <ul v-if="showjobintension" style="margin:-15px 0 10px 5px" @mouseover="over(10)" @mouseleave="leave(10)">
           <li v-for="(list,index) in listjobintension" :key="index" class="ul-a">
-              <span class="actions-span">
+              <span class="actions-span" style='margin:8px 20px 0 0'>
                   <img style="margin-right:9px;height:12px" :src="require('../assets/images/ziwo.png')"/><span
                       style="margin-right:3px" @click="showjobintensionList(list)">编辑</span>
               </span>
@@ -555,7 +555,7 @@
         </div>
         <ul v-if="showeducational" style="margin:-5px 0 10px 5px" @mouseover="over(9)" @mouseleave="leave(9)">
           <li v-for="(list,index) in listeducational" :key="index" class="ul-a">
-              <span class="actions-span">
+              <span class="actions-span" style='margin:10px 20px 0 0'>
                   <img class="img-first" style="margin-right:9px;height:12px"
                        :src="require('../assets/images/shan.png')"/><span @click="showdialog()" style="margin-right:20px">删除</span>
                   <img class="img-second" style="margin-right:9px;height:12px"
@@ -577,7 +577,7 @@
         </div>
         <ul v-if="showworkperience" style="margin:-5px 0 10px 5px" @mouseover="over(8)" @mouseleave="leave(8)">
           <li v-for="(list,index) in listwork" :key="index" class="ul-a">
-              <span class="actions-span">
+              <span class="actions-span" style='margin:8px 20px 0 0'>
                   <img style="margin-right:9px;height:12px" :src="require('../assets/images/shan.png')"/><span
                       @click="showdialog()" style="margin-right:20px">删除</span>
                   <img style="margin-right:9px;height:12px" :src="require('../assets/images/ziwo.png')"/><span
@@ -599,7 +599,7 @@
         </div>
         <ul v-if="showprogectperience" style="margin:-5px 0 10px 5px" @mouseover="over(7)" @mouseleave="leave(7)">
           <li v-for="(list,index) in listprogectperience" :key="index" class="ul-a">
-              <span class="actions-span">
+              <span class="actions-span" style='margin:8px 20px 0 0'>
                   <img style="margin-right:9px;height:12px" :src="require('../assets/images/shan.png')"/><span
                       @click="showdialog()" style="margin-right:20px">删除</span>
                   <img style="margin-right:9px;height:12px" :src="require('../assets/images/ziwo.png')"/><span
@@ -621,7 +621,7 @@
         </div>
         <ul v-if="showtrain" style="margin:-5px 0 10px 5px;" @mouseover="over(6)" @mouseleave="leave(6)">
           <li v-for="(list,index) in listtrain" :key="index" class="ul-a">
-              <span class="actions-span">
+              <span class="actions-span" style='margin:20px 20px 0 0'>
                   <img style="margin-right:9px;height:12px" :src="require('../assets/images/shan.png')"/><span
                       @click="showdialog()" style="margin-right:20px">删除</span>
                   <img style="margin-right:9px;height:12px" :src="require('../assets/images/ziwo.png')"/><span
@@ -643,7 +643,7 @@
         </div>
         <ul v-if="showlanguages" style="margin:-5px 0 10px 5px" @mouseover="over(5)" @mouseleave="leave(5)">
           <li v-for="(list,index) in listlanguages" :key="index" class="ul-a">
-              <span class="actions-span">
+              <span class="actions-span" style='margin:20px 20px 0 0'>
                   <img style="margin-right:9px;height:12px" :src="require('../assets/images/shan.png')"/><span
                       @click="showdialog()" style="margin-right:20px">删除</span>
                   <img style="margin-right:9px;height:12px" :src="require('../assets/images/ziwo.png')"/><span
@@ -674,7 +674,7 @@
         </div>
         <ul v-if="showpersonalskills" style="margin:-5px 0 10px 5px" @mouseover="over(3)" @mouseleave="leave(3)">
           <li v-for="(list,index) in listpersonalskill" :key="index" class="ul-a">
-              <span class="actions-span">
+              <span class="actions-span" style='margin:20px 20px 0 0'>
                   <img style="margin-right:9px;height:12px" :src="require('../assets/images/shan.png')"/><span
                       @click="showdialog()" style="margin-right:20px">删除</span>
                   <img style="margin-right:9px;height:12px" :src="require('../assets/images/ziwo.png')"/><span
@@ -695,7 +695,7 @@
         </div>
         <ul v-if="showaward" style="margin:-5px 0 10px 5px" @mouseover="over(2)" @mouseleave="leave(2)">
           <li v-for="(list,index) in listaward" :key="index" class="ul-a">
-              <span class="actions-span">
+              <span class="actions-span" style='margin:20px 20px 0 0'>
                   <img style="margin-right:9px;height:12px" :src="require('../assets/images/shan.png')"/><span
                       @click="showdialog()" style="margin-right:20px">删除</span>
                   <img style="margin-right:9px;height:12px" :src="require('../assets/images/ziwo.png')"/><span
@@ -714,7 +714,7 @@
         </div>
         <ul v-if="showpersonappraisal" style="margin:-5px 0 10px 5px" @mouseover="over(1)" @mouseleave="leave(1)">
           <li v-for="(list,index) in listpersonappraisal" :key="index" class="ul-a">
-              <span class="actions-span">
+              <span class="actions-span" style='margin:20px 20px 0 0'>
                   <img style="margin-right:9px;height:12px" :src="require('../assets/images/ziwo.png')"/><span
                       style="margin-right:3px" @click="showselfappraisalList(list)">编辑</span>
               </span>
@@ -1704,6 +1704,7 @@
 </script>
 
 <style lang="stylus" scoped>
+  
   .resumes
     width 990px
     margin 90px 120px 0 140px
@@ -1751,7 +1752,7 @@
       .ul-a
         .actions-span
           float right
-          margin 0 20px 0 0
+          
           font-size 15px
           color #1f368d
           opacity 0

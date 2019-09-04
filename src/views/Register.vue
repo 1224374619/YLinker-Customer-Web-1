@@ -12,10 +12,11 @@
             <el-input v-model.number="form.tel" placeholder="请输入登录手机号"></el-input>
           </el-form-item>
           <el-form-item label="密码" prop="password">
-            <password-input v-model="form.password" />
+            <el-input placeholder="请输入密码" v-model="form.password" show-password></el-input>
+            <!-- <password-input v-model="form.password" /> -->
           </el-form-item>
           <el-form-item label="验证码" prop="captcha">
-            <captcha v-model="form.captcha" />
+            <captcha v-model="form.captcha"/>
           </el-form-item>
           <el-form-item prop="checkLicense">
             <el-checkbox v-model="form.checkLicense">我已同意<el-button type="text" @click="gotoUserPrivacyLicenseUI">《用户协议及隐私策略》</el-button></el-checkbox>
@@ -73,7 +74,7 @@ export default {
     onSubmit() {
       this.$refs['form'].validate((valid) => {
         if (valid) {
-          this.$http.post('/account/register',{phone:'11100',password:'110'}).then(res => {
+          this.$http.post('/account/register',{phone:'18116241233',password:this.form.password,vcode:this.form.captcha,agree:true}).then(res => {
             console.log(res) 
           if (res.data.code == 200) {
             
@@ -85,6 +86,10 @@ export default {
         }
       });
     },
+    // input(c) {
+    //   console.log(c+'eqwewrwer')
+    //   this.form.captcha = c
+    // },
     getCaptcha() {
         
     },
