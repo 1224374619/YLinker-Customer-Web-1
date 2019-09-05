@@ -561,7 +561,7 @@
                   <img class="img-second" style="margin-right:9px;height:12px"
                        :src="require('../assets/images/ziwo.png')"/><span style="margin-right:3px" @click="showeducationalList(list)">编辑</span>
               </span>
-            <educationexperience-From :from-data="list" :index="index"></educationexperience-From>
+            <educationexperience-From :fromData="list" :index="index"></educationexperience-From>
             <br>
           </li>
         </ul>
@@ -886,7 +886,6 @@
         showpersonalskills: true,
         showaward: true,
         showpersonappraisal: true,
-        index:'a',
         file:true,
         languageouterVisible: false,
         languageinnerVisible: false,
@@ -924,7 +923,7 @@
         {
           educationName: "华东大学",
           educationTime: "2018/12",
-          educationDegree: "工业设计 | 硕士"
+          educationDegree: "工业设计 | 博士"
         }],
         listwork: [{
           jobDescription: '22电动车v发射点发射点犯得上犯得上发射点',
@@ -1478,20 +1477,20 @@
       },
       //自我介绍
       showselfappraisalList(list) {
-        console.log(list)
+        // console.log(list)
         this.selfappraisalouterVisible = true
         this.formSelfappraisal.personalDescription = list.personalDescription
       },
       //荣誉奖项
       showawardList(list) {
-        console.log(list)
+        // console.log(list)
         this.awardsouterVisible = true
         this.formAwards.prizeAward = list.prizeAward
         this.formAwards.prizeTime = list.prizeTime
       },
        //专业技能编辑
       editskill(list) {
-        console.log(list)
+        // console.log(list)
         this.personalskillouterVisible = true
         this.formPersonalskill.technicalName = ''
         this.formPersonalskill.level = ''
@@ -1500,7 +1499,7 @@
       },
       //语言能力
       showlanguagesList(list) {
-        console.log(list)
+        // console.log(list)
         this.languageouterVisible = true
         this.formlanguage.listenAbility = list.listenAbility
         this.formlanguage.readAbility = list.readAbility
@@ -1508,7 +1507,7 @@
       },
       //培训经历
       showtrainList(list) {
-        console.log(list)
+        // console.log(list)
         this.trainingouterVisible = true
         this.formtraining.trainCourse = list.trainCourse
         this.formtraining.trainTime = list.trainTime
@@ -1516,7 +1515,7 @@
       },
       //项目经历编辑
       showprogectperienceList(list) {
-        console.log(list)
+        // console.log(list)
         this.progectouterVisible = true
         this.formProject.itemName = list.itemName
         this.formProject.companyName = list.companyName
@@ -1526,7 +1525,7 @@
       },
       //工作经历编辑
       showworkperienceList(list) {
-        console.log(list)
+        // console.log(list)
         this.workouterVisible = true
         this.formWork.companyName = list.companyName
         this.formWork.postName = list.postName
@@ -1534,7 +1533,7 @@
       },
       //个人信息编辑
       editsinformation(c) {
-        console.log(c)
+        // console.log(c)
         this.informationouterVisible = c[0]
         this.formInformation.name = c[2]
         this.formInformation.city = c[3]
@@ -1546,12 +1545,13 @@
       },
       //教育经历编辑
       showeducationalList(list) {
+        // console.log(list)
         this.educationouterVisible = true
         this.formEducation.educationName = list.educationName 
       },
       //求职意向编辑
       showjobintensionList (list) {
-        console.log(list)
+        // console.log(list)
         this.jobintensionouterVisible = true
         this.formJobintension.postType = list.postType
         this.formJobintension.trade = list.trade
@@ -1694,7 +1694,7 @@
 
     },
     created () {
-      console.log(this.listeducational)
+      // console.log(this.listeducational)
       this.resumeId(),
       datacenterBus.$on("myFun",(message)=>{   //这里最好用箭头函数，不然this指向有问题
                this.informationouterVisible = false
