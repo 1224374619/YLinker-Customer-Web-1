@@ -1694,6 +1694,7 @@
 
     },
     created () {
+      console.log(this.listeducational)
       this.resumeId(),
       datacenterBus.$on("myFun",(message)=>{   //这里最好用箭头函数，不然this指向有问题
                this.informationouterVisible = false

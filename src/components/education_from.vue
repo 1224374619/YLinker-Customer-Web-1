@@ -1,11 +1,11 @@
 <template>
     <div class="from">
         <div class="fromfirst">
-             <div class="fromfirst-one"><span>华东理工大学</span></div>
-             <div class="fromfirst-one"><span>工学设计 | 硕士</span></div>
+             <div class="fromfirst-one"><span>{{educationName}}</span></div>
+             <div class="fromfirst-one"><span>{{educationDegree}}</span></div>
         </div>
         <div class="fromsecond">
-            <div class="fromfirst-two"><span>2018-12/至今</span></div>
+            <div class="fromfirst-two"><span>{{educationTime}}</span></div>
         </div>
     </div>
 </template>
@@ -16,11 +16,11 @@
         props:['fromData','index'],
         data() {
             return {
-                ruleForm: {
-                   educationName:"",
-                   educationTime:"",
-                   educationDegree:""
-                },
+                
+                   educationName:"educationName",
+                   educationTime:"educationTime",
+                   educationDegree:"educationDegree"
+                
             };
         },
         created () {
