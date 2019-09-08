@@ -15,8 +15,8 @@
         <span style="text-align:left">使用与帮助</span>
         <ul>
           <li @click="introduce">企业介绍</li>
-          <li @click="introduce">投诉建议</li>
-          <li @click="introduce">用户协议</li>
+          <li @click="introduce(false)">投诉建议</li>
+          <li @click="introduceXy">用户协议</li>
         </ul>
       </div>
     </div>
@@ -36,11 +36,16 @@ export default {
     },
   },
   data() {
-    return {}
+    return {
+      
+    }
   },
   methods: {
-    introduce() {
-      this.$router.push({ path: "/aboutus" });
+    introduce(id) {
+      this.$router.push({ path: "/aboutus/"+ id});
+    },
+    introduceXy() {
+      this.$router.push({ path: "/user-license" });
     }
   },
 }

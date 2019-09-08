@@ -73,9 +73,10 @@ export default {
   
   data() {
     return {
-      active:1,
+      active:'',
       textarea:'',
-      dialog:false
+      dialog:false,
+      id:this.$route.params.id
     }
   },
   methods: {
@@ -90,6 +91,13 @@ export default {
           this.inforchangeLeft = false,
           this.inforchangeBack = true
       }
+  },
+  created() {
+    if(this.id == 'false'){
+      this.active = 2
+    }else{
+      this.active = 1
+    }
   }
 }
 </script>

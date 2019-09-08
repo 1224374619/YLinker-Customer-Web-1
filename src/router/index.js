@@ -72,7 +72,7 @@ const router = new Router({
                     component: JobList
                 },
                 {
-                    path: '/aboutus',
+                    path: '/aboutus/:id',
                     name: '职位',
                     component: AboutUs
                 },

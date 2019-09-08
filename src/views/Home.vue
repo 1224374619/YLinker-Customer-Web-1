@@ -1,9 +1,57 @@
 <template>
   <div class="home">
+    <el-dialog
+        class="dialog"
+        :visible.sync="dialogVisible"
+        style="width:1150px;margin-left:15%"
+        :before-close="handleClose">
+        <div class="dialog-title">
+            <span>热门城市</span>
+        </div>
+        <div class="dialog-city-first">
+            <span>北京</span>
+            <span>天津</span>
+            <span>大连</span>
+            <span>上海</span>
+            <span>南京</span>
+            <span>苏州</span>
+        </div>
+        <div class="dialog-city-second">
+            <span>杭州</span>
+            <span>武汉</span>
+            <span>广州</span>
+            <span>深圳</span>
+            <span>重庆</span>
+            <span>成都</span>
+        </div>
+        <div class="dialog-province">
+            <span>按省份选择</span>
+        </div>
+        <div class="dialog-cascader">
+            <el-tooltip class="item" effect="light"  placement="bottom-start">
+              <el-input
+                placeholder="请选择省份"
+                suffix-icon="el-icon-arrow-down"
+                v-model="cityButton"
+               >
+              </el-input>
+              <div style="width:510px" slot="content"><span class="spanCity" @click="citys(item)" style="float:left;padding:10px 0 10px 10px" v-for="item in city" :key="item">{{item.value}}</span></div>
+            </el-tooltip>
+            <el-tooltip  class="item" effect="light"  placement="bottom-end">
+              <el-input
+                placeholder="请选择城市"
+                suffix-icon="el-icon-arrow-down"
+                v-model="cityButton"
+                style="margin:0 0 0 100px"
+               >
+              </el-input>
+              <div style="width:510px" slot="content"><span class="spanCity" @click="citys(item)" style="float:left;padding:10px 0 10px 10px" v-for="item in city" :key="item">{{item.value}}</span></div>
+            </el-tooltip>
+        </div>
+        <div style="height:220px"></div>
+    </el-dialog>      
     <div class="joblist-search">
-      <el-select v-model="value" style="width:77px;height:44px;font-size:14px;">
-        <el-option label="上海" value></el-option>
-      </el-select>
+     <el-input v-model="value" @focus="next"  suffix-icon="el-icon-arrow-down" style="width:77px;height:44px;font-size:14px;"></el-input>
       <span class="joblist-after"></span>
       <el-select
         slot="prepend"
@@ -184,6 +232,70 @@ export default {
           label: "公司"
         }
       ],
+      city:[
+        {
+          value:'北京'
+        },
+        {
+          value:'上海'
+        },
+        {
+          value:'北京'
+        },
+        {
+          value:'北京'
+        },
+        {
+          value:'北京'
+        },
+        {
+          value:'北京'
+        },
+        {
+          value:'北京'
+        },
+        {
+          value:'北京'
+        },
+        {
+          value:'北京'
+        },
+        {
+          value:'北京'
+        },
+        {
+          value:'北京'
+        },
+        {
+          value:'北京'
+        },
+        {
+          value:'北京'
+        },
+        {
+          value:'北京'
+        },
+        {
+          value:'北京'
+        },
+        {
+          value:'北京'
+        },
+
+        {
+          value:'北京'
+        },
+        {
+          value:'北京'
+        },
+        {
+          value:'北京'
+        },
+        {
+          value:'北京'
+        },
+        
+      ],
       carouselImgs: [
         require("../assets/images/loop1.jpg"),
         require("../assets/images/loop2.png")
@@ -214,6 +326,12 @@ export default {
       }
   },
   methods: {
+    next() {
+        this.dialogVisible = true
+      },
+      close() {
+          this.dialogVisible = false
+      },
     // handleClick(e) {
     //   if (e.index == 1) {
     //   }
@@ -335,6 +453,44 @@ export default {
   .home
     width 802px
     margin 90px auto 0 
+    .dialog
+      display flex
+      flex-direction column
+      .el-icon-close:before
+        font-size 24px
+      .dialog-title span
+        font-size 14.5px
+        font-family PingFangSC-Regular
+        color #959595
+        float left
+        margin -40px 0 0 0
+      .dialog-city-first
+        font-size 14px
+        font-family PingFangSC-Regular
+        color #1f368d
+        float left
+        margin -10px 0 0 0
+      .dialog-city-first span
+        padding 0 40px 0 0  
+      .dialog-city-second
+        font-size 14px
+        font-family PingFangSC-Regular
+        color #1f368d
+        text-align left 
+        margin 25px 0 0 0
+      .dialog-city-second span
+        padding 0 40px 0 0
+      .dialog-province span
+        font-size 14.5px
+        font-family PingFangSC-Regular
+        color #909090
+        float left
+        margin 18px 0 0 0
+      .dialog-cascader
+        display flex
+        flex-direction row
+        float left
+        margin 50px 0 0 -73px
     .joblist-search
       width 802px
       height 44px
@@ -356,7 +512,6 @@ export default {
     .carousel
       margin 3px 0 0 0
     .company
-      
       border: solid 1px #eee
       margin: 10px auto
       overflow hidden

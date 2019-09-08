@@ -16,10 +16,12 @@
             <captcha v-model="ruleForm.code" />
         </el-form-item>
         <el-form-item label="新密码" prop="newPassword">
-          <password-input v-model="ruleForm.newPassword" placeholder="请输入新密码（6-24位数字和字母）" />
+          <el-input style="width:270px;height:43px" placeholder="请输入新密码（6-24位数字和字母）" v-model="ruleForm.newPassword" show-password></el-input>
+          <!-- <password-input v-model="ruleForm.newPassword" placeholder="请输入新密码（6-24位数字和字母）" /> -->
         </el-form-item>
         <el-form-item label="确认密码" prop="checknewPassword">
-          <password-input v-model="ruleForm.checknewPassword" placeholder="请确认输入新密码" />
+          <el-input style="width:270px;height:43px" placeholder="请确认输入新密码" v-model="ruleForm.checknewPassword" show-password></el-input>
+          <!-- <password-input v-model="ruleForm.checknewPassword" placeholder="请确认输入新密码" /> -->
         </el-form-item>
         <el-form-item>
           <el-button style="width:270px;height:43px" @click="submitForm('ruleForm')" type="primary">重置密码</el-button>
@@ -33,7 +35,7 @@
           <span style="font-size:14px;color:#1f368d;margin-left:-180px">15513779331</span>
         </el-form-item>
          <el-form-item label="当前登录密码" prop="nowPassword">
-            <password-input v-model="newRuleForm.nowPassword" />
+            <el-input style="width:270px;height:43px" placeholder="请确认输入登陆密码" v-model="newRuleForm.nowPassword" show-password></el-input>
           </el-form-item>
         <el-form-item label="新手机号" prop="newPhone">
           <span><el-input style="width:270px;height:43px" v-model="newRuleForm.newPhone" placeholder="请确认输入新手机号"></el-input></span>

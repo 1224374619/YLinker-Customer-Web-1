@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <customized-nav class="nav" :ctlHideMenus="true"/>
+    <customized-nav class="nav" :ctlHideMenus="true" />
     <div class="body">
       <div class="form">
         <p class="header">
@@ -12,7 +12,8 @@
             <el-input v-model.number="form.tel" placeholder="请输入登录手机号"></el-input>
           </el-form-item>
           <el-form-item label="密码" prop="password">
-            <password-input v-model="form.password" />
+            <el-input placeholder="请输入密码" v-model="form.password" show-password></el-input>
+            <!-- <password-input v-model="form.password" /> -->
           </el-form-item>
           <el-form-item>
             <el-button class="full" type="primary" @click="onSubmit">立即登录</el-button>
@@ -29,69 +30,73 @@
 </template>
 
 <script>
-import CustomizedFooter from 'components/customized-footer.vue';
-import CustomizedNav from 'components/customized-nav.vue';
-import PasswordInput from 'components/password-input.vue';
-import { signin } from 'apis/account';
-import { mapMutations } from 'vuex';
-import { DONE_LOGIN } from 'store/mutation-types';
+import CustomizedFooter from "components/customized-footer.vue";
+import CustomizedNav from "components/customized-nav.vue";
+import PasswordInput from "components/password-input.vue";
+import { signin } from "apis/account";
+import { mapMutations } from "vuex";
+import { DONE_LOGIN } from "store/mutation-types";
 
 export default {
-  name: 'login',
+  name: "login",
   components: {
     CustomizedFooter,
     CustomizedNav,
-    PasswordInput,
+    PasswordInput
   },
   data() {
     return {
       form: {
-        tel: '',
-        password: ''
+        tel: "",
+        password: ""
       },
       rules: {
         tel: [
-          { required: true, message: '请输入登录手机号', trigger: 'blur' },
-          { type: 'number', message: '手机号必须为数字值', trigger: 'blur' }
+          { required: true, message: "请输入登录手机号", trigger: "blur" },
+          { type: "number", message: "手机号必须为数字值", trigger: "blur" }
         ],
         password: [
-          { required: true, message: '请输入登录密码', trigger: 'blur' },
+          { required: true, message: "请输入登录密码", trigger: "blur" }
         ]
       }
-    }
+    };
   },
   methods: {
-    ...mapMutations([
-      DONE_LOGIN,
-    ]),
+    ...mapMutations([DONE_LOGIN]),
     onSubmit() {
-      this.$refs['form'].validate(async (valid) => {
+      this.$refs["form"].validate(async valid => {
         if (valid) {
           // const res = await signin({ ...this.form });
           // if (res.result) {
           //   this[DONE_LOGIN]();
           // }
-          this.$_http.post('/login',{username:'1100',password:'110'}).then(res => {
-            this.$store.commit('SET_TOKEN', res.data.token)
-            console.log(res.set-cookie)
-          if (res.data.code == 302) {
-            this.$router.push({ path: 'reset-password' });
-            console.log(res) 
-          }
-        });
+          this.$_http
+            .post("/api/login", { username: "18116241233", password: "123" })
+            .then(res => {
+              this.$router.push({ path: "register" });
+              // this.$store.commit('SET_TOKEN', res.data.token)
+              // console.log(res.set-cookie)
+              // if (res.data.code == 302) {
+              //   this.$router.push({ path: 'reset-password' });
+              //   console.log(res)
+              // }
+            })
+            .catch(error => {
+              console.log(error+'23232332');
+            });
         } else {
           return false;
         }
       });
     },
     gotoRegisterUI() {
-      this.$router.push({ path: 'register' });
+      this.$router.push({ path: "register" });
     },
     gotoResetPwdUI() {
-      this.$router.push({ path: 'reset-password' });
+      this.$router.push({ path: "reset-password" });
     }
   }
-}
+};
 </script>
 
 <style lang="stylus" scoped>

@@ -31,6 +31,11 @@ export default {
           this.frozen = false;
         }
       }, 1000);
+      this.$http.post('/account/phone/vcode',{phone:'18116241233'}).then(res => {
+            console.log(res) 
+          if (res.data.code == 200) {
+          }
+        });
     }
   },
   watch: {

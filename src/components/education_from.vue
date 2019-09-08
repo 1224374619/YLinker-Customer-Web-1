@@ -1,11 +1,11 @@
 <template>
     <div class="from">
         <div class="fromfirst">
-             <div class="fromfirst-one"><span>华东理工大学</span></div>
-             <div class="fromfirst-one"><span>工学设计 | 硕士</span></div>
+             <div class="fromfirst-one"><span>{{fromData.educationName}}</span></div>
+             <div class="fromfirst-one"><span>{{fromData.educationDegree}}</span></div>
         </div>
         <div class="fromsecond">
-            <div class="fromfirst-two"><span>2018-12/至今</span></div>
+            <div class="fromfirst-two"><span>{{fromData.educationTime}}</span></div>
         </div>
     </div>
 </template>
@@ -16,14 +16,15 @@
         props:['fromData','index'],
         data() {
             return {
-                ruleForm: {
-                   educationName:"",
-                   educationTime:"",
-                   educationDegree:""
-                },
+
+                   educationName:"educationName",
+                   educationTime:"educationTime",
+                   educationDegree:"educationDegree"
+
             };
         },
         created () {
+            console.log(fromData.educationName+"211111111111111111111132")
             //如果后台有个人之前填的数据，需要先把数据格式化后复制给子组件，可以进行修改操作
             this.ruleForm = Object.assign({},this.fromData)
         },
@@ -48,12 +49,12 @@
     color #61687c
     text-align left
     margin 0 0 0 0
-    .fromfirst 
+    .fromfirst
       margin 0 0 0 50px
       .fromfirst-one
-        margin 10px 0 0 0 
-    .fromsecond 
+        margin 10px 0 0 0
+    .fromsecond
       margin 0 0 0 235px
       .fromfirst-two
-        margin 10px 0 0 0   
+        margin 10px 0 0 0
 </style>

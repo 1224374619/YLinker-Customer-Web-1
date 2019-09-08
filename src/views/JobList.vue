@@ -75,7 +75,7 @@
             </el-radio-group>
         </div>
         <div></div>
-        <div class="article" style="margin-top:-42px" >
+        <div class="article" style="margin-top:-47px" >
             <el-checkbox-group size="small" v-model="scale">
             <span style="margin-left:-50px" class="article-title">公司规模：</span>
             <el-checkbox-button  class="article-content" label="1">10人以下</el-checkbox-button>
@@ -84,16 +84,6 @@
             <el-checkbox-button class="article-content" label="4">500以上</el-checkbox-button>
             </el-checkbox-group>
         </div>
-        <div class="article" style="margin-top:-42px" >
-            <el-radio-group size="small" v-model="industry">
-            <span style="margin-left:-50px" class="article-title">公司行业：</span>
-            <el-radio-button class="article-content" label="1">行业</el-radio-button>
-            <el-radio-button class="article-content" label="2">行业</el-radio-button>
-            <el-radio-button class="article-content" label="3">行业</el-radio-button>
-            <el-radio-button class="article-content" label="4">行业</el-radio-button>
-            </el-radio-group>
-        </div>
-        
         <div class="article" style="margin-top:-42px" >
             <el-checkbox-group size="small" v-model="quality">
             <span style="margin-left:-50px" class="article-title">企业性质：</span>
@@ -105,7 +95,7 @@
             <el-checkbox-button class="article-content" label="6">上市公司</el-checkbox-button>
             </el-checkbox-group>
         </div>
-        <div class="article" style="margin-top:-42px;margin-bottom:10px" >
+        <div class="article" style="margin-top:-65px;" >
             <el-checkbox-group size="small" v-model="releaseTime">
               <span style="margin-left:-50px" class="article-title">发布时间：</span>
               <el-checkbox-button class="article-content" label="1">一天以内</el-checkbox-button>
@@ -115,6 +105,38 @@
               <el-checkbox-button class="article-content" label="5">十五天以内</el-checkbox-button>
             </el-checkbox-group>
         </div>
+         <div class="article" style="margin-top:-42px" >
+            <el-checkbox-group size="small" v-model="duty">
+              <span style="margin-left:-50px" class="article-title">公司行业：</span>
+              <el-checkbox-button class="article-content" label="1">行业</el-checkbox-button>
+              <el-checkbox-button class="article-content" label="2">行业</el-checkbox-button>
+              <el-checkbox-button class="article-content" label="3">行业</el-checkbox-button>
+              <el-checkbox-button class="article-content" label="4">行业</el-checkbox-button>
+              <el-checkbox-button class="article-content" label="5">行业</el-checkbox-button>
+            </el-checkbox-group>
+            <span style="margin:46px 0 10px 250px;font-size:13px;color:#1f368d" @mouseenter="more">更多<i class="el-icon-caret-bottom"></i></span>
+        </div>
+        <div style="margin-top:-5px" v-if="isduty">
+            <el-checkbox-group size="small" v-model="menu" style="width:770px;margin:-45px 0 0 -5px">
+              <div>111</div>
+              <el-checkbox-button  label="1">行业</el-checkbox-button>
+              <el-checkbox-button  label="2">行业</el-checkbox-button>
+              <el-checkbox-button  label="3">行业</el-checkbox-button>
+              <el-checkbox-button  label="4">行业</el-checkbox-button>
+              <el-checkbox-button  label="5">行业</el-checkbox-button>
+              <el-checkbox-button  label="1">行业</el-checkbox-button>
+              <el-checkbox-button  label="2">行业</el-checkbox-button>
+              <el-checkbox-button  label="3">行业</el-checkbox-button>
+              <el-checkbox-button  label="4">行业</el-checkbox-button>
+              <el-checkbox-button  label="5">行业</el-checkbox-button>
+              <el-checkbox-button  label="1">行业</el-checkbox-button>
+              <el-checkbox-button  label="2">行业</el-checkbox-button>
+              <el-checkbox-button  label="3">行业</el-checkbox-button>
+              <el-checkbox-button  label="4">行业</el-checkbox-button>
+              <el-checkbox-button  label="5">行业</el-checkbox-button>
+            </el-checkbox-group>
+        </div>
+        
         <div class="article-button" v-if="articleButton">
             <el-button @click="cancelButton" class="button" type="primary" style="margin:0 0 16px 564px;width:105px;height:35px;line-height:3px;color:white;font-size:12px;padding:0px;">清除筛选条件</el-button>
             <el-button @click="keepButton" class="button" type="primary" style="margin:0 0 16px 30px;width:105px;height:35px;line-height:3px;color:white;font-size:12px;padding:0px;">立即筛选</el-button>
@@ -169,7 +191,7 @@
     <el-dialog
         class="dialog"
         :visible.sync="dialogVisible"
-        width="30%"
+        style="width:1150px;margin-left:15%"
         :before-close="handleClose">
         <div class="dialog-title">
             <span>热门城市</span>
@@ -226,11 +248,14 @@ export default {
   },
   data() {
     return {
+      menu:[],
+      isduty:false,
       joblistCompany:false,
       joblistJob:true,
       isshow:true,
       searchContent:'',
       cityButton:'',
+      duty:[],
       articleButton:false,
       district:'0',
       workExperience:'0',
@@ -439,6 +464,10 @@ export default {
       
   },
   methods: {
+      more() {
+        this.isduty = true
+      },
+     
       citys(c) {
         alert(0)
         console.log(c)
@@ -571,7 +600,10 @@ export default {
       border 1px solid white
       margin 11px 0 0 0
       .article
+        display flex
+        flex-direction row
         .article-content
+        
         .article-content-first
           font-family PingFangSC-Regular
           color red 
@@ -754,7 +786,7 @@ export default {
     border 0px solid #617dcb
   .el-checkbox-button.is-checked .el-checkbox-button__inner
     background-color #617dcb
-    box-shadow -1px 0 0 0 #617dcb
+    box-shadow 0 0 0 0 #617dcb
     border-radius 0 0 0 0
     color white
   .el-checkbox-button--small .el-checkbox-button__inner
