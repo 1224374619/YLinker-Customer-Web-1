@@ -122,26 +122,7 @@ export default {
         showWarn:false,
         showTabs:true,
         isshowTabs:false,
-        submittedList:[{
-          companyName:'迪卡侬',
-          degreeMin:'本科',
-          positionName:'产品经理',
-          publishedTime:'今天 15:30',
-          salaryMax:'5',
-          salaryMin:'3',
-          workAgeMax:'3',
-          workAgeMin:'1'
-        },
-        {
-          companyName:'引领',
-          degreeMin:'本科',
-          positionName:'产品经理',
-          publishedTime:'今天 15:30',
-          salaryMax:'8',
-          salaryMin:'7',
-          workAgeMax:'3',
-          workAgeMin:'1'
-        }],
+        submittedList:[],
         favoriteList:[{
           degreeMin:'大专',
           positionName:'前端',
@@ -157,33 +138,7 @@ export default {
           workAgeMax:'5',
           workAgeMin:'3'
         }],
-        searchedList:[{
-          postion:'产品经理',
-          salaryMin:'3',
-          salaryMax:'5',
-          companyName:'迪卡侬',
-        },
-        {
-          postion:'前端',
-          salaryMin:'3',
-          salaryMax:'5',
-          companyName:'迪卡侬',
-        },{
-          postion:'前端',
-          salaryMin:'3',
-          salaryMax:'5',
-          companyName:'迪卡侬',
-        },{
-          postion:'前端',
-          salaryMin:'3',
-          salaryMax:'5',
-          companyName:'迪卡侬',
-        },{
-          postion:'前端',
-          salaryMin:'3',
-          salaryMax:'5',
-          companyName:'迪卡侬',
-        }],
+        searchedList:[],
         city:'上海',
         workAge:'2年',
         age:'24岁',
@@ -203,19 +158,20 @@ export default {
         // datacenterBus.$emit("myFun",false)   //$emit这个方法会触发一个事件
         this.$router.push({path:'/resume'})
       },
-      //获取投递过的岗位(接口需要登陆)
+      //获取投递过的岗位
       submitted() {
           this.$http.get('/submitted/position').then(res => {
           if (res.data.code == 200) {
-            this.submittedList = res.data.data; 
+            this.submittedList = res.data.list; 
           }
         });
       },
-      //获取收藏的岗位(接口需要登陆)
+      //获取收藏的岗位
       favorite() {
           this.$http.get('/favorite/position').then(res => {
           if (res.data.code == 200) {
-            this.favoriteList = res.data.data; 
+            this.favoriteList = res.data.list; 
+            console.log(res.data.list)
           }
         });
       },
@@ -223,7 +179,7 @@ export default {
       iscancel() {
           this.$http.delete(`/favorite/position/${2}`).then(res => {
           if (res.data.code == 200) {
-            // this.favoriteList = res.data.data; 
+           console.log(res)
           }
         });
       },
@@ -248,7 +204,7 @@ export default {
       this.submitted();
       this.favorite();
       this.iscancel();
-      this.searched();
+      // this.searched();
     },
 }
 </script>

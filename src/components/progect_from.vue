@@ -2,18 +2,18 @@
     <div class="from">
         <div style="display:flex;flex-direction:row">
             <div class="fromfirst">
-                <div class="fromfirst-one"><span>{{companyName}} | {{itemName}}</span></div>
-                <div class="fromfirst-one" style="color:#61687c"><span>产品经理</span></div>
+                <div class="fromfirst-one"><span>{{fromData.company}}</span></div>
+                <div class="fromfirst-one" style="color:#61687c"><span>{{fromData.project}}</span></div>
             </div>
             <div class="fromsecond">
-                <div class="fromfirst-two" style="color:#61687c"><span>{{schoolTime}}/至今</span></div>
+                <div class="fromfirst-two" style="color:#61687c"><span>{{fromData.beginTime | formatDateOne}}/{{fromData.endTime | formatDateOne}}</span></div>
             </div>
         </div>
         <div style="margin:10px 0 0 47px;color:#61687c">
-            <span>个人职责：<span>{{duty}}</span></span>
+            <span>个人职责：<span>{{fromData.duty}}</span></span>
         </div>
         <div style="margin:10px 0 0 47px;color:#61687c">
-            <span>项目介绍：<span>{{project}}</span></span>
+            <span>项目介绍：<span>{{fromData.description}}</span></span>
         </div>
     </div>
 </template>
@@ -21,7 +21,7 @@
 <script>
     export default {
         name:'progect_from',
-        props:['fromData','index'],
+        props:['fromData'],
         data() {
             return {
                    itemName: '银领人才',
@@ -58,10 +58,11 @@
     margin 0 0 0 0
     .fromfirst 
       margin 0 0 0 50px
+      width 300px
       .fromfirst-one
         margin 10px 0 0 0 
     .fromsecond 
-      margin 0 0 0 235px
+      margin 0 0 0 25px
       .fromfirst-two
-        margin 8px 0 0 -16px   
+        margin 10px 0 0 -16px   
 </style>

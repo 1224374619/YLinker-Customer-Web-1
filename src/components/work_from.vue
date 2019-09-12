@@ -1,16 +1,16 @@
 <template>
     <div class="from">
         <div style="display:flex;flex-direction:row">
-            <div class="fromfirst">
-                <div class="fromfirst-one"><span>{{ruleForm.companyName}} | {{ruleForm.trade}}</span></div>
-                <div class="fromfirst-one"><span>{{ruleForm.branch}} | {{ruleForm.postName}}</span></div>
+            <div class="fromfirst" >
+                <div class="fromfirst-one"><span>{{fromData.company}}</span></div>
+                <div class="fromfirst-one"><span>{{fromData.position}}</span></div>
             </div>
             <div class="fromsecond">
-                <div class="fromfirst-two"><span>{{ruleForm.jobTime}}/至今</span></div>
+                <div class="fromfirst-two"><span>{{fromData.beginTime | formatDateOne}}/{{fromData.endTime | formatDateOne}}</span></div>
             </div>
         </div>
         <div style="margin:10px 0 0 47px;color:#61687c">
-            <span>工作内容：<span>{{ruleForm.jobDescription}}</span></span>
+            <span>工作内容：<span>{{fromData.description}}</span></span>
         </div>
     </div>
 </template>
@@ -18,7 +18,7 @@
 <script>
     export default {
         name:'from',
-        props:['fromData','index'],
+        props:['fromData'],
         data() {
             return {
                 ruleForm: {
@@ -58,10 +58,11 @@
     margin 0 0 0 0
     .fromfirst 
       margin 0 0 0 50px
+      width 300px
       .fromfirst-one
         margin 10px 0 0 0 
     .fromsecond 
-      margin 0 0 0 235px
+      margin 0 0 0 25px
       .fromfirst-two
-        margin 8px 0 0 -16px   
+        margin 10px 0 0 -16px   
 </style>

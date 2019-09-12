@@ -2,9 +2,10 @@
   <Scroll ref="scroll">
     <div class="resumes">
       <div class="content">
+        <!-- 教育经历删除确认 -->
         <el-dialog
                 title=""
-                :visible.sync="dialog"
+                :visible.sync="dialogedu"
                 width="30%"
                 :before-close="handleClose">
           <div style="display:flex;flex-direction:row;margin-left:150px">
@@ -13,7 +14,103 @@
           </div>
           <div slot="footer" class="dialog-footer" style="margin-top:-30px">
             <el-button style="margin:0 20px 0 0" @click="dialog = false" plain>取 消</el-button>
-            <el-button type="primary" style="margin:0 160px 0 0" @click="dialog = false">确 定</el-button>
+            <el-button type="primary" style="margin:0 160px 0 0" @click="deletedu()">确 定</el-button>
+          </div>
+          <div style="height:30px"></div>
+        </el-dialog>
+        <!-- 工作经历删除确认 -->
+        <el-dialog
+                title=""
+                :visible.sync="dialogwork"
+                width="30%"
+                :before-close="handleClose">
+          <div style="display:flex;flex-direction:row;margin-left:150px">
+            <img style="height:18px;" :src="require('../assets/images/222.png')"/>
+            <span style="font-size:14px;line-height:20px;margin:0 0 0 20px">删除后不能恢复，请确定删除？</span>
+          </div>
+          <div slot="footer" class="dialog-footer" style="margin-top:-30px">
+            <el-button style="margin:0 20px 0 0" @click="dialogwork = false" plain>取 消</el-button>
+            <el-button type="primary" style="margin:0 160px 0 0" @click="deletework()">确 定</el-button>
+          </div>
+          <div style="height:30px"></div>
+        </el-dialog>
+         <!-- 项目经历删除确认 -->
+        <el-dialog
+                title=""
+                :visible.sync="dialogproject"
+                width="30%"
+                :before-close="handleClose">
+          <div style="display:flex;flex-direction:row;margin-left:150px">
+            <img style="height:18px;" :src="require('../assets/images/222.png')"/>
+            <span style="font-size:14px;line-height:20px;margin:0 0 0 20px">删除后不能恢复，请确定删除？</span>
+          </div>
+          <div slot="footer" class="dialog-footer" style="margin-top:-30px">
+            <el-button style="margin:0 20px 0 0" @click="dialogproject = false" plain>取 消</el-button>
+            <el-button type="primary" style="margin:0 160px 0 0" @click="deleteproject()">确 定</el-button>
+          </div>
+          <div style="height:30px"></div>
+        </el-dialog>
+         <!-- 培训经历删除确认 -->
+        <el-dialog
+                title=""
+                :visible.sync="dialogtrain"
+                width="30%"
+                :before-close="handleClose">
+          <div style="display:flex;flex-direction:row;margin-left:150px">
+            <img style="height:18px;" :src="require('../assets/images/222.png')"/>
+            <span style="font-size:14px;line-height:20px;margin:0 0 0 20px">删除后不能恢复，请确定删除？</span>
+          </div>
+          <div slot="footer" class="dialog-footer" style="margin-top:-30px">
+            <el-button style="margin:0 20px 0 0" @click="dialogtrain = false" plain>取 消</el-button>
+            <el-button type="primary" style="margin:0 160px 0 0" @click="deletetrain()">确 定</el-button>
+          </div>
+          <div style="height:30px"></div>
+        </el-dialog>
+         <!-- 语言能力删除确认 -->
+        <el-dialog
+                title=""
+                :visible.sync="dialoglanguage"
+                width="30%"
+                :before-close="handleClose">
+          <div style="display:flex;flex-direction:row;margin-left:150px">
+            <img style="height:18px;" :src="require('../assets/images/222.png')"/>
+            <span style="font-size:14px;line-height:20px;margin:0 0 0 20px">删除后不能恢复，请确定删除？</span>
+          </div>
+          <div slot="footer" class="dialog-footer" style="margin-top:-30px">
+            <el-button style="margin:0 20px 0 0" @click="dialoglanguage = false" plain>取 消</el-button>
+            <el-button type="primary" style="margin:0 160px 0 0" @click="deletelanguage()">确 定</el-button>
+          </div>
+          <div style="height:30px"></div>
+        </el-dialog>
+         <!-- 专业技能删除确认 -->
+        <el-dialog
+                title=""
+                :visible.sync="dialogskill"
+                width="30%"
+                :before-close="handleClose">
+          <div style="display:flex;flex-direction:row;margin-left:150px">
+            <img style="height:18px;" :src="require('../assets/images/222.png')"/>
+            <span style="font-size:14px;line-height:20px;margin:0 0 0 20px">删除后不能恢复，请确定删除？</span>
+          </div>
+          <div slot="footer" class="dialog-footer" style="margin-top:-30px">
+            <el-button style="margin:0 20px 0 0" @click="dialogskill = false" plain>取 消</el-button>
+            <el-button type="primary" style="margin:0 160px 0 0" @click="deleteskill()">确 定</el-button>
+          </div>
+          <div style="height:30px"></div>
+        </el-dialog>
+        <!-- 荣誉奖项删除确认 -->
+        <el-dialog
+                title=""
+                :visible.sync="dialogaward"
+                width="30%"
+                :before-close="handleClose">
+          <div style="display:flex;flex-direction:row;margin-left:150px">
+            <img style="height:18px;" :src="require('../assets/images/222.png')"/>
+            <span style="font-size:14px;line-height:20px;margin:0 0 0 20px">删除后不能恢复，请确定删除？</span>
+          </div>
+          <div slot="footer" class="dialog-footer" style="margin-top:-30px">
+            <el-button style="margin:0 20px 0 0" @click="dialogaward = false" plain>取 消</el-button>
+            <el-button type="primary" style="margin:0 160px 0 0" @click="deleteawards()">确 定</el-button>
           </div>
           <div style="height:30px"></div>
         </el-dialog>
@@ -39,10 +136,10 @@
               </el-form-item>
               <el-form-item label="求职状态" prop='state'>
                 <el-select style="width:400px;height:36px;margin-right:50px" v-model='formInformation.state'  placeholder>
-                  <el-option label value="离职-随时到岗"></el-option>
-                  <el-option label value="离职-延时到岗"></el-option>
-                  <el-option label value="在职-考虑机会"></el-option>
-                  <el-option label value="在职-暂不考虑"></el-option>
+                  <el-option label='离职-随时到岗' value="1"></el-option>
+                  <el-option label='离职-延时到岗' value="2"></el-option>
+                  <el-option label='在职-考虑机会' value="3"></el-option>
+                  <el-option label='在职-暂不考虑' value="4"></el-option>
                 </el-select>
               </el-form-item>
               <el-form-item label="到岗时间" prop='dutyTime'>
@@ -56,8 +153,8 @@
               </el-form-item>
               <el-form-item label="性别" style="margin:0 285px 0 0" prop='sex'>
                 <el-radio-group v-model='formInformation.sex'>
-                  <el-radio-button  label="男性"></el-radio-button>
-                  <el-radio-button  label="女性"></el-radio-button>
+                  <el-radio-button  label="1" >男性</el-radio-button>
+                  <el-radio-button  label="2" >女性</el-radio-button>
                 </el-radio-group>
               </el-form-item><br>
               <el-form-item label="工作年限" prop='workAge'>
@@ -71,20 +168,20 @@
               </el-form-item>
               <el-form-item label="所在城市" prop='city'>
                 <el-select style="width:400px;height:36px;margin-right:50px" v-model='formInformation.city'  placeholder>
-                  <el-option label value="上海"></el-option>
-                  <el-option label value="天津"></el-option>
-                  <el-option label value="北京"></el-option>
+                  <el-option label='上海' value="1"></el-option>
+                  <el-option label='天津' value="2"></el-option>
+                  <el-option label='北京' value="3"></el-option>
                 </el-select>
               </el-form-item>
               <el-form-item label="最高学历" prop='educationLevel'>
                 <el-select style="width:400px;height:36px;margin-right:50px" v-model='formInformation.educationLevel' placeholder>
-                  <el-option label value="初中及以下"></el-option>
-                  <el-option label value="中专/职中"></el-option>
-                  <el-option label value="高中"></el-option>
-                  <el-option label value="大专"></el-option>
-                  <el-option label value="本科"></el-option>
-                  <el-option label value="硕士"></el-option>
-                  <el-option label value="博士"></el-option>
+                  <el-option label='初中及以下' value="1"></el-option>
+                  <el-option label='职中' value="2"></el-option>
+                  <el-option label='高中' value="3"></el-option>
+                  <el-option label='大专' value="4"></el-option>
+                  <el-option label='本科' value="5"></el-option>
+                  <el-option label='硕士' value="6"></el-option>
+                  <el-option label='博士' value="7"></el-option>
                 </el-select>
               </el-form-item>
               <el-form-item label="生日" prop='birthday'>
@@ -103,11 +200,11 @@
               </el-form-item>
               <el-form-item label="政治面貌" prop='politicCountenance'>
                 <el-select style="width:400px;height:36px;margin-right:50px" v-model="formInformation.politicCountenance" placeholder="请选择政治面貌">
-                  <el-option label value="群众"></el-option>
-                  <el-option label value="团员"></el-option>
-                  <el-option label value="民主党派"></el-option>
-                  <el-option label value="预备党员"></el-option>
-                  <el-option label value="中共党员"></el-option>
+                  <el-option label='群众' value="1"></el-option>
+                  <el-option label='团员' value="2"></el-option>
+                  <el-option label='民主党派' value="3"></el-option>
+                  <el-option label='预备党员' value="4"></el-option>
+                  <el-option label='中共党员' value="5"></el-option>
                 </el-select>
               </el-form-item>
             </el-form>
@@ -153,26 +250,26 @@
               </el-form-item>
               <el-form-item label="薪资范围" prop='scope'>
                   <el-select style="width:400px;height:36px;margin-right:50px" v-model="formJobintension.scope" placeholder="">
-                  <el-option label="" value="1千以下"></el-option>
-                  <el-option label="" value="1k-2k"></el-option>
-                  <el-option label="" value="2k-4k"></el-option>
-                  <el-option label="" value="4k-6k"></el-option>
-                  <el-option label="" value="6k-8k"></el-option>
+                  <el-option label="1千以下" value="1"></el-option>
+                  <el-option label="1k-2k" value="2"></el-option>
+                  <el-option label="2k-4k" value="3"></el-option>
+                  <el-option label="4k-6k" value="4"></el-option>
+                  <el-option label="6k-8k" value="5"></el-option>
                   </el-select>
               </el-form-item>
               <el-form-item label="求职状态" prop='status'>
                   <el-select id="name" style="width:400px;height:36px;margin-right:50px" v-model="formJobintension.status" placeholder="" @change="JobType()">
-                  <el-option label="" value="离职-随时到岗"></el-option>
-                  <el-option label="" value="离职-延时到岗"></el-option>
-                  <el-option label="" value="在职-考虑机会"></el-option>
-                  <el-option label="" value="在职-暂不考虑"></el-option>
+                  <el-option label="离职-随时到岗" value="1"></el-option>
+                  <el-option label="离职-延时到岗" value="2"></el-option>
+                  <el-option label="在职-考虑机会" value="3"></el-option>
+                  <el-option label="在职-暂不考虑" value="4"></el-option>
                   </el-select>
               </el-form-item>
               <el-form-item label="工作类型" prop='jobType'>
                   <el-select style="width:400px;height:36px;margin-right:50px" v-model="formJobintension.jobType" placeholder="">
-                  <el-option label="" value="实习"></el-option>
-                  <el-option label="" value="全职"></el-option>
-                  <el-option label="" value="兼职"></el-option>
+                  <el-option label="实习" value="1"></el-option>
+                  <el-option label="全职" value="2"></el-option>
+                  <el-option label="兼职" value="3"></el-option>
                   </el-select>
               </el-form-item>
               <el-form-item label="到岗时间" class="block" prop='reportTime'>
@@ -184,11 +281,11 @@
                   placeholder="选择日期"
                 ></el-date-picker>
               </el-form-item>
+              <el-form-item>
+                  <el-button style="margin:0 20px 0 175px" @click="jobintensioninnerVisible = true" plain>取 消</el-button>
+                  <el-button style="margin:0 25px 0 0" type="primary" @click="jobintensionkeep('formJobintension')">保存</el-button>
+              </el-form-item>
             </el-form>
-          </div>
-          <div slot="footer" class="dialog-footer">
-            <el-button style="margin:0 20px 0 0" @click="jobintensioninnerVisible = true" plain>取 消</el-button>
-            <el-button style="margin:0 35px 0 0" type="primary" @click="jobintensionkeep('formJobintension')">保存</el-button>
           </div>
         </el-dialog>
         <!-- 工作经历编辑 -->
@@ -226,11 +323,11 @@
               <el-form-item label="工作描述" prop='jobDescription'>
                   <el-input type="textarea" v-model="formWork.jobDescription"  style="width:400px;margin-right:50px" ></el-input>
               </el-form-item>
+              <el-form-item>
+                  <el-button style="margin:0 20px 0 175px" @click="workinnerVisible = true" plain>取 消</el-button>
+                  <el-button style="margin:0 20px 0 0" type="primary" @click="workkeep('formWork')">保存</el-button>
+              </el-form-item>
             </el-form>
-          </div>
-          <div slot="footer" class="dialog-footer">
-            <el-button style="margin:0 20px 0 0" @click="workinnerVisible = true" plain>取 消</el-button>
-            <el-button style="margin:0 35px 0 0" type="primary" @click="workkeep('formWork')">保存</el-button>
           </div>
         </el-dialog>
         <!-- 教育经历编辑 -->
@@ -255,14 +352,18 @@
               </el-form-item>
               <el-form-item label="学历" prop='educationDegree'>
                   <el-select style="width:400px;height:36px;margin-right:50px" placeholder="" v-model="formEducation.educationDegree">
-                  <el-option label="" value="初中及以下"></el-option>
-                  <el-option label="" value="大专/职中"></el-option>
-                  <el-option label="" value="高中"></el-option>
-                  <el-option label="" value="大专"></el-option>
-                  <el-option label="" value="本科"></el-option>
-                  <el-option label="" value="硕士"></el-option>
-                  <el-option label="" value="博士"></el-option>
+                  <el-option label="初中及以下" value=""></el-option>
+                  <el-option label="职中" value="1"></el-option>
+                  <el-option label="高中" value="2"></el-option>
+                  <el-option label="大专" value="3"></el-option>
+                  <el-option label="本科" value="4"></el-option>
+                  <el-option label="硕士" value="5"></el-option>
+                  <el-option label="博士" value="6"></el-option>
                   </el-select>
+              </el-form-item>
+              <el-form-item >
+                  <el-button style="margin:0 20px 0 175px" @click="educationinnerVisible = true" plain>取 消</el-button>
+                  <el-button style="margin:0 20px 0 0" type="primary" @click="educationkeep('formEducation')">保存</el-button>
               </el-form-item>
             </el-form>
           </div>
@@ -279,10 +380,6 @@
               <el-button style="margin:0 80px 0 0" type="primary" @click="educationouterVisible = false,educationinnerVisible = false">确定</el-button>
              </div>
           </el-dialog>
-          <div slot="footer" class="dialog-footer">
-            <el-button style="margin:0 20px 0 0" @click="educationinnerVisible = true" plain>取 消</el-button>
-            <el-button style="margin:0 35px 0 0" type="primary" @click="educationkeep('formEducation')">保存</el-button>
-          </div>
         </el-dialog>
         <!-- 项目经历编辑 -->
         <el-dialog title="项目经历编辑" style="width:1150px;margin-left:15%" :visible.sync="progectouterVisible">
@@ -310,6 +407,10 @@
               <el-form-item label="项目介绍" prop='project'>
                   <el-input type="textarea" v-model="formProject.project" style="width:400px;margin-right:50px" ></el-input>
               </el-form-item>
+              <el-form-item>
+                  <el-button style="margin:0 20px 0 175px" @click="progectinnerVisible = true" plain>取 消</el-button>
+                  <el-button style="margin:0 25px 0 0" type="primary" @click="progectkeep('formProject')">保存</el-button>
+              </el-form-item>
             </el-form>
           </div>
           <el-dialog
@@ -325,10 +426,6 @@
               <el-button style="margin:0 80px 0 0" type="primary" @click="progectouterVisible = false,progectinnerVisible = false">确定</el-button>
              </div>
           </el-dialog>
-          <div slot="footer" class="dialog-footer">
-            <el-button style="margin:0 20px 0 0" @click="progectinnerVisible = true" plain>取 消</el-button>
-            <el-button style="margin:0 35px 0 0" type="primary" @click="progectkeep('formProject')">保存</el-button>
-          </div>
         </el-dialog>
         <!-- 培训经历编辑 -->
         <el-dialog title="培训经历编辑" style="width:1150px;margin-left:15%" :visible.sync="trainingouterVisible">
@@ -350,6 +447,10 @@
                   end-placeholder="结束日期">
                   </el-date-picker>
               </el-form-item>
+              <el-form-item>
+                  <el-button style="margin:0 20px 0 175px" @click="traininginnerVisible = true" plain>取 消</el-button>
+                  <el-button style="margin:0 25px 0 0" type="primary" @click="trainingkeep('formtraining')">保存</el-button>
+              </el-form-item>
             </el-form>
           </div>
           <el-dialog
@@ -365,10 +466,6 @@
               <el-button style="margin:0 80px 0 0" type="primary" @click="trainingouterVisible = false,traininginnerVisible = false">确定</el-button>
              </div>
           </el-dialog>
-          <div slot="footer" class="dialog-footer">
-            <el-button style="margin:0 20px 0 0" @click="traininginnerVisible = true" plain>取 消</el-button>
-            <el-button style="margin:0 35px 0 0" type="primary" @click="trainingkeep('formtraining')">保存</el-button>
-          </div>
         </el-dialog>
         <!-- 语言能力编辑 -->
         <el-dialog title="语言能力编辑" style="width:1150px;margin-left:15%" :visible.sync="languageouterVisible">
@@ -379,14 +476,23 @@
               </el-form-item>
               <el-form-item label="听力能力" prop='listenAbility'>
                   <el-select style="width:400px;height:36px;margin-right:50px" v-model="formlanguage.listenAbility" placeholder="">
-                  <el-option label="" value="一般"></el-option>
-                  <el-option label="" value="良好"></el-option>
-                  <el-option label="" value="熟练"></el-option>
-                  <el-option label="" value="精通"></el-option>
+                  <el-option label="一般" value="1"></el-option>
+                  <el-option label="良好" value="2"></el-option>
+                  <el-option label="熟练" value="3"></el-option>
+                  <el-option label="精通" value="4"></el-option>
                   </el-select>
               </el-form-item>
               <el-form-item label="读写能力" prop='readAbility'>
-                  <el-input style="width:400px;height:36px;margin-right:50px" v-model="formlanguage.readAbility" placeholder=""></el-input>
+                <el-select style="width:400px;height:36px;margin-right:50px" v-model="formlanguage.readAbility" placeholder="">
+                  <el-option label="一般" value="1"></el-option>
+                  <el-option label="良好" value="2"></el-option>
+                  <el-option label="熟练" value="3"></el-option>
+                  <el-option label="精通" value="4"></el-option>
+                  </el-select>
+              </el-form-item>
+              <el-form-item>
+                  <el-button style="margin:0 20px 0 175px" @click="languageinnerVisible = true" plain>取 消</el-button>
+                  <el-button style="margin:0 20px 0 0" type="primary" @click="languagekeep('formlanguage')">保存</el-button>
               </el-form-item>
             </el-form>
           </div>
@@ -399,14 +505,10 @@
                <span style="font-size:14px;line-height:20px;margin:0 0 0 20px">离开修改内容将不会保存</span>
              </div>
              <div slot="footer" class="dialog-footer">
-              <el-button style="margin:0 20px 0 0" @click="languageinnerVisible = false" plain>取 消</el-button>
-              <el-button style="margin:0 80px 0 0" type="primary" @click="languageouterVisible = false,languageinnerVisible = false">确定</el-button>
+              <el-button style="margin:0 20px 0 175px" @click="personalskillinnerVisible = true" plain>取 消</el-button>
+              <el-button style="margin:0 20px 0 0" type="primary" @click="skillkeep('formPersonalskill')">保存</el-button>
              </div>
           </el-dialog>
-          <div slot="footer" class="dialog-footer">
-            <el-button style="margin:0 20px 0 0" @click="languageinnerVisible = true" plain>取 消</el-button>
-            <el-button style="margin:0 35px 0 0" type="primary" @click="languagekeep('formlanguage')">保存</el-button>
-          </div>
         </el-dialog>
         <!-- 专业技能 -->
          <el-dialog title="专业技能编辑" style="width:1150px;margin-left:15%" :visible.sync="personalskillouterVisible">
@@ -417,9 +519,15 @@
               </el-form-item>
               <el-form-item label="掌握程度" prop='level'>
                   <el-select style="width:400px;height:36px;margin-right:50px" v-model="formPersonalskill.level" placeholder="">
-                  <el-option label="shanghai" value="shanghai"></el-option>
-                  <el-option label="beijing" value="beijing"></el-option>
+                  <el-option label="一般" value="1"></el-option>
+                  <el-option label="良好" value="2"></el-option>
+                  <el-option label="熟练" value="3"></el-option>
+                  <el-option label="精通" value="4"></el-option>
                   </el-select>
+              </el-form-item>
+              <el-form-item>
+                  <el-button style="margin:0 20px 0 175px" @click="personalskillinnerVisible = true" plain>取 消</el-button>
+                  <el-button style="margin:0 20px 0 0" type="primary" @click="skillkeep('formPersonalskill')">保存</el-button>
               </el-form-item>
             </el-form>
           </div>
@@ -436,10 +544,6 @@
               <el-button style="margin:0 80px 0 0" type="primary" @click="personalskillouterVisible = false,personalskillinnerVisible = false">确定</el-button>
              </div>
           </el-dialog>
-          <div slot="footer" class="dialog-footer">
-            <el-button style="margin:0 20px 0 0" @click="personalskillinnerVisible = true" plain>取 消</el-button>
-            <el-button style="margin:0 35px 0 0" type="primary" @click="skillkeep('formPersonalskill')">保存</el-button>
-          </div>
         </el-dialog>
          <!-- 荣誉奖项 -->
          <el-dialog title="荣誉奖项编辑" style="width:1150px;margin-left:15%" :visible.sync="awardsouterVisible">
@@ -456,6 +560,10 @@
                   placeholder="选择月">
                 </el-date-picker>
               </el-form-item>
+              <el-form-item>
+                   <el-button style="margin:0 20px 0 175px" @click="awardsinnerVisible = true" plain>取 消</el-button>
+                   <el-button style="margin:0 25px 0 0" type="primary" @click="awardskeep('formAwards')">保存</el-button>
+              </el-form-item>
             </el-form>
           </div>
           <el-dialog
@@ -471,10 +579,6 @@
               <el-button style="margin:0 80px 0 0" type="primary" @click="awardsouterVisible = false,awardsinnerVisible = false">确定</el-button>
              </div>
           </el-dialog>
-          <div slot="footer" class="dialog-footer">
-            <el-button style="margin:0 20px 0 0" @click="awardsinnerVisible = true" plain>取 消</el-button>
-            <el-button style="margin:0 35px 0 0" type="primary" @click="awardskeep('formAwards')">保存</el-button>
-          </div>
         </el-dialog>
          <!-- 自我评价 -->
          <el-dialog title="自我评价编辑" style="width:1150px;margin-left:15%" :visible.sync="selfappraisalouterVisible">
@@ -482,6 +586,10 @@
             <el-form :model="formSelfappraisal" class="demo-form-inline" label-width="100px" :rules="selfappraisalrules" ref="formSelfappraisal">
               <el-form-item label="自我评价" prop='personalDescription'>
                   <el-input type="textarea" v-model="formSelfappraisal.personalDescription" style="width:400px;margin-right:50px" placeholder="资料完善程度高，被选中的几率越大呦" ></el-input>
+              </el-form-item>
+               <el-form-item>
+                   <el-button style="margin:0 20px 0 175px" @click="selfappraisalinnerVisible = true" plain>取 消</el-button>
+                   <el-button style="margin:0 25px 0 0" type="primary" @click="selfappraisalkeep('formSelfappraisal')">保存</el-button>
               </el-form-item>
             </el-form>
           </div>
@@ -498,10 +606,6 @@
               <el-button style="margin:0 80px 0 0" type="primary" @click="selfappraisalouterVisible = false,selfappraisalinnerVisible = false">确定</el-button>
              </div>
           </el-dialog>
-          <div slot="footer" class="dialog-footer">
-            <el-button style="margin:0 20px 0 0" @click="selfappraisalinnerVisible = true" plain>取 消</el-button>
-            <el-button style="margin:0 35px 0 0" type="primary" @click="selfappraisalkeep('formSelfappraisal')">保存</el-button>
-          </div>
         </el-dialog>
         <!-- 添加个人信息 -->
         <div class="personalinformation" v-if="personalinformation">
@@ -517,28 +621,45 @@
               <i v-else class="el-icon-plus avatar-uploader-icon"></i>
             </el-upload>
           </div>
-          <div class="img-add" @click="isshowpersonalinformation"><img :src="require('../assets/images/add.png')"/><span
+          <div class="img-add" @click="ispersonalinformation"><img :src="require('../assets/images/add.png')"/><span
                   class="add">添加个人信息</span></div>
         </div>
         <div class="showdemo" v-if="showDemo">
           <Basic-Info/>
         </div>
-        <div ref="personalinformation" @mouseover="over(11)" v-if="showPersonalinformation" @mouseleave="leave(11)">
-          <Personalinformation-From @editsinformation='editsinformation(arguments)'/>
-        </div>
+        <ul v-if="showPersonalinformation" style="margin:0 30px 10px 0" @mouseover="over(11)" @mouseleave="leave(11)">
+          <li class='li-a'>
+            <div style="width:90%;margin:0 0 0 -30px">
+              <Personalinformation-From  :fromData="resumeIdList" @editsinformation='editsinformation(arguments)'/>
+            </div>
+            <div style="margin:40px 0 0 30px;height:12px;font-size:15px">
+                  <img style="margin-right:9px;height:12px" :src="require('../assets/images/ziwo.png')"/><span
+                      @click="showjpersonalList()">编辑</span>
+              </div>
+          </li>
+        </ul>
+        <!-- <div ref="personalinformation" @mouseover="over(11)" v-if="showPersonalinformation" @mouseleave="leave(11)">
+          <div>
+            <Personalinformation-From  :fromData="resumeIdList" @editsinformation='editsinformation(arguments)'/>
+            <span class="actions-span">
+                <img style="margin-right:9px;height:12px" :src="require('../assets/images/ziwo.png')"/><span
+                    style="margin-right:3px" @click="showjobintensionList()">编辑</span>
+            </span>
+          </div>
+        </div> -->
         <div class="content-line"></div>
         <!-- 求职意向 -->
         <div ref="jobintension" class="main-content">
           <div class="main-content-first"><img :src="require('../assets/images/qiuzhi.png')"/><span>求职意向</span></div>
         </div>
         <ul v-if="showjobintension" style="margin:-15px 0 10px 5px" @mouseover="over(10)" @mouseleave="leave(10)">
-          <li v-for="(list,index) in listjobintension" :key="index" class="ul-a">
+          <li class="ul-a">
               <span class="actions-span" style='margin:8px 20px 0 0'>
                   <img style="margin-right:9px;height:12px" :src="require('../assets/images/ziwo.png')"/><span
-                      style="margin-right:3px" @click="showjobintensionList(list)">编辑</span>
+                      style="margin-right:3px" @click="showjobintensionList()">编辑</span>
               </span>
             <div style="width:879px">
-              <from :from-data="list" :index="index"></from>
+              <from :fromData="listjobintension"></from>
               <br><br>
             </div>
           </li>
@@ -557,9 +678,9 @@
           <li v-for="(list,index) in listeducational" :key="index" class="ul-a">
               <span class="actions-span" style='margin:10px 20px 0 0'>
                   <img class="img-first" style="margin-right:9px;height:12px"
-                       :src="require('../assets/images/shan.png')"/><span @click="showdialog()" style="margin-right:20px">删除</span>
+                       :src="require('../assets/images/shan.png')"/><span @click="showedudialog(list)" style="margin-right:20px">删除</span>
                   <img class="img-second" style="margin-right:9px;height:12px"
-                       :src="require('../assets/images/ziwo.png')"/><span style="margin-right:3px" @click="showeducationalList(list)">编辑</span>
+                       :src="require('../assets/images/ziwo.png')"/><span style="margin-right:3px" @click="showeducationalList(list,index)">编辑</span>
               </span>
             <educationexperience-From :fromData="list" :index="index"></educationexperience-From>
             <br>
@@ -579,7 +700,7 @@
           <li v-for="(list,index) in listwork" :key="index" class="ul-a">
               <span class="actions-span" style='margin:8px 20px 0 0'>
                   <img style="margin-right:9px;height:12px" :src="require('../assets/images/shan.png')"/><span
-                      @click="showdialog()" style="margin-right:20px">删除</span>
+                      @click="showworkdialog(list)" style="margin-right:20px">删除</span>
                   <img style="margin-right:9px;height:12px" :src="require('../assets/images/ziwo.png')"/><span
                       style="margin-right:3px" @click="showworkperienceList(list)">编辑</span>
               </span>
@@ -601,7 +722,7 @@
           <li v-for="(list,index) in listprogectperience" :key="index" class="ul-a">
               <span class="actions-span" style='margin:8px 20px 0 0'>
                   <img style="margin-right:9px;height:12px" :src="require('../assets/images/shan.png')"/><span
-                      @click="showdialog()" style="margin-right:20px">删除</span>
+                      @click="showprojectdialog(list)" style="margin-right:20px">删除</span>
                   <img style="margin-right:9px;height:12px" :src="require('../assets/images/ziwo.png')"/><span
                       style="margin-right:3px" @click="showprogectperienceList(list)">编辑</span>
               </span>
@@ -623,7 +744,7 @@
           <li v-for="(list,index) in listtrain" :key="index" class="ul-a">
               <span class="actions-span" style='margin:20px 20px 0 0'>
                   <img style="margin-right:9px;height:12px" :src="require('../assets/images/shan.png')"/><span
-                      @click="showdialog()" style="margin-right:20px">删除</span>
+                      @click="showtraindialog(list)" style="margin-right:20px">删除</span>
                   <img style="margin-right:9px;height:12px" :src="require('../assets/images/ziwo.png')"/><span
                       style="margin-right:3px" @click="showtrainList(list)">编辑</span>
               </span><br>
@@ -645,7 +766,7 @@
           <li v-for="(list,index) in listlanguages" :key="index" class="ul-a">
               <span class="actions-span" style='margin:20px 20px 0 0'>
                   <img style="margin-right:9px;height:12px" :src="require('../assets/images/shan.png')"/><span
-                      @click="showdialog()" style="margin-right:20px">删除</span>
+                      @click="showlanguagedialog(list)" style="margin-right:20px">删除</span>
                   <img style="margin-right:9px;height:12px" :src="require('../assets/images/ziwo.png')"/><span
                       style="margin-right:3px" @click="showlanguagesList(list)">编辑</span>
               </span><br>
@@ -676,7 +797,7 @@
           <li v-for="(list,index) in listpersonalskill" :key="index" class="ul-a">
               <span class="actions-span" style='margin:20px 20px 0 0'>
                   <img style="margin-right:9px;height:12px" :src="require('../assets/images/shan.png')"/><span
-                      @click="showdialog()" style="margin-right:20px">删除</span>
+                      @click="showskilldialog(list)" style="margin-right:20px">删除</span>
                   <img style="margin-right:9px;height:12px" :src="require('../assets/images/ziwo.png')"/><span
                       style="margin-right:3px" @click="editskill(list)">编辑</span>
               </span><br>
@@ -697,7 +818,7 @@
           <li v-for="(list,index) in listaward" :key="index" class="ul-a">
               <span class="actions-span" style='margin:20px 20px 0 0'>
                   <img style="margin-right:9px;height:12px" :src="require('../assets/images/shan.png')"/><span
-                      @click="showdialog()" style="margin-right:20px">删除</span>
+                      @click="showawardsdialog(list)" style="margin-right:20px">删除</span>
                   <img style="margin-right:9px;height:12px" :src="require('../assets/images/ziwo.png')"/><span
                       style="margin-right:3px" @click="showawardList(list)">编辑</span>
               </span><br>
@@ -713,12 +834,12 @@
           <div class="main-content-first"><img :src="require('../assets/images/ziwo.png')"/><span>自我评价</span></div>
         </div>
         <ul v-if="showpersonappraisal" style="margin:-5px 0 10px 5px" @mouseover="over(1)" @mouseleave="leave(1)">
-          <li v-for="(list,index) in listpersonappraisal" :key="index" class="ul-a">
-              <span class="actions-span" style='margin:20px 20px 0 0'>
+          <li class="ul-a">
+              <span class="actions-span" style='margin:17px 20px 0 0'>
                   <img style="margin-right:9px;height:12px" :src="require('../assets/images/ziwo.png')"/><span
-                      style="margin-right:3px" @click="showselfappraisalList(list)">编辑</span>
+                      style="margin-right:3px" @click="showselfappraisalList()">编辑</span>
               </span>
-            <selfappraisal-from :from-data="list" :index="index"></selfappraisal-from>
+            <selfappraisal-from :from-data="listpersonappraisal" :index="index"></selfappraisal-from>
             <br>
           </li>
         </ul>
@@ -861,7 +982,20 @@
     },
     data() {
       return {
-        dialog: false,
+        awardsId:'',
+        languageId:'',
+        trainId:'',
+        progectId:'',
+        workId:'',
+        educationId:'',
+        resumeIdList:'',
+        dialogedu: false,
+        dialogwork:false,
+        dialogproject:false,
+        dialogtrain:false,
+        dialoglanguage:false,
+        dialogskill:false,
+        dialogaward:false,
         personalinformation: false,
         showPersonalinformation: true,
         showDemo: false,
@@ -907,64 +1041,15 @@
         awardsinnerVisible:false,
         selfappraisalinnerVisible:false,
         selfappraisalouterVisible:false,
-        listjobintension: [{
-          postType: "产品经理",
-          city: "上海/北京",
-          trade: "互联网金融/公关",
-          scope: "5k~10k",
-          status: "离职-随时到岗",
-          jobType: "实习"
-        }],
-        listeducational: [{
-          educationName: "华东理工大学",
-          educationTime: "2018/12",
-          educationDegree: "工业设计 | 硕士"
-        },
-        {
-          educationName: "华东大学",
-          educationTime: "2018/12",
-          educationDegree: "工业设计 | 博士"
-        }],
-        listwork: [{
-          jobDescription: '22电动车v发射点发射点犯得上犯得上发射点',
-          companyName: '银领',
-          monthPay: '4-6k',
-          postName: '产品经理',
-          jobTime: '2018/12',
-          branch: '技术部',
-          trade: 'IT',
-        }],
-        listprogectperience: [{
-          itemName: '银领人才',
-          companyName: '银领',
-          schoolTime: '2018/09',
-          duty: '文案文案文案文案文案文案文案文案文案文案文案文案文案',
-          project: '文案文案文案文案文案文案文案文案文案文案文案文案文案',
-        }],
-        listtrain: [{
-          trainCourse: '培训课程',
-          trainTime: '培训机构',
-        }],
-        listlanguages: [{
-          languages: "英语",
-          listenAbility: "听说能力良好",
-          readAbility: "读写能力良好",
-        }],
-        listpersonalskill: [{
-          technicalName: '2',
-          level: '2'
-        },
-        {
-          technicalName: '4',
-          level: '4'
-        },],
-        listaward: [{
-          prizeName: "xxxx比赛三等奖",
-          prizeTime: "2018/12",
-        }],
-        listpersonappraisal: [{
-          personalDescription: "年轻有为",
-        }],
+        listjobintension: '',
+        listeducational: [],
+        listwork: [],
+        listprogectperience: [],
+        listtrain: [],
+        listlanguages: [],
+        listpersonalskill: [],
+        listaward: [],
+        listpersonappraisal: '',
         formEducation: {
           educationDegree:'',
           educationName:'',
@@ -1008,7 +1093,8 @@
         },
         formtraining: {
           trainCourse:'',
-          trainTime:''
+          trainTime:'',
+          trainCours:'',
         },
         formlanguage: {
           languages: '',
@@ -1048,7 +1134,6 @@
           ],
           educationSpecialty: [
             {
-              type: "date",
               required: true,
               message: "请填写专业",
               trigger: "change"
@@ -1233,7 +1318,13 @@
       jobintensionkeep(formName) {
         this.$refs[formName].validate(valid => {
           if (valid) {
-            this.jobintensionouterVisible = false
+            this.$http.put(`/resume/${2}/target`,{content:this.formSelfappraisal.personalDescription}).then(res => {
+              if (res.data.code == 200) {
+                // console.log(res);
+                this.jobintensionouterVisible = false
+              }
+            });
+           
           } else {
             // this.informationouterVisible = false
             return false;
@@ -1244,6 +1335,12 @@
       informationkeep(formName) {
         this.$refs[formName].validate(valid => {
           if (valid) {
+            this.$http.put(`/resume/${2}/base`,{}).then(res => {
+              if (res.data.code == 200) {
+                // console.log(res);
+                this.jobintensionouterVisible = false
+              }
+            });
             this.informationouterVisible = false
           } else {
             // this.informationouterVisible = false
@@ -1255,7 +1352,13 @@
       selfappraisalkeep(formName) {
         this.$refs[formName].validate(valid => {
           if (valid) {
-            this.selfappraisalouterVisible = false
+            this.$http.put(`/resume/${2}/evaluation`,{content:this.formSelfappraisal.personalDescription}).then(res => {
+              if (res.data.code == 200) {
+                // console.log(res);
+                this.selfappraisalouterVisible = false
+              }
+            });
+            
           } else {
             // this.selfappraisalouterVisible = false
             return false;
@@ -1266,7 +1369,13 @@
       awardskeep(formName) {
         this.$refs[formName].validate(valid => {
           if (valid) {
-            this.awardsouterVisible = false
+            this.$http.put(`/resume/${2}/award/${this.awardsId}`,{award:this.formAwards.prizeAward,acquiredTime:2323233233}).then(res => {
+              if (res.data.code == 200) {
+                // console.log(res);
+                this.awardsouterVisible = false
+              }
+            });
+           
           } else {
             // this.awardsouterVisible = false
             return false;
@@ -1277,7 +1386,12 @@
       skillkeep(formName) {
         this.$refs[formName].validate(valid => {
           if (valid) {
-            this.personalskillouterVisible = false
+             this.$http.put(`/resume/${2}/skill/${this.skillId}`,{level:this.formPersonalskill.level,skill:this.formPersonalskill.technicalName}).then(res => {
+              if (res.data.code == 200) {
+                // console.log(res);
+               this.personalskillouterVisible = false
+              }
+            });
           } else {
             // this.personalskillouterVisible = false
             return false;
@@ -1288,7 +1402,13 @@
       languagekeep(formName) {
          this.$refs[formName].validate(valid => {
           if (valid) {
-            this.languageouterVisible = false
+             this.$http.put(`/resume/${2}/language/${this.languageId}`,{language:this.formlanguage.languages,listenAndSpeak:this.formlanguage.listenAbility,readAndWrite:this.formlanguage.readAbility}).then(res => {
+              if (res.data.code == 200) {
+                // console.log(res);
+               this.languageouterVisible = false
+              }
+            });
+            
           } else {
             // this.languageouterVisible = false
             return false;
@@ -1299,7 +1419,13 @@
       trainingkeep(formName) {
         this.$refs[formName].validate(valid => {
           if (valid) {
-            this.trainingouterVisible = false
+             this.$http.put(`/resume/${2}/training/${this.trainId}`,{lesson:this.formtraining.trainCourse,institution:this.formtraining.trainCours}).then(res => {
+              if (res.data.code == 200) {
+                // console.log(res);
+               this.trainingouterVisible = false
+              }
+            });
+            
           } else {
             // this.trainingouterVisible = false
             return false;
@@ -1310,7 +1436,12 @@
       progectkeep(formName) {
          this.$refs[formName].validate(valid => {
           if (valid) {
-            this.progectouterVisible = false
+            this.$http.put(`/resume/${2}/project/${this.progectId}`,{duty:this.formProject.duty,beginTime:654645646342,company:this.formProject.companyName,description: this.formProject.project,project:this.formProject.companyName}).then(res => {
+              if (res.data.code == 200) {
+                // console.log(res);
+               this.progectouterVisible = false
+              }
+            });
           } else {
             // this.progectouterVisible = false
             return false;
@@ -1321,7 +1452,12 @@
       workkeep(formName) {
          this.$refs[formName].validate(valid => {
           if (valid) {
-            this.workouterVisible = false
+            this.$http.put(`/resume/${2}/work/${this.workId}`,{beginTime:654645646342,company:this.formWork.companyName,description:this.formWork.jobDescription,position:this.formWork.postName}).then(res => {
+              if (res.data.code == 200) {
+                // console.log(res);
+                this.workouterVisible = false
+              }
+            });
           } else {
             // this.workouterVisible = false
             return false;
@@ -1332,18 +1468,79 @@
       educationkeep(formName) {
          this.$refs[formName].validate(valid => {
           if (valid) {
-            this.educationouterVisible = false
+            this.$http.put(`/resume/${2}/education/${this.educationId}`,{beginTime:966517171000,endTime:null,degree:this.formEducation.educationDegree,major:this.formEducation.educationSpecialty,school:this.formEducation.educationName,isUnified:false}).then(res => {
+              if (res.data.code == 200) {
+                // console.log(res);
+                this.educationouterVisible = false
+              }
+            });
+            
           } else {
-            this.educationouterVisible = false
+            // this.educationouterVisible = false
             return false;
           }
       });
       },
       //获取简历详情
       resumeId () {
-        this.$http.post(`/resume/${2}`).then(res => {
+        this.$http.get(`/resume/${2}`).then(res => {
           if (res.data.code == 200) {
-            console.log(res);
+            console.log(res.data.data)
+            this.resumeIdList = res.data.data.base
+            this.listjobintension = res.data.data.target
+            this.listeducational = res.data.data.eduExpr
+            this.listwork = res.data.data.workExpr
+            this.listprogectperience = res.data.data.projects
+            this.listtrain = res.data.data.training
+            this.listlanguages = res.data.data.languages
+            this.listpersonalskill = res.data.data.skills
+            this.listaward = res.data.data.awards
+            this.listpersonappraisal = res.data.data.evaluation
+
+            if(this.listjobintension.jobSearchStatus == 2) {
+                this.listjobintension.jobSearchStatus = '离职-延时到岗'  
+              }else if(this.listjobintension.jobSearchStatus == 1) {
+                this.listjobintension.jobSearchStatus = '离职-随时到岗'
+              }else if(this.listjobintension.jobSearchStatus == 3) {
+                this.listjobintension.jobSearchStatus = '在职-考虑机会'
+              }else if(this.listjobintension.jobSearchStatus == 4) {
+                this.listjobintension.jobSearchStatus = '在职-暂不到岗'
+              }
+
+            if(this.listjobintension.jobType == 1) {
+                this.listjobintension.jobType = '实习'  
+              }else if(this.listjobintension.jobType == 2) {
+                this.listjobintension.jobType = '全职'
+              }else if(this.listjobintension.jobType == 3) {
+                this.listjobintension.jobType = '兼职'
+              }
+
+            if(this.resumeIdList.politicalStatus == 3) {
+                this.resumeIdList.politicalStatus = '民主党派'
+            }else if(this.resumeIdList.politicalStatus == 1) {
+                this.resumeIdList.politicalStatus = '群众'
+            }else if(this.resumeIdList.politicalStatus == 2) {
+                this.resumeIdList.politicalStatus = '团员'
+            }else if(this.resumeIdList.politicalStatus == 4) {
+                this.resumeIdList.politicalStatus = '预备党员'
+            }else if(this.resumeIdList.politicalStatus == 5) {
+                this.resumeIdList.politicalStatus = '中共党员'
+            }  
+
+            
+          }
+        });
+      },
+      //获取简历简讯
+      brief () {
+        this.$http.get('/resume/brief').then(res => {
+          if (res.data.code == 200) {
+            if(res.data.data.target == null) {
+              this.showPersonalinformation = false,
+              this.isshowpersonalinformation = true,
+              this.personalinformation = true
+            }
+            console.log(res.data.data.target);
           }
         });
       },
@@ -1358,31 +1555,34 @@
       },
       //专业技能删除
       deleteskill() {
-        this.$http.delete(`/resume/${2}/skill/${1}`,{skill:''}).then(res => {
-          if (res.data.code == 200) {
-            console.log(res);
+        this.$http.delete(`/resume/${2}/skill/${this.skillId}`).then(res => {
+          if (res.data.code == 204) {
+            this.dialogskill = false
+            this.resumeId()
           }
         });
       },
       //工作经历删除
       deletework() {
-        this.$http.delete(`/resume/${2}/work/${1}`,{beginTime:'',company:'',position:''}).then(res => {
-          if (res.data.code == 200) {
-            console.log(res);
+        this.$http.delete(`/resume/${2}/work/${this.workId}`).then(res => {
+          if (res.data.code == 204) {
+            this.dialogwork = false
+            this.resumeId()
           }
         });
       },
        //荣誉奖项删除
-      deleteaward() {
-        this.$http.delete(`/resume/${2}/award/${1}`,{acquiredTime:'',award:''}).then(res => {
-          if (res.data.code == 200) {
-            console.log(res);
+      deleteawards() {
+        this.$http.delete(`/resume/${2}/award/${this.awardsId}`).then(res => {
+          if (res.data.code == 204) {
+            this.dialogaward = false
+            this.resumeId()
           }
         });
       },
        //教育经历删除
-      deleteaward() {
-        this.$http.delete(`/resume/${2}/education/${1}`,{beginTime: "",degree: "",major: "",school:''}).then(res => {
+      deletedu() {
+        this.$http.delete(`/resume/${2}/education/${this.educationId}`).then(res => {
           if (res.data.code == 200) {
             console.log(res);
           }
@@ -1397,26 +1597,29 @@
         });
       },
        //培训经历删除
-      deleteaward() {
-        this.$http.delete(`/resume/${2}/training/${1}`,{beginTime: "",institution:'',lesson:''}).then(res => {
-          if (res.data.code == 200) {
-            console.log(res);
+      deletetrain() {
+        this.$http.delete(`/resume/${2}/training/${this.trainId}`).then(res => {
+          if (res.data.code == 204) {
+            this.dialogtrain = false
+            this.resumeId()
           }
         });
       },
        //语言能力删除
-      deleteaward() {
-        this.$http.delete(`/resume/${2}/language/${1}`,{language:'',listenAndSpeak:'',readAndWrite:''}).then(res => {
-          if (res.data.code == 200) {
-            console.log(res);
+      deletelanguage() {
+        this.$http.delete(`/resume/${2}/language/${this.languageId}`).then(res => {
+          if (res.data.code == 204) {
+            this.dialoglanguage = false
+            this.resumeId()
           }
         });
       },
        //项目经历删除
-      deleteaward() {
-        this.$http.delete(`/resume/${2}/project/${1}`,{beginTime:'',project:''}).then(res => {
-          if (res.data.code == 200) {
-            console.log(res);
+      deleteproject() {
+        this.$http.delete(`/resume/${2}/project/${this.progectId}`).then(res => {
+          if (res.data.code == 204) {
+            this.dialogproject = false
+            this.resumeId()
           }
         });
       },
@@ -1476,60 +1679,70 @@
         this.showaward = c[1]
       },
       //自我介绍
-      showselfappraisalList(list) {
-        // console.log(list)
+      showselfappraisalList() {
         this.selfappraisalouterVisible = true
-        this.formSelfappraisal.personalDescription = list.personalDescription
+        this.formSelfappraisal.personalDescription = this.listpersonappraisal.content
       },
       //荣誉奖项
       showawardList(list) {
         // console.log(list)
+        this.awardsId = list.id
         this.awardsouterVisible = true
-        this.formAwards.prizeAward = list.prizeAward
-        this.formAwards.prizeTime = list.prizeTime
+        this.formAwards.prizeAward = list.award
+        this.formAwards.prizeTime = list.acquiredTime
       },
        //专业技能编辑
       editskill(list) {
         // console.log(list)
         this.personalskillouterVisible = true
-        this.formPersonalskill.technicalName = ''
-        this.formPersonalskill.level = ''
-        this.formPersonalskill.technicalName = list.technicalName
+        this.skillId = list.id 
+        this.formPersonalskill.technicalName = list.skill
         this.formPersonalskill.level = list.level
       },
       //语言能力
+      
       showlanguagesList(list) {
         // console.log(list)
         this.languageouterVisible = true
-        this.formlanguage.listenAbility = list.listenAbility
-        this.formlanguage.readAbility = list.readAbility
-        this.formlanguage.languages = list.languages
+        this.languageId = list.id
+        this.formlanguage.listenAbility = list.listenAndSpeak
+        this.formlanguage.readAbility = list.readAndWrite
+        this.formlanguage.languages = list.language
       },
       //培训经历
       showtrainList(list) {
         // console.log(list)
         this.trainingouterVisible = true
-        this.formtraining.trainCourse = list.trainCourse
+        this.trainId = list.id
+        this.formtraining.trainCourse = list.lesson
+        this.formtraining.trainCours = list.institution
         this.formtraining.trainTime = list.trainTime
+        // formtraining: {
+        //   trainCourse:'',
+        //   trainTime:'',
+        //   trainCours:'',
+        // },
 
       },
       //项目经历编辑
       showprogectperienceList(list) {
-        // console.log(list)
+        console.log(list,'2312313123111111')
         this.progectouterVisible = true
-        this.formProject.itemName = list.itemName
-        this.formProject.companyName = list.companyName
+        this.progectId = list.id
+        this.formProject.itemName = list.project
+        this.formProject.companyName = list.company
         this.formProject.schoolTime = list.schoolTime
         this.formProject.duty = list.duty
-        this.formProject.project = list.project
+        this.formProject.project = list.description
       },
       //工作经历编辑
       showworkperienceList(list) {
-        // console.log(list)
+        // console.log(list,"22323232323")
         this.workouterVisible = true
-        this.formWork.companyName = list.companyName
-        this.formWork.postName = list.postName
-        this.formWork.jobDescription = list.jobDescription  
+        this.workId  = list.id
+        this.formWork.companyName = list.company
+        this.formWork.postName = list.position
+        this.formWork.jobDescription = list.description  
       },
       //个人信息编辑
       editsinformation(c) {
@@ -1544,21 +1757,84 @@
         // this.personalinformation = true
       },
       //教育经历编辑
-      showeducationalList(list) {
-        // console.log(list)
+      showeducationalList(list,index) {
+        console.log(list)
+        this.educationId = list.id
+        this.formEducation.educationName = list.school
+        this.formEducation.educationDegree = list.degree
+        // this.formEducation.educationTime = list.major
+        this.formEducation.educationSpecialty = list.major
         this.educationouterVisible = true
-        this.formEducation.educationName = list.educationName 
       },
+
       //求职意向编辑
-      showjobintensionList (list) {
-        // console.log(list)
+      // formJobintension: {
+      //     postType: '',
+      //     trade: '',
+      //     scope:'',
+      //     status:'',
+      //     jobType:'',
+      //     reportTime:'', 
+      //   },
+      showjobintensionList () {
+        console.log(this.listjobintension.jobSearchStatus)
         this.jobintensionouterVisible = true
-        this.formJobintension.postType = list.postType
-        this.formJobintension.trade = list.trade
-        this.formJobintension.scope = list.scope
-        this.formJobintension.status = list.status
-        this.formJobintension.jobType = list.jobType
-        this.formJobintension.reportTime = list.reportTime
+        // this.formJobintension.postType = this.listjobintension.postType
+        // this.formJobintension.trade = list.trade
+        // this.formJobintension.scope = list.scope
+        this.formJobintension.status = this.listjobintension.jobSearchStatus
+        this.formJobintension.jobType = this.listjobintension.jobType
+        // this.formJobintension.reportTime = list.reportTime
+      },
+      // formInformation: {
+      //     name:'',
+      //     state:'',
+      //     sex:'',
+      //     workAge:'',
+      //     city:'',
+      //     educationLevel:'',
+      //     birthday:'',
+      //     email:'',
+      //     phone:'',
+      //     politicCountenance:'',
+      //     dutyTime:''
+      //   },
+      // resumeIdList
+      showjpersonalList() {
+        this.informationouterVisible = true
+        this.formInformation.name = this.resumeIdList.fullName
+        this.formInformation.sex = this.resumeIdList.sex
+        if(this.resumeIdList.degree == 3) {
+                this.formInformation.educationLevel = '高中'
+            }else if(this.resumeIdList.degree == 1) {
+                this.formInformation.educationLevel = '初中及以下'
+            }else if(this.resumeIdList.degree == 2) {
+                this.formInformation.educationLevel = '职中'
+            }else if(this.resumeIdList.degree == 4) {
+                this.formInformation.educationLevel = '大专'
+            }else if(this.resumeIdList.degree == 5) {
+                this.formInformation.educationLevel = '本科'
+            }else if(this.resumeIdList.degree == 6) {
+                this.formInformation.educationLevel = '硕士'
+            }else if(this.resumeIdList.degree == 7) {
+                this.formInformation.educationLevel = '博士'
+            }
+            
+        this.formInformation.birthday = this.$moment(this.resumeIdList.birthday).format("YYYY-DD-MM") 
+        this.formInformation.email = this.resumeIdList.email 
+        this.formInformation.phone = this.resumeIdList.phone
+        if(this.resumeIdList.politicalStatus == 3) {
+                this.formInformation.politicCountenance = '民主党派'
+            }else if(this.resumeIdList.politicalStatus == 1) {
+                this.formInformation.politicCountenance = '群众'
+            }else if(this.resumeIdList.politicalStatus == 2) {
+                this.formInformation.politicCountenance = '团员'
+            }else if(this.resumeIdList.politicalStatus == 4) {
+                this.formInformation.politicCountenance = '预备党员'
+            }else if(this.resumeIdList.politicalStatus == 5) {
+                this.formInformation.politicCountenance = '中共党员'
+            }
+        // console.log(this.$moment(1568205123).format("YYYY"))
       },
       testRef(ref) {
         if (ref) {
@@ -1571,10 +1847,36 @@
           // alert(y)
         }
       },
-      showdialog() {
-        this.dialog = true
+      showedudialog(list) {
+        this.educationId = list.id
+        this.dialogedu = true
       },
-      isshowpersonalinformation() {
+      showworkdialog(list) {
+        this.workId  = list.id
+        this.dialogwork = true
+      },
+      showprojectdialog(list) {
+        this.progectId  = list.id
+        this.dialogproject = true
+      },
+      showtraindialog(list) {
+        this.trainId  = list.id
+        this.dialogtrain = true
+      },
+      showlanguagedialog(list) {
+        this.languageId  = list.id
+        this.dialoglanguage = true
+      },
+      showskilldialog(list) {
+        this.skillId  = list.id
+        this.dialogskill = true
+      },
+      showawardsdialog(list) {
+        this.awardsId  = list.id
+        this.dialogaward = true
+      },
+      ispersonalinformation() {
+        this.isshowpersonalinformation = true
         this.personalinformation = false
         this.showDemo = true
       },
@@ -1694,7 +1996,7 @@
 
     },
     created () {
-      // console.log(this.listeducational)
+      this.brief(),
       this.resumeId(),
       datacenterBus.$on("myFun",(message)=>{   //这里最好用箭头函数，不然this指向有问题
                this.informationouterVisible = false
@@ -1703,6 +2005,7 @@
   }
 
 </script>
+
 
 <style lang="stylus" scoped>
   
@@ -1750,10 +2053,12 @@
         width 675px
       ul li
         list-style none
+      .li-a
+        display flex
+        flex-direction row
       .ul-a
         .actions-span
           float right
-          
           font-size 15px
           color #1f368d
           opacity 0

@@ -1,20 +1,16 @@
 <template>
    <div class="from">
-        <span style="margin:15px 0 0 50px;line-height:10px">xxx比赛三等奖</span>
-        <span style="margin:15px 0 0 95px">2018/12</span>
+        <div style="margin:0 0 0 50px;line-height:10px;width:60px">{{fromData.award}}</div>
+        <div style="margin:0 0 0 75px">{{fromData.acquiredTime | formatDateOne}}</div>
     </div>
 </template>
 
 <script>
     export default {
         name:'progect_from',
-        props:['fromData','index'],
+        props:['fromData'],
         data() {
             return {
-                ruleForm: {
-                   prizeName:"",
-                   prizeTime:"",
-                },
             };
         },
         created(){
@@ -36,6 +32,8 @@
 
 <style lang="stylus" scoped>
   .from
+    display flex
+    flex-direction row
     font-size 15px
     color #61687c
     text-align left

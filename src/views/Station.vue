@@ -5,17 +5,17 @@
     </div>
     <div class="station-nav" v-if="stationNav">
       <div class="station-nav-name">
-        <span>产品实习生</span>
-        <span>4-5k</span>
+        <span>{{positionIdList.positionName}}</span>
+        <span>{{positionIdList.salaryMin}}-{{positionIdList.salaryMax}}k</span>
       </div>
       <div class="station-nav-content">
         <div class="content-nav">
-          <span>上海 徐汇区 | 1-3年 | 应届生 | 实习</span>
+          <span>{{positionIdList.workAddress.province}} {{positionIdList.workAddress.county}} | {{positionIdList.workAgeMin}}-{{positionIdList.workAgeMax}}年 | 应届生 | 实习</span>
         </div>
         <div class="content-article">
-          <span>发布时间：今天 15：00</span>
+          <span>发布时间：{{positionIdList.publishedTime | formatDate}}</span>
         </div>
-        <div style="margin:0 0 0 290px">
+        <div style="margin:0 0 0 325px">
           <span style="margin:0 20px 0 0" v-if="almsg">
             <el-button
               id="deliver"
@@ -68,7 +68,7 @@
           >完善简历</el-button>
         </span>
       </el-dialog>
-      <el-dialog :visible.sync="dialogVisibleTwo" width="30%" :before-close="handleClose">
+      <el-dialog :visible.sync="dialogVisibleTwo" style="width:1100px;margin:0 0 0 400px" :before-close="handleClose">
         <div style="font-size:15px;color:#1f368d;margin:-30px 0 20px 0">请选择想要投递的快递</div>
         <div>
           <el-radio-group v-model="radio" style="margin-right:100px">
@@ -82,8 +82,7 @@
         <div slot="footer" class="dialog-footer">
           <el-button
             style="width:94px;height:34px"
-            @click="dialogVisible = false"
-            class="cancel"
+            @click="dialogVisibleTwo = false"
             plain
           >取 消</el-button>
           <el-button
@@ -112,29 +111,12 @@
       <div class="station-foot-content">
         <p>职位描述</p>
         <p>
-          1、在上级的领导和监督下定期完成量化的工作要求；
-          <br />
-          <br />2、能独立处理和解决所负责的任务；
-          <br />
-          <br />3、根据开发进度和任务分配，完成相应模块软件的设计、开发、编程任务；
-          <br />
-          <br />二、招聘要求：
-          <br />
-          <br />1、本科在读，20年应届生，计算机、软件工程、网络类及相关理工科专业毕业优先；
-          <br />
-          <br />2、有充裕时间，即日起可稳定实习，一周三天以上，至少6个月，可长期实习最佳；
-          <br />
-          <br />3、热爱软件开发行业，善于学习和总结分析；
-          <br />
-          <br />4、做事认真、细心、负责，能够专心学习技术；
-          <br />
-          <br />5、有良好的工作态度和团队合作精神；
+          {{positionIdList.description}}
         </p>
-
         <div class="station-foot-foot">
           <div class="station-foot-foot-one">工作地点:</div>
           <div class="station-foot-foot-two">
-            <span>上海市徐汇区梅陇路139号</span>
+            <span>{{positionIdList.workAddress.province}} {{positionIdList.workAddress.county}} {{positionIdList.workAddress.detail}}</span>
             <span>查看地图</span>
           </div>
           <baidu-map
@@ -153,11 +135,11 @@
           </div>
           <div class="station-foot-aside-nav-article">
             <div class="company-name">
-              <span>上海xx公司</span>
+              <span>{{positionIdList.company.companyName}}</span>
             </div>
             <div class="company-type">
               <span>
-                <i class="el-icon-menu"></i> 互联网 金融
+                <i class="el-icon-menu"></i> {{positionIdList.company.industry}}
               </span>
             </div>
             <div class="company-status">
@@ -167,7 +149,7 @@
             </div>
             <div class="company-num">
               <span>
-                <i class="el-icon-coordinate"></i> 150-500人
+                <i class="el-icon-coordinate"></i> {{positionIdList.company.size}}人
               </span>
             </div>
           </div>
@@ -260,6 +242,7 @@ export default {
   },
   data() {
     return {
+      positionIdList:[],
       radio:3,
       dialogVisibleTwo:false,
       almsg:true,
@@ -299,10 +282,38 @@ export default {
       this.center.lat = 39.915;
       this.zoom = 15;
     },
-    //向岗位投递简历（登陆之后）
+    //获取岗位详情
+      positionId() {
+        this.$http.get(`/position/${2}`).then(res => {
+          if (res.data.code == 200) {
+            this.positionIdList = res.data.data
+            console.log(this.positionIdList);
+          }
+        });
+      },
+    //判断简历是否投递
+      showdeli() {
+        this.$http.get(`/submitted/position/${2}`).then(res => {
+          if (res.data.code == 200) {
+            this.showCollect = true
+            this.isshowCollect = false
+          }
+        });
+      },
+       //判断简历是否收藏
+      showcoll() {
+        this.$http.get(`/favorite/position/${2}`).then(res => {
+          if (res.data.code == 200) {
+            if(res.data.data == true) {
+              console.log("23232323232323")
+            }
+          }
+        });
+      },
+    //向岗位投递简历
     isclick() {
         this.dialogVisibleTwo = true
-        this.$http.put(`/submitted/position/${2}/resume/${2}`).then(res => {
+        this.$http.put(`/submitted/position/${4}/resume/${2}`).then(res => {
           if (res.data.code == 200) {
             // this.resumeIdList = res.data
             console.log(res);
@@ -345,13 +356,18 @@ export default {
     }
   },
   created() {
-    // this.isclick();
-    // this.iscollect();
+    this.positionId();
+    this.showdeli();
+    this.showcoll();
   }
 };
 </script>
 
 <style lang="stylus">
+  .el-button.is-plain:hover 
+    border-color #7d8dcd
+    color #7d8dcd
+    background white
   .station
     margin 80px 0 0 0
     display flex
@@ -384,7 +400,7 @@ export default {
         .content-nav
           color #455379
           font-size 14px
-          margin 0 0 0 20px
+          margin 0 0 0 10px
         .content-article 
           color #9b9b9b
           font-size 14px

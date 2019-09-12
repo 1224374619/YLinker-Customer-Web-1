@@ -29,7 +29,8 @@
             <div class="information" v-if="information">
               <p class="company">公司介绍:</p>
               <p class="company-content">
-                技术驱动的产品型人力资源服务公司
+                {{this.companyIdList.description}}
+                <!-- 技术驱动的产品型人力资源服务公司
                 <br />
                 <br />公司近300名员工，70%的领域专家、产品经理、开发工程师。
                 <br />
@@ -44,14 +45,16 @@
                 <br />
                 <br />服务了数千家各领域头部企业，服务企业总数超过15万家，覆盖员工超过300万.
                 <br />
-                <br />涵盖了餐饮服务、零售连锁、安保物业、生产制造等数十个行业。
+                <br />涵盖了餐饮服务、零售连锁、安保物业、生产制造等数十个行业。-->
               </p>
               <div class="positon-footer">
                 <div class="address">
                   <p class="company-address">公司地址:</p>
                 </div>
                 <div class="map-address">
-                  <span class="map-address-span">上海市徐汇区梅陇路130号</span>
+                  <span
+                    class="map-address-span"
+                  >{{this.companyIdList.address.province}}{{this.companyIdList.address.county}}{{this.companyIdList.address.detail}}</span>
                   <span class="map-address-map">查看地图</span>
                 </div>
                 <baidu-map
@@ -67,28 +70,44 @@
           <el-tab-pane label="在招职位" name="second">
             <div class="postType">
               <div style="text-align:left" class="list">
-                <span class="postType-span" style="margin:10px 0 0 0;font-size:13px;padding:0 25px 0 0;color:#455379">职位类型：</span>
-                <span class="posttype-span">全部（10）</span>
-                <span class="posttype-span">市场（2）</span>
-                <span class="posttype-span">公关（1）</span>
-                <span class="a">销售（2）</span>
+                <span
+                  class="postType-span"
+                  style="margin:10px 0 0 0;font-size:13px;padding:0 25px 0 0;color:#455379"
+                >职位类型：</span>
+                <span
+                  class="posttype-span"
+                >全部（{{this.positionCatalogList[0].total+this.positionCatalogList[1].total+this.positionCatalogList[2].total}}）</span>
+                <span
+                  class="posttype-span"
+                >{{this.positionCatalogList[0].positionCatalog}}（{{this.positionCatalogList[0].total}}）</span>
+                <span
+                  class="posttype-span"
+                >{{this.positionCatalogList[1].positionCatalog}}（{{this.positionCatalogList[1].total}}）</span>
+                <span
+                  class="a"
+                >{{this.positionCatalogList[2].positionCatalog}}（{{this.positionCatalogList[2].total}}）</span>
               </div>
-              <el-table :data="tableData" style="width: 90%;margin:0 0 0 80px" @row-click="next">
-                <el-table-column prop="date" label width="180"></el-table-column>
-                <el-table-column prop="name" label width="180"></el-table-column>
-                <el-table-column prop="address" label></el-table-column>
-                <el-table-column prop="address" label></el-table-column>
-              </el-table>
+              <div v-for="(list,index) in tableData" :key="index" @click="next">
+                <div class="position-tab">
+                  <div>{{list.positionName}}</div>
+                  <div
+                    style="margin:0 0 0 70px"
+                  >{{list.workAddress.province}} {{list.workAddress.county}} | {{list.workAgeMin}}-{{list.workAgeMax}}年 | 本科</div>
+                  <div style="margin:0 0 0 90px">{{list.salaryMin}}-{{list.salaryMax}}k</div>
+                  <div style="margin:0 0 0 90px">{{list.publishedTime | formatDate}}</div>
+                </div>
+                <div class="line-tab"></div>
+              </div>
               <div class="footer-pagination" style="margin:15px 0 15px 0">
-                  <el-pagination
-                      @size-change="handleSizeChange"
-                      @current-change="handleCurrentChange"
-                      :current-page="currentPage4"
-                      :page-sizes="[100, 200, 300, 400]"
-                      :page-size="100"
-                      layout="total, sizes, prev, pager, next, jumper"
-                      :total="400">
-                  </el-pagination>
+                <el-pagination
+                  @size-change="handleSizeChange"
+                  @current-change="handleCurrentChange"
+                  :current-page="currentPage4"
+                  :page-sizes="[100, 200, 300, 400]"
+                  :page-size="100"
+                  layout="total, sizes, prev, pager, next, jumper"
+                  :total="400"
+                ></el-pagination>
               </div>
             </div>
           </el-tab-pane>
@@ -108,21 +127,18 @@ export default {
   },
   data() {
     return {
+      time:'',
       companyIdList: [],
-      center: { lng: 0, lat: 0 },
+      center: { lng: 0.2, lat: 0.1 },
       zoom: 3,
       table: false,
       information: true,
       activeName: "first",
       url:
-        "https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg",
+        "https://yinlinkrc-test.oss-cn-shanghai.aliyuncs.com/logo/company/2019-08-31/e747bdbb1f774fdd9da33eb92b4d447a.png",
       currentPage4: 4,
-      tableData: [{
-            date: '2016-05-02',
-            name: '王小虎',
-            address: '上海市普陀区金沙江路 1518 弄'
-          }],
-      positionCatalogList:[]
+      tableData: [],
+      positionCatalogList: []
     };
   },
   methods: {
@@ -138,28 +154,30 @@ export default {
     },
     //获取公司详情
     companyId() {
-      this.$http.get(`/company/${2}`).then(res => {
+      this.$http.get(`/company/${14}`).then(res => {
         if (res.data.code == 200) {
-          this.companyIdList = res.data.data; 
+          this.companyIdList = res.data.data;
+          //  console.log(res.data.data)
         }
       });
     },
     //获取岗位列表
     handleClick(e) {
-      this.$http.get(`/company/${2}/position`).then(res => {
+      this.$http.get(`/company/${14}/position`).then(res => {
         if (e.index == 1) {
           if (res.data.code == 200) {
-            this.tableData = res.data.data;
+            this.tableData = res.data.data.list;
+            var time = this.tableData[0].publishedTime
+            this.changeTime(time)
           }
         }
       });
     },
     //岗位分类
     positionCatalog() {
-      this.$http.get(`/company/${2}/positionCatalog`).then(res => {
+      this.$http.get(`/company/${14}/positionCatalog`).then(res => {
         if (res.data.code == 200) {
-          this.positionCatalogList = res.data.data
-          console.log(this.positionCatalogList);
+          this.positionCatalogList = res.data.data;
         }
       });
     },
@@ -171,6 +189,17 @@ export default {
     },
     next() {
       this.$router.push({ path: "/station" });
+    },
+    changeTime(time) {
+      var commonTime = "";
+      if (time) {
+        var unixTimestamp = new Date(time * 1);
+        commonTime = unixTimestamp.toLocaleString();
+        this.time = commonTime
+      }
+      return commonTime;
+      
+      
     }
   },
   created() {
@@ -179,9 +208,7 @@ export default {
   }
 };
 </script>
-
 <style lang="stylus">
-  
   .el-tabs__item
     color #1f368d
   .el-tabs__item.is-active
@@ -217,6 +244,15 @@ export default {
         .el-tabs__item
           font-size 14px
           font-weight 800
+        .position-tab
+          display flex
+          flex-direction row 
+          margin 20px 0 0 90px
+          font-size 15px 
+        .line-tab 
+          width 800px
+          border 0.5px solid #e5e5e5
+          margin 20px 0 0 90px 
         .postType span
           font-size 13px 
           color #455379
@@ -262,4 +298,3 @@ export default {
           .anchorBL
             display none  
 </style>
-

@@ -22,6 +22,7 @@
         <p class="adjunctive">
           <el-button type="text" @click="gotoRegisterUI">立即注册</el-button>
           <el-button type="text" @click="gotoResetPwdUI">忘记密码？</el-button>
+          <el-button type="text" @click="aaa">密码？</el-button>
         </p>
       </div>
     </div>
@@ -70,8 +71,9 @@ export default {
           // if (res.result) {
           //   this[DONE_LOGIN]();
           // }
+          
           this.$_http
-            .post("/api/login", { username: "18116241233", password: "123" })
+            .post("/login", { username: "17717291341", password: "21313131311" })
             .then(res => {
               this.$router.push({ path: "register" });
               // this.$store.commit('SET_TOKEN', res.data.token)
@@ -82,7 +84,7 @@ export default {
               // }
             })
             .catch(error => {
-              console.log(error+'23232332');
+              console.log('23232332');
             });
         } else {
           return false;
@@ -94,8 +96,15 @@ export default {
     },
     gotoResetPwdUI() {
       this.$router.push({ path: "reset-password" });
+    },
+    aaa() {
+      console.log(this.$cookies.get('SESSION')+'34343434')
     }
-  }
+  },
+  // created() {
+  //   console.log(this.$cookies.get('SESSION')+'34343434')
+  //   this.$cookies.get('session')
+  // }
 };
 </script>
 

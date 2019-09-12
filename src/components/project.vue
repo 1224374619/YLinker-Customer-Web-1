@@ -17,7 +17,7 @@
           end-placeholder="结束日期"
         ></el-date-picker>
       </el-form-item>
-      <el-form-item label="学历" style="visibility:hidden;margin-left:-15px" prop="record">
+      <el-form-item label="学历" style="visibility:hidden;margin-left:-15px" >
         <el-select style="width:242px;height:36px" v-model="formInline.record" placeholder>
           <el-option label value="shanghai"></el-option>
           <el-option label value="beijing"></el-option>
@@ -64,7 +64,7 @@ export default {
         schoolTime: [
           { required: true, message: "请选择项目时间", trigger: "blur" }
         ],
-        record: [{ required: true, message: "请选择学历", trigger: "blur" }],
+        // record: [{ required: true, message: "请选择学历", trigger: "blur" }],
         duty: [
           { required: true, message: "请填写个人职责", trigger: "change" },
           {
@@ -95,13 +95,13 @@ export default {
       this.$refs[formName].validate(valid => {
         if (valid) {
           // this.$emit("progectEmit", false, true);
-          // this.$http
-          //   .post(`/resume/${2}/project`, { beginTime: "", project: "" })
-          //   .then(res => {
-          //     if (res.data.code == 200) {
-          //       console.log(res);
-          //     }
-          //   });
+          this.$http
+            .post(`/resume/${2}/project`, { beginTime: 756756756756, project:'银临人才',duty:this.formInline.duty,description:this.formInline.project })
+            .then(res => {
+              if (res.data.code == 200) {
+                console.log(res);
+              }
+            });
         } else {
           return false;
         }

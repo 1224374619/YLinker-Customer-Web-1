@@ -91,17 +91,17 @@ export default {
     keep(formName) {
       this.$refs[formName].validate(valid => {
         if (valid) {
-          // this.$http
-          //   .post(`/resume/${2}/work`, {
-          //     beginTime: "",
-          //     company: "",
-          //     position: ""
-          //   })
-          //   .then(res => {
-          //     if (res.data.code == 200) {
-          //       console.log(res);
-          //     }
-          //   });
+          this.$http.post(`/resume/${2}/work`, {
+              beginTime: 999993349,
+              company: this.formInline.post,
+              position: this.formInline.postName,
+              description:this.formInline.jobDescription
+            })
+            .then(res => {
+              if (res.data.code == 200) {
+                console.log(res);
+              }
+            });
           // this.$emit("workEmit", false, true);
         } else {
           return false;

@@ -11,16 +11,13 @@
       <el-form-item label="学校名称" style="margin:0 0 0 20px" prop="schoolName">
         <el-input style="width:202px;height:36px" v-model="formInline.schoolName" placeholder></el-input>
       </el-form-item>
-      <el-form-item label="在校时间" class="block" prop="schoolTime">
-        <el-date-picker
-          v-model="formInline.schoolTime"
-          type="daterange"
-          style="width:290px;height:36px"
-          range-separator="至"
-          start-placeholder="开始日期"
-          end-placeholder="结束日期">
-        </el-date-picker>
+      <el-form-item label="在校时间" class="block" >
         <!-- <el-date-picker
+          v-model="formInline.schoolTime"
+          type="date"
+          style="width:290px;height:36px">
+        </el-date-picker> -->
+        <el-date-picker
           style="width:140px;height:36px"
           v-model="startDate"
           type="date"
@@ -33,26 +30,28 @@
           type="date"
           :picker-options="endDateOpt"
           placeholder="选择日期"
-        ></el-date-picker> -->
+        ></el-date-picker>
       </el-form-item>
       <el-form-item label="专业" style="margin:0 0 0 0" prop="major">
         <el-input style="width:202px;height:36px" v-model="formInline.major" placeholder></el-input>
       </el-form-item>
       <el-form-item label="学历" style="margin:0 80px 0 0" prop="qualifications">
         <el-select style="width:202px;height:36px" v-model="formInline.qualifications" placeholder>
-          <el-option label value="初中及以下"></el-option>
-          <el-option label value="大专/职中"></el-option>
-          <el-option label value="高中"></el-option>
-          <el-option label value="大专"></el-option>
-          <el-option label value="本科"></el-option>
-          <el-option label value="硕士"></el-option>
-          <el-option label value="博士"></el-option>
+          <el-option label='初中及以下' value="1"></el-option>
+          <el-option label='职中' value="2"></el-option>
+          <el-option label='高中' value="3"></el-option>
+          <el-option label='大专' value="4"></el-option>
+          <el-option label='本科' value="5"></el-option>
+          <el-option label='硕士' value="6"></el-option>
+          <el-option label='博士' value="7"></el-option>
         </el-select>
       </el-form-item>
       <br />
       <el-form-item label="是否统招" style="width:355px;margin:10px 0 0 0" prop="general">
-        <el-radio style="margin:0 30px 0 0;" v-model="formInline.general" label="1">是</el-radio>
-        <el-radio style="margin:0 120px 0 0;" v-model="formInline.general" label="2">否</el-radio>
+        <el-radio-group v-model="formInline.general">
+          <el-radio style="margin:0 30px 0 0;"  label="1">是</el-radio>
+          <el-radio style="margin:0 120px 0 0;" label="2">否</el-radio>
+        </el-radio-group>
       </el-form-item>
       <el-form-item label="学历" style="visibility:hidden">
         <el-select style="width:242px;height:36px" placeholder>
@@ -75,6 +74,8 @@ export default {
   props: ["educationDegree"],
   data() {
     return {
+      startDate:'',
+      endDate:'',
       formInline: {
         schoolName: "",
         schoolTime: "",
@@ -89,11 +90,10 @@ export default {
           // { pattern:/^[a-zA-Z\u4e00-\u9fa5\s]{0,24}$/, message: '姓名仅支持中文汉字与英文字母', trigger: 'blur' },
         ],
         schoolTime: [
-          { required: true, message: "请选择在校时间", trigger: "blur" }
+          {required: true, message: "请选择在校时间", trigger: "blur" }
         ],
         major: [
           {
-            type: "date",
             required: true,
             message: "请填写专业",
             trigger: "change"
@@ -106,12 +106,12 @@ export default {
         ]
       },
       //设置当前日期之后不能选中
-      endDateOpt: {
-        disabledDate(time) {
-          return time.getTime() > Date.now();
-          return time.getTime() < this.startDate;
-        }
-      }
+      // endDateOpt: {
+      //   disabledDate(time) {
+      //     return time.getTime() > Date.now();
+      //     return time.getTime() < this.startDate;
+      //   }
+      // }
     };
   },
   methods: {
@@ -120,15 +120,16 @@ export default {
     },
     //新增
     keep(formName) {
-      // this.$emit("sendiptVal",false,true)
-      this.$refs[formName].validate(valid => {
+      
+      this.$refs[formName].validate((valid) => {
         if (valid) {
-          // this.$http.post(`/resume/${2}/education`, { beginTime: "", degree: "", major: "",school:''}).then(res => {
-      //     if (res.data.code == 200) {
-      //       console.log(res);
-      //     }
-      //   });
-          // this.$router.push({path:'/resume'})
+        //  alert('submit!');
+          this.$http.post(`/resume/${2}/education`,{beginTime:966517171000,endTime:null,degree:this.formInline.qualifications,major:this.formInline.major,school:this.formInline.schoolName,isUnified:false}).then(res => {
+          if (res.data.code == 200) {
+            console.log(res);
+            this.$emit("sendiptVal",false,true)
+          }
+        });
         } else {
           return false;
         }

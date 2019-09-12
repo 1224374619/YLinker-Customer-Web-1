@@ -30,14 +30,13 @@
               <el-radio-button  label="女性"></el-radio-button>
             </el-radio-group>
           </el-form-item>
-          <el-form-item label="工作年限" style="margin-left:30px">
-            <el-select style="width:168px;height:36px" v-model="formInline.workingSeniority" placeholder>
-              <el-option label value="无工作年限"></el-option>
-              <el-option label value="1-3年"></el-option>
-              <el-option label value="3-5年"></el-option>
-              <el-option label value="5-10年"></el-option>
-              <el-option label value="手动输入"></el-option>
-            </el-select>
+           <el-form-item label="工作年限" style="margin-left:30px">
+            <el-date-picker
+              style="width:168px;height:36px"
+              type="date"
+              placeholder="选择日期"
+             v-model="formInline.workingSeniority"
+            ></el-date-picker>
           </el-form-item>
           <el-form-item label="所在城市" style="margin:0 40px 0 -30px">
             <el-select style="width:168px;height:36px" v-model="formInline.city" placeholder>
@@ -80,7 +79,7 @@
           </el-form-item><br>
           <el-form-item style="float:right;margin:0 100px 20px 0">
             <el-button  @click="cancel()" style="margin:0 10px 0 0" plain>取消</el-button>
-            <el-button type="primary">保存</el-button>
+            <el-button type="primary" @click="keep()">保存</el-button>
           </el-form-item>
         </el-form>
       </div>
@@ -108,6 +107,15 @@ export default {
     };
   },
   methods: {
+    keep() {
+      this.$http.put(`/resume/${3}/base`,
+      {overseasAge:2,workYear:966517171000,politicalStatus:2,birthday:965232000000,county:'徐汇区',fullName:'zhao',sex:1,province:'上海市',degree:4,email:'1224374619@qq.com',phone:'15516956795',isGraduate:false})
+      .then(res => {
+          if (res.data.code == 200) {
+            console.log(res);
+          }
+        });
+    },
     cancel() {
       const h = this.$createElement;
       this.$msgbox({

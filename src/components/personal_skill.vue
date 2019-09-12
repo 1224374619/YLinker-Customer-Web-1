@@ -6,10 +6,10 @@
             </el-form-item>
             <el-form-item label="掌握程度" prop="level">
                  <el-select style="width:242px;height:36px" v-model="formInline.level" placeholder="">
-                  <el-option label="" value="一般"></el-option>
-                  <el-option label="" value="良好"></el-option>
-                  <el-option label="" value="熟练"></el-option>
-                  <el-option label="" value="精通"></el-option>
+                  <el-option label="一般" value="1"></el-option>
+                  <el-option label="良好" value="2"></el-option>
+                  <el-option label="熟练" value="3"></el-option>
+                  <el-option label="精通" value="4"></el-option>
                  </el-select>
             </el-form-item>
             <el-form-item label="获奖证书" style="margin-left:-90px">
@@ -62,13 +62,12 @@ export default {
     keep(formName) {
        this.$refs[formName].validate(valid => {
         if (valid) {
-          this.$emit("skillEmit",false,true)
-          // this.$http.post(`/resume/${2}/skill`,{skill:this.formInline.technicalName,level:this.formInline.level}).then(res => {
-          //   if (res.data.code == 200) {
-              
-          //     console.log(res);
-          //   }
-          // });
+          this.$http.post(`/resume/${2}/skill`,{skill:this.formInline.technicalName,level:this.formInline.level}).then(res => {
+            if (res.data.code == 200) {
+              console.log(res);
+               this.$emit("skillEmit",false,true)
+            }
+          });
         } else {
           return false;
         }
