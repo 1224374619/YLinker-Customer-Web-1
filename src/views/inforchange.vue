@@ -110,14 +110,14 @@ import PasswordInput from 'components/password-input.vue';
       }
     },
     methods: {
-      //获取验证码
-      codeclick() {
-        this.$http.post('/account/vcode').then(res => {
-              if (res.data.code == 200) {
-                console.log(res);
-              }
-            });
-      },
+      // //获取验证码
+      // codeclick() {
+      //   this.$http.post('/account/vcode',{phone:''}).then(res => {
+      //         if (res.data.code == 200) {
+      //           console.log(res);
+      //         }
+      //       });
+      // },
       handleActive(index) {
         this.active = index
       },
@@ -125,12 +125,11 @@ import PasswordInput from 'components/password-input.vue';
       submitForm(formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
-
-            // this.$http.put('/account/password', { password: "", phone: "", vcode: "" }).then(res => {
-            //   if (res.data.code == 200) {
-            //     console.log(res);
-            //   }
-            // });
+            this.$http.put('/account/password', {agree:true,password: "123123", phone: "17717291341", vcode:this.ruleForm.code}).then(res => {
+              if (res.data.code == 200) {
+                console.log(res);
+              }
+            });
              alert('submit!');
           } else {
             // this.active = 0
@@ -144,11 +143,11 @@ import PasswordInput from 'components/password-input.vue';
       phoneSubmitForm(aa) {
         this.$refs[aa].validate((valid) => {
           if (valid) {
-            // this.$http.put('/account/phone', { password: "", phone: "", vcode: "" }).then(res => {
-            //   if (res.data.code == 200) {
-            //     console.log(res);
-            //   }
-            // });
+            this.$http.put('/account/phone', { password: "21313131311", phone: "17717291341", vcode:this.newRuleForm.newCode}).then(res => {
+              if (res.data.code == 200) {
+                console.log(res);
+              }
+            });
             alert('submit!');
           } else {
             // this.active = 0

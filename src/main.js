@@ -9,12 +9,14 @@ import store from './store';
 import scroll from 'vue-seamless-scroll'
 import Cookies from 'js-cookie'
 import Moment from 'moment'
+import { Message } from 'element-ui'
 Vue.use(scroll)
 // import vuescroll from 'vuescroll';
 import BaiduMap from 'vue-baidu-map'
 Vue.use(ElementUI);
 Vue.prototype.$Cookies=Cookies;
-Vue.prototype.$moment = Moment
+Vue.prototype.$moment = Moment;
+Vue.prototype.$message = Message
 // 定义全局时间戳过滤器
 Vue.filter('formatDate', function(value) {
   var timestamp = (new Date()).getTime()-24*60*60*1000

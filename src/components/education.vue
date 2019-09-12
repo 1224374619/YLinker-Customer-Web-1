@@ -37,13 +37,13 @@
       </el-form-item>
       <el-form-item label="学历" style="margin:0 80px 0 0" prop="qualifications">
         <el-select style="width:202px;height:36px" v-model="formInline.qualifications" placeholder>
-          <el-option label='初中及以下' value="1"></el-option>
-          <el-option label='职中' value="2"></el-option>
-          <el-option label='高中' value="3"></el-option>
-          <el-option label='大专' value="4"></el-option>
-          <el-option label='本科' value="5"></el-option>
-          <el-option label='硕士' value="6"></el-option>
-          <el-option label='博士' value="7"></el-option>
+          <el-option label='初中及以下' value="0"></el-option>
+          <el-option label='职中' value="1"></el-option>
+          <el-option label='高中' value="2"></el-option>
+          <el-option label='大专' value="3"></el-option>
+          <el-option label='本科' value="4"></el-option>
+          <el-option label='硕士' value="5"></el-option>
+          <el-option label='博士' value="6"></el-option>
         </el-select>
       </el-form-item>
       <br />
@@ -125,7 +125,7 @@ export default {
         if (valid) {
         //  alert('submit!');
           this.$http.post(`/resume/${2}/education`,{beginTime:966517171000,endTime:null,degree:this.formInline.qualifications,major:this.formInline.major,school:this.formInline.schoolName,isUnified:false}).then(res => {
-          if (res.data.code == 200) {
+          if (res.data.code == 201) {
             console.log(res);
             this.$emit("sendiptVal",false,true)
           }

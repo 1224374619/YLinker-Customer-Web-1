@@ -6,25 +6,26 @@
             </el-form-item>
             <el-form-item label="掌握程度" prop="level">
                  <el-select style="width:242px;height:36px" v-model="formInline.level" placeholder="">
-                  <el-option label="一般" value="1"></el-option>
-                  <el-option label="良好" value="2"></el-option>
-                  <el-option label="熟练" value="3"></el-option>
-                  <el-option label="精通" value="4"></el-option>
+                  <el-option label="一般" value="0"></el-option>
+                  <el-option label="良好" value="1"></el-option>
+                  <el-option label="熟练" value="2"></el-option>
+                  <el-option label="精通" value="3"></el-option>
                  </el-select>
             </el-form-item>
             <el-form-item label="获奖证书" style="margin-left:-90px">
                 <el-upload
+                    action="https://jsonplaceholder.typicode.com/posts/"
                     list-type="picture-card"
                     :on-preview="handlePictureCardPreview"
                     :on-remove="handleRemove">
-                    <i class="el-icon-upload"></i>
+                    <i  class="el-icon-upload"></i>
                 </el-upload>
             </el-form-item>
             <el-form-item label="语种" style="visibility:hidden">
                 <el-input style="width:242px;height:36px" placeholder=""></el-input>
             </el-form-item><br>
             <el-form-item style="margin:0 0 20px 450px">
-            <el-button @click='cancel' plain style="margin:0 10px 0 0">取消</el-button>
+            <el-button @click="cancel" plain style="margin:0 10px 0 0">取消</el-button>
             <el-button @click="keep('formInline')" type="primary">保存</el-button>
             </el-form-item>
           </el-form>
@@ -55,6 +56,14 @@ export default {
     }
   },
   methods: {
+    upload() {
+      this.$http.post(`/resume/${2}/skill/${2}/cert`,{}).then(res => {
+            if (res.data.code == 200) {
+              console.log(res);
+               this.$emit("skillEmit",false,true)
+            }
+          });
+    },
     cancel() {
       this.$emit("skillEmit",false,true)
     },
@@ -63,7 +72,7 @@ export default {
        this.$refs[formName].validate(valid => {
         if (valid) {
           this.$http.post(`/resume/${2}/skill`,{skill:this.formInline.technicalName,level:this.formInline.level}).then(res => {
-            if (res.data.code == 200) {
+            if (res.data.code == 201) {
               console.log(res);
                this.$emit("skillEmit",false,true)
             }
@@ -74,6 +83,9 @@ export default {
       });
      
     },
+    handlePictureCardPreview(file) {
+        console.log(file,"3123123123123");
+      },
     //更新
     // keep() {
     //   this.$emit("skill",this.formInline.technicalName,this.formInline.level)

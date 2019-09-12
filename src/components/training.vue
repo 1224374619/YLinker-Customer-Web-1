@@ -70,7 +70,6 @@ export default {
     keep(formName) {
       this.$refs[formName].validate(valid => {
         if (valid) {
-          
           this.$http
             .post(`/resume/${2}/training`, {
               beginTime: 76756757567,
@@ -78,7 +77,7 @@ export default {
               lesson: this.formInline.trainCourse
             })
             .then(res => {
-              if (res.data.code == 200) {
+              if (res.data.code == 201) {
                 console.log(res);
                 this.$emit("trainEmit", false, true);
               }

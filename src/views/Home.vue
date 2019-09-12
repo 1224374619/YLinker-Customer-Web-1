@@ -106,7 +106,7 @@
               <div class="line"></div>
               <div class="desc-third">
                 <img
-                  @click="desc"
+                  @click="desc(list.company.id)"
                   style="width:50px;margin:10px 0 0 5px"
                   :src="require('../assets/images/company1.jpg')"
                 />
@@ -187,7 +187,7 @@
               <div class="line"></div>
               <div class="desc-third">
                 <img
-                  @click="desc"
+                  @click="desc(list.company.id)"
                   style="width:50px;margin:10px 0 0 5px"
                   :src="require('../assets/images/company1.jpg')"
                 />
@@ -343,7 +343,7 @@ export default {
     // },
     //轮播图
     carousel() {
-      this.$http.get("/logout").then(res => {
+      this.$http.get("/carousel").then(res => {
          if (res.data.code == 200) {
           //  console.log(res)
           }
@@ -403,8 +403,10 @@ export default {
     search() {
       this.$router.push({ path: "/joblist" });
     },
-    desc() {
-      this.$router.push({ path: "/position" });
+    desc(id) {
+      this.$router.push({ path: "/position",query:{
+            id: id
+          }});
     },
     // dealMenuClick(command) {
     //   if (command === "logout") {
@@ -431,6 +433,7 @@ export default {
     // },
   },
   created() {
+    this.carousel();
     this.hotcompany();
     this.hotkeyword();
     this.hotposition();

@@ -48,7 +48,7 @@
         methods: {
           //编辑传值
           editsinformation() {
-            this.$emit("editsinformation", true,false,this.fromData.fullName,this.fromData.sex,this.county,this.overseasAge,this.age,this.phone,this.email);
+            this.$emit("editsinformation", true,false,this.fromData.fullName,this.fromData.sex,this.fromData.province,this.overseasAge,this.age,this.phone,this.email);
             this.$http.post(`/resume/${2}/base`,{fullName:'',county:''}).then(res => {
               if (res.data.code == 200) {
                 console.log(res);

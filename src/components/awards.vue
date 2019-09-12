@@ -63,7 +63,7 @@ export default {
       this.$refs[formName].validate(valid => {
         if (valid) {
             this.$http.post(`/resume/${2}/award`, { acquiredTime: 454353454334,award:this.formInline.prizeAward}).then(res => {
-                if (res.data.code == 200) {
+                if (res.data.code == 201) {
                   console.log(res);
                   this.$emit("awardsemit",false,true)
                 }

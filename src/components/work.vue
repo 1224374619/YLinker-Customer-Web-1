@@ -98,11 +98,11 @@ export default {
               description:this.formInline.jobDescription
             })
             .then(res => {
-              if (res.data.code == 200) {
-                console.log(res);
+              if (res.data.code == 201) {
+                this.$emit("workEmit", false, true);
               }
             });
-          // this.$emit("workEmit", false, true);
+          
         } else {
           return false;
         }

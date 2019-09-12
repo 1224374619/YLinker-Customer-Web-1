@@ -6,18 +6,18 @@
             </el-form-item>
             <el-form-item label="听力能力" prop="listenAbility">
                 <el-select style="width:108px;height:36px" v-model="formInline.listenAbility" placeholder="">
-                <el-option label="一般" value="1"></el-option>
-                <el-option label="良好" value="2"></el-option>
-                <el-option label="熟练" value="3"></el-option>
-                <el-option label="精通" value="4"></el-option>
+                <el-option label="一般" value="0"></el-option>
+                <el-option label="良好" value="1"></el-option>
+                <el-option label="熟练" value="2"></el-option>
+                <el-option label="精通" value="3"></el-option>
                 </el-select>
             </el-form-item>
             <el-form-item label="读写能力" prop="readAbility">
                 <el-select style="width:108px;height:36px" v-model="formInline.readAbility" placeholder="">
-                <el-option label="一般" value="1"></el-option>
-                <el-option label="良好" value="2"></el-option>
-                <el-option label="熟练" value="3"></el-option>
-                <el-option label="精通" value="4"></el-option>
+                <el-option label="一般" value="0"></el-option>
+                <el-option label="良好" value="1"></el-option>
+                <el-option label="熟练" value="2"></el-option>
+                <el-option label="精通" value="3"></el-option>
                 </el-select>
             </el-form-item><br>
             <el-form-item style="margin:0 0 20px 420px">
@@ -63,8 +63,8 @@ export default {
       this.$refs[formName].validate(valid => {
         if (valid) {
           this.$http.post(`/resume/${2}/language`,{listenAndSpeak:Number(this.formInline.listenAbility),language:this.formInline.languages,readAndWrite:Number(this.formInline.readAbility),}).then(res => {
-            if (res.data.code == 200) {
-              console.log(res);
+            if (res.data.code == 201) {
+              this.$emit("languageEmit",false,true)
             }
           });
         } else {

@@ -87,14 +87,14 @@
                   class="a"
                 >{{this.positionCatalogList[2].positionCatalog}}（{{this.positionCatalogList[2].total}}）</span>
               </div>
-              <div v-for="(list,index) in tableData" :key="index" @click="next">
+              <div v-for="(list,index) in tableData" :key="index" @click="next(list.id)">
                 <div class="position-tab">
-                  <div>{{list.positionName}}</div>
+                  <div style="font-size:15px;margin:0 0 0 15px">{{list.positionName}}</div>
                   <div
                     style="margin:0 0 0 70px"
                   >{{list.workAddress.province}} {{list.workAddress.county}} | {{list.workAgeMin}}-{{list.workAgeMax}}年 | 本科</div>
-                  <div style="margin:0 0 0 90px">{{list.salaryMin}}-{{list.salaryMax}}k</div>
-                  <div style="margin:0 0 0 90px">{{list.publishedTime | formatDate}}</div>
+                  <div style="margin:0 0 0 130px">{{list.salaryMin}}-{{list.salaryMax}}k</div>
+                  <div style="margin:0 0 0 140px">{{list.publishedTime | formatDate}}</div>
                 </div>
                 <div class="line-tab"></div>
               </div>
@@ -103,10 +103,10 @@
                   @size-change="handleSizeChange"
                   @current-change="handleCurrentChange"
                   :current-page="currentPage4"
-                  :page-sizes="[100, 200, 300, 400]"
-                  :page-size="100"
+                  :page-sizes="[5, 20, 50, 100]"
+                  :page-size="5"
                   layout="total, sizes, prev, pager, next, jumper"
-                  :total="400"
+                  :total="total"
                 ></el-pagination>
               </div>
             </div>
@@ -127,6 +127,9 @@ export default {
   },
   data() {
     return {
+      pageSize:5,
+      total:'',
+      companId:'',
       time:'',
       companyIdList: [],
       center: { lng: 0.2, lat: 0.1 },
@@ -154,7 +157,7 @@ export default {
     },
     //获取公司详情
     companyId() {
-      this.$http.get(`/company/${14}`).then(res => {
+      this.$http.get(`/company/${this.companId}`).then(res => {
         if (res.data.code == 200) {
           this.companyIdList = res.data.data;
           //  console.log(res.data.data)
@@ -163,10 +166,11 @@ export default {
     },
     //获取岗位列表
     handleClick(e) {
-      this.$http.get(`/company/${14}/position`).then(res => {
+      this.$http.get(`/company/${this.companId}/position`).then(res => {
         if (e.index == 1) {
           if (res.data.code == 200) {
             this.tableData = res.data.data.list;
+            this.total = res.data.data.total
             var time = this.tableData[0].publishedTime
             this.changeTime(time)
           }
@@ -175,7 +179,7 @@ export default {
     },
     //岗位分类
     positionCatalog() {
-      this.$http.get(`/company/${14}/positionCatalog`).then(res => {
+      this.$http.get(`/company/${this.companId}/positionCatalog`,{}).then(res => {
         if (res.data.code == 200) {
           this.positionCatalogList = res.data.data;
         }
@@ -187,8 +191,10 @@ export default {
     handleCurrentChange(val) {
       alert(`当前页: ${val}`);
     },
-    next() {
-      this.$router.push({ path: "/station" });
+    next(id) {
+      this.$router.push({ path: "/station",query:{
+            id: id
+          }});
     },
     changeTime(time) {
       var commonTime = "";
@@ -203,6 +209,7 @@ export default {
     }
   },
   created() {
+    this.companId = this.$route.query.id 
     this.companyId();
     this.positionCatalog();
   }

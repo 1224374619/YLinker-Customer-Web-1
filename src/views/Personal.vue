@@ -9,8 +9,8 @@
               <span>{{list.salaryMin}}-{{list.salaryMax}}k</span>
             </div>
             <div class="tabs-second">
-              <span>{{list.companyName}}</span>
-              <span>上海 徐汇区 | {{list.workAgeMin}}-{{list.workAgeMax}}年 | {{list.degreeMin}}</span>
+              <span>{{list.company.companyName}}</span>
+              <span>{{list.workAddress.province}} {{list.workAddress.county}} | {{list.workAgeMin}}-{{list.workAgeMax}}年 | {{list.degreeMin}}</span>
               <span>
                 {{list.publishedTime	}}
                 <el-tooltip
@@ -76,11 +76,11 @@
         <span class="span-hover" @click="edit">编辑</span>
         <img @click="toPerson" :src="require('../assets/images/tou.png')" />
         <span class="span-name">
-          李康
+          {{fullName}}
           <img :src="require('../assets/images/xingbie.png')" />
         </span>
         <div v-if="showInfor" class="infor">
-        <span class="span-city">现居{{city}} | {{workAge}}工作经验 | {{age}}</span>
+        <span class="span-city">现居{{city}} | {{workAge}}年工作经验 | {{age}}岁</span>
           <span class="span-type">{{state}}|{{workState}}</span>
         </div>
         <div v-if="showWarn" style="font-size:14px;padding:10px 0 10px 0">个人信息未填写完整，快快来补充吧</div>
@@ -138,12 +138,32 @@ export default {
           workAgeMax:'5',
           workAgeMin:'3'
         }],
-        searchedList:[],
-        city:'上海',
-        workAge:'2年',
-        age:'24岁',
-        state:'离职',
-        workState:'离职-随时到岗'
+        searchedList:[
+          {
+            postion:'项目经理',
+            salaryMin:1,
+            salaryMax:4,
+            companyName:'银领人才'
+          },
+           {
+            postion:'项目经理',
+            salaryMin:1,
+            salaryMax:4,
+            companyName:'银领人才'
+          },
+           {
+            postion:'项目经理',
+            salaryMin:1,
+            salaryMax:4,
+            companyName:'银领人才'
+          }
+        ],
+        fullName:'',
+        city:'',
+        workAge:'',
+        age:'',
+        state:'',
+        workState:''
     }
   },
   methods: {
@@ -162,15 +182,43 @@ export default {
       submitted() {
           this.$http.get('/submitted/position').then(res => {
           if (res.data.code == 200) {
-            this.submittedList = res.data.list; 
+            this.submittedList = res.data.data.list; 
           }
         });
+      },
+      //获取简历简讯
+      brief () {
+        this.$http.get('/resume/brief').then(res => {
+          if (res.data.code == 200) {
+            console.log(res.data.data.base)
+            this.fullName = res.data.data.base.fullName,
+            this.city = res.data.data.base.province  +  res.data.data.base.county
+            this.workAge = res.data.data.base.workAge
+            this.age = res.data.data.base.age
+            if(res.data.data.target.jobSearchStatus == 2) {
+                this.workState = '离职-延时到岗'  
+              }else if(res.data.data.target.jobSearchStatus == 1) {
+                this.workState = '离职-随时到岗'
+              }else if(res.data.data.target.jobSearchStatus == 3) {
+                this.workState = '在职-考虑机会'
+              }else if(res.data.data.target.jobSearchStatus == 4) {
+               this.workState = '在职-暂不到岗'
+              }
+              if(res.data.data.target.jobType == 1) {
+                this.state = '实习'  
+              }else if(res.data.data.target.jobType == 2) {
+                this.state = '全职'
+              }else if(res.data.data.target.jobType == 3) {
+                this.state = '兼职'
+              }
+          }
+        })
       },
       //获取收藏的岗位
       favorite() {
           this.$http.get('/favorite/position').then(res => {
           if (res.data.code == 200) {
-            this.favoriteList = res.data.list; 
+            this.favoriteList = res.data.data.list; 
             console.log(res.data.list)
           }
         });
@@ -180,14 +228,6 @@ export default {
           this.$http.delete(`/favorite/position/${2}`).then(res => {
           if (res.data.code == 200) {
            console.log(res)
-          }
-        });
-      },
-      //获取个人简讯
-      brief() {
-        this.$http.delete('/resume/biref').then(res => {
-          if (res.data.code == 200) {
-            // this.favoriteList = res.data.data; 
           }
         });
       },
@@ -204,6 +244,7 @@ export default {
       this.submitted();
       this.favorite();
       this.iscancel();
+      this.brief()
       // this.searched();
     },
 }
@@ -291,7 +332,8 @@ export default {
         margin 0 0 0 10px
         width 100px
       .tabs-second span:nth-child(2)
-        margin 2px 180px 7px 0
+        margin 2px 120px 7px 0
+        width 200px
         font-size 14px
       .tabs-second span:nth-child(3)
         margin  0 10px 0 0
@@ -381,13 +423,13 @@ export default {
         .footer-article span:nth-child(1)
           font-family PingFangSC-Semibold
           color #1f368d
-          font-size 15px
-          margin 0 0 0 24px 
+          font-size 14px
+          margin 0 0 0 20px 
         .footer-article span:nth-child(2)
           font-family PingFangSC-Semibold
           color #617dcb
           font-size 15px 
-          margin 0 26px 0 0
+          margin 0 24px 0 0
         .footer-foot
           display flex
           flex-direction row
@@ -396,11 +438,11 @@ export default {
         .footer-foot span:nth-child(1)
           font-family PingFangSC-Semibold
           font-size 12px
-          margin 0 0 0 24px 
+          margin 0 0 0 20px 
         .footer-foot span:nth-child(2)
           font-family PingFangSC-Semibold
           font-size 12px 
-          margin 0 26px 0 0
+          margin 0 24px 0 0
         .footer-line 
           width 240px 
           border 0.5px solid #f0f0f0

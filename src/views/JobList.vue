@@ -109,12 +109,7 @@
            <span class="article-title">公司行业：</span>
             <el-checkbox-group size="small" v-model="duty" style="width:650px;margin-top:-1px;;margin-left:-2px;">
               <el-checkbox-button  class="article-content" :label="index" v-for="(list,index) in industryList" :key="index">{{list.tag}}</el-checkbox-button>
-              <!-- <el-checkbox-button class="article-content" label="2">行业</el-checkbox-button>
-              <el-checkbox-button class="article-content" label="3">行业</el-checkbox-button>
-              <el-checkbox-button class="article-content" label="4">行业</el-checkbox-button>
-              <el-checkbox-button class="article-content" label="5">行业</el-checkbox-button> -->
             </el-checkbox-group>
-            
         </div>
         <div style="margin-bottom:10px;margin-top:0px;" v-if="isduty">
             <el-checkbox-group size="small" v-model="menu" style="width:770px;margin:0 0 0 -5px">
@@ -143,7 +138,7 @@
         </div>
     </div>
     <div class="joblist-content" v-if="joblistCompany">
-      <div class="content" v-for="item in companyList" :key='item'>
+      <div class="content" v-for="(item,index) in companyList" :key='index'>
         <div class="content-img">
             <img :src="require('../assets/images/company1.jpg')"/>
         </div>
@@ -171,8 +166,8 @@
         </div>
         <div class="footer-second">
             <span>上海 徐汇区 | {{item.workAgeMin}}-{{item.workAgeMax}}年 | {{item.degreeMin}}</span>
-            <span>今天 {{item.publishedTime}}</span>
-            <span>{{item.positionCatalog}} | {{item.size}}</span>
+            <span>{{item.publishedTime | formatDate}}</span>
+            <span>{{item.positionCatalog}} | {{item.company.size}}</span>
         </div>
         <div class="footer-line"></div>
       </div>  
@@ -279,124 +274,8 @@ export default {
         value:'公司',
         label:'公司'
         }],
-      companyList:[
-        {
-          companyName:"银领科技",
-          industry:'IT',
-          recruitedPositionNum:'12',
-          size:'100'
-        },
-        {
-          companyName:"银领科技",
-          industry:'IT',
-          recruitedPositionNum:'12',
-          size:'100'
-        },
-        {
-          companyName:"银领科技",
-          industry:'IT',
-          recruitedPositionNum:'12',
-          size:'100'
-        }
-      ], 
-      positionList:[
-        {
-          degreeMin:"本科",
-          positionCatalog:'IT',
-          positionName:'产品经理',
-          publishedTime:'19:00',
-          salaryMax:'7',
-          salaryMin:'2',
-          workAgeMax:'5',
-          workAgeMin:'1',
-          companyName:'迪卡侬',
-          size:'300'
-        },
-        {
-          degreeMin:"本科",
-          positionCatalog:'IT',
-          positionName:'产品经理',
-          publishedTime:'19:00',
-          salaryMax:'7',
-          salaryMin:'2',
-          workAgeMax:'5',
-          workAgeMin:'1',
-          companyName:'迪卡侬',
-          size:'300'
-        },
-        {
-          degreeMin:"本科",
-          positionCatalog:'IT',
-          positionName:'产品经理',
-          publishedTime:'19:00',
-          salaryMax:'7',
-          salaryMin:'2',
-          workAgeMax:'5',
-          workAgeMin:'1',
-          companyName:'迪卡侬',
-          size:'300'
-        },
-        {
-          degreeMin:"本科",
-          positionCatalog:'IT',
-          positionName:'产品经理',
-          publishedTime:'19:00',
-          salaryMax:'7',
-          salaryMin:'2',
-          workAgeMax:'5',
-          workAgeMin:'1',
-          companyName:'迪卡侬',
-          size:'300'
-        },
-        {
-          degreeMin:"本科",
-          positionCatalog:'IT',
-          positionName:'产品经理',
-          publishedTime:'19:00',
-          salaryMax:'7',
-          salaryMin:'2',
-          workAgeMax:'5',
-          workAgeMin:'1',
-          companyName:'迪卡侬',
-          size:'300'
-        },
-        {
-          degreeMin:"本科",
-          positionCatalog:'IT',
-          positionName:'产品经理',
-          publishedTime:'19:00',
-          salaryMax:'7',
-          salaryMin:'2',
-          workAgeMax:'5',
-          workAgeMin:'1',
-          companyName:'迪卡侬',
-          size:'300'
-        },
-        {
-          degreeMin:"本科",
-          positionCatalog:'IT',
-          positionName:'产品经理',
-          publishedTime:'19:00',
-          salaryMax:'7',
-          salaryMin:'2',
-          workAgeMax:'5',
-          workAgeMin:'1',
-          companyName:'迪卡侬',
-          size:'300'
-        },
-        {
-          degreeMin:"本科",
-          positionCatalog:'IT',
-          positionName:'产品经理',
-          publishedTime:'19:00',
-          salaryMax:'7',
-          salaryMin:'2',
-          workAgeMax:'5',
-          workAgeMin:'1',
-          companyName:'迪卡侬',
-          size:'300'
-        },
-      ], 
+      companyList:[], 
+      positionList:[], 
       city:[
         {
           value:'北京'
@@ -487,19 +366,25 @@ export default {
         }, 300);
       },
       search () {
-        if(this.company =='职位') {
-          this.$http.get('/searched/company').then(res => {
+        if(this.company =='公司') {
+          this.$http.get('/searched/company',{county:'徐汇区',industry:2,keyword:'银',province:'上海市',size:100}).then(res => {
           if (res.data.code == 200) {
+            this.joblistCompany = true
+            this.joblistJob = false
+            this.companyList = res.data.data.list
             console.log(res);
           }
         });
-        }else {
-          this.$http.post('/searched/position').then(res => {
+      }else if(this.company =='职位') {
+        this.$http.get('/searched/position').then(res => {
           if (res.data.code == 200) {
-            console.log(res);
+            this.joblistCompany = false
+            this.joblistJob = true
+            this.positionList = res.data.data.list
+            // console.log(res);
           }
         });
-        }
+      }
       },
       next() {
         this.dialogVisible = true
@@ -525,13 +410,27 @@ export default {
           }
         });
       },
+       //获取所有企业类别
+      enterpriseForm() {
+        this.$http.get("/constant/enterpriseForm").then(res => {
+          if (res.data.code == 200) {
+            // this.industryList = res.data.data
+            console.log(res.data.data)
+          }
+        });
+      },
+       //获取所有职位类型
+      positionCatalog() {
+        this.$http.get("/constant/positionCatalog").then(res => {
+          if (res.data.code == 200) {
+            // this.industryList = res.data.data
+            console.log(res.data.data)
+          }
+        });
+      },
       getVendorId() {
         if(this.company == '公司') {
           this.isshow = false
-          this.joblistCompany = true
-          this.joblistJob = false
-        }else{
-          this.isshow = true
         }
         }
     },
@@ -565,6 +464,16 @@ export default {
     created () {
       // this.positionId();
       this.allposition()
+      this.enterpriseForm()
+      this.positionCatalog()
+      this.$http.get('/searched/position').then(res => {
+          if (res.data.code == 200) {
+            this.joblistCompany = false
+            this.joblistJob = true
+            this.positionList = res.data.data.list
+            // console.log(res);
+          }
+        });
       // console.log(this.monthPay+"78787877")
       // if(this.monthPay == ''&&this.district =='0'&&this.workExperience =='0'&&this.Education =='0'&&this.workState =='0'&&this.industry =='0'&&this.scale ==''&&this.releaseTime =='') {
       //   this.articleButton = false

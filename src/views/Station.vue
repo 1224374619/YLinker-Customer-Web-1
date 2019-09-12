@@ -15,7 +15,7 @@
         <div class="content-article">
           <span>发布时间：{{positionIdList.publishedTime | formatDate}}</span>
         </div>
-        <div style="margin:0 0 0 325px">
+        <div style="margin:0 0 0 325px" v-if="al">
           <span style="margin:0 20px 0 0" v-if="almsg">
             <el-button
               id="deliver"
@@ -32,7 +32,7 @@
             >已投递</el-button>
           </span> 
         </div>
-        <div>
+        <div v-if="all">
           <span v-if="isshowCollect">
             <el-button style="width:140px;height:40px" @click="iscollect()" plain>收藏</el-button>
           </span>
@@ -44,10 +44,10 @@
             >已收藏</el-button>
           </span>
         </div>
-        <div style="margin:0 0 0 290px" v-if="showDeliver">
+        <div style="margin:0 0 0 330px" v-if="showDeliver">
           <span style="margin:0 20px 0 0">
             <el-button
-              style="width:280px;height:40px;"
+              style="width:280px;height:40px;background:#9b9b9b;border:1px solid #9b9b9b"
               type="primary"
             >已失效</el-button>
           </span>
@@ -242,6 +242,7 @@ export default {
   },
   data() {
     return {
+      positiId:'',
       positionIdList:[],
       radio:3,
       dialogVisibleTwo:false,
@@ -261,17 +262,29 @@ export default {
       isshowCollect: true,
       showCollect: false,
       isshow: true,
-      url:
-        "https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg"
+      url:''
     };
   },
   methods: {
     //确认投递
     showdeliver() {
-      this.almsg = true
-      this.msg = false
-      this.dialogVisibleTwo = false
-      this.dialogVisibleOne = true
+      this.$http.put(`/submitted/position/${this.positiId}/resume/${2}`).then(res => {
+        console.log(res,'1231231231231')
+          if (res.data.code == 200) {
+            // this.resumeIdList = res.data
+            console.log(res);
+            this.almsg = true
+            this.msg = false
+            this.dialogVisibleTwo = false
+            this.dialogVisibleOne = true
+          }else{
+            this.$message({
+              message: '警告哦，这是一条警告消息',
+              type: 'warning'
+            });
+          }
+        });
+      
     },
     more() {
       this.$router.push({path:'/joblist'})
@@ -284,16 +297,32 @@ export default {
     },
     //获取岗位详情
       positionId() {
-        this.$http.get(`/position/${2}`).then(res => {
+        this.$http.get(`/position/${this.positiId}`).then(res => {
           if (res.data.code == 200) {
             this.positionIdList = res.data.data
+            this.url = res.data.data.company.logoUrl
+            if(res.data.data.isValid == false) {
+              this.showDeliver = true
+              this.isshowCollect = false
+              this.showCollect = false
+              this.msg = false
+              this.almsg = false
+            }else{
+              this.showDeliver = false
+              this.al = true
+              this.all = true
+              this.isshowCollect = true
+              this.showCollect = false
+              this.msg = false
+              this.almsg = true
+            }
             console.log(this.positionIdList);
           }
         });
       },
     //判断简历是否投递
       showdeli() {
-        this.$http.get(`/submitted/position/${2}`).then(res => {
+        this.$http.get(`/submitted/position/${this.positiId}`).then(res => {
           if (res.data.code == 200) {
             this.showCollect = true
             this.isshowCollect = false
@@ -302,10 +331,9 @@ export default {
       },
        //判断简历是否收藏
       showcoll() {
-        this.$http.get(`/favorite/position/${2}`).then(res => {
+        this.$http.get(`/favorite/position/${this.positiId}`).then(res => {
           if (res.data.code == 200) {
             if(res.data.data == true) {
-              console.log("23232323232323")
             }
           }
         });
@@ -313,12 +341,7 @@ export default {
     //向岗位投递简历
     isclick() {
         this.dialogVisibleTwo = true
-        this.$http.put(`/submitted/position/${4}/resume/${2}`).then(res => {
-          if (res.data.code == 200) {
-            // this.resumeIdList = res.data
-            console.log(res);
-          }
-        });
+        
       // if(this.num == 1) {
       //     this.dialogVisible = true
       // }else{
@@ -332,7 +355,7 @@ export default {
     iscollect() {
         this.isshowCollect = false
         this.showCollect = true
-        this.$http.put(`/favorite/position/${2}`).then(res => {
+        this.$http.put(`/favorite/position/${this.positiId}`).then(res => {
           if (res.data.code == 200) {
             // this.resumeIdList = res.data
             console.log(res);
@@ -356,6 +379,7 @@ export default {
     }
   },
   created() {
+    this.positiId = this.$route.query.id;
     this.positionId();
     this.showdeli();
     this.showcoll();

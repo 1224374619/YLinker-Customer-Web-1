@@ -40,12 +40,11 @@ export default {
     keep(formName) {
       this.$refs[formName].validate(valid => {
         if (valid) {
-          // this.$emit("professionalEmit",false,true)
-          // this.$http.post(`/resume/${2}/qualification`,{qual:''}).then(res => {
-          //   if (res.data.code == 200) {
-          //     console.log(res);
-          //   }
-          // });
+          this.$http.post(`/resume/${2}/qualification`,{qual:this.formInline.professional}).then(res => {
+            if (res.data.code == 201) {
+              this.$emit("professionalEmit",false,true)
+            }
+          });
         } else {
           return false;
         }

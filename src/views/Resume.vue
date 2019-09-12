@@ -98,6 +98,22 @@
           </div>
           <div style="height:30px"></div>
         </el-dialog>
+         <!-- 职称等级删除确认 -->
+        <el-dialog
+                title=""
+                :visible.sync="dialogprofession"
+                width="30%"
+                :before-close="handleClose">
+          <div style="display:flex;flex-direction:row;margin-left:150px">
+            <img style="height:18px;" :src="require('../assets/images/222.png')"/>
+            <span style="font-size:14px;line-height:20px;margin:0 0 0 20px">删除后不能恢复，请确定删除？</span>
+          </div>
+          <div slot="footer" class="dialog-footer" style="margin-top:-30px">
+            <el-button style="margin:0 20px 0 0" @click="dialogprofession = false" plain>取 消</el-button>
+            <el-button type="primary" style="margin:0 160px 0 0" @click="deleteprofession()">确 定</el-button>
+          </div>
+          <div style="height:30px"></div>
+        </el-dialog>
         <!-- 荣誉奖项删除确认 -->
         <el-dialog
                 title=""
@@ -144,7 +160,7 @@
               </el-form-item>
               <el-form-item label="到岗时间" prop='dutyTime'>
                 <el-date-picker
-                  :disabled="formInformation.state === '离职-延时到岗'?false:true"
+                  :disabled="formInformation.state === '2'?false:true"
                   v-model='formInformation.dutyTime'
                   style="width:400px;height:36px;margin-right:50px"
                   type="date"
@@ -168,9 +184,9 @@
               </el-form-item>
               <el-form-item label="所在城市" prop='city'>
                 <el-select style="width:400px;height:36px;margin-right:50px" v-model='formInformation.city'  placeholder>
-                  <el-option label='上海' value="1"></el-option>
-                  <el-option label='天津' value="2"></el-option>
-                  <el-option label='北京' value="3"></el-option>
+                  <el-option label='上海' value="上海"></el-option>
+                  <el-option label='天津' value="天津"></el-option>
+                  <el-option label='北京' value="北京"></el-option>
                 </el-select>
               </el-form-item>
               <el-form-item label="最高学历" prop='educationLevel'>
@@ -352,7 +368,7 @@
               </el-form-item>
               <el-form-item label="学历" prop='educationDegree'>
                   <el-select style="width:400px;height:36px;margin-right:50px" placeholder="" v-model="formEducation.educationDegree">
-                  <el-option label="初中及以下" value=""></el-option>
+                  <el-option label="初中及以下" value="0"></el-option>
                   <el-option label="职中" value="1"></el-option>
                   <el-option label="高中" value="2"></el-option>
                   <el-option label="大专" value="3"></el-option>
@@ -476,18 +492,18 @@
               </el-form-item>
               <el-form-item label="听力能力" prop='listenAbility'>
                   <el-select style="width:400px;height:36px;margin-right:50px" v-model="formlanguage.listenAbility" placeholder="">
-                  <el-option label="一般" value="1"></el-option>
-                  <el-option label="良好" value="2"></el-option>
-                  <el-option label="熟练" value="3"></el-option>
-                  <el-option label="精通" value="4"></el-option>
+                  <el-option label="一般" value="0"></el-option>
+                  <el-option label="良好" value="1"></el-option>
+                  <el-option label="熟练" value="2"></el-option>
+                  <el-option label="精通" value="3"></el-option>
                   </el-select>
               </el-form-item>
               <el-form-item label="读写能力" prop='readAbility'>
                 <el-select style="width:400px;height:36px;margin-right:50px" v-model="formlanguage.readAbility" placeholder="">
-                  <el-option label="一般" value="1"></el-option>
-                  <el-option label="良好" value="2"></el-option>
-                  <el-option label="熟练" value="3"></el-option>
-                  <el-option label="精通" value="4"></el-option>
+                  <el-option label="一般" value="0"></el-option>
+                  <el-option label="良好" value="1"></el-option>
+                  <el-option label="熟练" value="2"></el-option>
+                  <el-option label="精通" value="3"></el-option>
                   </el-select>
               </el-form-item>
               <el-form-item>
@@ -510,6 +526,33 @@
              </div>
           </el-dialog>
         </el-dialog>
+        <!-- 职称等级 -->
+         <el-dialog title="职称等级编辑" style="width:1150px;margin-left:15%" :visible.sync="professionouterVisible">
+          <div>
+            <el-form :model="formProfession" class="demo-form-inline" label-width="120px" :rules="professionalrules" ref="formProfession">
+              <el-form-item label="职称等级名称" prop='qual'>
+                  <el-input style="width:400px;height:36px;margin-right:50px" v-model="formProfession.qual" placeholder=""></el-input>
+              </el-form-item>
+              <el-form-item>
+                   <el-button style="margin:0 20px 0 175px" @click="professioninnerVisible = true" plain>取 消</el-button>
+                   <el-button style="margin:0 25px 0 0" type="primary" @click="professionkeep('formProfession')">保存</el-button>
+              </el-form-item>
+            </el-form>   
+          </div>
+          <el-dialog
+            style="width:900px;margin-left:21%"
+            :visible.sync="professioninnerVisible"
+            append-to-body>
+             <div style="display:flex;flex-direction:row;margin-left:120px">
+               <img style="height:18px;" :src="require('../assets/images/222.png')"/>
+               <span style="font-size:14px;line-height:20px;margin:0 0 0 20px">离开修改内容将不会保存</span>
+             </div>
+             <div slot="footer" class="dialog-footer">
+              <el-button style="margin:0 20px 0 0" @click="professioninnerVisible = false" plain>取 消</el-button>
+              <el-button style="margin:0 80px 0 0" type="primary" @click="professionouterVisible = false,professioninnerVisible = false">确定</el-button>
+             </div>
+          </el-dialog>
+        </el-dialog>
         <!-- 专业技能 -->
          <el-dialog title="专业技能编辑" style="width:1150px;margin-left:15%" :visible.sync="personalskillouterVisible">
           <div>
@@ -519,10 +562,10 @@
               </el-form-item>
               <el-form-item label="掌握程度" prop='level'>
                   <el-select style="width:400px;height:36px;margin-right:50px" v-model="formPersonalskill.level" placeholder="">
-                  <el-option label="一般" value="1"></el-option>
-                  <el-option label="良好" value="2"></el-option>
-                  <el-option label="熟练" value="3"></el-option>
-                  <el-option label="精通" value="4"></el-option>
+                  <el-option label="一般" value="0"></el-option>
+                  <el-option label="良好" value="1"></el-option>
+                  <el-option label="熟练" value="2"></el-option>
+                  <el-option label="精通" value="3"></el-option>
                   </el-select>
               </el-form-item>
               <el-form-item>
@@ -779,15 +822,28 @@
         </div>
         <div class="content-line"></div>
         <!-- 职称等级 -->
-        <div ref="professional" class="main-content" @mouseover="over(4)" @mouseleave="leave(4)">
+        <div ref="professional" class="main-content">
           <div class="main-content-first"><img :src="require('../assets/images/zhicheng.png')"/><span>职称等级</span></div>
           <div class="main-content-second" @click="professional()"><img :src="require('../assets/images/add.png')"/>
             <span>添加</span></div>
         </div>
+        <ul v-if="showprofessionals" style="margin:-5px 0 10px 5px" @mouseover="over(4)" @mouseleave="leave(4)">
+          <li v-for="(list,index) in listprofessional" :key="index" class="ul-a">
+              <span class="actions-span" style='margin:15px 20px 0 0'>
+                  <img style="margin-right:9px;height:12px" :src="require('../assets/images/shan.png')"/><span
+                      @click="showprofessionaldialog(list)" style="margin-right:20px">删除</span>
+                  <img style="margin-right:9px;height:12px" :src="require('../assets/images/ziwo.png')"/><span
+                    @click="showprofessionalList(list)"  style="margin-right:3px" >编辑</span>
+              </span><br>
+            <professional-from :from-data="list" :index="index"></professional-from>
+            <br>
+          </li>
+        </ul>
         <div v-if="showprofessional">
           <professional-experience @professionalEmit='professionalEmit(arguments)'/>
         </div>
         <div class="content-line"></div>
+        <!-- 专业技术 -->
         <div ref="personal_skill" class="main-content">
           <div class="main-content-first"><img :src="require('../assets/images/zhuanye.png')"/><span>专业技能</span></div>
           <div class="main-content-second" @click="personal_skill()"><img :src="require('../assets/images/add.png')"/>
@@ -948,6 +1004,7 @@
   import ProgectFrom from 'components/progect_from.vue'
   import TrainingFrom from 'components/training_from.vue'
   import LanguageFrom from 'components/language_from.vue'
+  import ProfessionalFrom from 'components/professional_from.vue'
   import PersonalskillFrom from 'components/personal_skill_from.vue'
   import AwardsFrom from 'components/awards_from.vue'
   import SelfappraisalFrom from 'components/selfappraisal_from.vue'
@@ -972,6 +1029,7 @@
       From,
       EducationexperienceFrom,
       WorkFrom,
+      ProfessionalFrom,
       ProgectFrom,
       TrainingFrom,
       LanguageFrom,
@@ -986,6 +1044,7 @@
         languageId:'',
         trainId:'',
         progectId:'',
+        qualId:'',
         workId:'',
         educationId:'',
         resumeIdList:'',
@@ -1017,12 +1076,15 @@
         showprogectperience: true,
         showtrain: true,
         showlanguages: true,
+        showprofessionals:true,
         showpersonalskills: true,
         showaward: true,
         showpersonappraisal: true,
         file:true,
         languageouterVisible: false,
         languageinnerVisible: false,
+        professionouterVisible:false,
+        professioninnerVisible:false,
         educationouterVisible: false,
         educationinnerVisible: false,
         informationouterVisible: false,
@@ -1047,6 +1109,7 @@
         listprogectperience: [],
         listtrain: [],
         listlanguages: [],
+        listprofessional:[],
         listpersonalskill: [],
         listaward: [],
         listpersonappraisal: '',
@@ -1100,6 +1163,9 @@
           languages: '',
           listenAbility: '',
           readAbility:''
+        },
+        formProfession: {
+          qual:''
         },
         formPersonalskill: {
           technicalName: '',
@@ -1225,6 +1291,13 @@
             { required: true, message: "请选择读写能力", trigger: "blur" }
           ],
         },
+        professionalrules:{
+          qual: [
+            { required: true, message: "请输入语种", trigger: "blur" },
+            { min: 0, max: 30, message: "长度在 0 到 30 个字符", trigger: "blur" }
+            // { pattern:/^[a-zA-Z\u4e00-\u9fa5\s]{0,24}$/, message: '姓名仅支持中文汉字与英文字母', trigger: 'blur' },
+          ],
+        },
         skillrules: {
           technicalName: [
             { required: true, message: "请输入技能名称", trigger: "blur" },
@@ -1267,7 +1340,7 @@
             { required: true, message: '请选择性别', trigger: 'change' }
           ],
           birthday: [
-            { type: 'date', required: true, message: '请选择日期', trigger: 'change' }
+            { required: true, message: '请选择日期', trigger: 'change' }
           ],
           educationLevel: [
             { required: true, message: '请选择学历', trigger: 'change' }
@@ -1335,10 +1408,24 @@
       informationkeep(formName) {
         this.$refs[formName].validate(valid => {
           if (valid) {
-            this.$http.put(`/resume/${2}/base`,{}).then(res => {
+            this.$http.put(`/resume/${2}/base`,{
+              fullName:this.formInformation.name,
+              province:this.formInformation.city,
+              politicalStatus:2,
+              sex:this.formInformation.sex,
+              birthday:23423423423,
+              degree:1,
+              email:this.formInformation.email,
+              phone:this.formInformation.phone,
+              isGraduate:false,
+              workYear:23445423423,
+              overseasAge:2
+
+            }).then(res => {
               if (res.data.code == 200) {
                 // console.log(res);
                 this.jobintensionouterVisible = false
+                this.resumeId()
               }
             });
             this.informationouterVisible = false
@@ -1373,6 +1460,7 @@
               if (res.data.code == 200) {
                 // console.log(res);
                 this.awardsouterVisible = false
+                this.resumeId()
               }
             });
            
@@ -1386,10 +1474,22 @@
       skillkeep(formName) {
         this.$refs[formName].validate(valid => {
           if (valid) {
+            if(this.formPersonalskill.level == '一般') {
+              this.formPersonalskill.level = 0
+            }else if(this.formPersonalskill.level == '良好') {
+              this.formPersonalskill.level = 1
+            }
+            else if(this.formPersonalskill.level == '熟练') {
+              this.formPersonalskill.level = 2
+            }
+            else if(this.formPersonalskill.level == '精通') {
+              this.formPersonalskill.level = 3
+            }
              this.$http.put(`/resume/${2}/skill/${this.skillId}`,{level:this.formPersonalskill.level,skill:this.formPersonalskill.technicalName}).then(res => {
               if (res.data.code == 200) {
                 // console.log(res);
                this.personalskillouterVisible = false
+               this.resumeId()
               }
             });
           } else {
@@ -1402,10 +1502,40 @@
       languagekeep(formName) {
          this.$refs[formName].validate(valid => {
           if (valid) {
+            if(this.formlanguage.languages == '一般') {
+              this.formlanguage.languages = 0
+            }else if(this.formlanguage.languages == '良好') {
+              this.formlanguage.languages = 1
+            }
+            else if(this.formlanguage.languages == '熟练') {
+              this.formlanguage.languages = 2
+            }
+            else if(this.formlanguage.languages == '精通') {
+              this.formlanguage.languages = 3
+            }
              this.$http.put(`/resume/${2}/language/${this.languageId}`,{language:this.formlanguage.languages,listenAndSpeak:this.formlanguage.listenAbility,readAndWrite:this.formlanguage.readAbility}).then(res => {
               if (res.data.code == 200) {
                 // console.log(res);
                this.languageouterVisible = false
+               this.resumeId()
+              }
+            });
+            
+          } else {
+            // this.languageouterVisible = false
+            return false;
+          }
+      });
+      },
+       //职称等级
+      professionkeep(formName) {
+         this.$refs[formName].validate(valid => {
+          if (valid) {
+             this.$http.put(`/resume/${2}/qualification/${this.qualId}`,{qual:this.formProfession.qual}).then(res => {
+              if (res.data.code == 200) {
+                // console.log(res);
+               this.professionouterVisible = false
+               this.resumeId()
               }
             });
             
@@ -1423,6 +1553,7 @@
               if (res.data.code == 200) {
                 // console.log(res);
                this.trainingouterVisible = false
+               this.resumeId()
               }
             });
             
@@ -1440,6 +1571,7 @@
               if (res.data.code == 200) {
                 // console.log(res);
                this.progectouterVisible = false
+               this.resumeId()
               }
             });
           } else {
@@ -1456,6 +1588,7 @@
               if (res.data.code == 200) {
                 // console.log(res);
                 this.workouterVisible = false
+                this.resumeId()
               }
             });
           } else {
@@ -1468,6 +1601,21 @@
       educationkeep(formName) {
          this.$refs[formName].validate(valid => {
           if (valid) {
+            if(this.formEducation.educationDegree == '高中') {
+                this.formEducation.educationDegree = 2
+            }else if(this.formEducation.educationDegree == '初中及以下') {
+                this.formEducation.educationDegree = 0
+            }else if(this.formEducation.educationDegree == '职中') {
+                this.formEducation.educationDegree = 1
+            }else if(this.formEducation.educationDegree == '大专') {
+                this.formEducation.educationDegree = 3
+            }else if(this.formEducation.educationDegree == '本科') {
+                this.formEducation.educationDegree = 4
+            }else if(this.formEducation.educationDegree == '硕士') {
+                this.formEducation.educationDegree = 5
+            }else if(this.formEducation.educationDegree == '博士') {
+                this.formEducation.educationDegree = 6
+            }
             this.$http.put(`/resume/${2}/education/${this.educationId}`,{beginTime:966517171000,endTime:null,degree:this.formEducation.educationDegree,major:this.formEducation.educationSpecialty,school:this.formEducation.educationName,isUnified:false}).then(res => {
               if (res.data.code == 200) {
                 // console.log(res);
@@ -1494,6 +1642,7 @@
             this.listtrain = res.data.data.training
             this.listlanguages = res.data.data.languages
             this.listpersonalskill = res.data.data.skills
+            this.listprofessional = res.data.data.qualifications
             this.listaward = res.data.data.awards
             this.listpersonappraisal = res.data.data.evaluation
 
@@ -1562,6 +1711,15 @@
           }
         });
       },
+      //职称等级删除
+      deleteprofession() {
+        this.$http.delete(`/resume/${2}/qualification/${this.qualId}`).then(res => {
+          if (res.data.code == 204) {
+            this.dialogprofession = false
+            this.resumeId()
+          }
+        });
+      },
       //工作经历删除
       deletework() {
         this.$http.delete(`/resume/${2}/work/${this.workId}`).then(res => {
@@ -1583,15 +1741,19 @@
        //教育经历删除
       deletedu() {
         this.$http.delete(`/resume/${2}/education/${this.educationId}`).then(res => {
-          if (res.data.code == 200) {
-            console.log(res);
+          if (res.data.code == 204) {
+            this.dialogedu = false
+            this.resumeId()
+            
           }
         });
       },
       //职称等级删除
       deleteaward() {
-        this.$http.delete(`/resume/${2}/qualification/${1}`,{qual: ""}).then(res => {
+        this.$http.delete(`/resume/${2}/qualification/${1}`).then(res => {
           if (res.data.code == 200) {
+            this.dialogedu = false
+            this.resumeId()
             console.log(res);
           }
         });
@@ -1627,56 +1789,68 @@
       selfappraisalemit(c) {
         this.showpersonappraisal = c[1]
         this.showselfappraisal = c[0]
+         this.resumeId()
       },
       //荣誉奖项（$emit）
       awardsEmit(c) {
         this.showpersonalskills = c[1]
         this.showpersonalskill = c[0]
+         this.resumeId()
       },
       //专业技能（$emit）
       skillEmit(c) {
         this.showpersonalskills = c[1]
         this.showpersonalskill = c[0]
+        this.resumeId()
       },
       //职称等级（$emit）
       professionalEmit(c) {
         this.showprofessional = c[0]
+        this.showprofessionals = c[1]
+         this.resumeId()
       },
       //语言能力（$emit）
       languageEmit(c) {
         this.showlanguage = c[0]
         this.showlanguages = c[1]
+         this.resumeId()
       },
       //培训经历（$emit）
       trainEmit(c) {
         this.showtraining = c[0]
         this.showtrain = c[1]
+         this.resumeId()
       },
       //项目经历（$emit）
       progectEmit(c) {
         this.showproject = c[0]
         this.showprogectperience = c[1]
+         this.resumeId()
       },
       //教育经历（$emit）
       sendiptVal(c) {
         this.showeducation = c[0]
         this.showeducational = c[1]
+         this.resumeId()
       },
       //工作经历
       workEmit(c) {
         this.showwork = c[0],
         this.showworkperience = c[1]
+         this.resumeId()
       },
       //求职意向（$emit）
       jobintensionEmit(c) {
         this.showJob = c[0],
         this.showjobintension = c[1]
         this.showadd = c[1]
+         this.resumeId()
       },
       //荣誉奖项（$emit）
       awardsemit(c) {
         this.showawards = c[0]
         this.showaward = c[1]
+         this.resumeId()
       },
       //自我介绍
       showselfappraisalList() {
@@ -1697,17 +1871,41 @@
         this.personalskillouterVisible = true
         this.skillId = list.id 
         this.formPersonalskill.technicalName = list.skill
-        this.formPersonalskill.level = list.level
+        if(list.level == 0) {
+          this.formPersonalskill.level = '一般'
+        }else if(list.level == 1) {
+         this.formPersonalskill.level = '良好'
+        }else if(list.level == 2) {
+          this.formPersonalskill.level = '熟练'
+        }else if(list.level == 3) {
+          this.formPersonalskill.level = '精通'
+        }
       },
       //语言能力
       
       showlanguagesList(list) {
         // console.log(list)
         this.languageouterVisible = true
-        this.languageId = list.id
-        this.formlanguage.listenAbility = list.listenAndSpeak
-        this.formlanguage.readAbility = list.readAndWrite
         this.formlanguage.languages = list.language
+        if(list.listenAndSpeak == 0) {
+          this.formlanguage.listenAbility = '一般'
+        }else if(list.listenAndSpeak == 1) {
+          this.formlanguage.listenAbility = '良好'
+        }else if(list.listenAndSpeak == 2) {
+          this.formlanguage.listenAbility = '熟练'
+        }else if(list.listenAndSpeak == 3) {
+          this.formlanguage.listenAbility = '精通'
+        }
+        if(list.readAndWrite == 0) {
+          this.formlanguage.readAbility = '一般'
+        }else if(list.readAndWrite == 1) {
+          this.formlanguage.readAbility = '良好'
+        }else if(list.readAndWrite == 2) {
+          this.formlanguage.readAbility = '熟练'
+        }else if(list.readAndWrite == 3) {
+          this.formlanguage.readAbility = '精通'
+        }
+        this.languageId = list.id
       },
       //培训经历
       showtrainList(list) {
@@ -1735,6 +1933,11 @@
         this.formProject.duty = list.duty
         this.formProject.project = list.description
       },
+      showprofessionalList(list) {
+        this.qualId = list.id
+        this.formProfession.qual = list.qual
+        this.professionouterVisible = true
+      },
       //工作经历编辑
       showworkperienceList(list) {
         // console.log(list,"22323232323")
@@ -1746,25 +1949,43 @@
       },
       //个人信息编辑
       editsinformation(c) {
-        // console.log(c)
-        this.informationouterVisible = c[0]
-        this.formInformation.name = c[2]
-        this.formInformation.city = c[3]
-        this.formInformation.workAge = c[4]
-        this.formInformation.age = c[5]
-        this.formInformation.phone = c[6]
-        this.formInformation.email = c[7]
+        // // console.log(c)
+        // this.informationouterVisible = c[0]
+        // this.formInformation.name = c[2]
+        // this.formInformation.city = c[3]
+        // this.formInformation.workAge = c[4]
+        // this.formInformation.age = c[5]
+        // this.formInformation.phone = c[6]
+        // this.formInformation.email = c[6]
         // this.personalinformation = true
       },
       //教育经历编辑
       showeducationalList(list,index) {
         console.log(list)
         this.educationId = list.id
-        this.formEducation.educationName = list.school
-        this.formEducation.educationDegree = list.degree
-        // this.formEducation.educationTime = list.major
-        this.formEducation.educationSpecialty = list.major
         this.educationouterVisible = true
+        this.formEducation.educationSpecialty = list.major
+        this.formEducation.educationName = list.school
+        if(list.degree == 2) {
+          this.formEducation.educationDegree = '高中'
+      }else if(list.degree == 0) {
+          this.formEducation.educationDegree = '初中及以下'
+      }else if(list.degree == 1) {
+          this.formEducation.educationDegree = '职中'
+      }else if(list.degree == 3) {
+          this.formEducation.educationDegree = '大专'
+      }else if(list.degree == 4) {
+          this.formEducation.educationDegree = '本科'
+      }else if(list.degree == 5) {
+          this.formEducation.educationDegree = '硕士'
+      }else if(list.degree == 6) {
+          this.formEducation.educationDegree = '博士'
+      }
+       
+        // this.formEducation.educationDegree = list.degree
+        // this.formEducation.educationTime = list.major
+        
+        
       },
 
       //求职意向编辑
@@ -1801,39 +2022,56 @@
       //   },
       // resumeIdList
       showjpersonalList() {
+//         age: 48
+// birthday: 23423423000
+// county: "徐汇区"
+// degree: 2
+// email: "3738281@qq.com"
+// fullName: "张三"
+// graduate: false
+// overseasAge: 2
+// phone: "15618322777"
+// politicalStatus: "团员"
+// province: "1"
+// sex: 1
+// updatedTime: 1568285151000
+// workAge: 48
+// workYear: 23445423000
+        console.log(this.resumeIdList)
         this.informationouterVisible = true
         this.formInformation.name = this.resumeIdList.fullName
         this.formInformation.sex = this.resumeIdList.sex
-        if(this.resumeIdList.degree == 3) {
+        if(this.resumeIdList.degree == 2) {
                 this.formInformation.educationLevel = '高中'
-            }else if(this.resumeIdList.degree == 1) {
+            }else if(this.resumeIdList.degree == 0) {
                 this.formInformation.educationLevel = '初中及以下'
-            }else if(this.resumeIdList.degree == 2) {
+            }else if(this.resumeIdList.degree == 1) {
                 this.formInformation.educationLevel = '职中'
-            }else if(this.resumeIdList.degree == 4) {
+            }else if(this.resumeIdList.degree == 3) {
                 this.formInformation.educationLevel = '大专'
-            }else if(this.resumeIdList.degree == 5) {
+            }else if(this.resumeIdList.degree == 4) {
                 this.formInformation.educationLevel = '本科'
-            }else if(this.resumeIdList.degree == 6) {
+            }else if(this.resumeIdList.degree == 5) {
                 this.formInformation.educationLevel = '硕士'
-            }else if(this.resumeIdList.degree == 7) {
+            }else if(this.resumeIdList.degree == 6) {
                 this.formInformation.educationLevel = '博士'
             }
             
         this.formInformation.birthday = this.$moment(this.resumeIdList.birthday).format("YYYY-DD-MM") 
         this.formInformation.email = this.resumeIdList.email 
         this.formInformation.phone = this.resumeIdList.phone
-        if(this.resumeIdList.politicalStatus == 3) {
-                this.formInformation.politicCountenance = '民主党派'
-            }else if(this.resumeIdList.politicalStatus == 1) {
-                this.formInformation.politicCountenance = '群众'
-            }else if(this.resumeIdList.politicalStatus == 2) {
-                this.formInformation.politicCountenance = '团员'
-            }else if(this.resumeIdList.politicalStatus == 4) {
-                this.formInformation.politicCountenance = '预备党员'
-            }else if(this.resumeIdList.politicalStatus == 5) {
-                this.formInformation.politicCountenance = '中共党员'
-            }
+        this.formInformation.politicCountenance = this.resumeIdList.politicalStatus
+        // if(this.resumeIdList.politicalStatus == 3) {
+        //         this.formInformation.politicCountenance = '民主党派'
+        //     }else if(this.resumeIdList.politicalStatus == 1) {
+        //         this.formInformation.politicCountenance = '群众'
+        //     }else if(this.resumeIdList.politicalStatus == 2) {
+        //         this.formInformation.politicCountenance = '团员'
+        //     }else if(this.resumeIdList.politicalStatus == 4) {
+        //         this.formInformation.politicCountenance = '预备党员'
+        //     }else if(this.resumeIdList.politicalStatus == 5) {
+        //         this.formInformation.politicCountenance = '中共党员'
+        //     }
         // console.log(this.$moment(1568205123).format("YYYY"))
       },
       testRef(ref) {
@@ -1875,6 +2113,10 @@
         this.awardsId  = list.id
         this.dialogaward = true
       },
+      showprofessionaldialog(list) {
+        this.qualId  = list.id
+        this.dialogprofession = true
+      },
       ispersonalinformation() {
         this.isshowpersonalinformation = true
         this.personalinformation = false
@@ -1909,6 +2151,7 @@
       },
       professional() {
         this.showprofessional = true;
+        this.showprofessionals = false
       },
       personal_skill() {
         this.showpersonalskill = true;

@@ -94,12 +94,11 @@ export default {
     keep(formName) {
       this.$refs[formName].validate(valid => {
         if (valid) {
-          // this.$emit("progectEmit", false, true);
           this.$http
-            .post(`/resume/${2}/project`, { beginTime: 756756756756, project:'银临人才',duty:this.formInline.duty,description:this.formInline.project })
+            .post(`/resume/${2}/project`, { beginTime: 756756756756, project:this.formInline.companyName,duty:this.formInline.duty,description:this.formInline.project })
             .then(res => {
-              if (res.data.code == 200) {
-                console.log(res);
+              if (res.data.code == 201) {
+                  this.$emit("progectEmit", false, true);
               }
             });
         } else {
