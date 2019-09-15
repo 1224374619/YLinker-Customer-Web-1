@@ -333,8 +333,16 @@
                   <el-option label="" value="beijing"></el-option>
                   </el-select>
               </el-form-item>
-              <el-form-item label="所在部门" prop='branch'>
-                  <el-input style="width:400px;height:36px;margin-right:50px" v-model="formWork.branch" placeholder=""></el-input>
+               <el-form-item label="工作时间" class="block" prop='workTime'>
+                  <el-date-picker
+                  style="width:400px;height:36px;margin-right:50px"
+                  v-model="formWork.workTime"
+                  type="daterange"
+                  unlink-panels
+                  range-separator="至"
+                  start-placeholder="开始日期"
+                  end-placeholder="结束日期">
+                  </el-date-picker>
               </el-form-item>
               <el-form-item label="工作描述" prop='jobDescription'>
                   <el-input type="textarea" v-model="formWork.jobDescription"  style="width:400px;margin-right:50px" ></el-input>
@@ -358,6 +366,7 @@
                   style="width:400px;height:36px;margin-right:50px"
                   v-model="formEducation.educationTime"
                   type="daterange"
+                  unlink-panels
                   range-separator="至"
                   start-placeholder="开始日期"
                   end-placeholder="结束日期">
@@ -1116,7 +1125,7 @@
         formEducation: {
           educationDegree:'',
           educationName:'',
-          educationTime:'',
+          educationTime:[],
           educationSpecialty:''
         },
         formInformation: {
@@ -1145,18 +1154,19 @@
           companyName: '',
           postName: '',
           branch: '',
-          trade:''
+          trade:'',
+          workTime:[]
         },
         formProject: {
           itemName: '',
           companyName: '',
-          schoolTime: '',
+          schoolTime: [],
           duty: '',
           project: '',
         },
         formtraining: {
           trainCourse:'',
-          trainTime:'',
+          trainTime:[],
           trainCours:'',
         },
         formlanguage: {
@@ -1223,11 +1233,10 @@
           trade: [
           { required: true, message: "请输入行业名称", trigger: "blur" }
           ],
-          branch: [
-          { required: true, message: "请输入所在部门", trigger: "blur" }
+          workTime: [
+            { required: true, message: "请选择在职时间", trigger: "blur" }
           ],
           monthPay: [
-            
           { min: 0, max: 7, message: '长度在 0 到 7 个字符', trigger: 'blur' },],
           jobDescription: [
             { min: 0, max: 800, message: '长度在 0 到 800 个字符', trigger: 'blur' },
@@ -1549,6 +1558,15 @@
       trainingkeep(formName) {
         this.$refs[formName].validate(valid => {
           if (valid) {
+            let til = this.formtraining.trainTime[0].getTime();
+            let till = this.formtraining.trainTime[1].getTime();
+            let ti = this.$moment(till).format("YYYY-MM")
+            let end = this.$moment(new Date().getTime()).format("YYYY-MM")
+            if(ti === end) {
+              var eduTime = null
+            }else{
+              var eduTime = till
+            }
              this.$http.put(`/resume/${2}/training/${this.trainId}`,{lesson:this.formtraining.trainCourse,institution:this.formtraining.trainCours}).then(res => {
               if (res.data.code == 200) {
                 // console.log(res);
@@ -1567,7 +1585,16 @@
       progectkeep(formName) {
          this.$refs[formName].validate(valid => {
           if (valid) {
-            this.$http.put(`/resume/${2}/project/${this.progectId}`,{duty:this.formProject.duty,beginTime:654645646342,company:this.formProject.companyName,description: this.formProject.project,project:this.formProject.companyName}).then(res => {
+            let til = this.formProject.schoolTime[0].getTime();
+            let till = this.formProject.schoolTime[1].getTime();
+            let ti = this.$moment(till).format("YYYY-MM")
+            let end = this.$moment(new Date().getTime()).format("YYYY-MM")
+            if(ti === end) {
+              var eduTime = null
+            }else{
+              var eduTime = till
+            }
+            this.$http.put(`/resume/${2}/project/${this.progectId}`,{duty:this.formProject.duty,endTime:eduTime,beginTime:til,company:this.formProject.companyName,description: this.formProject.project,project:this.formProject.companyName}).then(res => {
               if (res.data.code == 200) {
                 // console.log(res);
                this.progectouterVisible = false
@@ -1584,7 +1611,16 @@
       workkeep(formName) {
          this.$refs[formName].validate(valid => {
           if (valid) {
-            this.$http.put(`/resume/${2}/work/${this.workId}`,{beginTime:654645646342,company:this.formWork.companyName,description:this.formWork.jobDescription,position:this.formWork.postName}).then(res => {
+            let til = this.formWork.workTime[0].getTime();
+            let till = this.formWork.workTime[1].getTime();
+            let ti = this.$moment(till).format("YYYY-MM")
+            let end = this.$moment(new Date().getTime()).format("YYYY-MM")
+            if(ti === end) {
+              var eduTime = null
+            }else{
+              var eduTime = till
+            }
+            this.$http.put(`/resume/${2}/work/${this.workId}`,{beginTime:til,endTime:eduTime,company:this.formWork.companyName,description:this.formWork.jobDescription,position:this.formWork.postName}).then(res => {
               if (res.data.code == 200) {
                 // console.log(res);
                 this.workouterVisible = false
@@ -1616,10 +1652,21 @@
             }else if(this.formEducation.educationDegree == '博士') {
                 this.formEducation.educationDegree = 6
             }
-            this.$http.put(`/resume/${2}/education/${this.educationId}`,{beginTime:966517171000,endTime:null,degree:this.formEducation.educationDegree,major:this.formEducation.educationSpecialty,school:this.formEducation.educationName,isUnified:false}).then(res => {
+            let til = this.formEducation.educationTime[0].getTime();
+            let till = this.formEducation.educationTime[1].getTime();
+            let ti = this.$moment(till).format("YYYY-MM")
+            let end = this.$moment(new Date().getTime()).format("YYYY-MM")
+            if(ti === end) {
+              var eduTime = null
+            }else{
+              var eduTime = till
+            }
+            // console.log(til)
+            this.$http.put(`/resume/${2}/education/${this.educationId}`,{beginTime:til,endTime:eduTime,degree:this.formEducation.educationDegree,major:this.formEducation.educationSpecialty,school:this.formEducation.educationName,isUnified:false}).then(res => {
               if (res.data.code == 200) {
                 // console.log(res);
                 this.educationouterVisible = false
+                this.resumeId()
               }
             });
             
@@ -1914,7 +1961,13 @@
         this.trainId = list.id
         this.formtraining.trainCourse = list.lesson
         this.formtraining.trainCours = list.institution
-        this.formtraining.trainTime = list.trainTime
+        if(list.endTime == null) {
+            var date = new Date()
+            var end = this.$moment(date.getTime()).format("YYYY-MM")
+          }else{
+            var end = this.$moment(list.endTime.getTime()).format("YYYY-MM")
+          }
+          this.formtraining.trainTime = [this.$moment(list.beginTime).format("YYYY-MM"),end]
         // formtraining: {
         //   trainCourse:'',
         //   trainTime:'',
@@ -1924,14 +1977,19 @@
       },
       //项目经历编辑
       showprogectperienceList(list) {
-        console.log(list,'2312313123111111')
         this.progectouterVisible = true
         this.progectId = list.id
         this.formProject.itemName = list.project
         this.formProject.companyName = list.company
-        this.formProject.schoolTime = list.schoolTime
         this.formProject.duty = list.duty
         this.formProject.project = list.description
+        if(list.endTime == null) {
+            var date = new Date()
+            var end = this.$moment(date.getTime()).format("YYYY-MM")
+          }else{
+            var end = this.$moment(list.endTime.getTime()).format("YYYY-MM")
+          }
+          this.formProject.schoolTime = [this.$moment(list.beginTime).format("YYYY-MM"),end]
       },
       showprofessionalList(list) {
         this.qualId = list.id
@@ -1945,7 +2003,14 @@
         this.workId  = list.id
         this.formWork.companyName = list.company
         this.formWork.postName = list.position
-        this.formWork.jobDescription = list.description  
+        this.formWork.jobDescription = list.description
+        if(list.endTime == null) {
+            var date = new Date()
+            var end = this.$moment(date.getTime()).format("YYYY-MM")
+          }else{
+            var end = this.$moment(list.endTime.getTime()).format("YYYY-MM")
+          }
+          this.formWork.workTime = [this.$moment(list.beginTime).format("YYYY-MM"),end]
       },
       //个人信息编辑
       editsinformation(c) {
@@ -1961,11 +2026,19 @@
       },
       //教育经历编辑
       showeducationalList(list,index) {
-        console.log(list)
         this.educationId = list.id
         this.educationouterVisible = true
         this.formEducation.educationSpecialty = list.major
         this.formEducation.educationName = list.school
+          if(list.endTime == null) {
+            var date = new Date()
+            var end = this.$moment(date.getTime()).format("YYYY-MM")
+          }else{
+            var end = this.$moment(list.endTime.getTime()).format("YYYY-MM")
+          }
+          this.formEducation.educationTime = [this.$moment(list.beginTime).format("YYYY-MM"),end]
+          // console.log(this.$moment(list.beginTime).format("YYYY-MM"))
+
         if(list.degree == 2) {
           this.formEducation.educationDegree = '高中'
       }else if(list.degree == 0) {

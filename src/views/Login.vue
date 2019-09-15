@@ -84,6 +84,7 @@ export default {
               // }
             })
             .catch(error => {
+              this.$router.push({ path: "/gap" });
               console.log('23232332');
             });
         } else {

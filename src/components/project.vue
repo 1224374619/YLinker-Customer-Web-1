@@ -7,7 +7,7 @@
       <el-form-item label="公司名称"  prop="companyName">
         <el-input style="width:242px;height:36px" v-model="formInline.companyName" placeholder></el-input>
       </el-form-item>
-      <el-form-item label="项目时间" class="block" style="margin:0 20px 0 0" prop="schoolTime">
+      <el-form-item label="项目时间" class="block" style="margin:0 30px 0 0" prop="schoolTime">
         <el-date-picker
           style="width:242px;height:36px"
           v-model="formInline.schoolTime"
@@ -47,7 +47,7 @@ export default {
       formInline: {
         itemName: "",
         companyName: "",
-        schoolTime: "",
+        schoolTime: [],
         record: "",
         duty: "",
         project: ""
@@ -94,8 +94,17 @@ export default {
     keep(formName) {
       this.$refs[formName].validate(valid => {
         if (valid) {
+            let til = this.formInline.schoolTime[0].getTime();
+            let till = this.formInline.schoolTime[1].getTime();
+            let ti = this.$moment(till).format("YYYY-MM")
+            let end = this.$moment(new Date().getTime()).format("YYYY-MM")
+           if(ti === end) {
+              var eduTime = null
+          }else{
+              var eduTime  = till
+            }
           this.$http
-            .post(`/resume/${2}/project`, { beginTime: 756756756756, project:this.formInline.companyName,duty:this.formInline.duty,description:this.formInline.project })
+            .post(`/resume/${2}/project`, { beginTime:til,endTime:eduTime,project:this.formInline.companyName,duty:this.formInline.duty,description:this.formInline.project })
             .then(res => {
               if (res.data.code == 201) {
                   this.$emit("progectEmit", false, true);

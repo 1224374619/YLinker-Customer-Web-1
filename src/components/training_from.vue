@@ -2,7 +2,7 @@
    <div class="from">
         <div style="margin:0 0 10px 50px;line-height:10px;width:60px">{{fromData.lesson}}</div>
         <div style="margin:0 0 0 76px;color:#61687c;width:60px">{{fromData.institution}}</div>
-        <div style="margin:0 0 0 141px;color:#61687c;">2018/12-至今</div>
+        <div style="margin:0 0 0 141px;color:#61687c;">{{fromData.beginTime | formatDateOne}}/{{fromData.endTime | formatDateOne}}</div>
     </div>
 </template>
 
@@ -12,10 +12,6 @@
         props:['fromData'],
         data() {
             return {
-                ruleForm: {
-                   trainCourse:"",
-                   trainTime:"",
-                },
             };
         },
         created () {
@@ -31,6 +27,9 @@
                 }
                 this.$emit('setFromList',flag);
             }
+        },
+        created() {
+            console.log(fromData)
         }
     }
 </script>

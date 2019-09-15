@@ -19,8 +19,16 @@
           <el-option label value="beijing"></el-option>
         </el-select>
       </el-form-item>
-      <el-form-item label="所在部门" prop="branch">
-        <el-input style="width:242px;height:36px" v-model="formInline.branch" placeholder></el-input>
+      <el-form-item label="在校时间" class="block" prop="workTime">
+        <el-date-picker
+          style="width:240px;height:36px"
+          v-model="formInline.workTime"
+          type="daterange"
+          unlink-panels
+          range-separator="至"
+          start-placeholder="开始日期"
+          end-placeholder="结束日期"
+        ></el-date-picker>
       </el-form-item>
       <el-form-item label="税前月薪" style="margin:0 0 0 -16px" prop="monthPay">
         <el-input style="width:242px;height:36px" v-model="formInline.monthPay" placeholder></el-input>
@@ -52,10 +60,10 @@ export default {
       formInline: {
         jobDescription: "",
         monthPay: "",
-        branch: "",
         trade: "",
         postName: "",
-        post: ""
+        post: "",
+        workTime:[]
       },
       rules: {
         post: [
@@ -70,8 +78,8 @@ export default {
         trade: [
          { required: true, message: "请输入行业名称", trigger: "blur" }
         ],
-        branch: [
-         { required: true, message: "请输入所在部门", trigger: "blur" }
+        workTime: [
+         { required: true, message: "请选择在职时间", trigger: "blur" }
         ],
         monthPay: [
           
@@ -91,8 +99,18 @@ export default {
     keep(formName) {
       this.$refs[formName].validate(valid => {
         if (valid) {
+            let til = this.formInline.workTime[0].getTime();
+            let till = this.formInline.workTime[1].getTime();
+            let ti = this.$moment(till).format("YYYY-MM")
+            let end = this.$moment(new Date().getTime()).format("YYYY-MM")
+            if(ti === end) {
+              var eduTime  = null
+            }else{
+              var eduTime  = till
+            }
           this.$http.post(`/resume/${2}/work`, {
-              beginTime: 999993349,
+              beginTime: til,
+              endTime: eduTime,
               company: this.formInline.post,
               position: this.formInline.postName,
               description:this.formInline.jobDescription
