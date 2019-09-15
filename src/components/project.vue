@@ -7,7 +7,7 @@
       <el-form-item label="公司名称"  prop="companyName">
         <el-input style="width:242px;height:36px" v-model="formInline.companyName" placeholder></el-input>
       </el-form-item>
-      <el-form-item label="项目时间" class="block" style="margin:0 20px 0 0" prop="schoolTime">
+      <el-form-item label="项目时间" class="block" style="margin:0 30px 0 0" prop="schoolTime">
         <el-date-picker
           style="width:242px;height:36px"
           v-model="formInline.schoolTime"
@@ -17,7 +17,7 @@
           end-placeholder="结束日期"
         ></el-date-picker>
       </el-form-item>
-      <el-form-item label="学历" style="visibility:hidden;margin-left:-15px" prop="record">
+      <el-form-item label="学历" style="visibility:hidden;margin-left:-15px" >
         <el-select style="width:242px;height:36px" v-model="formInline.record" placeholder>
           <el-option label value="shanghai"></el-option>
           <el-option label value="beijing"></el-option>
@@ -47,7 +47,7 @@ export default {
       formInline: {
         itemName: "",
         companyName: "",
-        schoolTime: "",
+        schoolTime: [],
         record: "",
         duty: "",
         project: ""
@@ -64,7 +64,7 @@ export default {
         schoolTime: [
           { required: true, message: "请选择项目时间", trigger: "blur" }
         ],
-        record: [{ required: true, message: "请选择学历", trigger: "blur" }],
+        // record: [{ required: true, message: "请选择学历", trigger: "blur" }],
         duty: [
           { required: true, message: "请填写个人职责", trigger: "change" },
           {
@@ -94,14 +94,22 @@ export default {
     keep(formName) {
       this.$refs[formName].validate(valid => {
         if (valid) {
-          // this.$emit("progectEmit", false, true);
-          // this.$http
-          //   .post(`/resume/${2}/project`, { beginTime: "", project: "" })
-          //   .then(res => {
-          //     if (res.data.code == 200) {
-          //       console.log(res);
-          //     }
-          //   });
+            let til = this.formInline.schoolTime[0].getTime();
+            let till = this.formInline.schoolTime[1].getTime();
+            let ti = this.$moment(till).format("YYYY-MM")
+            let end = this.$moment(new Date().getTime()).format("YYYY-MM")
+           if(ti === end) {
+              var eduTime = null
+          }else{
+              var eduTime  = till
+            }
+          this.$http
+            .post(`/resume/${2}/project`, { beginTime:til,endTime:eduTime,project:this.formInline.companyName,duty:this.formInline.duty,description:this.formInline.project })
+            .then(res => {
+              if (res.data.code == 201) {
+                  this.$emit("progectEmit", false, true);
+              }
+            });
         } else {
           return false;
         }

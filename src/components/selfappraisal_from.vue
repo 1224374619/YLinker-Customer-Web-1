@@ -1,18 +1,15 @@
 <template>
    <div class="from">
-        <span style="margin:15px 0 0 50px">暂未填写自我评价</span>
+        <span style="margin:15px 0 0 50px">{{fromData.content}}</span>
     </div>
 </template>
 
 <script>
     export default {
         name:'progect_from',
-        props:['fromData','index'],
+        props:['fromData'],
         data() {
             return {
-                ruleForm: {
-                   personalDescription:"",
-                },
             };
         },
         created () {

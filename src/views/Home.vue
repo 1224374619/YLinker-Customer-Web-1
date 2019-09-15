@@ -100,13 +100,13 @@
             <div class="desc" v-for="(list,index) in listRecommend" :key="index">
               <div class="desc-first">
                 <span>{{list.positionName}}</span>
-                <span>{{list.salaryMax}}-{{list.salaryMin}}k</span>
+                <span>{{list.salaryMin}}-{{list.salaryMax}}k</span>
               </div>
-              <div class="desc-second">{{list.positionCatalog}} | {{list.workAgeMax}}-{{list.workAgeMin}}年 | {{list.degreeMin}}</div>
+              <div class="desc-second">{{list.positionCatalog}} | {{list.workAgeMin}}-{{list.workAgeMax}}年 | {{list.degreeMin}}</div>
               <div class="line"></div>
               <div class="desc-third">
                 <img
-                  @click="desc"
+                  @click="desc(list.company.id)"
                   style="width:50px;margin:10px 0 0 5px"
                   :src="require('../assets/images/company1.jpg')"
                 />
@@ -178,22 +178,22 @@
         </el-tab-pane>
         <el-tab-pane label="最新职位" name="third">
           <div class="demo">
-            <div class="desc">
+            <div class="desc" v-for="(list,index) in newpositionList" :key="index">
               <div class="desc-first">
-                <span>产品经理</span>
-                <span>4-5k</span>
+                <span>{{list.positionName}}</span>
+                <span>{{list.salaryMin}}-{{list.salaryMax}}k</span>
               </div>
-              <div class="desc-second">上海 徐汇区 | 1-3年 | 本科</div>
+              <div class="desc-second">{{list.positionCatalog}} | {{list.workAgeMin}}-{{list.workAgeMax}}年 | {{list.degreeMin}}</div>
               <div class="line"></div>
               <div class="desc-third">
                 <img
-                  @click="desc"
+                  @click="desc(list.company.id)"
                   style="width:50px;margin:10px 0 0 5px"
                   :src="require('../assets/images/company1.jpg')"
                 />
                 <div class="third-content">
-                  <span>迪卡侬</span>
-                  <span>50-100人 | 电子商务，文化...</span>
+                  <span>{{list.company.companyName}}</span>
+                  <span>{{list.company.size}} | {{list.company.industry}}</span>
                 </div>
               </div>
             </div>
@@ -314,7 +314,8 @@ export default {
           {id: 9, idView: require('../assets/images/company5.png')},
         ],
       keywordList:[{content:'哈哈哈'},{content:'哈哈哈'},{content:'哈哈哈'}],
-      hotpositionList:[]
+      hotpositionList:[],
+      newpositionList:[]
     };
   },
   computed: {
@@ -342,9 +343,9 @@ export default {
     // },
     //轮播图
     carousel() {
-      this.$http.get("/logout").then(res => {
+      this.$http.get("/carousel").then(res => {
          if (res.data.code == 200) {
-           console.log(res)
+          //  console.log(res)
           }
       });
     },
@@ -352,8 +353,17 @@ export default {
     recommendation() {
        this.$http.get("/home/recommended/position").then(res => {
          if (res.data.code == 200) {
-           console.log(res.data.data)
+          //  console.log(res.data.data)
            this.listRecommend = res.data.data
+          }
+      });
+    },
+    //tabs--最新
+    new() {
+       this.$http.get("/home/recent/position").then(res => {
+         if (res.data.code == 200) {
+          //  console.log(res.data.data)
+           this.newpositionList = res.data.data
           }
       });
     },
@@ -361,7 +371,6 @@ export default {
     hotcompany () {
        this.$http.get("/popular/company").then(res => {
          if (res.data.code == 200) {
-              // 
               console.log(res)
           }
       });
@@ -371,7 +380,7 @@ export default {
        this.$http.get("/popular/keyword").then(res => {
          if (res.data.code == 200) {
               // 
-              console.log(res)
+              // console.log(res)
           }
       });
     },
@@ -380,7 +389,7 @@ export default {
        this.$http.get("/popular/position").then(res => {
          if (res.data.code == 200) {
               // 
-              console.log(res)
+              // console.log(res)
           }
       });
     },
@@ -394,8 +403,10 @@ export default {
     search() {
       this.$router.push({ path: "/joblist" });
     },
-    desc() {
-      this.$router.push({ path: "/position" });
+    desc(id) {
+      this.$router.push({ path: "/position",query:{
+            id: id
+          }});
     },
     // dealMenuClick(command) {
     //   if (command === "logout") {
@@ -420,19 +431,13 @@ export default {
     //   holder.scrollLeft += 1;
     //   requestAnimationFrame(this.companyScrolling);
     // },
-
-
-    //  scroll(){
-    //    this.animate=true; // 因为在消息向上滚动的时候需要添加css3过渡动画，所以这里需要设置true
-    //    setTimeout(()=>{      //  这里直接使用了es6的箭头函数，省去了处理this指向偏移问题，代码也比之前简化了很多
-    //            this.imgList.push(this.imgList[0]);  // 将数组的第一个元素添加到数组的
-    //            this.imgList.shift();               //删除数组的第一个元素
-    //            this.animate=false;  // margin-top 为0 的时候取消过渡动画，实现无缝滚动
-    //    },1000)
-    // }
   },
   created() {
-    setInterval(this.scroll,1000)
+    this.carousel();
+    this.hotcompany();
+    this.hotkeyword();
+    this.hotposition();
+    this.new();
     this.recommendation();
     if (this.recommend == false) {
       this.activeName = "second";
@@ -442,9 +447,6 @@ export default {
   },
   mounted() {
     this.companyScrolling();
-    this.hotcompany();
-    this.hotkeyword();
-    this.hotposition();
   }
 };
 </script>

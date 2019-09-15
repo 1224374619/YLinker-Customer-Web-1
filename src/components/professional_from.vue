@@ -1,13 +1,12 @@
 <template>
    <div class="from">
-        <div style="margin:5px 0 0 50px;line-height:10px;width:60px">{{fromData.award}}</div>
-        <div style="margin:0 0 0 75px">{{fromData.acquiredTime | formatDateOne}}</div>
+        <div style="margin:0 0 0 50px;line-height:10px;width:170px">{{fromData.qual}}</div>
     </div>
 </template>
 
 <script>
     export default {
-        name:'progect_from',
+        name:'professional_from',
         props:['fromData'],
         data() {
             return {

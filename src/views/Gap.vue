@@ -34,7 +34,14 @@ export default {
   },
   methods: {
      next() {
-       this.$router.push({path:'/specialty'})  
+       this.$http.post('/resume').then(res => {
+        if (res.data.code == 200) {
+          // console.log(res);
+          
+        }
+      });
+      this.$router.push({path:'/resume'})
+      //  this.$router.push({path:'/specialty'})  
     },
      upload() {
        this.$http.post('/resume/file').then(res => {

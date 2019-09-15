@@ -17,7 +17,7 @@
         <el-button class="search-button" style="border-radius:0 2px 2px 0" type="primary" @click="search"  icon="el-icon-search">搜索</el-button>
     </div>
     <div class="joblist-article">
-        <div class="article" style="margin-top:-22px" v-if="isshow">
+        <div class="article" v-if="isshow" style="margin-top:10px">
             <el-radio-group size="small" v-model="district">
             <span style="margin-left:-48px" class="article-title">行政区：</span>
             <el-radio-button class="article-content" label="1">黄埔区</el-radio-button>
@@ -27,7 +27,7 @@
             <el-radio-button class="article-content" label="5">奉贤区</el-radio-button>
             </el-radio-group>
         </div>
-        <div class="article" style="margin-top:-42px" v-if="isshow">
+        <div class="article"  v-if="isshow">
             <el-radio-group size="small" v-model="workExperience">
             <span style="margin-left:-50px" class="article-title">工作经验：</span>
             <el-radio-button class="article-content" label="1">经验不限</el-radio-button>
@@ -37,7 +37,7 @@
             <el-radio-button class="article-content" label="5">10年以上</el-radio-button>
             </el-radio-group>
         </div>
-        <div class="article" style="margin-top:-42px" v-if="isshow">
+        <div class="article"  v-if="isshow">
             <el-radio-group size="small" v-model="Education">
             <span style="margin-left:-50px" class="article-title">学历要求：</span>
             <el-radio-button class="article-content" label="1">博士</el-radio-button>
@@ -50,7 +50,7 @@
             <el-radio-button class="article-content" label="8">初中</el-radio-button>
             </el-radio-group>
         </div>
-        <div class="article" style="margin-top:-42px" v-if="isshow">
+        <div class="article"  v-if="isshow">
             <el-checkbox-group size="small" v-model="monthPay">
             <span style="margin-left:-50px" class="article-title">月薪范围：</span>
             <el-checkbox-button class="article-content" label="1">1k以下</el-checkbox-button>
@@ -65,7 +65,7 @@
             <el-checkbox-button class="article-content" label="10">35k以上</el-checkbox-button>
             </el-checkbox-group>
         </div>
-        <div class="article" style="margin-top:-42px" v-if="isshow">
+        <div class="article"  v-if="isshow">
             <el-radio-group size="small" v-model="workState">
             <span style="margin-left:-50px" class="article-title">工作类型：</span>
             <el-radio-button class="article-content" label="1">全职</el-radio-button>
@@ -75,7 +75,7 @@
             </el-radio-group>
         </div>
         <div></div>
-        <div class="article" style="margin-top:-47px" >
+        <div class="article"  >
             <el-checkbox-group size="small" v-model="scale">
             <span style="margin-left:-50px" class="article-title">公司规模：</span>
             <el-checkbox-button  class="article-content" label="1">10人以下</el-checkbox-button>
@@ -84,7 +84,7 @@
             <el-checkbox-button class="article-content" label="4">500以上</el-checkbox-button>
             </el-checkbox-group>
         </div>
-        <div class="article" style="margin-top:-42px" >
+        <div class="article"  >
             <el-checkbox-group size="small" v-model="quality">
             <span style="margin-left:-50px" class="article-title">企业性质：</span>
             <el-checkbox-button  class="article-content" label="1">国有企业</el-checkbox-button>
@@ -95,7 +95,7 @@
             <el-checkbox-button class="article-content" label="6">上市公司</el-checkbox-button>
             </el-checkbox-group>
         </div>
-        <div class="article" style="margin-top:-65px;" >
+        <div class="article"  >
             <el-checkbox-group size="small" v-model="releaseTime">
               <span style="margin-left:-50px" class="article-title">发布时间：</span>
               <el-checkbox-button class="article-content" label="1">一天以内</el-checkbox-button>
@@ -105,19 +105,14 @@
               <el-checkbox-button class="article-content" label="5">十五天以内</el-checkbox-button>
             </el-checkbox-group>
         </div>
-         <div class="article" style="margin-top:-42px" >
-            <el-checkbox-group size="small" v-model="duty">
-              <span style="margin-left:-50px" class="article-title">公司行业：</span>
-              <el-checkbox-button class="article-content" label="1">行业</el-checkbox-button>
-              <el-checkbox-button class="article-content" label="2">行业</el-checkbox-button>
-              <el-checkbox-button class="article-content" label="3">行业</el-checkbox-button>
-              <el-checkbox-button class="article-content" label="4">行业</el-checkbox-button>
-              <el-checkbox-button class="article-content" label="5">行业</el-checkbox-button>
+         <div class="article">
+           <span class="article-title">公司行业：</span>
+            <el-checkbox-group size="small" v-model="duty" style="width:650px;margin-top:-1px;;margin-left:-2px;">
+              <el-checkbox-button  class="article-content" :label="index" v-for="(list,index) in industryList" :key="index">{{list.tag}}</el-checkbox-button>
             </el-checkbox-group>
-            <span style="margin:46px 0 10px 250px;font-size:13px;color:#1f368d" @mouseenter="more">更多<i class="el-icon-caret-bottom"></i></span>
         </div>
-        <div style="margin-top:-5px" v-if="isduty">
-            <el-checkbox-group size="small" v-model="menu" style="width:770px;margin:-45px 0 0 -5px">
+        <div style="margin-bottom:10px;margin-top:0px;" v-if="isduty">
+            <el-checkbox-group size="small" v-model="menu" style="width:770px;margin:0 0 0 -5px">
               <div>111</div>
               <el-checkbox-button  label="1">行业</el-checkbox-button>
               <el-checkbox-button  label="2">行业</el-checkbox-button>
@@ -143,7 +138,7 @@
         </div>
     </div>
     <div class="joblist-content" v-if="joblistCompany">
-      <div class="content" v-for="item in companyList" :key='item'>
+      <div class="content" v-for="(item,index) in companyList" :key='index'>
         <div class="content-img">
             <img :src="require('../assets/images/company1.jpg')"/>
         </div>
@@ -171,8 +166,8 @@
         </div>
         <div class="footer-second">
             <span>上海 徐汇区 | {{item.workAgeMin}}-{{item.workAgeMax}}年 | {{item.degreeMin}}</span>
-            <span>今天 {{item.publishedTime}}</span>
-            <span>{{item.positionCatalog}} | {{item.size}}</span>
+            <span>{{item.publishedTime | formatDate}}</span>
+            <span>{{item.positionCatalog}} | {{item.company.size}}</span>
         </div>
         <div class="footer-line"></div>
       </div>  
@@ -248,6 +243,7 @@ export default {
   },
   data() {
     return {
+      industryList:[],
       menu:[],
       isduty:false,
       joblistCompany:false,
@@ -278,124 +274,8 @@ export default {
         value:'公司',
         label:'公司'
         }],
-      companyList:[
-        {
-          companyName:"银领科技",
-          industry:'IT',
-          recruitedPositionNum:'12',
-          size:'100'
-        },
-        {
-          companyName:"银领科技",
-          industry:'IT',
-          recruitedPositionNum:'12',
-          size:'100'
-        },
-        {
-          companyName:"银领科技",
-          industry:'IT',
-          recruitedPositionNum:'12',
-          size:'100'
-        }
-      ], 
-      positionList:[
-        {
-          degreeMin:"本科",
-          positionCatalog:'IT',
-          positionName:'产品经理',
-          publishedTime:'19:00',
-          salaryMax:'7',
-          salaryMin:'2',
-          workAgeMax:'5',
-          workAgeMin:'1',
-          companyName:'迪卡侬',
-          size:'300'
-        },
-        {
-          degreeMin:"本科",
-          positionCatalog:'IT',
-          positionName:'产品经理',
-          publishedTime:'19:00',
-          salaryMax:'7',
-          salaryMin:'2',
-          workAgeMax:'5',
-          workAgeMin:'1',
-          companyName:'迪卡侬',
-          size:'300'
-        },
-        {
-          degreeMin:"本科",
-          positionCatalog:'IT',
-          positionName:'产品经理',
-          publishedTime:'19:00',
-          salaryMax:'7',
-          salaryMin:'2',
-          workAgeMax:'5',
-          workAgeMin:'1',
-          companyName:'迪卡侬',
-          size:'300'
-        },
-        {
-          degreeMin:"本科",
-          positionCatalog:'IT',
-          positionName:'产品经理',
-          publishedTime:'19:00',
-          salaryMax:'7',
-          salaryMin:'2',
-          workAgeMax:'5',
-          workAgeMin:'1',
-          companyName:'迪卡侬',
-          size:'300'
-        },
-        {
-          degreeMin:"本科",
-          positionCatalog:'IT',
-          positionName:'产品经理',
-          publishedTime:'19:00',
-          salaryMax:'7',
-          salaryMin:'2',
-          workAgeMax:'5',
-          workAgeMin:'1',
-          companyName:'迪卡侬',
-          size:'300'
-        },
-        {
-          degreeMin:"本科",
-          positionCatalog:'IT',
-          positionName:'产品经理',
-          publishedTime:'19:00',
-          salaryMax:'7',
-          salaryMin:'2',
-          workAgeMax:'5',
-          workAgeMin:'1',
-          companyName:'迪卡侬',
-          size:'300'
-        },
-        {
-          degreeMin:"本科",
-          positionCatalog:'IT',
-          positionName:'产品经理',
-          publishedTime:'19:00',
-          salaryMax:'7',
-          salaryMin:'2',
-          workAgeMax:'5',
-          workAgeMin:'1',
-          companyName:'迪卡侬',
-          size:'300'
-        },
-        {
-          degreeMin:"本科",
-          positionCatalog:'IT',
-          positionName:'产品经理',
-          publishedTime:'19:00',
-          salaryMax:'7',
-          salaryMin:'2',
-          workAgeMax:'5',
-          workAgeMin:'1',
-          companyName:'迪卡侬',
-          size:'300'
-        },
-      ], 
+      companyList:[], 
+      positionList:[], 
       city:[
         {
           value:'北京'
@@ -486,19 +366,25 @@ export default {
         }, 300);
       },
       search () {
-        if(this.company =='职位') {
-          this.$http.get('/searched/company').then(res => {
+        if(this.company =='公司') {
+          this.$http.get('/searched/company',{county:'徐汇区',industry:2,keyword:'银',province:'上海市',size:100}).then(res => {
           if (res.data.code == 200) {
+            this.joblistCompany = true
+            this.joblistJob = false
+            this.companyList = res.data.data.list
             console.log(res);
           }
         });
-        }else {
-          this.$http.post('/searched/position').then(res => {
+      }else if(this.company =='职位') {
+        this.$http.get('/searched/position').then(res => {
           if (res.data.code == 200) {
-            console.log(res);
+            this.joblistCompany = false
+            this.joblistJob = true
+            this.positionList = res.data.data.list
+            // console.log(res);
           }
         });
-        }
+      }
       },
       next() {
         this.dialogVisible = true
@@ -514,22 +400,37 @@ export default {
             this.close()
         }, 500);
       },
-      //获取岗位详情（接口不能用）
-      positionId() {
-        this.$http.get(`/position/${2}`).then(res => {
+      //获取所有企业行业
+      allposition() {
+        this.$http.get("/constant/positionCatalog").then(res => {
           if (res.data.code == 200) {
-            this.positionIdList = res.data
-            console.log(this.positionIdList);
+
+            this.industryList = res.data.data
+            console.log(res.data.data)
+          }
+        });
+      },
+       //获取所有企业类别
+      enterpriseForm() {
+        this.$http.get("/constant/enterpriseForm").then(res => {
+          if (res.data.code == 200) {
+            // this.industryList = res.data.data
+            console.log(res.data.data)
+          }
+        });
+      },
+       //获取所有职位类型
+      positionCatalog() {
+        this.$http.get("/constant/positionCatalog").then(res => {
+          if (res.data.code == 200) {
+            // this.industryList = res.data.data
+            console.log(res.data.data)
           }
         });
       },
       getVendorId() {
         if(this.company == '公司') {
           this.isshow = false
-          this.joblistCompany = true
-          this.joblistJob = false
-        }else{
-          this.isshow = true
         }
         }
     },
@@ -561,7 +462,18 @@ export default {
             },
         },
     created () {
-      this.positionId();
+      // this.positionId();
+      this.allposition()
+      this.enterpriseForm()
+      this.positionCatalog()
+      this.$http.get('/searched/position').then(res => {
+          if (res.data.code == 200) {
+            this.joblistCompany = false
+            this.joblistJob = true
+            this.positionList = res.data.data.list
+            // console.log(res);
+          }
+        });
       // console.log(this.monthPay+"78787877")
       // if(this.monthPay == ''&&this.district =='0'&&this.workExperience =='0'&&this.Education =='0'&&this.workState =='0'&&this.industry =='0'&&this.scale ==''&&this.releaseTime =='') {
       //   this.articleButton = false
@@ -603,7 +515,6 @@ export default {
         display flex
         flex-direction row
         .article-content
-        
         .article-content-first
           font-family PingFangSC-Regular
           color red 
@@ -625,10 +536,10 @@ export default {
           font-size 12px 
           color #1f368d     
     .joblist-article div:nth-child(1)
-      margin 45px 0 0 51px
+      margin 0 0 0 51px
       text-align left
     .joblist-article div:nth-child(8)
-      margin 6px 0 25px 39px
+      margin 0 0 0 39px
       text-align left  
     .joblist-article div
       margin 6px 0 0 39px
@@ -784,16 +695,20 @@ export default {
     color #617dcb
   .el-checkbox-button__inner
     border 0px solid #617dcb
+  .el-checkbox-button:first-child .el-checkbox-button__inner
+    border-left 0px solid #dcdfe6 
   .el-checkbox-button.is-checked .el-checkbox-button__inner
     background-color #617dcb
-    box-shadow 0 0 0 0 #617dcb
+    box-shadow 0 0 0 0 white
     border-radius 0 0 0 0
     color white
+    border 0px solid red
   .el-checkbox-button--small .el-checkbox-button__inner
     padding 4px 6px 
     line-height 15px
     font-size 12px 
     color #1f368d 
+    border 0px solid red
   .spanCity:hover
     color #617dcb 
   .spanCity  

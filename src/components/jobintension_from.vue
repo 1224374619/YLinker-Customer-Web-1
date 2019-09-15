@@ -1,14 +1,14 @@
 <template>
     <div class="from">
         <div class="fromfirst">
-             <div class="fromfirst-one">职位类型：<span>产品经理</span></div>
-             <div class="fromfirst-one">企业行情：<span>互联网金融/公关</span></div>
-             <div class="fromfirst-one">求职状态：<span>随时到岗</span></div>
+             <div class="fromfirst-one">职位类型：<span>{{fromData.positionCatalogs[0].tag}}</span></div>
+             <div class="fromfirst-one">企业行业：<span>{{fromData.industries[0].tag}}</span></div>
+             <div class="fromfirst-one">求职状态：<span>{{fromData.jobSearchStatus}}</span></div>
         </div>
         <div class="fromsecond">
-            <div class="fromfirst-two">工作城市：<span>上海/北京</span></div>
-            <div class="fromfirst-two">薪资范围：<span>5K-10K</span></div>
-            <div class="fromfirst-two">工作类型：<span>实习</span></div>
+            <div class="fromfirst-two">工作城市：<span>{{fromData.province}}/{{fromData.county}}</span></div>
+            <div class="fromfirst-two">薪资范围：<span>{{fromData.salaryMin}}K-{{fromData.salaryMax}}K</span></div>
+            <div class="fromfirst-two">工作类型：<span>{{fromData.jobType}}</span></div>
         </div>
     </div>
 </template>
@@ -16,17 +16,17 @@
 <script>
     export default {
         name:'from',
-        props:['fromData','index'],
+        props:['fromData'],
         data() {
             return {
-                ruleForm: {
-                   postType:"",
-                   city:"",
-                   trade:"",
-                   scope:"",
-                   status:"",
-                   jobType:""
-                },
+                // ruleForm: {
+                //    postType:"",
+                //    city:"",
+                //    trade:"",
+                //    scope:"",
+                //    status:"",
+                //    jobType:""
+                // },
             };
         },
         created () {

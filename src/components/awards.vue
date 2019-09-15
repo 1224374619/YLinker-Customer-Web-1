@@ -62,12 +62,12 @@ export default {
     keep(formName) {
       this.$refs[formName].validate(valid => {
         if (valid) {
-          //  this.$emit("awardsemit",false,true)
-          //   this.$http.post(`/resume/${2}/award`, { beginTime: "", company: "", position: "" }).then(res => {
-          //       if (res.data.code == 200) {
-          //         console.log(res);
-          //       }
-          //     });
+            this.$http.post(`/resume/${2}/award`, { acquiredTime: 454353454334,award:this.formInline.prizeAward}).then(res => {
+                if (res.data.code == 201) {
+                  console.log(res);
+                  this.$emit("awardsemit",false,true)
+                }
+              });
         } else {
           return false;
         }

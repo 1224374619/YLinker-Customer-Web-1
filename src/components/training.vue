@@ -70,18 +70,18 @@ export default {
     keep(formName) {
       this.$refs[formName].validate(valid => {
         if (valid) {
-          // this.$emit("trainEmit", false, true);
-          // this.$http
-          //   .post(`/resume/${2}/training`, {
-          //     beginTime: "",
-          //     institution: "",
-          //     lesson: ""
-          //   })
-          //   .then(res => {
-          //     if (res.data.code == 200) {
-          //       console.log(res);
-          //     }
-          //   });
+          this.$http
+            .post(`/resume/${2}/training`, {
+              beginTime: 76756757567,
+              institution: this.formInline.trainCours,
+              lesson: this.formInline.trainCourse
+            })
+            .then(res => {
+              if (res.data.code == 201) {
+                console.log(res);
+                this.$emit("trainEmit", false, true);
+              }
+            });
         } else {
           return false;
         }
