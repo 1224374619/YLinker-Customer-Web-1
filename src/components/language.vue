@@ -32,6 +32,7 @@
 
 export default {
   name: 'language',
+  props: ["languageDegree"],
   data() {
     return {
          formInline: {
@@ -62,7 +63,7 @@ export default {
     keep(formName) {
       this.$refs[formName].validate(valid => {
         if (valid) {
-          this.$http.post(`/resume/${2}/language`,{listenAndSpeak:Number(this.formInline.listenAbility),language:this.formInline.languages,readAndWrite:Number(this.formInline.readAbility),}).then(res => {
+          this.$http.post(`/resume/${this.languageDegree}/language`,{listenAndSpeak:Number(this.formInline.listenAbility),language:this.formInline.languages,readAndWrite:Number(this.formInline.readAbility),}).then(res => {
             if (res.data.code == 201) {
               this.$emit("languageEmit",false,true)
             }

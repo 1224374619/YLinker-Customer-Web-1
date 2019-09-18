@@ -71,11 +71,17 @@ export default {
           // if (res.result) {
           //   this[DONE_LOGIN]();
           // }
-          
+          // username: "17717291341", password: "21313131311"
           this.$_http
-            .post("/login", { username: "17717291341", password: "21313131311" })
+            .post("/login?returnUrl=http://localhost:8080/api/resume/brief", {
+              username: this.form.tel,
+              password: this.form.password
+            })
             .then(res => {
-              this.$router.push({ path: "register" });
+              if (res.data.code == 200) {
+                this.$store.state.hasLogin = true;
+                this.$router.push({ path: "/resume" });
+              }
               // this.$store.commit('SET_TOKEN', res.data.token)
               // console.log(res.set-cookie)
               // if (res.data.code == 302) {
@@ -84,8 +90,8 @@ export default {
               // }
             })
             .catch(error => {
-              this.$router.push({ path: "/gap" });
-              console.log('23232332');
+                this.$store.state.hasLogin = true;
+                this.$router.push({ path: "/gap" });
             });
         } else {
           return false;
@@ -99,9 +105,9 @@ export default {
       this.$router.push({ path: "reset-password" });
     },
     aaa() {
-      console.log(this.$cookies.get('SESSION')+'34343434')
+      console.log(this.$cookies.get("SESSION") + "34343434");
     }
-  },
+  }
   // created() {
   //   console.log(this.$cookies.get('SESSION')+'34343434')
   //   this.$cookies.get('session')

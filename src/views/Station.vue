@@ -1,7 +1,7 @@
 <template>
   <div class="station">
-    <div v-if="deliver">
-      <deliver></deliver>
+    <div v-if="deliverOne">
+      <deliver :from-data="this.companyId" @backEmit='backEmit(arguments)'></deliver>
     </div>
     <div class="station-nav" v-if="stationNav">
       <div class="station-nav-name">
@@ -10,7 +10,7 @@
       </div>
       <div class="station-nav-content">
         <div class="content-nav">
-          <span>{{positionIdList.workAddress.province}} {{positionIdList.workAddress.county}} | {{positionIdList.workAgeMin}}-{{positionIdList.workAgeMax}}年 | 应届生 | 实习</span>
+      <span>{{positionIdList.workAddress.province}} {{positionIdList.workAddress.county}} | {{positionIdList.workAgeMin}}-{{positionIdList.workAgeMax}}年 | {{positionIdList.isGraduate}} | {{positionIdList.jobType}}</span>
         </div>
         <div class="content-article">
           <span>发布时间：{{positionIdList.publishedTime | formatDate}}</span>
@@ -135,21 +135,21 @@
           </div>
           <div class="station-foot-aside-nav-article">
             <div class="company-name">
-              <span>{{positionIdList.company.companyName}}</span>
+              <span>{{companyIdList.companyName}}</span>
             </div>
             <div class="company-type">
               <span>
-                <i class="el-icon-menu"></i> {{positionIdList.company.industry}}
+                <i class="el-icon-menu"></i> {{companyIdList.industry-parseInt(companyIdList.industry/100)*100|industry}}
               </span>
             </div>
             <div class="company-status">
               <span>
-                <i class="el-icon-s-data"></i> 国企
+                <i class="el-icon-s-data"></i> {{companyIdList.nature|level}}
               </span>
             </div>
             <div class="company-num">
               <span>
-                <i class="el-icon-coordinate"></i> {{positionIdList.company.size}}人
+                <i class="el-icon-coordinate"></i> {{companyIdList.size}}人
               </span>
             </div>
           </div>
@@ -159,69 +159,14 @@
             <span>相似职位</span>
             <span @click="more">查看更多 》</span>
           </div>
-          <div class="aside-footer">
+          <div class="aside-footer" v-for="(list,index) in hotpositionList" :key="index">
             <div class="company-post">
-              <span>产品经理</span>
-              <span>4-5k</span>
+              <span>{{list.positionName}}</span>
+              <span>{{list.salaryMin}}-{{list.salaryMax}}k</span>
             </div>
             <div class="company-address">
-              <span>上海YY公司</span>
-              <span>长宁区</span>
-            </div>
-            <div class="line"></div>
-          </div>
-          <div class="aside-footer">
-            <div class="company-post">
-              <span>产品经理</span>
-              <span>4-5k</span>
-            </div>
-            <div class="company-address">
-              <span>上海YY公司</span>
-              <span>长宁区</span>
-            </div>
-            <div class="line"></div>
-          </div>
-          <div class="aside-footer">
-            <div class="company-post">
-              <span>产品经理</span>
-              <span>4-5k</span>
-            </div>
-            <div class="company-address">
-              <span>上海YY公司</span>
-              <span>长宁区</span>
-            </div>
-            <div class="line"></div>
-          </div>
-          <div class="aside-footer">
-            <div class="company-post">
-              <span>产品经理</span>
-              <span>4-5k</span>
-            </div>
-            <div class="company-address">
-              <span>上海YY公司</span>
-              <span>长宁区</span>
-            </div>
-            <div class="line"></div>
-          </div>
-          <div class="aside-footer">
-            <div class="company-post">
-              <span>产品经理</span>
-              <span>4-5k</span>
-            </div>
-            <div class="company-address">
-              <span>上海YY公司</span>
-              <span>长宁区</span>
-            </div>
-            <div class="line"></div>
-          </div>
-          <div class="aside-footer">
-            <div class="company-post">
-              <span>产品经理</span>
-              <span>4-5k</span>
-            </div>
-            <div class="company-address">
-              <span>上海YY公司</span>
-              <span>长宁区</span>
+              <span>{{companyName}}</span>
+              <span>{{list.workAddress.province}}{{list.workAddress.county}}</span>
             </div>
             <div class="line"></div>
           </div>
@@ -242,8 +187,12 @@ export default {
   },
   data() {
     return {
+      companyId:'',
       positiId:'',
+      companyName:'',
+      hotpositionList:[],
       positionIdList:[],
+      companyIdList:[],
       radio:3,
       dialogVisibleTwo:false,
       almsg:true,
@@ -251,7 +200,7 @@ export default {
       center: { lng: 0, lat: 0 },
       zoom: 3,
       num: 1,
-      deliver: false,
+      deliverOne: false,
       stationNav: true,
       stationFoot: true,
       dialogVisibleOne: false,
@@ -266,25 +215,30 @@ export default {
     };
   },
   methods: {
+    //返回（$emit）
+      backEmit(c) {
+      this.dialogVisibleOne = c[0];
+      this.stationNav = c[1];
+      this.stationFoot = c[1];
+      this.deliverOne = c[0];
+      },
     //确认投递
     showdeliver() {
-      this.$http.put(`/submitted/position/${this.positiId}/resume/${2}`).then(res => {
-        console.log(res,'1231231231231')
+      this.$http.put(`/submitted/position/${this.positiId}/resume/${4}`).then(res => {
           if (res.data.code == 200) {
-            // this.resumeIdList = res.data
-            console.log(res);
-            this.almsg = true
-            this.msg = false
+            this.almsg = false
+            this.msg = true
             this.dialogVisibleTwo = false
             this.dialogVisibleOne = true
-          }else{
-            this.$message({
-              message: '警告哦，这是一条警告消息',
+          }
+        }).catch(error => {
+          this.dialogVisibleTwo = false
+          this.dialogVisibleOne = false
+          this.$message({
+              message:error.response.data.message,
               type: 'warning'
             });
-          }
-        });
-      
+      });
     },
     more() {
       this.$router.push({path:'/joblist'})
@@ -295,12 +249,44 @@ export default {
       this.center.lat = 39.915;
       this.zoom = 15;
     },
+    //获取公司详情
+    comId() {
+      this.$http.get(`/company/${this.companyId}`).then(res => {
+        if (res.data.code == 200) {
+          this.companyIdList = res.data.data;
+          //  console.log(res.data.data)
+        }
+      });
+    },
+    //岗位列表
+      positionCompany() {
+        this.$http.get(`/company/${this.companyId}/position`).then(res => {
+          if (res.data.code == 200) {
+            this.hotpositionList = res.data.data.list
+          }
+      });
+      },
     //获取岗位详情
       positionId() {
         this.$http.get(`/position/${this.positiId}`).then(res => {
+          this.companyId = res.data.data.company.id
+          this.companyName = res.data.data.company.companyName
           if (res.data.code == 200) {
             this.positionIdList = res.data.data
             this.url = res.data.data.company.logoUrl
+            if(this.positionIdList.isGraduate == true) {
+              this.positionIdList.isGraduate = '应届生'
+            }else{
+              this.positionIdList.isGraduate = '非应届生'
+            }
+
+            if(this.positionIdList.jobType == 0) {
+              this.positionIdList.jobType = '全职'
+            }else if(this.positionIdList.jobType == 1) {
+              this.positionIdList.jobType = '兼职'
+            }else{
+              this.positionIdList.jobType = '实习'
+            }
             if(res.data.data.isValid == false) {
               this.showDeliver = true
               this.isshowCollect = false
@@ -316,7 +302,8 @@ export default {
               this.msg = false
               this.almsg = true
             }
-            console.log(this.positionIdList);
+            this.positionCompany(),
+            this.comId()
           }
         });
       },
@@ -324,8 +311,10 @@ export default {
       showdeli() {
         this.$http.get(`/submitted/position/${this.positiId}`).then(res => {
           if (res.data.code == 200) {
-            this.showCollect = true
-            this.isshowCollect = false
+            if(res.data.data == false) {
+              this.almsg = true
+              this.msg = false
+            }
           }
         });
       },
@@ -333,7 +322,9 @@ export default {
       showcoll() {
         this.$http.get(`/favorite/position/${this.positiId}`).then(res => {
           if (res.data.code == 200) {
-            if(res.data.data == true) {
+            if(res.data.data == false) {
+              this.showCollect = false
+              this.isshowCollect = true
             }
           }
         });
@@ -353,14 +344,17 @@ export default {
       // this.mapList = true
     },
     iscollect() {
-        this.isshowCollect = false
-        this.showCollect = true
         this.$http.put(`/favorite/position/${this.positiId}`).then(res => {
           if (res.data.code == 200) {
-            // this.resumeIdList = res.data
-            console.log(res);
+            this.isshowCollect = false
+            this.showCollect = true
           }
-        });
+        }).catch(error => {
+          this.$message({
+              message:error.response.data.message,
+              type: 'warning'
+            });
+      });
       // if(this.num == 1) {
       //     this.dialogVisible = true
       // }else{
@@ -375,7 +369,7 @@ export default {
       this.dialogVisibleOne = false;
       this.stationNav = false;
       this.stationFoot = false;
-      this.deliver = true;
+      this.deliverOne = true;
     }
   },
   created() {
@@ -383,7 +377,67 @@ export default {
     this.positionId();
     this.showdeli();
     this.showcoll();
-  }
+  },
+   filters:{
+    level(level){
+      const map=["国有企业","外资企业","合资企业","民营企业",'事业单位']
+      return map[level]
+    },
+    industry(industry){
+      if(industry = 1) {
+        const map=['',"酒店/餐饮","旅游/度假","医疗/护理/美容/保健/卫生服务"]
+        return map[industry]
+      }
+      if(industry = 2) {
+        const map=['',"计算机软件","网络游戏","IT服务(系统/数据/维护)","计算机硬件",'互联网/电子商务','电子技术/半导体/集成电路','通信、电信运营/增值服务','通信/电信/网络设备']
+        return map[industry]
+      }
+      if(industry = 3) {
+        const map=['',"保险","银行","信托/担保/拍卖/典当","基金/证券/期货/投资"]
+        return map[industry]
+      }
+      if(industry = 4) {
+        const map=['',"零售/批发","贸易/进出口","快速消费品（食品/饮料/烟酒/日化）","耐用消耗品",'租赁服务']
+        return map[industry]
+      }
+      if(industry = 5) {
+        const map=['',"文体教育|工艺美术","教育/培训/院校","礼品/玩具/工艺美术/收藏品/奢侈品"]
+        return map[industry]
+      }
+      if(industry = 6) {
+        const map=['',"办公用品及设备","航空/航天研究与制造","医疗设备/器械",'加工制造（原料加工/模具）','医药/生物工程','大型设备/机电设备/重工业','印刷/包装/造纸','汽车/摩托车','仪器仪表及工业自动化']
+        return map[industry]
+      }
+      if(industry = 7) {
+        const map=['',"房地产/建筑/建材/工程","物业管理/商业中心","家居/室内设计/装饰装潢"]
+        return map[industry]
+      }
+      if(industry = 8) {
+        const map=['',"专业服务/咨询(财会/法律/人力资源等)","广告/会展/公关","中介服务",'外包服务','检验/检测/认证']
+        return map[industry]
+      }
+      if(industry = 9) {
+        const map=['',"娱乐/体育/休闲","媒体/出版/影视/文化传媒"]
+        return map[industry]
+      }
+      if(industry = 10) {
+        const map=['',"跨领域经营","农/林/牧/渔",'其他']
+        return map[industry]
+      }
+      if(industry = 11) {
+        const map=['',"交通/运输",'物流/仓储']
+        return map[industry]
+      }
+      if(industry = 12) {
+        const map=['',"环保",'石油/石化/化工','能源/矿产/采掘/冶炼','电气/电力/水利']
+        return map[industry]
+      }
+      if(industry = 13) {
+        const map=['',"学术/科研",'政府/公共事业/非盈利机构']
+        return map[industry]
+      }
+    }
+  },
 };
 </script>
 

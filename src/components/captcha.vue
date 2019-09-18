@@ -11,6 +11,7 @@ const countNumber = 60;
 
 export default {
   name: 'captcha',
+  props:['fromData'],
   data() {
     return {
       frozen: false,
@@ -31,7 +32,7 @@ export default {
           this.frozen = false;
         }
       }, 1000);
-      this.$http.post('/account/phone/vcode',{phone:'18116241233'}).then(res => {
+      this.$http.post('/account/phone/vcode',{phone:this.fromData}).then(res => {
             console.log(res) 
           if (res.data.code == 200) {
           }

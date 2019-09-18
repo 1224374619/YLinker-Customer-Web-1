@@ -8,77 +8,28 @@
         <span>简历投递成功</span>
       </div>
       <div class="deliver-nav-second">
-        <span>
-          继续查看该岗位
-        </span>
-        <span>  
-            我的投递记录
-        </span>
+        <span @click="next()">继续查看该岗位</span>
+        <span @click="nextOne()">我的投递记录</span>
       </div>
     </div>
     <div class="deliver-foot">
       <div class="deliver-foot-nav">
         <div class="deliver-foot-nav-first">
           <span>相似职位</span>
-          <span>查看更多》</span>
+          <span @click="more">查看更多》</span>
         </div>
       </div>
-      <div class="deliver-foot-foot">
+      <div class="deliver-foot-foot" v-for="(list,index) in hotpositionList" :key="index">
         <div style="margin:10px 0 0 0">
-        <div class="company-post">
-        <span>产品经理</span>
-        <span>4-5k</span>
-        </div>
-        <div class="company-address">
-          <span>上海YY公司</span>
-          <span>长宁区</span>
-        </div>
-        <div class="line"></div>
-        </div>
-
-        <div style="margin:10px 0 0 0">
-        <div class="company-post">
-        <span>产品经理</span>
-        <span>4-5k</span>
-        </div>
-        <div class="company-address">
-          <span>上海YY公司</span>
-          <span>长宁区</span>
-        </div>
-        <div class="line"></div>
-        </div>
-        <div style="margin:10px 0 0 0">
-        <div class="company-post">
-        <span>产品经理</span>
-        <span>4-5k</span>
-        </div>
-        <div class="company-address">
-          <span>上海YY公司</span>
-          <span>长宁区</span>
-        </div>
-        <div class="line"></div>
-        </div>
-        <div style="margin:10px 0 0 0"> 
-        <div class="company-post">
-        <span>产品经理</span>
-        <span>4-5k</span>
-        </div>
-        <div class="company-address">
-          <span>上海YY公司</span>
-          <span>长宁区</span>
-        </div>
-        <div class="line"></div>
-        </div>
-        <div style="margin:10px 0 0 0">
-        <div class="company-post">
-        <span>产品经理</span>
-        <span>4-5k</span>
-        </div>
-        <div class="company-address">
-          <span>上海YY公司</span>
-          <span>长宁区</span>
-        </div>
-        <div class="line"></div>
+          <div class="company-post">
+            <span>{{list.positionName}}</span>
+            <span>{{list.salaryMin}}-{{list.salaryMax}}k</span>
+          </div>
+          <div class="company-address">
+            <span>{{companyName}}</span>
+            <span>{{list.workAddress.province}}{{list.workAddress.county}}</span>
+          </div>
+          <div class="line"></div>
         </div>
       </div>
     </div>
@@ -86,14 +37,37 @@
 </template>
 
 <script>
-
 export default {
-  name: 'deliver',
+  name: "deliver",
+  props: ["fromData"],
   data() {
     return {
+      hotpositionList: []
+    };
+  },
+  methods: {
+    next() {
+      this.$emit("backEmit", false, true);
+    },
+    nextOne() {
+      this.$router.push({ path: "/personal" });
+    },
+    more() {
+      this.$router.push({ path: "/joblist" });
+    },
+    //岗位列表
+    positionCompany() {
+      this.$http.get(`/company/${this.companyId}/position`).then(res => {
+        if (res.data.code == 200) {
+          this.hotpositionList = res.data.data.list;
+        }
+      });
     }
+  },
+  created() {
+    this.positionCompany();
   }
-}
+};
 </script>
 
 <style lang="stylus" scoped> 

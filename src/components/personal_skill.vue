@@ -14,7 +14,7 @@
             </el-form-item>
             <el-form-item label="获奖证书" style="margin-left:-90px">
                 <el-upload
-                    action="https://jsonplaceholder.typicode.com/posts/"
+                    action="/resume/4/skill/cert"
                     list-type="picture-card"
                     :on-preview="handlePictureCardPreview"
                     :on-remove="handleRemove">
@@ -36,7 +36,7 @@
 
 export default {
   name: 'personal_skill',
-  
+  props: ["professionalDegree"],
   data() {
     return {
          formInline: {
@@ -57,7 +57,7 @@ export default {
   },
   methods: {
     upload() {
-      this.$http.post(`/resume/${2}/skill/${2}/cert`,{}).then(res => {
+      this.$http.post(`/resume/${this.professionalDegree}/skill/cert`,{}).then(res => {
             if (res.data.code == 200) {
               console.log(res);
                this.$emit("skillEmit",false,true)
@@ -71,7 +71,7 @@ export default {
     keep(formName) {
        this.$refs[formName].validate(valid => {
         if (valid) {
-          this.$http.post(`/resume/${2}/skill`,{skill:this.formInline.technicalName,level:this.formInline.level}).then(res => {
+          this.$http.post(`/resume/${this.professionalDegree}/skill`,{skill:this.formInline.technicalName,level:this.formInline.level}).then(res => {
             if (res.data.code == 201) {
               console.log(res);
                this.$emit("skillEmit",false,true)

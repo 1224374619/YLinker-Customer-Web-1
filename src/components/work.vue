@@ -54,7 +54,7 @@
 <script>
 export default {
   name: "work",
-
+  props: ["workDegree"],
   data() {
     return {
       formInline: {
@@ -108,7 +108,7 @@ export default {
             }else{
               var eduTime  = till
             }
-          this.$http.post(`/resume/${2}/work`, {
+          this.$http.post(`/resume/${this.workDegree}/work`, {
               beginTime: til,
               endTime: eduTime,
               company: this.formInline.post,

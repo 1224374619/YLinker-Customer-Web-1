@@ -102,7 +102,7 @@
                 <span>{{list.positionName}}</span>
                 <span>{{list.salaryMin}}-{{list.salaryMax}}k</span>
               </div>
-              <div class="desc-second">{{list.positionCatalog}} | {{list.workAgeMin}}-{{list.workAgeMax}}年 | {{list.degreeMin}}</div>
+              <div class="desc-second">销售经理 | {{list.workAgeMin}}-{{list.workAgeMax}}年 | {{list.degreeMin|level}}</div>
               <div class="line"></div>
               <div class="desc-third">
                 <img
@@ -112,7 +112,7 @@
                 />
                 <div class="third-content">
                   <span>{{list.company.companyName}}</span>
-                  <span>{{list.company.size}} | {{list.company.industry}}</span>
+                  <span>{{list.company.size}}人 | {{list.company.industry-parseInt(list.company.industry/100)*100|industry}}</span>
                 </div>
               </div>
             </div>
@@ -183,7 +183,7 @@
                 <span>{{list.positionName}}</span>
                 <span>{{list.salaryMin}}-{{list.salaryMax}}k</span>
               </div>
-              <div class="desc-second">{{list.positionCatalog}} | {{list.workAgeMin}}-{{list.workAgeMax}}年 | {{list.degreeMin}}</div>
+              <div class="desc-second">销售经理 | {{list.workAgeMin}}-{{list.workAgeMax}}年 | {{list.degreeMin|level}}</div>
               <div class="line"></div>
               <div class="desc-third">
                 <img
@@ -193,7 +193,7 @@
                 />
                 <div class="third-content">
                   <span>{{list.company.companyName}}</span>
-                  <span>{{list.company.size}} | {{list.company.industry}}</span>
+                  <span>{{list.company.size}}人 | {{list.company.industry-parseInt(list.company.industry/100)*100|industry}}</span>
                 </div>
               </div>
             </div>
@@ -353,8 +353,8 @@ export default {
     recommendation() {
        this.$http.get("/home/recommended/position").then(res => {
          if (res.data.code == 200) {
-          //  console.log(res.data.data)
            this.listRecommend = res.data.data
+           console.log(this.listRecommend,'232333232323')
           }
       });
     },
@@ -387,6 +387,15 @@ export default {
     //热门职位
     hotposition () {
        this.$http.get("/popular/position").then(res => {
+         if (res.data.code == 200) {
+              // 
+              // console.log(res)
+          }
+      });
+    },
+    // 行业
+    industry() {
+      this.$http.get("/constant/positionCatalog").then(res => {
          if (res.data.code == 200) {
               // 
               // console.log(res)
@@ -433,6 +442,7 @@ export default {
     // },
   },
   created() {
+    this.industry();
     this.carousel();
     this.hotcompany();
     this.hotkeyword();
@@ -443,6 +453,66 @@ export default {
       this.activeName = "second";
     } else {
       this.activeName = "first";
+    }
+  },
+  filters:{
+    level(level){
+      const map=["初中及以下","职中","大专","本科",'硕士','博士']
+      return map[level]
+    },
+    industry(industry){
+      if(industry = 1) {
+        const map=['',"酒店/餐饮","旅游/度假","医疗/护理/美容/保健/卫生服务"]
+        return map[industry]
+      }
+      if(industry = 2) {
+        const map=['',"计算机软件","网络游戏","IT服务(系统/数据/维护)","计算机硬件",'互联网/电子商务','电子技术/半导体/集成电路','通信、电信运营/增值服务','通信/电信/网络设备']
+        return map[industry]
+      }
+      if(industry = 3) {
+        const map=['',"保险","银行","信托/担保/拍卖/典当","基金/证券/期货/投资"]
+        return map[industry]
+      }
+      if(industry = 4) {
+        const map=['',"零售/批发","贸易/进出口","快速消费品（食品/饮料/烟酒/日化）","耐用消耗品",'租赁服务']
+        return map[industry]
+      }
+      if(industry = 5) {
+        const map=['',"文体教育|工艺美术","教育/培训/院校","礼品/玩具/工艺美术/收藏品/奢侈品"]
+        return map[industry]
+      }
+      if(industry = 6) {
+        const map=['',"办公用品及设备","航空/航天研究与制造","医疗设备/器械",'加工制造（原料加工/模具）','医药/生物工程','大型设备/机电设备/重工业','印刷/包装/造纸','汽车/摩托车','仪器仪表及工业自动化']
+        return map[industry]
+      }
+      if(industry = 7) {
+        const map=['',"房地产/建筑/建材/工程","物业管理/商业中心","家居/室内设计/装饰装潢"]
+        return map[industry]
+      }
+      if(industry = 8) {
+        const map=['',"专业服务/咨询(财会/法律/人力资源等)","广告/会展/公关","中介服务",'外包服务','检验/检测/认证']
+        return map[industry]
+      }
+      if(industry = 9) {
+        const map=['',"娱乐/体育/休闲","媒体/出版/影视/文化传媒"]
+        return map[industry]
+      }
+      if(industry = 10) {
+        const map=['',"跨领域经营","农/林/牧/渔",'其他']
+        return map[industry]
+      }
+      if(industry = 11) {
+        const map=['',"交通/运输",'物流/仓储']
+        return map[industry]
+      }
+      if(industry = 12) {
+        const map=['',"环保",'石油/石化/化工','能源/矿产/采掘/冶炼','电气/电力/水利']
+        return map[industry]
+      }
+      if(industry = 13) {
+        const map=['',"学术/科研",'政府/公共事业/非盈利机构']
+        return map[industry]
+      }
     }
   },
   mounted() {

@@ -112,22 +112,27 @@ export default {
         if (valid) {
           let til = this.formInline.schoolTime[0].getTime();
           let till = this.formInline.schoolTime[1].getTime();
-          let ti = this.$moment(till).format("YYYY-MM")
-          let end = this.$moment(new Date().getTime()).format("YYYY-MM")
-          if(ti === end) {
-              var eduTime = null
-          }else{
-              var eduTime  = till
-            }
+          let ti = this.$moment(till).format("YYYY-MM");
+          let end = this.$moment(new Date().getTime()).format("YYYY-MM");
+          if (ti === end) {
+            var eduTime = null;
+          } else {
+            var eduTime = till;
+          }
+          if (this.formInline.general == 0) {
+            this.formInline.general = true;
+          } else if (this.formInline.general == 1) {
+            this.formInline.general = false;
+          }
           // this.formEducation.educationTime = [this.$moment(till).format("YYYY-MM"),end]
           this.$http
-            .post(`/resume/${2}/education`, {
+            .post(`/resume/${this.educationDegree}/education`, {
               beginTime: til,
               endTime: eduTime,
               degree: this.formInline.qualifications,
               major: this.formInline.major,
               school: this.formInline.schoolName,
-              isUnified: false
+              isUnified: this.formInline.general
             })
             .then(res => {
               if (res.data.code == 201) {
@@ -158,18 +163,24 @@ export default {
 };
 </script>
 
-<style lang="stylus" scoped> 
-  .el-form-item
-    padding 0 0 0 30px
-  .cancel:hover
-     background #1f368d  
-     color white
-     border-color #1f368d
-  .el-button
-    width 94px 
-    height 34px
-    vertical-align middle
-    padding 0px
-  .keep:hover
-    border-color #7d8dcd     
+<style lang="stylus" scoped>.el-form-item {
+  padding: 0 0 0 30px;
+}
+
+.cancel:hover {
+  background: #1f368d;
+  color: white;
+  border-color: #1f368d;
+}
+
+.el-button {
+  width: 94px;
+  height: 34px;
+  vertical-align: middle;
+  padding: 0px;
+}
+
+.keep:hover {
+  border-color: #7d8dcd;
+}
 </style>

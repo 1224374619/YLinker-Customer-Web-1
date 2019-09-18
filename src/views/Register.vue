@@ -16,7 +16,7 @@
             <!-- <password-input v-model="form.password" /> -->
           </el-form-item>
           <el-form-item label="验证码" prop="captcha">
-            <captcha v-model="form.captcha"/>
+            <captcha :fromData="this.form.tel" v-model="form.captcha"/>
           </el-form-item>
           <el-form-item prop="checkLicense">
             <el-checkbox v-model="form.checkLicense">我已同意<el-button type="text" @click="gotoUserPrivacyLicenseUI">《用户协议及隐私策略》</el-button></el-checkbox>
@@ -74,7 +74,7 @@ export default {
     onSubmit() {
       this.$refs['form'].validate((valid) => {
         if (valid) {
-          this.$http.post('/account/register',{phone:'18116241233',password:this.form.password,vcode:this.form.captcha,agree:true}).then(res => {
+          this.$http.post('/account/register',{phone:this.form.tel,password:this.form.password,vcode:this.form.captcha,agree:true}).then(res => {
             console.log(res) 
           if (res.data.code == 200) {
             

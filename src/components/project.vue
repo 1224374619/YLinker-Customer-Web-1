@@ -42,6 +42,7 @@
 <script>
 export default {
   name: "project",
+  props: ["projectDegree"],
   data() {
     return {
       formInline: {
@@ -104,7 +105,7 @@ export default {
               var eduTime  = till
             }
           this.$http
-            .post(`/resume/${2}/project`, { beginTime:til,endTime:eduTime,project:this.formInline.companyName,duty:this.formInline.duty,description:this.formInline.project })
+            .post(`/resume/${this.projectDegree}/project`,{ beginTime:til,endTime:eduTime,project:this.formInline.companyName,duty:this.formInline.duty,description:this.formInline.project })
             .then(res => {
               if (res.data.code == 201) {
                   this.$emit("progectEmit", false, true);

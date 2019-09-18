@@ -12,8 +12,8 @@
           <i v-else class="el-icon-plus avatar-uploader-icon"></i>
         </el-upload>
       </div>
-      <div class="basicinfo-right" style="margin:53px 0 0 0">
-        <el-form :inline="true" :model="formInline" class="demo-form-inline">
+      <div class="basicinfo-right" style="margin:53px 20px 0 0">
+        <el-form :inline="true" :model="formInline" class="demo-form-inline" label-width="100px">
           <el-form-item label="姓名" style="margin:0 40px 0 0">
             <el-input style="width:168px;height:36px" v-model="formInline.name" placeholder="请输入姓名"></el-input>
           </el-form-item>
@@ -26,8 +26,8 @@
           </el-form-item><br>
           <el-form-item label="性别" style="margin:0 40px 0 0">
             <el-radio-group v-model="formInline.gender">
-              <el-radio-button  label="男性"></el-radio-button>
-              <el-radio-button  label="女性"></el-radio-button>
+              <el-radio-button  label="0">女性</el-radio-button>
+              <el-radio-button  label="1">男性</el-radio-button>
             </el-radio-group>
           </el-form-item>
            <el-form-item label="工作年限" style="margin-left:30px">
@@ -38,25 +38,44 @@
              v-model="formInline.workingSeniority"
             ></el-date-picker>
           </el-form-item>
-          <el-form-item label="所在城市" style="margin:0 40px 0 -30px">
-            <el-select style="width:168px;height:36px" v-model="formInline.city" placeholder>
-              <el-option label value="上海"></el-option>
-              <el-option label value="天津"></el-option>
-              <el-option label value="北京"></el-option>
+          <el-form-item label="是否应届" style="margin:0 40px 0 0">
+            <el-radio-group v-model="formInline.isGraduate">
+              <el-radio-button  label="0">是</el-radio-button>
+              <el-radio-button  label="1">否</el-radio-button>
+            </el-radio-group>
+          </el-form-item>
+           <el-form-item label="海外工作年限" style="margin-left:60px">
+             <el-select style="width:168px;height:36px" v-model="formInline.overseasAge" placeholder>
+              <el-option label='1年' value="1"></el-option>
+              <el-option label='2年' value="2"></el-option>
+              <el-option label='3年' value="3"></el-option>
+              <el-option label='4年' value="4"></el-option>
+              <el-option label='5年' value="5"></el-option>
+              <el-option label='6年' value="6"></el-option>
+              <el-option label='7年' value="7"></el-option>
             </el-select>
+          </el-form-item>
+          <el-form-item label="所在城市" style="margin:0 40px 0 0">
+             <el-cascader
+              :options="options"
+              style="width:168px;height:36px"
+              v-model="formInline.city"
+              :props="props"
+              >
+             </el-cascader>
           </el-form-item>
           <el-form-item label="最高学历">
             <el-select style="width:168px;height:36px" v-model="formInline.educationLevel" placeholder>
-              <el-option label value="初中及以下"></el-option>
-              <el-option label value="中专/职中"></el-option>
-              <el-option label value="高中"></el-option>
-              <el-option label value="大专"></el-option>
-              <el-option label value="本科"></el-option>
-              <el-option label value="硕士"></el-option>
-              <el-option label value="博士"></el-option>
+              <el-option label='初中及以下' value="1"></el-option>
+              <el-option label='职中' value="2"></el-option>
+              <el-option label='高中' value="3"></el-option>
+              <el-option label='大专' value="4"></el-option>
+              <el-option label='本科' value="5"></el-option>
+              <el-option label='硕士' value="6"></el-option>
+              <el-option label='博士' value="7"></el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="生日" style="margin:0 40px 0 0">
+          <el-form-item label="生日" style="margin:0 10px 0 0">
             <el-date-picker
               style="width:168px;height:36px"
               type="date"
@@ -72,9 +91,11 @@
           </el-form-item>
           <el-form-item label="政治面貌">
             <el-select style="width:168px;height:36px" v-model="formInline.politicCountenance" placeholder>
-              <el-option label value="群众"></el-option>
-              <el-option label value="团员"></el-option>
-              <el-option label value="中共党员"></el-option>
+              <el-option label='群众' value="0"></el-option>
+              <el-option label='团员' value="1"></el-option>
+              <el-option label='民主党派' value="2"></el-option>
+              <el-option label='预备党员' value="3"></el-option>
+              <el-option label='中共党员' value="4"></el-option>
             </el-select>
           </el-form-item><br>
           <el-form-item style="float:right;margin:0 100px 20px 0">
@@ -90,6 +111,7 @@
 <script>
 export default {
   name: "basicinfo",
+  props: ["fromData"],
   data() {
     return {
       formInline: {
@@ -97,22 +119,56 @@ export default {
         jobHunting: "",
         gender: "",
         workingSeniority: "",
-        city: "",
+        city: '',
         educationLevel: "",
         birthday: "",
         email: "",
         phone: "",
-        politicCountenance: ""
-      }
+        politicCountenance: "",
+        overseasAge:"",
+        isGraduate:"",
+      },
+      options:[],
+      props:{
+            value: 'tag',
+            label:'tag',
+            children: 'children'
+        }
     };
   },
   methods: {
     keep() {
-      this.$http.put(`/resume/${3}/base`,
-      {overseasAge:2,workYear:966517171000,politicalStatus:2,birthday:965232000000,county:'徐汇区',fullName:'zhao',sex:1,province:'上海市',degree:4,email:'1224374619@qq.com',phone:'15516956795',isGraduate:false})
+      if(this.formInline.politicCountenance == '群众') {
+          this.formInline.politicCountenance = 0
+      }else if(this.formInline.politicCountenance == '团员') {
+          this.formInline.politicCountenance = 1
+      }else if(this.formInline.politicCountenance == '民主党派') {
+          this.formInline.politicCountenance = 1
+      }else if(this.formInline.politicCountenance == '预备党员') {
+          this.formInline.politicCountenance = 3
+      }else if(this.formInline.politicCountenance == '中共党员') {
+          this.formInline.politicCountenance = 4
+      }
+
+      if(this.formInline.isGraduate == 0) {
+          this.formInline.isGraduate = true
+      }else if(this.formInline.isGraduate == 1) {
+          this.formInline.isGraduate = false
+      }
+      this.$http.put(`/resume/${this.fromData}/base`,
+      {overseasAge:Number(this.formInline.overseasAge),workYear:(this.formInline.workingSeniority).getTime(),politicalStatus:Number(this.formInline.politicCountenance),
+      birthday:(this.formInline.birthday).getTime(),county:this.formInline.city[1],fullName:this.formInline.name,sex:this.formInline.gender,province:this.formInline.city[0],degree:this.formInline.educationLevel,email:this.formInline.email,phone:this.formInline.phone,isGraduate:this.formInline.isGraduate})
       .then(res => {
           if (res.data.code == 200) {
-            console.log(res);
+            this.$emit("BasicEmit",false,true)
+          }
+        });
+    },
+    city() {
+      this.$http.get('/constant/district')
+      .then(res => {
+          if (res.data.code == 200) {
+            this.options = res.data.data
           }
         });
     },
@@ -159,6 +215,9 @@ export default {
           });
         });
     }
+  },
+  created () {
+    this.city();
   }
 };
 </script>

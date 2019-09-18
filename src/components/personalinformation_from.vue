@@ -6,20 +6,19 @@
                 <div class="information-first">
                 <span>{{fromData.fullName}}</span>
                 <span><img style="width:26px" :src="require('../assets/images/xing.png')"/></span>
-                <span>离职-随时到岗</span>
+                <span>{{fromData.age}}岁({{fromData.birthday | formatDateOne}})</span>
                 </div>
                 <div class="information-second">
-                  <span>现居{{fromData.province}}</span>
+                  <span>现居{{fromData.province}}{{fromData.county}}</span>
                   <span>|</span>
                   <span>{{fromData.overseasAge}}年海外工作经验</span>
-                  <span>{{fromData.age}}岁(1996/09/09)</span>
                 </div>
                 <div class="information-third">
                   <span><img style="width:8px;height:14px;margin:0 0 0 10px" :src="require('../assets/images/copy.png')"/><span style="margin:0 0 0 13px">{{fromData.phone}}</span></span>
                   <span>|</span>
                   <span><img style="width:11px;height:8px;margin-left:15px" :src="require('../assets/images/00.png')"/><span style="margin:0 0 0 13px">{{fromData.email}}</span></span>
                   <span style="margin-left:15px">|</span>
-                  <span style="margin-left:15px">政治面貌：{{fromData.politicalStatus}}</span>
+                  <span style="margin-left:15px">政治面貌：{{fromData.politicalStatus|level}}</span>
                 </div>
             </div>
             <!-- <div style="margin:35px 0 0 0;">
@@ -45,6 +44,12 @@
               // email:'',
             };
         },
+         filters:{
+            level(level){
+              const map=["群众","团员","民主党派","预备党员",'中共党员']
+              return map[level]
+            }
+          },
         methods: {
           //编辑传值
           editsinformation() {

@@ -14,6 +14,7 @@
       </el-form-item>
       <el-form-item label="获奖证书" style="margin-left:-90px">
         <el-upload
+          action="/resume/${2}/skill/cert"
           list-type="picture-card"
           :on-preview="handlePictureCardPreview"
           :on-remove="handleRemove"
@@ -36,6 +37,7 @@
 <script>
 export default {
   name: "awards",
+  props: ["professionalDegree"],
   data() {
     return {
       formInline: {
@@ -62,7 +64,8 @@ export default {
     keep(formName) {
       this.$refs[formName].validate(valid => {
         if (valid) {
-            this.$http.post(`/resume/${2}/award`, { acquiredTime: 454353454334,award:this.formInline.prizeAward}).then(res => {
+          let til = this.formInline.prizeTime.getTime();
+            this.$http.post(`/resume/${this.professionalDegree}/award`, {acquiredTime:til,award:this.formInline.prizeAward}).then(res => {
                 if (res.data.code == 201) {
                   console.log(res);
                   this.$emit("awardsemit",false,true)
@@ -74,6 +77,9 @@ export default {
       });
      
     },
+      handlePictureCardPreview(file) {
+        console.log(file,"3123123123123");
+      },
     //更新
     // keep() {
     //   this.$emit("skill", this.formInline.technicalName, this.formInline.level);
