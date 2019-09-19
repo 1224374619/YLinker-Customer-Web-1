@@ -20,11 +20,8 @@
         <div class="article" v-if="isshow" style="margin-top:10px">
             <el-radio-group size="small" v-model="district">
             <span style="margin-left:-48px" class="article-title">行政区：</span>
-            <el-radio-button class="article-content" label="1">黄埔区</el-radio-button>
-            <el-radio-button class="article-content" label="2">徐汇区</el-radio-button>
-            <el-radio-button class="article-content" label="3">长宁区</el-radio-button>
-            <el-radio-button class="article-content" label="4">浦东新区</el-radio-button>
-            <el-radio-button class="article-content" label="5">奉贤区</el-radio-button>
+            <el-radio-button class="article-content" :label="index" v-for="(list,index) in sliceArr" :key="index">{{list.tag}}</el-radio-button>
+            <!-- <span class="article-title">行政区：</span> -->
             </el-radio-group>
         </div>
         <div class="article"  v-if="isshow">
@@ -113,7 +110,7 @@
         </div>
         <div class="content-infor">
             <span>{{item.companyName}}</span>
-            <span>{{item.address.province}}  {{item.address.county}} | {{item.size}}人 | {{item.industry|industry}}</span>
+            <span>{{item.address.province}}  {{item.address.county}} | {{item.size}}人 | {{item.industry-parseInt(item.industry/100)*100|industry}}</span>
         </div>
         <div class="content-button">
             <span>
@@ -136,7 +133,7 @@
         <div class="footer-second">
             <span>{{item.workAddress.province}} {{item.workAddress.county}} | {{item.workAgeMin}}-{{item.workAgeMax}}年 | {{item.degreeMin|level}}</span>
             <span>{{item.publishedTime | formatDate}}</span>
-            <span>{{item.company.industry|industry}} | {{item.company.size}}人</span>
+            <span>{{item.company.industry-parseInt(item.company.industry/100)*100|industry}} | {{item.company.size}}人</span>
         </div>
         <div class="footer-line"></div>
       </div>  
@@ -222,6 +219,7 @@ export default {
                 pageSizeOpts: [5,10,20]
             },
       curr: -1,
+      sliceArr:[],
       industryList:[],
       qualityList:[],
       workExperienceList:[],
@@ -236,7 +234,7 @@ export default {
       joblistJob:false,
       isshow:true,
       searchContent:'',
-      provinceButton:'上海市',
+      provinceButton:'上海',
       cityButton:'',
       duty:'',
       articleButton:false,
@@ -294,13 +292,22 @@ export default {
         });
     },
       citys(item,index) {
-        this.provinceButton = item.tag
-        console.log(item)
+        console.log(item,'232332323232')
+          this.provinceButton = item.tag
+          this.provincecode = item.code
           this.curr = index;
           this.citis = this.city[this.curr].children
+          // this.sliceArr = item.children.slice(0,5)
+          
         },
       citiss(item) {
         this.cityButton = item.tag
+        this.citycode = item.code
+        this.sliceArr.forEach(function(value) {
+            if(value.tag == item.tag) {
+              console.log(item) 
+            }
+          })
       },
       cancelButton() {
         this.district = ''
@@ -323,8 +330,8 @@ export default {
       },
       search () {
         if(this.company =='公司') {
-          this.$http.post('/searched/company',{county:this.cityButton,industry:this.duty,keyword:this.searchContent,pageNum:0,
-        pageSize:10,province:this.provinceButton,size:this.scale,}).then(res => {
+          this.$http.post('/searched/company',{county:this.citycode,industry:this.duty,keyword:this.searchContent,pageNum:0,
+        pageSize:10,province:this.provincecode,size:this.scale,}).then(res => {
           if (res.data.code == 200) {
             this.joblistJob = false
             this.companyList = res.data.data.list
@@ -423,8 +430,8 @@ export default {
         }else{
           this.isGraduate = true
         }
-        this.$http.post('/searched/position',{county:this.cityButton,degreeMin:this.Education,industry:this.duty,isGraduate:this.isGraduate,jobType:this.workState,keyword:this.searchContent,pageNum:0,
-        pageSize:10,province:this.provinceButton,publishedInterval:this.release,salaryMax:this.salaryMax,salaryMin:this.salaryMin,size:this.scale,workAgeMax:this.workAgeMax,workAgeMin:this.workAgeMin}).then(res => {
+        this.$http.post('/searched/position',{county:this.citycode,degreeMin:this.Education,industry:this.duty,isGraduate:this.isGraduate,jobType:this.workState,keyword:this.searchContent,pageNum:0,
+        pageSize:10,province:this.provincecode,publishedInterval:this.release,salaryMax:this.salaryMax,salaryMin:this.salaryMin,size:this.scale,workAgeMax:this.workAgeMax,workAgeMin:this.workAgeMin}).then(res => {
           if (res.data.code == 200) {
             this.joblistCompany = false
             this.positionList = res.data.data.list
@@ -493,7 +500,9 @@ export default {
             this.workStateList = res.data.data.jobType
             this.monthPayList = res.data.data.salaryRange
             this.EducationList = res.data.data.eduDegree
+           
             this.workExperienceList = res.data.data.workAgeRange
+            
           }
         });
       },
@@ -539,14 +548,14 @@ export default {
             },
         },
     created () {
-      // this.positionId();
+      // this.positionId()
       this.allposition()
       this.enterpriseForm()
       this.positionCatalog()
       this.citise()
       this.option()
-      this.$http.post('/searched/position',{county:this.cityButton,degreeMin:this.Education,industry:this.duty,isGraduate:this.isGraduate,jobType:this.workState,keyword:this.searchContent,pageNum:0,
-        pageSize:10,province:this.provinceButton,publishedInterval:this.release,salaryMax:this.salaryMax,salaryMin:this.salaryMin,size:this.scale,workAgeMax:this.workAgeMax,workAgeMin:this.workAgeMin}).then(res => {
+      this.$http.post('/searched/position',{county:this.citycode,degreeMin:this.Education,industry:this.duty,isGraduate:this.isGraduate,jobType:this.workState,keyword:this.searchContent,pageNum:0,
+        pageSize:10,province:this.provincecode,publishedInterval:this.release,salaryMax:this.salaryMax,salaryMin:this.salaryMin,size:this.scale,workAgeMax:this.workAgeMax,workAgeMin:this.workAgeMin}).then(res => {
           if (res.data.code == 200) {
             this.joblistCompany = false
             this.positionList = res.data.data.list
@@ -565,55 +574,55 @@ export default {
       return map[level]
     },
     industry(industry){
-      if(industry = 1) {
+      if(industry == 1) {
         const map=['',"酒店/餐饮","旅游/度假","医疗/护理/美容/保健/卫生服务"]
         return map[industry]
       }
-      if(industry = 2) {
+      if(industry == 2) {
         const map=['',"计算机软件","网络游戏","IT服务(系统/数据/维护)","计算机硬件",'互联网/电子商务','电子技术/半导体/集成电路','通信、电信运营/增值服务','通信/电信/网络设备']
         return map[industry]
       }
-      if(industry = 3) {
+      if(industry == 3) {
         const map=['',"保险","银行","信托/担保/拍卖/典当","基金/证券/期货/投资"]
         return map[industry]
       }
-      if(industry = 4) {
+      if(industry == 4) {
         const map=['',"零售/批发","贸易/进出口","快速消费品（食品/饮料/烟酒/日化）","耐用消耗品",'租赁服务']
         return map[industry]
       }
-      if(industry = 5) {
+      if(industry == 5) {
         const map=['',"文体教育|工艺美术","教育/培训/院校","礼品/玩具/工艺美术/收藏品/奢侈品"]
         return map[industry]
       }
-      if(industry = 6) {
+      if(industry == 6) {
         const map=['',"办公用品及设备","航空/航天研究与制造","医疗设备/器械",'加工制造（原料加工/模具）','医药/生物工程','大型设备/机电设备/重工业','印刷/包装/造纸','汽车/摩托车','仪器仪表及工业自动化']
         return map[industry]
       }
-      if(industry = 7) {
+      if(industry == 7) {
         const map=['',"房地产/建筑/建材/工程","物业管理/商业中心","家居/室内设计/装饰装潢"]
         return map[industry]
       }
-      if(industry = 8) {
+      if(industry == 8) {
         const map=['',"专业服务/咨询(财会/法律/人力资源等)","广告/会展/公关","中介服务",'外包服务','检验/检测/认证']
         return map[industry]
       }
-      if(industry = 9) {
+      if(industry == 9) {
         const map=['',"娱乐/体育/休闲","媒体/出版/影视/文化传媒"]
         return map[industry]
       }
-      if(industry = 10) {
+      if(industry == 10) {
         const map=['',"跨领域经营","农/林/牧/渔",'其他']
         return map[industry]
       }
-      if(industry = 11) {
+      if(industry == 11) {
         const map=['',"交通/运输",'物流/仓储']
         return map[industry]
       }
-      if(industry = 12) {
+      if(industry == 12) {
         const map=['',"环保",'石油/石化/化工','能源/矿产/采掘/冶炼','电气/电力/水利']
         return map[industry]
       }
-      if(industry = 13) {
+      if(industry == 13) {
         const map=['',"学术/科研",'政府/公共事业/非盈利机构']
         return map[industry]
       }

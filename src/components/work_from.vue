@@ -18,7 +18,7 @@
 <script>
     export default {
         name:'from',
-        props:['fromData'],
+        props:['fromData',''],
         data() {
             return {
                 ruleForm: {
@@ -34,6 +34,7 @@
         created () {
             //如果后台有个人之前填的数据，需要先把数据格式化后复制给子组件，可以进行修改操作
             this.ruleForm = Object.assign({},this.fromData)
+            console.log(this.fromData)
         },
         methods: {
             onSubmit () {

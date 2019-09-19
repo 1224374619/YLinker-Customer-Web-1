@@ -6,7 +6,7 @@
                     :options="positionCatalogList"
                     :props="propsTwo"
                     :show-all-levels="false"
-                    v-model="formInline.postType"
+                    v-model="formInline.postType[0].code"
                     >
                 </el-cascader>
             </el-form-item>
@@ -23,10 +23,8 @@
                <el-cascader style="width:242px;height:36px"
                     :options="industryList"
                     :props="propsOne"
-                    @change="handleChange"
-                    ref="cascader"
                     :show-all-levels="false"
-                    v-model="formInline.industry"
+                    v-model="formInline.industry[0].code"
                     >
                 </el-cascader>
             </el-form-item>
@@ -49,10 +47,9 @@
                 <el-date-picker
                 style="width:242px;height:36px"
                 v-model="formInline.reportTime"
-                type="daterange"
-                range-separator="至"
-                start-placeholder="开始日期"
-                end-placeholder="结束日期">
+                type="date"
+                placeholder="请选择日期"
+              >
                 </el-date-picker>
             </el-form-item>
             
@@ -87,16 +84,20 @@ export default {
           propsOne:{
               value: 'code',
               label:'tag',
-              children: 'children'
+              children: 'children',
+              emitPath:false
           },
           propsTwo:{
               value: 'code',
               label:'tag',
-              children: 'children'
+              children: 'children',
+              emitPath:false
           },
          datePicker:false,
          formInline: {
-          postType: [],
+          postType: [{
+             code:''
+           }],
           trade: '',
           scope:'',
           city:[],
@@ -105,20 +106,13 @@ export default {
           reportTime:'', 
           industry:[
             {
-             code:'',
-             tag:''
+             code:''
            }
           ]
         }
     }
   },
   methods:{
-   handleChange(item) {
-      setTimeout(() => {
-        this.cascader = this.$refs.cascader.inputValue
-        // console.log(this.$refs.cascader.inputValue);
-      }, 10);
-},
     cancel() {
       this.$emit("jobintensionEmit",false,true) 
     },
@@ -181,7 +175,8 @@ export default {
             this.salaryMax = null
             break;           
         }
-       this.$http.put(`/resume/${this.JobintenDegree}/target`,{positionCatalogs:this.formInline.postType[lenOne-1],arriveTime:213123123,county:this.formInline.city[1],industries:this.formInline.industry[len-1],jobSearchStatus:this.formInline.status,jobType:this.formInline.jobType,province:this.formInline.city[0],salaryMin:this.salaryMin,salaryMax:this.salaryMax}).then(res => {
+       let til = this.formInline.reportTime.getTime();
+       this.$http.put(`/resume/${this.JobintenDegree}/target`,{positionCatalogs:this.formInline.postType,arriveTime:til,county:this.formInline.city[1],industries:this.formInline.industry,jobSearchStatus:this.formInline.status,jobType:this.formInline.jobType,province:this.formInline.city[0],salaryMin:this.salaryMin,salaryMax:this.salaryMax}).then(res => {
         if (res.data.code == 200) {
           console.log(res);
         }

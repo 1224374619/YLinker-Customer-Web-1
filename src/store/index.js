@@ -7,6 +7,7 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     hasLogin: '',
+    lsit: [],
     user: window.sessionStorage.getItem('user'),
     token: window.sessionStorage.getItem('token')
   },

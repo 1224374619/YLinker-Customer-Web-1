@@ -4,10 +4,10 @@
       <div class="basicinfo-left">
         <el-upload
           class="avatar-uploader"
-          action="https://jsonplaceholder.typicode.com/posts/"
+          :action="uploadUrl"
           :show-file-list="false"
           :on-success="handleAvatarSuccess"
-          :before-upload="beforeAvatarUpload">
+          >
           <img v-if="imageUrl" :src="imageUrl" class="avatar">
           <i v-else class="el-icon-plus avatar-uploader-icon"></i>
         </el-upload>
@@ -128,6 +128,8 @@ export default {
         overseasAge:"",
         isGraduate:"",
       },
+      imageUrl:'',
+      file:'',
       options:[],
       props:{
             value: 'tag',
@@ -156,7 +158,7 @@ export default {
           this.formInline.isGraduate = false
       }
       this.$http.put(`/resume/${this.fromData}/base`,
-      {overseasAge:Number(this.formInline.overseasAge),workYear:(this.formInline.workingSeniority).getTime(),politicalStatus:Number(this.formInline.politicCountenance),
+      {file:this.file,overseasAge:Number(this.formInline.overseasAge),workYear:(this.formInline.workingSeniority).getTime(),politicalStatus:Number(this.formInline.politicCountenance),
       birthday:(this.formInline.birthday).getTime(),county:this.formInline.city[1],fullName:this.formInline.name,sex:this.formInline.gender,province:this.formInline.city[0],degree:this.formInline.educationLevel,email:this.formInline.email,phone:this.formInline.phone,isGraduate:this.formInline.isGraduate})
       .then(res => {
           if (res.data.code == 200) {
@@ -172,6 +174,15 @@ export default {
           }
         });
     },
+    handleAvatarSuccess(res, file) {
+        this.imageUrl = URL.createObjectURL(file.raw);
+        this.file = res.data
+        // this.$http.get(`/resume/${this.professionalDegree}/skill/${24}/cert/url`).then(res => {
+        //   if (res.data.code == 200) {
+        //     this.file = res.data.data
+        //   }
+        // });
+      },
     cancel() {
       const h = this.$createElement;
       this.$msgbox({
@@ -207,6 +218,7 @@ export default {
             type: "success",
             message: "操作成功!"
           });
+          this.$emit("BasicEmit",false,true)
         })
         .catch(() => {
           this.$message({
@@ -218,7 +230,12 @@ export default {
   },
   created () {
     this.city();
-  }
+  },
+  computed: {
+      uploadUrl() {
+        return `/api/resume/${this.fromData}/base/avatar`
+      }
+    },
 };
 </script>
 

@@ -1,69 +1,88 @@
 <template>
-    <div class="personalinformation">
-        <div class="information" >
-            <div><img style="width:95px" :src="require('../assets/images/89.png')"/></div>
-            <div class="informationright">
-                <div class="information-first">
-                <span>{{fromData.fullName}}</span>
-                <span><img style="width:26px" :src="require('../assets/images/xing.png')"/></span>
-                <span>{{fromData.age}}岁({{fromData.birthday | formatDateOne}})</span>
-                </div>
-                <div class="information-second">
-                  <span>现居{{fromData.province}}{{fromData.county}}</span>
-                  <span>|</span>
-                  <span>{{fromData.overseasAge}}年海外工作经验</span>
-                </div>
-                <div class="information-third">
-                  <span><img style="width:8px;height:14px;margin:0 0 0 10px" :src="require('../assets/images/copy.png')"/><span style="margin:0 0 0 13px">{{fromData.phone}}</span></span>
-                  <span>|</span>
-                  <span><img style="width:11px;height:8px;margin-left:15px" :src="require('../assets/images/00.png')"/><span style="margin:0 0 0 13px">{{fromData.email}}</span></span>
-                  <span style="margin-left:15px">|</span>
-                  <span style="margin-left:15px">政治面貌：{{fromData.politicalStatus|level}}</span>
-                </div>
-            </div>
-            <!-- <div style="margin:35px 0 0 0;">
+  <div class="personalinformation">
+    <div class="information">
+      <div>
+        <img
+          style="width:95px;height:95px;border-radius:47px"
+          :src='this.avatarUrl'
+        />
+      </div>
+      <div class="informationright">
+        <div class="information-first">
+          <span>{{fromData.fullName}}</span>
+          <span>
+            <img style="width:26px" :src="require('../assets/images/xing.png')" />
+          </span>
+          <span>{{fromData.age}}岁({{fromData.birthday | formatDateOne}})</span>
+        </div>
+        <div class="information-second">
+          <span>现居{{fromData.province}}{{fromData.county}}</span>
+          <span>|</span>
+          <span>{{fromData.overseasAge}}年海外工作经验</span>
+        </div>
+        <div class="information-third">
+          <span>
+            <img
+              style="width:8px;height:14px;margin:0 0 0 10px"
+              :src="require('../assets/images/copy.png')"
+            />
+            <span style="margin:0 0 0 13px">{{fromData.phone}}</span>
+          </span>
+          <span>|</span>
+          <span>
+            <img
+              style="width:11px;height:8px;margin-left:15px"
+              :src="require('../assets/images/00.png')"
+            />
+            <span style="margin:0 0 0 13px">{{fromData.email}}</span>
+          </span>
+          <span style="margin-left:15px">|</span>
+          <span style="margin-left:15px">政治面貌：{{fromData.politicalStatus}}</span>
+        </div>
+      </div>
+      <!-- <div style="margin:35px 0 0 0;">
               <span class="actions-span">
                   <img style="margin-right:9px;height:12px" :src="require('../assets/images/ziwo.png')"/><span @click="editsinformation" style="margin-right:3px">编辑</span> 
               </span>
-            </div> -->
-        </div>
+      </div>-->
     </div>
+  </div>
 </template>
 <script>
- import Moment from 'moment';
-    export default {
-        name:'personalinformation_from',
-        props:['fromData'],
-        data() {
-            return {
-              // fullName:'',
-              // county:'',
-              // overseasAge:'',
-              // age:'',
-              // phone:'',
-              // email:'',
-            };
-        },
-         filters:{
-            level(level){
-              const map=["群众","团员","民主党派","预备党员",'中共党员']
-              return map[level]
-            }
-          },
-        methods: {
-          //编辑传值
-          editsinformation() {
-            this.$emit("editsinformation", true,false,this.fromData.fullName,this.fromData.sex,this.fromData.province,this.overseasAge,this.age,this.phone,this.email);
-            this.$http.post(`/resume/${2}/base`,{fullName:'',county:''}).then(res => {
-              if (res.data.code == 200) {
-                console.log(res);
-              }
-            });
-          }
-        },
-    }
-</script>
+import Moment from "moment";
+export default {
+  name: "personalinformation_from",
+  props: ["fromData"],
 
+  data() {
+    return {
+     avatarUrl:''
+    };
+  },
+  filters: {
+    level(level) {
+      const map = ["群众", "团员", "民主党派", "预备党员", "中共党员"];
+      return map[level];
+    }
+  },
+  methods: {
+    brief() {
+      this.$http
+        .get("/resume/brief")
+        .then(res => {
+          if (res.data.code == 200) {
+            this.avatarUrl = res.data.data.avatarUrl;
+          }
+        })
+        .catch(error => {
+        });
+    }
+  },
+  created() {
+    this.brief()
+  }
+};
+</script>
 <style lang="stylus" scoped>
   .personalinformation
     .information

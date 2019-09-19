@@ -6,15 +6,15 @@
         <el-dialog
                 title=""
                 :visible.sync="dialogedu"
-                width="30%"
+                style="width:900px;margin-left:21%"
                 :before-close="handleClose">
-          <div style="display:flex;flex-direction:row;margin-left:150px">
+          <div style="display:flex;flex-direction:row;margin-left:90px">
             <img style="height:18px;" :src="require('../assets/images/222.png')"/>
             <span style="font-size:14px;line-height:20px;margin:0 0 0 20px">删除后不能恢复，请确定删除？</span>
           </div>
           <div slot="footer" class="dialog-footer" style="margin-top:-30px">
             <el-button style="margin:0 20px 0 0" @click="dialog = false" plain>取 消</el-button>
-            <el-button type="primary" style="margin:0 160px 0 0" @click="deletedu()">确 定</el-button>
+            <el-button type="primary" style="margin:0 90px 0 0" @click="deletedu()">确 定</el-button>
           </div>
           <div style="height:30px"></div>
         </el-dialog>
@@ -22,15 +22,15 @@
         <el-dialog
                 title=""
                 :visible.sync="dialogwork"
-                width="30%"
+                style="width:900px;margin-left:21%"
                 :before-close="handleClose">
-          <div style="display:flex;flex-direction:row;margin-left:150px">
+          <div style="display:flex;flex-direction:row;margin-left:90px">
             <img style="height:18px;" :src="require('../assets/images/222.png')"/>
             <span style="font-size:14px;line-height:20px;margin:0 0 0 20px">删除后不能恢复，请确定删除？</span>
           </div>
           <div slot="footer" class="dialog-footer" style="margin-top:-30px">
             <el-button style="margin:0 20px 0 0" @click="dialogwork = false" plain>取 消</el-button>
-            <el-button type="primary" style="margin:0 160px 0 0" @click="deletework()">确 定</el-button>
+            <el-button type="primary" style="margin:0 90px 0 0" @click="deletework()">确 定</el-button>
           </div>
           <div style="height:30px"></div>
         </el-dialog>
@@ -38,15 +38,15 @@
         <el-dialog
                 title=""
                 :visible.sync="dialogproject"
-                width="30%"
+                style="width:900px;margin-left:21%"
                 :before-close="handleClose">
-          <div style="display:flex;flex-direction:row;margin-left:150px">
+          <div style="display:flex;flex-direction:row;margin-left:90px">
             <img style="height:18px;" :src="require('../assets/images/222.png')"/>
             <span style="font-size:14px;line-height:20px;margin:0 0 0 20px">删除后不能恢复，请确定删除？</span>
           </div>
           <div slot="footer" class="dialog-footer" style="margin-top:-30px">
             <el-button style="margin:0 20px 0 0" @click="dialogproject = false" plain>取 消</el-button>
-            <el-button type="primary" style="margin:0 160px 0 0" @click="deleteproject()">确 定</el-button>
+            <el-button type="primary" style="margin:0 90px 0 0" @click="deleteproject()">确 定</el-button>
           </div>
           <div style="height:30px"></div>
         </el-dialog>
@@ -54,15 +54,15 @@
         <el-dialog
                 title=""
                 :visible.sync="dialogtrain"
-                width="30%"
+                style="width:900px;margin-left:21%"
                 :before-close="handleClose">
-          <div style="display:flex;flex-direction:row;margin-left:150px">
+          <div style="display:flex;flex-direction:row;margin-left:90px">
             <img style="height:18px;" :src="require('../assets/images/222.png')"/>
             <span style="font-size:14px;line-height:20px;margin:0 0 0 20px">删除后不能恢复，请确定删除？</span>
           </div>
           <div slot="footer" class="dialog-footer" style="margin-top:-30px">
             <el-button style="margin:0 20px 0 0" @click="dialogtrain = false" plain>取 消</el-button>
-            <el-button type="primary" style="margin:0 160px 0 0" @click="deletetrain()">确 定</el-button>
+            <el-button type="primary" style="margin:0 90px 0 0" @click="deletetrain()">确 定</el-button>
           </div>
           <div style="height:30px"></div>
         </el-dialog>
@@ -70,15 +70,15 @@
         <el-dialog
                 title=""
                 :visible.sync="dialoglanguage"
-                width="30%"
+                style="width:900px;margin-left:21%"
                 :before-close="handleClose">
-          <div style="display:flex;flex-direction:row;margin-left:150px">
+          <div style="display:flex;flex-direction:row;margin-left:90px">
             <img style="height:18px;" :src="require('../assets/images/222.png')"/>
             <span style="font-size:14px;line-height:20px;margin:0 0 0 20px">删除后不能恢复，请确定删除？</span>
           </div>
           <div slot="footer" class="dialog-footer" style="margin-top:-30px">
             <el-button style="margin:0 20px 0 0" @click="dialoglanguage = false" plain>取 消</el-button>
-            <el-button type="primary" style="margin:0 160px 0 0" @click="deletelanguage()">确 定</el-button>
+            <el-button type="primary" style="margin:0 90px 0 0" @click="deletelanguage()">确 定</el-button>
           </div>
           <div style="height:30px"></div>
         </el-dialog>
@@ -86,15 +86,15 @@
         <el-dialog
                 title=""
                 :visible.sync="dialogskill"
-                width="30%"
+                style="width:900px;margin-left:21%"
                 :before-close="handleClose">
-          <div style="display:flex;flex-direction:row;margin-left:150px">
+          <div style="display:flex;flex-direction:row;margin-left:90px">
             <img style="height:18px;" :src="require('../assets/images/222.png')"/>
             <span style="font-size:14px;line-height:20px;margin:0 0 0 20px">删除后不能恢复，请确定删除？</span>
           </div>
           <div slot="footer" class="dialog-footer" style="margin-top:-30px">
             <el-button style="margin:0 20px 0 0" @click="dialogskill = false" plain>取 消</el-button>
-            <el-button type="primary" style="margin:0 160px 0 0" @click="deleteskill()">确 定</el-button>
+            <el-button type="primary" style="margin:0 90px 0 0" @click="deleteskill()">确 定</el-button>
           </div>
           <div style="height:30px"></div>
         </el-dialog>
@@ -102,15 +102,15 @@
         <el-dialog
                 title=""
                 :visible.sync="dialogprofession"
-                width="30%"
+                style="width:900px;margin-left:21%"
                 :before-close="handleClose">
-          <div style="display:flex;flex-direction:row;margin-left:150px">
+          <div style="display:flex;flex-direction:row;margin-left:90px">
             <img style="height:18px;" :src="require('../assets/images/222.png')"/>
             <span style="font-size:14px;line-height:20px;margin:0 0 0 20px">删除后不能恢复，请确定删除？</span>
           </div>
           <div slot="footer" class="dialog-footer" style="margin-top:-30px">
             <el-button style="margin:0 20px 0 0" @click="dialogprofession = false" plain>取 消</el-button>
-            <el-button type="primary" style="margin:0 160px 0 0" @click="deleteprofession()">确 定</el-button>
+            <el-button type="primary" style="margin:0 90px 0 0" @click="deleteprofession()">确 定</el-button>
           </div>
           <div style="height:30px"></div>
         </el-dialog>
@@ -120,13 +120,13 @@
                 :visible.sync="dialogaward"
                 width="30%"
                 :before-close="handleClose">
-          <div style="display:flex;flex-direction:row;margin-left:150px">
+          <div style="display:flex;flex-direction:row;margin-left:90px">
             <img style="height:18px;" :src="require('../assets/images/222.png')"/>
             <span style="font-size:14px;line-height:20px;margin:0 0 0 20px">删除后不能恢复，请确定删除？</span>
           </div>
           <div slot="footer" class="dialog-footer" style="margin-top:-30px">
             <el-button style="margin:0 20px 0 0" @click="dialogaward = false" plain>取 消</el-button>
-            <el-button type="primary" style="margin:0 160px 0 0" @click="deleteawards()">确 定</el-button>
+            <el-button type="primary" style="margin:0 90px 0 0" @click="deleteawards()">确 定</el-button>
           </div>
           <div style="height:30px"></div>
         </el-dialog>
@@ -253,26 +253,24 @@
                       :options="positionCatalogList"
                       :props="propsTwo"
                       :show-all-levels="false"
-                      v-model="formJobintension.postType"
+                      v-model="formJobintension.postType[0].code"
                       >
                   </el-cascader>
               </el-form-item>
               <el-form-item label="工作城市" prop='city'>
                   <el-cascader style="width:400px;height:36px;margin-right:50px"
                       :options="options"
-                      :show-all-levels="false"
+                      :props="props"
                       v-model="formJobintension.city"
                       >
                   </el-cascader>
               </el-form-item>
-              <el-form-item label="企业行业" prop='trade'>
+              <el-form-item label="企业行业" prop='trad'>
                   <el-cascader style="width:400px;height:36px;margin-right:50px"
                       :options="industryList"
                       :props="propsOne"
-                      @change="handleChange"
-                      ref="cascader"
                       :show-all-levels="false"
-                      v-model="formJobintension.trade"
+                      v-model="formJobintension.trad[0].code"
                       >
                   </el-cascader>
               </el-form-item>
@@ -283,7 +281,7 @@
               </el-form-item>
               <el-form-item label="求职状态" prop='status'>
                   <el-select id="name" style="width:400px;height:36px;margin-right:50px" v-model="formJobintension.status" placeholder="" @change="Jobstate()">
-                  <el-option v-for="(list,index) in jobSearchStatus" :key="index" :label="list.tag" :value="list.code"></el-option>
+                  <el-option v-for="(list,index) in jobSearchList" :key="index" :label="list.tag" :value="list.code"></el-option>
                   </el-select>
               </el-form-item>
               <el-form-item label="工作类型" prop='jobType'>
@@ -706,7 +704,7 @@
         <!-- 求职意向 -->
         <div ref="jobintension" class="main-content">
           <div class="main-content-first"><img :src="require('../assets/images/qiuzhi.png')"/><span>求职意向</span></div>
-          <div class="main-content-second" @click="jobintension"><img :src="require('../assets/images/add.png')"/>
+          <div class="main-content-second" v-if="joint"  @click="jobintension"><img :src="require('../assets/images/add.png')"/>
             <span>添加</span></div>
         </div>
         <ul v-if="showjobintension" style="margin:-15px 0 10px 5px" @mouseover="over(10)" @mouseleave="leave(10)">
@@ -920,7 +918,7 @@
         </div>
       </div>
       <div class="aside-body">
-        <div class="aside-foot">
+        <!-- <div class="aside-foot">
           <div class="aside-foot-first">附件简历</div>
           <div class="aside-foot-second" v-if="file"><span>支持格式包括： 支持DOC，DOCX,PDF,JPG,PNG格式<br>文件,大小不超过2M</span></div>
           <div class="aside-foot-third">
@@ -939,7 +937,7 @@
             </el-upload>
             <div style="height:5px"></div>
           </div>
-        </div>
+        </div> -->
         <Affix :offset="60">
           <div class="aside">
             <div class="aside-nav">
@@ -1057,25 +1055,31 @@
     data() {
       return {
         monthPayList:[],
+        isshowJob:false,
+        joint:true,
+        monthPayList:[],
         workStateList:[],
-        jobSearchStatus:[],
+        jobSearchList:[],
         industryList:[],
         positionCatalogList:[],
         options:[],
         propsOne:{
             value: 'code',
             label:'tag',
-            children: 'children'
+            children: 'children',
+            emitPath:false
         },
         propsTwo:{
             value: 'code',
             label:'tag',
-            children: 'children'
+            children: 'children',
+            emitPath:false
         },
         props:{
             value: 'tag',
             label:'tag',
             children: 'children'
+
         },
         resumesId:'',
         awardsId:'',
@@ -1083,9 +1087,11 @@
         trainId:'',
         progectId:'',
         qualId:'',
+        avatarUrl:'',
         workId:'',
         educationId:'',
         resumeIdList:'',
+        targetList:'',
         dialogedu: false,
         dialogwork:false,
         dialogproject:false,
@@ -1163,7 +1169,7 @@
           state:'',
           sex:'',
           workAge:'',
-          city:'',
+          city:[],
           educationLevel:'',
           birthday:'',
           email:'',
@@ -1174,8 +1180,13 @@
           graduate:''
         },
         formJobintension: {
-          postType: '',
-          trade: '',
+          postType: [{
+             code:''
+           }],
+          trad: [{
+             code:''
+           }],
+          city:[],
           scope:'',
           status:'',
           jobType:'',
@@ -1404,7 +1415,6 @@
         jobintensionrules: {
           postType: [
             { required: true, message: '请输入职位类型', trigger: 'blur' },
-            { min: 0, max: 24, message: '长度在 0 到 24 个字符', trigger: 'blur' },
           ],
           status: [
             { required: true, message: '请选择求职状态', trigger: 'change' },
@@ -1412,7 +1422,7 @@
           reportTime: [
             { required: true, message: '请选择到岗时间', trigger: 'change' },
           ],
-          trade: [
+          trad: [
             { required: true, message: '请选择企业行业', trigger: 'change' },
           ],
           scope: [
@@ -1432,10 +1442,71 @@
       jobintensionkeep(formName) {
         this.$refs[formName].validate(valid => {
           if (valid) {
-            this.$http.put(`/resume/${2}/target`,{content:this.formSelfappraisal.personalDescription}).then(res => {
+        switch (this.formJobintension.scope){
+          case 0:
+            this.salaryMin = 0
+            this.salaryMax = 1
+            break;
+          case 1:
+            this.salaryMin = 1
+            this.salaryMax = 2
+            break;
+          case 2:
+            this.salaryMin = 2
+            this.salaryMax = 4
+            break;
+          case 3:
+            this.salaryMin = 4
+            this.salaryMax = 6
+            break;
+          case 4:
+            this.salaryMin = 6
+            this.salaryMax = 8
+            break; 
+          case 5:
+            this.salaryMin = 8
+            this.salaryMax = 10
+            break; 
+          case 6:
+            this.salaryMin = 10
+            this.salaryMax = 15
+            break; 
+          case 7:
+            this.salaryMin = 15
+            this.salaryMax = 25
+            break; 
+          case 8:
+            this.salaryMin = 25
+            this.salaryMax = 35
+            break;  
+          case 9:
+            this.salaryMin = 35
+            this.salaryMax = null
+            break;           
+        }
+        if(this.formJobintension.status == '离职-延时到岗') {
+            this.formJobintension.status = 1  
+          }else if(this.formJobintension.status == '离职-随时到岗') {
+            this.formJobintension.status = 0
+          }else if(this.formJobintension.status == '在职-考虑机会') {
+            this.formJobintension.status = 2
+          }else if(this.formJobintension.jobType == '在职-暂不到岗') {
+            this.formJobintension.status = 3
+          }
+        if(this.formJobintension.jobType == '全职') {
+            this.formJobintension.jobType = 0
+          }else if(this.formJobintension.jobType == '兼职') {
+            this.formJobintension.jobType = 1
+          }
+          else if(this.formJobintension.jobType == '实习') {
+            this.formJobintension.languages = 2
+          }
+            let til = new Date(this.formJobintension.reportTime).getTime();
+            this.$http.put(`/resume/${this.resumesId}/target`,{positionCatalogs:this.formJobintension.postType,arriveTime:til,county:this.formJobintension.city[1],industries:this.formJobintension.trad,jobSearchStatus:this.formJobintension.status,jobType:this.formJobintension.jobType,province:this.formJobintension.city[0],salaryMin:this.salaryMin,salaryMax:this.salaryMax}).then(res => {
               if (res.data.code == 200) {
                 // console.log(res);
                 this.jobintensionouterVisible = false
+                 this.resumeId()
               }
             });
            
@@ -1745,6 +1816,7 @@
         this.$http.get(`/resume/${this.resumesId}`).then(res => {
           if (res.data.code == 200) {
             this.resumeIdList = res.data.data.base
+            this.avatarUrl = res.data.data.avatarUrl
             this.listjobintension = res.data.data.target
             this.listeducational = res.data.data.eduExpr
             this.listwork = res.data.data.workExpr
@@ -1758,33 +1830,33 @@
             this.completedPercent = res.data.data.completedPercent
             this.updatedTime = res.data.data.updatedTime
 
-            if(this.listjobintension.jobSearchStatus == 2) {
+            if(this.listjobintension.jobSearchStatus == 1) {
                 this.listjobintension.jobSearchStatus = '离职-延时到岗'  
-              }else if(this.listjobintension.jobSearchStatus == 1) {
+              }else if(this.listjobintension.jobSearchStatus == 0) {
                 this.listjobintension.jobSearchStatus = '离职-随时到岗'
-              }else if(this.listjobintension.jobSearchStatus == 3) {
+              }else if(this.listjobintension.jobSearchStatus == 2) {
                 this.listjobintension.jobSearchStatus = '在职-考虑机会'
-              }else if(this.listjobintension.jobSearchStatus == 4) {
+              }else if(this.listjobintension.jobSearchStatus == 3) {
                 this.listjobintension.jobSearchStatus = '在职-暂不到岗'
               }
 
-            if(this.listjobintension.jobType == 1) {
+            if(this.listjobintension.jobType == 3) {
                 this.listjobintension.jobType = '实习'  
-              }else if(this.listjobintension.jobType == 2) {
+              }else if(this.listjobintension.jobType == 0) {
                 this.listjobintension.jobType = '全职'
-              }else if(this.listjobintension.jobType == 3) {
+              }else if(this.listjobintension.jobType == 1) {
                 this.listjobintension.jobType = '兼职'
               }
 
-            if(this.resumeIdList.politicalStatus == 3) {
+            if(this.resumeIdList.politicalStatus == 2) {
                 this.resumeIdList.politicalStatus = '民主党派'
-            }else if(this.resumeIdList.politicalStatus == 1) {
+            }else if(this.resumeIdList.politicalStatus == 0) {
                 this.resumeIdList.politicalStatus = '群众'
-            }else if(this.resumeIdList.politicalStatus == 2) {
+            }else if(this.resumeIdList.politicalStatus == 1) {
                 this.resumeIdList.politicalStatus = '团员'
-            }else if(this.resumeIdList.politicalStatus == 4) {
+            }else if(this.resumeIdList.politicalStatus == 3) {
                 this.resumeIdList.politicalStatus = '预备党员'
-            }else if(this.resumeIdList.politicalStatus == 5) {
+            }else if(this.resumeIdList.politicalStatus == 4) {
                 this.resumeIdList.politicalStatus = '中共党员'
             }  
 
@@ -1806,6 +1878,14 @@
               this.showPersonalinformation = true,
               this.isshowpersonalinformation = false,
               this.personalinformation = false
+            }
+
+            if(res.data.data.target == null) {
+              this.joint = true,
+              this.showjobintension = false
+            }else{
+              this.joint = false,
+              this.showjobintension = true
             }
           }
         }).catch(error => {
@@ -2128,21 +2208,60 @@
       //     reportTime:'', 
       //   },
       showjobintensionList () {
-        console.log(this.listjobintension.jobSearchStatus)
-        this.jobintensionouterVisible = true
+         this.jobintensionouterVisible = true
+        if(this.listjobintension.jobSearchStatus == 1) {
+            this.listjobintension.jobSearchStatus = '离职-延时到岗'  
+          }else if(this.listjobintension.jobSearchStatus == 0) {
+            this.listjobintension.jobSearchStatus = '离职-随时到岗'
+          }else if(this.listjobintension.jobSearchStatus == 2) {
+            this.listjobintension.jobSearchStatus = '在职-考虑机会'
+          }else if(this.listjobintension.jobSearchStatus == 3) {
+            this.listjobintension.jobSearchStatus = '在职-暂不到岗'
+          }
+
+        if(this.listjobintension.jobType == 3) {
+            this.listjobintension.jobType = '实习'  
+          }else if(this.listjobintension.jobType == 0) {
+            this.listjobintension.jobType = '全职'
+          }else if(this.listjobintension.jobType == 1) {
+            this.listjobintension.jobType = '兼职'
+          }
+       
         // this.formJobintension.postType = this.listjobintension.postType
-        // this.formJobintension.trade = list.trade
-        // this.formJobintension.scope = list.scope
+        if(this.listjobintension.salaryMax == 1) {
+          this.formJobintension.scope = '1K以下'
+        }else if(this.listjobintension.salaryMax == 2) {
+          this.formJobintension.scope = '1K-2K'
+        }else if(this.listjobintension.salaryMax == 4) {
+          this.formJobintension.scope = '2K-4K'
+        }else if(this.listjobintension.salaryMax == 6) {
+          this.formJobintension.scope = '4K-6K'
+        }else if(this.listjobintension.salaryMax == 8) {
+          this.formJobintension.scope = '6K-8K'
+        }else if(this.listjobintension.salaryMax == 10) {
+          this.formJobintension.scope = '8K-10K'
+        }else if(this.listjobintension.salaryMax == 15) {
+          this.formJobintension.scope = '10K-15K'
+        }else if(this.listjobintension.salaryMax == 25) {
+          this.formJobintension.scope = '15K-25K'
+        }else if(this.listjobintension.salaryMax == 35) {
+          this.formJobintension.scope = '25K-35K'
+        }else if(this.listjobintension.salaryMax == null) {
+          this.formJobintension.scope = '35K以上'
+        }
+        this.formJobintension.reportTime = this.$moment(this.listjobintension.arriveTime).format("YYYY-MM-DD") 
+        this.formJobintension.city = [this.listjobintension.province,this.listjobintension.county]
         this.formJobintension.status = this.listjobintension.jobSearchStatus
         this.formJobintension.jobType = this.listjobintension.jobType
-        // this.formJobintension.reportTime = list.reportTime
+        this.formJobintension.trad[0].code = this.listjobintension.industries[0].code
+        this.formJobintension.postType[0].code = this.listjobintension.positionCatalogs[0].code
       },
 
       showjpersonalList() {
-        
         this.informationouterVisible = true
         this.formInformation.name = this.resumeIdList.fullName
         this.formInformation.sex = this.resumeIdList.sex
+        this.formInformation.politicCountenance = this.resumeIdList.politicalStatus
         if(this.resumeIdList.graduate == true) {
                 this.formInformation.graduate = 1 
             }else if(this.resumeIdList.graduate == false) {
@@ -2356,6 +2475,32 @@
           }
         });
     },
+    //获取所有企业行业
+      allposition() {
+        this.$http.get("/constant/industry").then(res => {
+          if (res.data.code == 200) {
+            this.industryList = res.data.data
+          }
+        });
+      },
+      //获取所有职位类型
+      allpositionCatalog() {
+        this.$http.get("/constant/positionCatalog").then(res => {
+          if (res.data.code == 200) {
+            this.positionCatalogList = res.data.data
+          }
+        });
+      },
+      //获取简单选项信息
+      option() {
+        this.$http.get("/option").then(res => {
+          if (res.data.code == 200) {
+            this.monthPayList = res.data.data.salaryRange
+            this.workStateList = res.data.data.jobType
+            this.jobSearchList = res.data.data.jobSearchStatus
+          }
+        });
+      },
     // getTime(){
 		// 		setInterval(()=>{
 		// 			//new Date() new一个data对象，当前日期和时间
@@ -2367,10 +2512,73 @@
     created () {
       this.brief(),
       this.city(),
+      this.allposition(),
+      this.allpositionCatalog(),
+      this.option();
       datacenterBus.$on("myFun",(message)=>{   //这里最好用箭头函数，不然this指向有问题
                this.informationouterVisible = false
             })
     },
+    filters:{
+    level(level){
+      const map=["初中及以下","职中","大专","本科",'硕士','博士']
+      return map[level]
+    },
+    industry(industry){
+      if(industry == 1) {
+        const map=['',"酒店/餐饮","旅游/度假","医疗/护理/美容/保健/卫生服务"]
+        return map[industry]
+      }
+      if(industry == 2) {
+        const map=['',"计算机软件","网络游戏","IT服务(系统/数据/维护)","计算机硬件",'互联网/电子商务','电子技术/半导体/集成电路','通信、电信运营/增值服务','通信/电信/网络设备']
+        return map[industry]
+      }
+      if(industry == 3) {
+        const map=['',"保险","银行","信托/担保/拍卖/典当","基金/证券/期货/投资"]
+        return map[industry]
+      }
+      if(industry == 4) {
+        const map=['',"零售/批发","贸易/进出口","快速消费品（食品/饮料/烟酒/日化）","耐用消耗品",'租赁服务']
+        return map[industry]
+      }
+      if(industry == 5) {
+        const map=['',"文体教育|工艺美术","教育/培训/院校","礼品/玩具/工艺美术/收藏品/奢侈品"]
+        return map[industry]
+      }
+      if(industry == 6) {
+        const map=['',"办公用品及设备","航空/航天研究与制造","医疗设备/器械",'加工制造（原料加工/模具）','医药/生物工程','大型设备/机电设备/重工业','印刷/包装/造纸','汽车/摩托车','仪器仪表及工业自动化']
+        return map[industry]
+      }
+      if(industry == 7) {
+        const map=['',"房地产/建筑/建材/工程","物业管理/商业中心","家居/室内设计/装饰装潢"]
+        return map[industry]
+      }
+      if(industry == 8) {
+        const map=['',"专业服务/咨询(财会/法律/人力资源等)","广告/会展/公关","中介服务",'外包服务','检验/检测/认证']
+        return map[industry]
+      }
+      if(industry == 9) {
+        const map=['',"娱乐/体育/休闲","媒体/出版/影视/文化传媒"]
+        return map[industry]
+      }
+      if(industry == 10) {
+        const map=['',"跨领域经营","农/林/牧/渔",'其他']
+        return map[industry]
+      }
+      if(industry == 11) {
+        const map=['',"交通/运输",'物流/仓储']
+        return map[industry]
+      }
+      if(industry == 12) {
+        const map=['',"环保",'石油/石化/化工','能源/矿产/采掘/冶炼','电气/电力/水利']
+        return map[industry]
+      }
+      if(industry == 13) {
+        const map=['',"学术/科研",'政府/公共事业/非盈利机构']
+        return map[industry]
+      }
+    }
+  },
   }
 
 </script>
@@ -2479,7 +2687,7 @@
         width 220px
         height 760px
         background #FFFFFF
-        margin-top 10px
+        margin-top 0px
         .aside-nav
           display flex
           flex-direction column
