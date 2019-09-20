@@ -69,7 +69,7 @@
           </el-tab-pane>
           <el-tab-pane label="在招职位" name="second">
             <div class="postType">
-              <div style="text-align:left" class="list">
+              <!-- <div style="text-align:left" class="list">
                 <span
                   class="postType-span"
                   style="margin:10px 0 0 0;font-size:13px;padding:0 25px 0 0;color:#455379"
@@ -84,8 +84,8 @@
                   class="posttype-span"
                 >销售主管（{{this.positionCatalogList[1].total}}）</span>
                 
-              </div>
-              <div v-for="(list,index) in tableData" :key="index" @click="next(list.id)">
+              </div> -->
+              <!-- <div v-for="(list,index) in tableData" :key="index" @click="next(list.id)">
                 <div class="position-tab">
                   <div style="font-size:15px;margin:0 0 0 15px">{{list.positionName}}</div>
                   <div
@@ -95,7 +95,7 @@
                   <div style="margin:0 0 0 140px">{{list.publishedTime | formatDate}}</div>
                 </div>
                 <div class="line-tab"></div>
-              </div>
+              </div> -->
               <div class="footer-pagination" style="margin:15px 0 15px 0">
                 <el-pagination
                   @size-change="handleSizeChange"
@@ -133,7 +133,7 @@ export default {
             },
       companId:'',
       time:'',
-      companyIdList: [],
+      companyIdList:'',
       center: { lng: 0.2, lat: 0.1 },
       zoom: 3,
       table: false,
@@ -172,8 +172,8 @@ export default {
           if (res.data.code == 200) {
             this.tableData = res.data.data.list;
             this.page.total = res.data.data.total
-            var time = this.tableData[0].publishedTime
-            this.changeTime(time)
+            // var time = this.tableData[0].publishedTime
+            // this.changeTime(time)
           }
       });
       }
@@ -183,7 +183,6 @@ export default {
       this.$http.get(`/company/${this.companId}/positionCatalog`).then(res => {
         if (res.data.code == 200) {
           this.positionCatalogList = res.data.data;
-          console.log()
         }
       });
     },

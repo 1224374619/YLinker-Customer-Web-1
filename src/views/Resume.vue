@@ -1076,7 +1076,7 @@
             emitPath:false
         },
         props:{
-            value: 'tag',
+            value: 'code',
             label:'tag',
             children: 'children'
 
