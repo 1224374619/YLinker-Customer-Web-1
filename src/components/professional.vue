@@ -18,6 +18,7 @@
 <script>
 export default {
   name: 'professional',
+  props: ["professionalDegree"],
   data() {
     return {
          formInline: {
@@ -40,7 +41,7 @@ export default {
     keep(formName) {
       this.$refs[formName].validate(valid => {
         if (valid) {
-          this.$http.post(`/resume/${2}/qualification`,{qual:this.formInline.professional}).then(res => {
+          this.$http.post(`/resume/${this.professionalDegree}/qualification`,{qual:this.formInline.professional}).then(res => {
             if (res.data.code == 201) {
               this.$emit("professionalEmit",false,true)
             }
@@ -68,7 +69,7 @@ export default {
   .el-form-item
     padding 0 0 0 60px
   .cancel:hover
-    background #1f368d  
+    background #1d366e 
     color white
   .el-button
     width 94px 

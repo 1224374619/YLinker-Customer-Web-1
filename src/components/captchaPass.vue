@@ -10,7 +10,7 @@ const captchaLabel = '获取验证码';
 const countNumber = 60;
 
 export default {
-  name: 'captcha',
+  name: 'captchaPass',
   props:['fromData'],
   data() {
     return {
@@ -32,7 +32,7 @@ export default {
           this.frozen = false;
         }
       }, 1000);
-      this.$http.post('/account/phone/vcode',{phone:this.fromData}).then(res => {
+      this.$http.post('/account/phone/vcode',{phone:'15516946795'}).then(res => {
             console.log(res) 
           if (res.data.code == 200) {
           }

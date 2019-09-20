@@ -2,7 +2,7 @@
   <div class="personal">
     <div class="personal-left">
       <el-tabs v-model="activeName" @tab-click="handleClick" class="personal-tabs" v-if="showTabs">
-        <el-tab-pane :label="`投递记录（${throwNum}）`" name="first">
+        <el-tab-pane :label="`投递记录（${throwNum = this.page1.total}）`" name="first">
           <div style="width:630px" class="hover"  v-for="(list,index) in submittedList" :key="index">
             <div class="tabs-first">
               <span>{{list.positionName}}</span>
@@ -10,9 +10,9 @@
             </div>
             <div class="tabs-second">
               <span>{{list.company.companyName}}</span>
-              <span>{{list.workAddress.province}} {{list.workAddress.county}} | {{list.workAgeMin}}-{{list.workAgeMax}}年 | {{list.degreeMin}}</span>
+              <span>{{$CodeToTag.CodeToTag([list.workAddress.province,list.workAddress.county],citysal)[0]+$CodeToTag.CodeToTag([list.workAddress.province,list.workAddress.county],citysal)[1]}} | {{list.workAgeMin}}-{{list.workAgeMax}}年 | {{list.degreeMin|level}}</span>
               <span>
-                {{list.publishedTime	}}
+                {{list.publishedTime|formatDate}}
                 <el-tooltip
                   style="padding-left:19px;font-size:14px;color:#909090"
                   class="item"
@@ -20,8 +20,8 @@
                   placement="top-end"
                 >
                   <div slot="content">
-                    多行信息
-                    <br />第二行信息
+                   {{list.publishedTime|formatDate}}  投递成功
+                    <br />{{list.publishedTime|formatDate}}  被查看
                   </div>
                   <span>被查看</span>
                 </el-tooltip>
@@ -31,25 +31,25 @@
           </div>
           <div class="tabs-pagination">
             <el-pagination
-              @size-change="handleSizeChange"
-              @current-change="handleCurrentChange"
-              :current-page="currentPage4"
-              :page-sizes="[100, 200, 300, 400]"
-              :page-size="100"
-              layout="total, sizes, prev, pager, next, jumper"
-              :total="400"
-            ></el-pagination>
+                  @size-change="handleSizeChange1"
+                  @current-change="handleCurrentChange1"
+                  :current-page="page1.current"
+                  :page-sizes="page1.pageSizeOpts"
+                  :page-size="page1.pageSize"
+                  layout="total, sizes, prev, pager, next, jumper"
+                  :total="page1.total"
+                ></el-pagination>
           </div>
         </el-tab-pane>
-        <el-tab-pane :label="`我的收藏（${collectNum}）`" name="second">
+        <el-tab-pane :label="`我的收藏（${collectNum = this.page.total}）`" name="second">
           <div style="width:630px;" class="hover" v-for="(list,index) in favoriteList" :key="index">
             <div class="tabs-first">
               <span>{{list.positionName}}</span>
               <span>{{list.salaryMin}}-{{list.salaryMax}}k</span>
             </div>
             <div class="collect-second">
-              <span class="collect-company">迪卡侬</span>
-              <span class="collect-city">上海 徐汇区 | {{list.workAgeMin}}-{{list.workAgeMax}}年 | {{list.degreeMin}}</span>
+              <span class="collect-company">{{list.company.companyName}}</span>
+              <span class="collect-city">{{$CodeToTag.CodeToTag([list.workAddress.province,list.workAddress.county],citysal)[0]+$CodeToTag.CodeToTag([list.workAddress.province,list.workAddress.county],citysal)[1]}} | {{list.workAgeMin}}-{{list.workAgeMax}}年 | {{list.degreeMin|level}}</span>
               <span class="collect-button">
                 <el-button class="button" type="primary" @click="iscancel" size="mini">取消收藏</el-button>
               </span>
@@ -58,14 +58,14 @@
           </div>
           <div class="collect-pagination">
             <el-pagination
-              @size-change="handleSizeChange"
-              @current-change="handleCurrentChange"
-              :current-page="currentPage4"
-              :page-sizes="[100, 200, 300, 400]"
-              :page-size="100"
-              layout="total, sizes, prev, pager, next, jumper"
-              :total="400"
-            ></el-pagination>
+                  @size-change="handleSizeChange"
+                  @current-change="handleCurrentChange"
+                  :current-page="page.current"
+                  :page-sizes="page.pageSizeOpts"
+                  :page-size="page.pageSize"
+                  layout="total, sizes, prev, pager, next, jumper"
+                  :total="page.total"
+                ></el-pagination>
           </div>
         </el-tab-pane>
       </el-tabs>
@@ -74,14 +74,14 @@
     <div class="personal-right">
       <div class="right-nav">
         <span class="span-hover" @click="edit">编辑</span>
-        <img @click="toPerson" :src="require('../assets/images/tou.png')" />
+        <img @click="toPerson" :src="this.avatarUrl" style='border-radius:53px' />
         <span class="span-name">
           {{fullName}}
           <img :src="require('../assets/images/xingbie.png')" />
         </span>
         <div v-if="showInfor" class="infor">
         <span class="span-city">现居{{city}} | {{workAge}}年工作经验 | {{age}}岁</span>
-          <span class="span-type">{{state}}|{{workState}}</span>
+          <span class="span-type">求职状态：{{jobSearchStatus}}</span>
         </div>
         <div v-if="showWarn" style="font-size:14px;padding:10px 0 10px 0">个人信息未填写完整，快快来补充吧</div>
       </div>
@@ -90,14 +90,15 @@
           <span>推荐职位</span>
           <span @click="next">查看更多 》</span>
         </div>
-        <div v-for="list in searchedList" :key="list">
+        <div v-for="(list,index) in positionList.slice(0, 6)" :key="index">
           <div class="footer-article">
-            <span>{{list.postion}}</span>
+            <span>{{list.positionName}}</span>
             <span>{{list.salaryMin}}-{{list.salaryMax}}k</span>
           </div>
           <div class="footer-foot">
-            <span>{{list.companyName}}</span>
-            <span>上海长宁区</span>
+            <span>{{list.company.companyName}}</span>
+            
+            <span>{{$CodeToTag.CodeToTag([list.workAddress.province,list.workAddress.county],citysal)[0]+$CodeToTag.CodeToTag([list.workAddress.province,list.workAddress.county],citysal)[1]}}</span>
           </div>
           <div class="footer-line"></div>
         </div>
@@ -115,11 +116,25 @@ export default {
   },
   data() {
     return {
-        throwNum:23,
+      page: {
+          total: 0,
+          pageSize: 5,
+          current: 1,
+          pageSizeOpts: [5,10,20]
+      },
+      page1: {
+          total: 0,
+          pageSize: 5,
+          current: 1,
+          pageSizeOpts: [5,10,20]
+      },
+        avatarUrl:'',
+        throwNum:'',
         collectNum:4,
         activeName:'first',
         showInfor:true,
-        showWarn:false,
+        showWarn:true,
+        showWarnone:false,
         showTabs:true,
         isshowTabs:false,
         submittedList:[],
@@ -138,32 +153,15 @@ export default {
           workAgeMax:'5',
           workAgeMin:'3'
         }],
-        searchedList:[
-          {
-            postion:'项目经理',
-            salaryMin:1,
-            salaryMax:4,
-            companyName:'银领人才'
-          },
-           {
-            postion:'项目经理',
-            salaryMin:1,
-            salaryMax:4,
-            companyName:'银领人才'
-          },
-           {
-            postion:'项目经理',
-            salaryMin:1,
-            salaryMax:4,
-            companyName:'银领人才'
-          }
-        ],
+        positionList:[],
         fullName:'',
         city:'',
+        citysal:[],
         workAge:'',
         age:'',
         state:'',
-        workState:''
+        workState:'',
+        jobSearchStatus:''
     }
   },
   methods: {
@@ -182,7 +180,8 @@ export default {
       submitted() {
           this.$http.get('/submitted/position').then(res => {
           if (res.data.code == 200) {
-            this.submittedList = res.data.data.list; 
+            this.submittedList = res.data.data.list;
+            this.page1.total = res.data.data.total
           }
         });
       },
@@ -190,19 +189,26 @@ export default {
       brief () {
         this.$http.get('/resume/brief').then(res => {
           if (res.data.code == 200) {
-            console.log(res.data.data.base)
-            this.fullName = res.data.data.base.fullName,
-            this.city = res.data.data.base.province  +  res.data.data.base.county
+            if(res.data.data.base == null) {
+              this.showWarn = true
+            }else{
+              this.showWarn = false
+            }
+            this.avatarUrl = res.data.data.avatarUrl
+            this.fullName = res.data.data.base.fullName
+            var til = this.$CodeToTag.CodeToTag([res.data.data.base.province,res.data.data.base.county],this.citysal)
+            this.city = til[0]+til[1]
             this.workAge = res.data.data.base.workAge
             this.age = res.data.data.base.age
-            if(res.data.data.target.jobSearchStatus == 2) {
-                this.workState = '离职-延时到岗'  
-              }else if(res.data.data.target.jobSearchStatus == 1) {
-                this.workState = '离职-随时到岗'
+            this.jobSearchStatus =  res.data.data.target.jobSearchStatus
+            if(res.data.data.target.jobSearchStatus == 1) {
+                this.jobSearchStatus = '离职-延时到岗'  
+              }else if(res.data.data.target.jobSearchStatus == 0) {
+                this.jobSearchStatus = '离职-随时到岗'
+              }else if(res.data.data.target.jobSearchStatus == 2) {
+                this.jobSearchStatus = '在职-考虑机会'
               }else if(res.data.data.target.jobSearchStatus == 3) {
-                this.workState = '在职-考虑机会'
-              }else if(res.data.data.target.jobSearchStatus == 4) {
-               this.workState = '在职-暂不到岗'
+               this.jobSearchStatus = '在职-暂不到岗'
               }
               if(res.data.data.target.jobType == 1) {
                 this.state = '实习'  
@@ -219,7 +225,7 @@ export default {
           this.$http.get('/favorite/position').then(res => {
           if (res.data.code == 200) {
             this.favoriteList = res.data.data.list; 
-            console.log(res.data.list)
+            this.page.total = res.data.data.total
           }
         });
       },
@@ -227,26 +233,118 @@ export default {
       iscancel() {
           this.$http.delete(`/favorite/position/${2}`).then(res => {
           if (res.data.code == 200) {
-           console.log(res)
+          }
+        });
+      },
+      //城市
+      citise() {
+        this.$http.get("/constant/district").then(res => {
+          if (res.data.code == 200) {
+            this.citysal = res.data.data;
+            console.log(this.citysal)
           }
         });
       },
       //获取推荐岗位
       searched() {
-        this.$http.delete('/searched/position').then(res => {
-          if (res.data.code == 200) {
-            // this.favoriteList = res.data.data; 
-          }
-        });
+        this.$http
+          .post("/searched/position", {
+            county: this.citycode,
+            degreeMin: this.Education,
+            industry: this.duty,
+            isGraduate: this.isGraduate,
+            jobType: this.workState,
+            keyword: this.searchContent,
+            pageNum: 0,
+            pageSize: 10,
+            province: this.provincecode,
+            publishedInterval: this.release,
+            salaryMax: this.salaryMax,
+            salaryMin: this.salaryMin,
+            size: this.scale,
+            workAgeMax: this.workAgeMax,
+            workAgeMin: this.workAgeMin
+          })
+          .then(res => {
+            if (res.data.code == 200) {
+              
+              this.positionList = res.data.data.list;
+              if (res.data.data.total == 0) {
+              } else {
+              }
+            }
+          });
       }
     },
     created() {
+      this.citise()
       this.submitted();
       this.favorite();
       this.iscancel();
       this.brief()
-      // this.searched();
+      this.searched();
+      
     },
+    filters:{
+    level(level){
+      const map=["初中及以下","职中","大专","本科",'硕士','博士']
+      return map[level]
+    },
+    industry(industry){
+      if(industry == 1) {
+        const map=['',"酒店/餐饮","旅游/度假","医疗/护理/美容/保健/卫生服务"]
+        return map[industry]
+      }
+      if(industry == 2) {
+        const map=['',"计算机软件","网络游戏","IT服务(系统/数据/维护)","计算机硬件",'互联网/电子商务','电子技术/半导体/集成电路','通信、电信运营/增值服务','通信/电信/网络设备']
+        return map[industry]
+      }
+      if(industry == 3) {
+        const map=['',"保险","银行","信托/担保/拍卖/典当","基金/证券/期货/投资"]
+        return map[industry]
+      }
+      if(industry == 4) {
+        const map=['',"零售/批发","贸易/进出口","快速消费品（食品/饮料/烟酒/日化）","耐用消耗品",'租赁服务']
+        return map[industry]
+      }
+      if(industry == 5) {
+        const map=['',"文体教育|工艺美术","教育/培训/院校","礼品/玩具/工艺美术/收藏品/奢侈品"]
+        return map[industry]
+      }
+      if(industry == 6) {
+        const map=['',"办公用品及设备","航空/航天研究与制造","医疗设备/器械",'加工制造（原料加工/模具）','医药/生物工程','大型设备/机电设备/重工业','印刷/包装/造纸','汽车/摩托车','仪器仪表及工业自动化']
+        return map[industry]
+      }
+      if(industry == 7) {
+        const map=['',"房地产/建筑/建材/工程","物业管理/商业中心","家居/室内设计/装饰装潢"]
+        return map[industry]
+      }
+      if(industry == 8) {
+        const map=['',"专业服务/咨询(财会/法律/人力资源等)","广告/会展/公关","中介服务",'外包服务','检验/检测/认证']
+        return map[industry]
+      }
+      if(industry == 9) {
+        const map=['',"娱乐/体育/休闲","媒体/出版/影视/文化传媒"]
+        return map[industry]
+      }
+      if(industry == 10) {
+        const map=['',"跨领域经营","农/林/牧/渔",'其他']
+        return map[industry]
+      }
+      if(industry == 11) {
+        const map=['',"交通/运输",'物流/仓储']
+        return map[industry]
+      }
+      if(industry == 12) {
+        const map=['',"环保",'石油/石化/化工','能源/矿产/采掘/冶炼','电气/电力/水利']
+        return map[industry]
+      }
+      if(industry == 13) {
+        const map=['',"学术/科研",'政府/公共事业/非盈利机构']
+        return map[industry]
+      }
+    }
+  },
 }
 </script>
 
@@ -272,7 +370,7 @@ export default {
       .el-tabs__item
         font-size 15px 
         font-family PingFangSC-Semibold
-        color #1f368d
+        color #1d366e
         font-weight 550
         padding 0 25px
         width 120px
@@ -294,7 +392,7 @@ export default {
         width 100px
         text-align left
       .collect-city
-        margin 2px 230px 1px 0
+        margin 2px 205px 1px 0
         font-size 14px 
       .collect-button
         margin -5px 10px 0 0
@@ -314,7 +412,7 @@ export default {
         margin 16px 0 0 0
         text-align left
       .tabs-first span:nth-child(1)
-        color #1f368d
+        color #1d366e
         margin 10px 0 0 10px
         width 120px
       .tabs-first span:nth-child(2)
@@ -332,7 +430,7 @@ export default {
         margin 0 0 0 10px
         width 100px
       .tabs-second span:nth-child(2)
-        margin 2px 120px 7px 0
+        margin 2px 160px 7px 0
         width 200px
         font-size 14px
       .tabs-second span:nth-child(3)
@@ -350,7 +448,7 @@ export default {
       .tabs-pagination
         margin 30px 0 0 0
         padding 0 0 20px 0
-        color #1f368d  
+        color #1d366e
     .personal-right
       width 290px
       margin 0 0 0 10px
@@ -377,6 +475,7 @@ export default {
           width 15px
           height 15px
           margin 0 0 0 5px
+          border-radius 7px
         .infor
           display flex
           flex-direction column
@@ -399,7 +498,6 @@ export default {
       .right-footer
         background white
         margin 10px 0 0 0
-        height 374px
         .footer-nav
           display flex
           flex-direction row
@@ -407,7 +505,7 @@ export default {
           padding 24px 0 0 0
         .footer-nav span:nth-child(1)
           font-family PingFangSC-Semibold
-          color #1f368d
+          color #1d366e
           font-size 14px
           margin 0 0 0 20px 
         .footer-nav span:nth-child(2)
@@ -422,7 +520,7 @@ export default {
           margin 15px 0 0 0
         .footer-article span:nth-child(1)
           font-family PingFangSC-Semibold
-          color #1f368d
+          color #1d366e
           font-size 14px
           margin 0 0 0 20px 
         .footer-article span:nth-child(2)

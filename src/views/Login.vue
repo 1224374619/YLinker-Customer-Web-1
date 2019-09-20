@@ -71,11 +71,26 @@ export default {
           // if (res.result) {
           //   this[DONE_LOGIN]();
           // }
-          
+          // username: "17717291341", password: "21313131311"
           this.$_http
-            .post("/login", { username: "17717291341", password: "21313131311" })
+            .post("/login?returnUrl=http://localhost:8080/api/resume/brief", {
+              username: this.form.tel,
+              password: this.form.password
+            })
             .then(res => {
-              this.$router.push({ path: "register" });
+              if (res.data.code == 200) {
+                window.sessionStorage.setItem('user',this.form.tel)
+                // this.$router.push({ path: "/gap" });
+                let token = 'asd1d5.0o9utrf7.12jjkht';
+                // 设置cookie默认过期时间单位是1d(1天)
+                this.$cookie.set('token', token, 1);
+                // this.$cookieStore.addCookie('name',1)
+                // this.$cookieStore.getCookie('name')
+                window.sessionStorage.getItem(token)
+                // this.$store.state.cookie = token;
+                // console.log(this.$store.state.cookie)
+                this.$router.push({ path: "/resume" });
+              }
               // this.$store.commit('SET_TOKEN', res.data.token)
               // console.log(res.set-cookie)
               // if (res.data.code == 302) {
@@ -84,8 +99,20 @@ export default {
               // }
             })
             .catch(error => {
+              window.sessionStorage.setItem('user',this.form.tel)
+              // this.$message({
+              //   showClose: true,
+              //   message: '输入有误，请重新输入'
+              // });
               this.$router.push({ path: "/gap" });
-              console.log('23232332');
+              let token = 'asd1d5.0o9utrf7.12jjkht';
+              // 设置cookie默认过期时间单位是1d(1天)
+              this.$cookie.set('token', token, 1);
+              // this.$cookieStore.addCookie('name',1)
+              // this.$cookieStore.getCookie('name')
+              window.sessionStorage.getItem(token)
+                // this.$store.state.hasLogin = true;
+              
             });
         } else {
           return false;
@@ -99,9 +126,9 @@ export default {
       this.$router.push({ path: "reset-password" });
     },
     aaa() {
-      console.log(this.$cookies.get('SESSION')+'34343434')
+      console.log(this.$cookies.get("SESSION") + "34343434");
     }
-  },
+  }
   // created() {
   //   console.log(this.$cookies.get('SESSION')+'34343434')
   //   this.$cookies.get('session')

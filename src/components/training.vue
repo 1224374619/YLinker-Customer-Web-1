@@ -40,7 +40,7 @@
 <script>
 export default {
   name: "training",
-
+  props: ["trainDegree"],
   data() {
     return {
       formInline: {
@@ -70,9 +70,18 @@ export default {
     keep(formName) {
       this.$refs[formName].validate(valid => {
         if (valid) {
+          let til = this.formInline.trainTime[0].getTime();
+          let till = this.formInline.trainTime[1].getTime();
+          let ti = this.$moment(till).format("YYYY-MM")
+          let end = this.$moment(new Date().getTime()).format("YYYY-MM")
+           if(ti === end) {
+              var eduTime = null
+          }else{
+              var eduTime  = till
+            }
           this.$http
-            .post(`/resume/${2}/training`, {
-              beginTime: 76756757567,
+            .post(`/resume/${this.trainDegree}/training`, {
+              beginTime:til,endTime:eduTime,
               institution: this.formInline.trainCours,
               lesson: this.formInline.trainCourse
             })
@@ -104,7 +113,7 @@ export default {
   .el-form-item
     padding 0 0 0 30px
   .cancel:hover
-    background #1f368d  
+    background #1d366e 
     color white
   .el-button
     width 94px 

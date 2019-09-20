@@ -3,7 +3,7 @@
     <div style="margin:5px 0 0 50px;color:#61687c;line-height:10px;width:60px">{{fromData.skill}}</div>
     <div style="margin:0 0 0 76px;color:#61687c;width:60px">{{fromData.level|level}}</div>
     <div style="margin:0 0 0 141px">
-      <a href="#" style="color:#61687c">{{fromData.cert}}<img style="margin:0 0 0 5px" :src="require('../assets/images/090.png')" />
+      <a href="http://yinlinkrc-test.oss-cn-shanghai.aliyuncs.com/cert/resume/2019-09-19/1ed0e2530ca84587ad71bcec6dafc8c2.jpg?Expires=1568861363&OSSAccessKeyId=LTAIUfhgOSLY2xar&Signature=GaFc4AWukUBb8YM4a4Za%2FkI95gs%3D" style="color:#61687c">{{fromData.skill}}证书<img style="margin:0 0 0 5px" :src="require('../assets/images/090.png')" />
       </a>
     </div>
   </div>
@@ -59,6 +59,6 @@ export default {
      display flex
      flex-direction row
      font-size 15px
-     color #1f368d
+     color #1d366e
      text-align left
 </style>

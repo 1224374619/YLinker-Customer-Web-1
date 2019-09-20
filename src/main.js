@@ -7,16 +7,23 @@ import App from './App.vue';
 import router from './router';
 import store from './store';
 import scroll from 'vue-seamless-scroll'
-import Cookies from 'js-cookie'
+// import Cookies from 'js-cookie'
 import Moment from 'moment'
 import { Message } from 'element-ui'
+import {CodeToTag} from './cookie';
+import cookie from 'vue-cookie'
+
 Vue.use(scroll)
 // import vuescroll from 'vuescroll';
 import BaiduMap from 'vue-baidu-map'
 Vue.use(ElementUI);
-Vue.prototype.$Cookies=Cookies;
+// Vue.prototype.$Cookies=Cookies;
 Vue.prototype.$moment = Moment;
 Vue.prototype.$message = Message
+Vue.prototype.$cookie = cookie;
+Vue.prototype.$CodeToTag = {
+  CodeToTag
+}
 // 定义全局时间戳过滤器
 Vue.filter('formatDate', function(value) {
   var timestamp = (new Date()).getTime()-24*60*60*1000
@@ -33,6 +40,9 @@ Vue.filter('formatDate', function(value) {
 });
 Vue.filter('formatDateOne', function(value) {
   return Moment(value).format('YYYY-MM')
+})
+Vue.filter('formatDateTwo', function(value) {
+  return Moment(value).format('YYYY-MM-DD HH:mm')
 })
 Vue.config.productionTip = false;
 // Vue.use(vuescroll, {

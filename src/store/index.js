@@ -6,9 +6,12 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    hasLogin: true,
+    hasLogin: '',
+    cookie:'',
+    lsit:{},
     user: window.sessionStorage.getItem('user'),
-    token: window.sessionStorage.getItem('token')
+    token: window.sessionStorage.getItem('token'),
+    username: window.sessionStorage.getItem('user')
   },
   mutations: {
     [DONE_LOGIN] (state) {

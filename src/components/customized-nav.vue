@@ -2,7 +2,7 @@
   <div>
     <nav>
       <div class="nav-body">
-        <img @click="gotoHomeUI" :src="require('../assets/images/logo.png')" />
+        <img style="height:40px" @click="gotoHomeUI" :src="require('../assets/images/log.png')" />
         <div class="menu">
           <div class="group" v-if="!ctlHideMenus">
                  <router-link to="/home" index="1">首页</router-link>
@@ -10,7 +10,7 @@
                         <router-link to="/gap" index="3">简历</router-link>
                  <router-link to="/aboutus/:id" index="4">联系我们</router-link>
           </div>
-          <div class="btn-set" v-if="!hasLogin">
+          <div class="btn-set" v-if="this.$store.state.token == ''">
             <router-link tag="button" :to="{name:'login'}" index="1">登录</router-link>
             <router-link tag="button" :to="{name:'register'}" index="2">注册</router-link>
           </div>
@@ -28,12 +28,12 @@
                 </div>
                 <div>
                   <span
-                    style="font-size:14px;color:#1f368d;margin-left:10px;line-height:30px" @click="chorusle"
+                    style="font-size:14px;color:#1d366e;margin-left:10px;line-height:30px" @click="chorusle"
                   >全部标为已读</span>
                 </div>
               </el-dropdown-menu>
             </el-dropdown>
-            <span style="line-height:60px;color:white;padding:0 10px 0 0;font-size:15px;">李康</span>
+            <span style="line-height:60px;color:white;padding:0 10px 0 0;font-size:15px;">{{fullName}}</span>
             <el-dropdown placement="bottom-start" @command="dealMenuClick">
               <img :src="require('../assets/images/tou.png')" />
               <el-dropdown-menu slot="dropdown">
@@ -62,7 +62,9 @@
         },
         data() {
             return {
+              fullName:"",
               chorus:true,
+              tok:this.$store.state.token,
               notificationlist:[
               {
                 description:'你投递的“产品经理”(xx公司) 已被查看简历'
@@ -81,6 +83,12 @@
                 return state.hasLogin;
             }
         }),
+        //  watch: {
+        //     //使用这个可以监听data中指定数据的变化,然后触发watch中对应的function的处理
+        //     'tok': function () {
+        //       this.$store.state.token = true
+        //     },
+        // },
         methods: {
           //全部标记
           chorusle() {
@@ -92,7 +100,10 @@
                 if (res.data.code == 200) {
                   console.log(res);
                 }
-              });
+              }).catch(error => {
+                this.$store.state.token = ''
+              this.$router.push({ path: "/login" });
+            });;
             },
             gotoHomeUI() {
                 this.$router.push({path: '/'});
@@ -116,10 +127,24 @@
                   console.log(res) 
                 }
               });
-            } 
+            },
+            //获取简历简讯
+      brief () {
+        this.$http.get('/resume/brief').then(res => {
+          if (res.data.code == 200) {
+           
+            this.fullName = res.data.data.base.fullName
+            
+           
+          }
+        }).catch(error => {
+         
+            });
+      },
         },
         created () {
           this.notification()
+          this.brief()
         }
     }
 </script>
@@ -127,7 +152,7 @@
 <style lang="stylus" scoped>
     nav
         z-index 100
-        background-color #1f368d
+        background-color #1d366e
         box-shadow 0px 1px 9px #ccc
         width 100%
         position fixed

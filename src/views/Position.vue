@@ -10,15 +10,15 @@
           <span>
             <i class="el-icon-menu"></i>
           </span>
-          <span>{{this.companyIdList.industry}}</span>
+          <span>{{this.companyIdList.industry-parseInt(this.companyIdList.industry/100)*100|industry}}</span>
           <span>
             <i class="el-icon-s-data"></i>
           </span>
-          <span>{{this.companyIdList.nature}}</span>
+          <span>{{this.companyIdList.nature|level}}</span>
           <span>
             <i class="el-icon-coordinate"></i>
           </span>
-          <span>{{this.companyIdList.nature}} 人</span>
+          <span>{{this.companyIdList.size}} 人</span>
         </div>
       </div>
     </div>
@@ -54,7 +54,7 @@
                 <div class="map-address">
                   <span
                     class="map-address-span"
-                  >{{this.companyIdList.address.province}}{{this.companyIdList.address.county}}{{this.companyIdList.address.detail}}</span>
+                  >{{$CodeToTag.CodeToTag([this.companyIdList.address.province,this.companyIdList.address.county],citysal)[0]+$CodeToTag.CodeToTag([this.companyIdList.address.province,this.companyIdList.address.county],citysal)[1]}}{{this.companyIdList.address.detail}}</span>
                   <span class="map-address-map">查看地图</span>
                 </div>
                 <baidu-map
@@ -74,25 +74,23 @@
                   class="postType-span"
                   style="margin:10px 0 0 0;font-size:13px;padding:0 25px 0 0;color:#455379"
                 >职位类型：</span>
+                <!-- <span
+                  class="posttype-span"
+                >全部（{{this.positionCatalogList}}）</span> -->
                 <span
                   class="posttype-span"
-                >全部（{{this.positionCatalogList[0].total+this.positionCatalogList[1].total+this.positionCatalogList[2].total}}）</span>
-                <span
+                >销售|客服|市场（{{this.positionCatalogList.total}}）</span>
+                <!-- <span
                   class="posttype-span"
-                >{{this.positionCatalogList[0].positionCatalog}}（{{this.positionCatalogList[0].total}}）</span>
-                <span
-                  class="posttype-span"
-                >{{this.positionCatalogList[1].positionCatalog}}（{{this.positionCatalogList[1].total}}）</span>
-                <span
-                  class="a"
-                >{{this.positionCatalogList[2].positionCatalog}}（{{this.positionCatalogList[2].total}}）</span>
+                >销售主管（{{this.positionCatalogList}}）</span> -->
+                
               </div>
               <div v-for="(list,index) in tableData" :key="index" @click="next(list.id)">
                 <div class="position-tab">
                   <div style="font-size:15px;margin:0 0 0 15px">{{list.positionName}}</div>
                   <div
                     style="margin:0 0 0 70px"
-                  >{{list.workAddress.province}} {{list.workAddress.county}} | {{list.workAgeMin}}-{{list.workAgeMax}}年 | 本科</div>
+                  >{{$CodeToTag.CodeToTag([list.workAddress.province,list.workAddress.county],citysal)[0]+$CodeToTag.CodeToTag([list.workAddress.province,list.workAddress.county],citysal)[1]}} | {{list.workAgeMin}}-{{list.workAgeMax}}年 | {{list.degreeMin|position}}</div>
                   <div style="margin:0 0 0 130px">{{list.salaryMin}}-{{list.salaryMax}}k</div>
                   <div style="margin:0 0 0 140px">{{list.publishedTime | formatDate}}</div>
                 </div>
@@ -102,11 +100,11 @@
                 <el-pagination
                   @size-change="handleSizeChange"
                   @current-change="handleCurrentChange"
-                  :current-page="currentPage4"
-                  :page-sizes="[5, 20, 50, 100]"
-                  :page-size="5"
+                  :current-page="page.current"
+                  :page-sizes="page.pageSizeOpts"
+                  :page-size="page.pageSize"
                   layout="total, sizes, prev, pager, next, jumper"
-                  :total="total"
+                  :total="page.total"
                 ></el-pagination>
               </div>
             </div>
@@ -127,21 +125,26 @@ export default {
   },
   data() {
     return {
-      pageSize:5,
-      total:'',
+      page: {
+                total: 0,
+                pageSize: 5,
+                current: 1,
+                pageSizeOpts: [5,10,20]
+            },
       companId:'',
+      citysal:[],
       time:'',
-      companyIdList: [],
+      companyIdList:{},
       center: { lng: 0.2, lat: 0.1 },
       zoom: 3,
       table: false,
       information: true,
       activeName: "first",
+      posiCatalogList:[],
       url:
         "https://yinlinkrc-test.oss-cn-shanghai.aliyuncs.com/logo/company/2019-08-31/e747bdbb1f774fdd9da33eb92b4d447a.png",
-      currentPage4: 4,
       tableData: [],
-      positionCatalogList: []
+      positionCatalogList:{}
     };
   },
   methods: {
@@ -160,36 +163,53 @@ export default {
       this.$http.get(`/company/${this.companId}`).then(res => {
         if (res.data.code == 200) {
           this.companyIdList = res.data.data;
-          //  console.log(res.data.data)
+           console.log(this.companyIdList)
         }
       });
     },
     //获取岗位列表
     handleClick(e) {
-      this.$http.get(`/company/${this.companId}/position`).then(res => {
-        if (e.index == 1) {
+      if (e.index == 1) {
+      this.$http.get(`/company/${this.companId}/position`,{params:{pageNum:this.page.current-1,pageSize:this.page.pageSize,positionCatalog:10202}}).then(res => {
           if (res.data.code == 200) {
             this.tableData = res.data.data.list;
-            this.total = res.data.data.total
-            var time = this.tableData[0].publishedTime
-            this.changeTime(time)
+            this.page.total = res.data.data.total
+            // var time = this.tableData[0].publishedTime
+            // this.changeTime(time)
           }
-        }
       });
+      }
     },
     //岗位分类
     positionCatalog() {
-      this.$http.get(`/company/${this.companId}/positionCatalog`,{}).then(res => {
+      this.$http.get(`/company/${this.companId}/positionCatalog`).then(res => {
         if (res.data.code == 200) {
           this.positionCatalogList = res.data.data;
         }
       });
     },
     handleSizeChange(val) {
-      alert(`每页 ${val} 条`);
+      this.page.pageSize = val
+      this.page.current = 1
+      this.$http.get(`/company/${this.companId}/position`,{params:{pageNum:this.page.current-1,pageSize:this.page.pageSize}}).then(res => {
+          if (res.data.code == 200) {
+            this.tableData = res.data.data.list;
+            this.page.total = res.data.data.total
+            var time = this.tableData[0].publishedTime
+            this.changeTime(time)
+          }
+      });
     },
     handleCurrentChange(val) {
-      alert(`当前页: ${val}`);
+      this.page.current = val
+      this.$http.get(`/company/${this.companId}/position`,{params:{pageNum:this.page.current-1,pageSize:this.page.pageSize}}).then(res => {
+          if (res.data.code == 200) {
+            this.tableData = res.data.data.list;
+            this.page.total = res.data.data.total
+            var time = this.tableData[0].publishedTime
+            this.changeTime(time)
+          }
+      });
     },
     next(id) {
       this.$router.push({ path: "/station",query:{
@@ -206,18 +226,102 @@ export default {
       return commonTime;
       
       
-    }
+    },
+    //城市
+      citise() {
+        this.$http.get("/constant/district").then(res => {
+          if (res.data.code == 200) {
+            this.citysal = res.data.data;
+          }
+        });
+      },
+      //获取所有职位类型
+      allpositionCatalog() {
+        this.$http.get("/constant/positionCatalog").then(res => {
+          if (res.data.code == 200) {
+            this.posiCatalogList = res.data.data
+            
+          }
+        });
+      },
   },
+   
   created() {
-    this.companId = this.$route.query.id 
+    this.allpositionCatalog()
+    this.companId = this.$route.query.id
+    this.citise() 
     this.companyId();
     this.positionCatalog();
-  }
+  },
+  filters:{
+    position(position) {
+      const map = ["初中及以下", "职中", "大专", "本科", "硕士", "博士"];
+      return map[position];
+    },
+    level(level){
+      const map=["国有企业","外资企业","合资企业","民营企业",'事业单位']
+      return map[level]
+    },
+    industry(industry){
+      if(industry == 1) {
+        const map=['',"酒店/餐饮","旅游/度假","医疗/护理/美容/保健/卫生服务"]
+        return map[industry]
+      }
+      if(industry == 2) {
+        const map=['',"计算机软件","网络游戏","IT服务(系统/数据/维护)","计算机硬件",'互联网/电子商务','电子技术/半导体/集成电路','通信、电信运营/增值服务','通信/电信/网络设备']
+        return map[industry]
+      }
+      if(industry == 3) {
+        const map=['',"保险","银行","信托/担保/拍卖/典当","基金/证券/期货/投资"]
+        return map[industry]
+      }
+      if(industry == 4) {
+        const map=['',"零售/批发","贸易/进出口","快速消费品（食品/饮料/烟酒/日化）","耐用消耗品",'租赁服务']
+        return map[industry]
+      }
+      if(industry == 5) {
+        const map=['',"文体教育|工艺美术","教育/培训/院校","礼品/玩具/工艺美术/收藏品/奢侈品"]
+        return map[industry]
+      }
+      if(industry == 6) {
+        const map=['',"办公用品及设备","航空/航天研究与制造","医疗设备/器械",'加工制造（原料加工/模具）','医药/生物工程','大型设备/机电设备/重工业','印刷/包装/造纸','汽车/摩托车','仪器仪表及工业自动化']
+        return map[industry]
+      }
+      if(industry == 7) {
+        const map=['',"房地产/建筑/建材/工程","物业管理/商业中心","家居/室内设计/装饰装潢"]
+        return map[industry]
+      }
+      if(industry == 8) {
+        const map=['',"专业服务/咨询(财会/法律/人力资源等)","广告/会展/公关","中介服务",'外包服务','检验/检测/认证']
+        return map[industry]
+      }
+      if(industry == 9) {
+        const map=['',"娱乐/体育/休闲","媒体/出版/影视/文化传媒"]
+        return map[industry]
+      }
+      if(industry == 10) {
+        const map=['',"跨领域经营","农/林/牧/渔",'其他']
+        return map[industry]
+      }
+      if(industry == 11) {
+        const map=['',"交通/运输",'物流/仓储']
+        return map[industry]
+      }
+      if(industry == 12) {
+        const map=['',"环保",'石油/石化/化工','能源/矿产/采掘/冶炼','电气/电力/水利']
+        return map[industry]
+      }
+      if(industry == 13) {
+        const map=['',"学术/科研",'政府/公共事业/非盈利机构']
+        return map[industry]
+      }
+    }
+  },
 };
 </script>
 <style lang="stylus">
   .el-tabs__item
-    color #1f368d
+    color #1d366e
   .el-tabs__item.is-active
     color #617DCB 
   .el-tabs__active-bar
@@ -237,7 +341,7 @@ export default {
         .aside-nav
           text-align left 
           font-size 30px
-          color #1f368d
+          color #1d366e
           font-weight bold
           padding 0 0 0 10px 
           margin 35px 0 0 0  
@@ -254,12 +358,12 @@ export default {
         .position-tab
           display flex
           flex-direction row 
-          margin 20px 0 0 90px
-          font-size 15px 
+          margin 15px 0 0 90px
+          font-size 14px 
         .line-tab 
           width 800px
           border 0.5px solid #e5e5e5
-          margin 20px 0 0 90px 
+          margin 15px 0 0 90px 
         .postType span
           font-size 13px 
           color #455379
@@ -271,7 +375,7 @@ export default {
         .company
           text-align left
           font-size 14px
-          color #1f368d 
+          color #1d366e
           margin 5px 0 0 0
           font-weight bold
         .company-content
@@ -284,7 +388,7 @@ export default {
             .company-address
               text-align left
               font-size 14px
-              color #1f368d 
+              color #1d366e
               font-weight bold 
           .map-address
             display flex

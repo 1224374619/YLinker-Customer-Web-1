@@ -1,10 +1,10 @@
 <template>
   <div class="home">
-    <el-dialog
+   <el-dialog
         class="dialog"
         :visible.sync="dialogVisible"
         style="width:1150px;margin-left:15%"
-        :before-close="handleClose">
+        >
         <div class="dialog-title">
             <span>热门城市</span>
         </div>
@@ -32,10 +32,10 @@
               <el-input
                 placeholder="请选择省份"
                 suffix-icon="el-icon-arrow-down"
-                v-model="cityButton"
+                v-model="provinceButton"
                >
               </el-input>
-              <div style="width:510px" slot="content"><span class="spanCity" @click="citys(item)" style="float:left;padding:10px 0 10px 10px" v-for="item in city" :key="item">{{item.value}}</span></div>
+              <div style="width:510px" slot="content"><span class="spanCity" @click="citys(item,index)" style="float:left;padding:10px 0 10px 10px" v-for="(item,index) in city" :key="index">{{item.tag}}</span></div>
             </el-tooltip>
             <el-tooltip  class="item" effect="light"  placement="bottom-end">
               <el-input
@@ -45,13 +45,13 @@
                 style="margin:0 0 0 100px"
                >
               </el-input>
-              <div style="width:510px" slot="content"><span class="spanCity" @click="citys(item)" style="float:left;padding:10px 0 10px 10px" v-for="item in city" :key="item">{{item.value}}</span></div>
+              <div style="width:510px" slot="content"><span class="spanCity" @click="citiss(item)" style="float:left;padding:10px 0 10px 10px" v-for="(item,index) in citis" :key="index">{{item.tag}}</span></div>
             </el-tooltip>
         </div>
         <div style="height:220px"></div>
-    </el-dialog>      
+    </el-dialog>     
     <div class="joblist-search">
-     <el-input v-model="value" @focus="next"  suffix-icon="el-icon-arrow-down" style="width:77px;height:44px;font-size:14px;"></el-input>
+     <el-input v-model="provinceButton" @focus="next"  suffix-icon="el-icon-arrow-down" style="width:77px;height:44px;font-size:14px;"></el-input>
       <span class="joblist-after"></span>
       <el-select
         slot="prepend"
@@ -102,7 +102,8 @@
                 <span>{{list.positionName}}</span>
                 <span>{{list.salaryMin}}-{{list.salaryMax}}k</span>
               </div>
-              <div class="desc-second">{{list.positionCatalog}} | {{list.workAgeMin}}-{{list.workAgeMax}}年 | {{list.degreeMin}}</div>
+              
+              <div class="desc-second">{{$CodeToTag.CodeToTag([parseInt(parseInt(list.positionCatalog/100)*100/10000)*10000,parseInt(list.positionCatalog/100)*100,list.positionCatalog],positionCatalogList)[2]}} | {{list.workAgeMin}}-{{list.workAgeMax}}年 | {{list.degreeMin|level}}</div>
               <div class="line"></div>
               <div class="desc-third">
                 <img
@@ -112,7 +113,7 @@
                 />
                 <div class="third-content">
                   <span>{{list.company.companyName}}</span>
-                  <span>{{list.company.size}} | {{list.company.industry}}</span>
+                  <span>{{list.company.size}}人 | {{list.company.industry-parseInt(list.company.industry/100)*100|industry}}</span>
                 </div>
               </div>
             </div>
@@ -183,7 +184,7 @@
                 <span>{{list.positionName}}</span>
                 <span>{{list.salaryMin}}-{{list.salaryMax}}k</span>
               </div>
-              <div class="desc-second">{{list.positionCatalog}} | {{list.workAgeMin}}-{{list.workAgeMax}}年 | {{list.degreeMin}}</div>
+              <div class="desc-second">{{$CodeToTag.CodeToTag([parseInt(parseInt(list.positionCatalog/100)*100/10000)*10000,parseInt(list.positionCatalog/100)*100,list.positionCatalog],positionCatalogList)[2]}} | {{list.workAgeMin}}-{{list.workAgeMax}}年 | {{list.degreeMin|level}}</div>
               <div class="line"></div>
               <div class="desc-third">
                 <img
@@ -193,7 +194,7 @@
                 />
                 <div class="third-content">
                   <span>{{list.company.companyName}}</span>
-                  <span>{{list.company.size}} | {{list.company.industry}}</span>
+                  <span>{{list.company.size}}人 | {{list.company.industry-parseInt(list.company.industry/100)*100|industry}}</span>
                 </div>
               </div>
             </div>
@@ -214,9 +215,14 @@ export default {
   name: "home",
   data() {
     return {
+      positionCatalogList:[],
+      provinceButton:'上海',
+      cityButton:'',
       searchContent:'',
       animate:false,
       listRecommend:[],
+      city:[],
+      citis:[],
       recommend: true,
       activeName: "first",
       value: "上海",
@@ -231,70 +237,6 @@ export default {
           value: "222",
           label: "公司"
         }
-      ],
-      city:[
-        {
-          value:'北京'
-        },
-        {
-          value:'上海'
-        },
-        {
-          value:'北京'
-        },
-        {
-          value:'北京'
-        },
-        {
-          value:'北京'
-        },
-        {
-          value:'北京'
-        },
-        {
-          value:'北京'
-        },
-        {
-          value:'北京'
-        },
-        {
-          value:'北京'
-        },
-        {
-          value:'北京'
-        },
-        {
-          value:'北京'
-        },
-        {
-          value:'北京'
-        },
-        {
-          value:'北京'
-        },
-        {
-          value:'北京'
-        },
-        {
-          value:'北京'
-        },
-        {
-          value:'北京'
-        },
-
-        {
-          value:'北京'
-        },
-        {
-          value:'北京'
-        },
-        {
-          value:'北京'
-        },
-        {
-          value:'北京'
-        },
-        
       ],
       carouselImgs: [
         require("../assets/images/loop1.jpg"),
@@ -313,7 +255,7 @@ export default {
           {id: 8, idView: require('../assets/images/company4.png')},
           {id: 9, idView: require('../assets/images/company5.png')},
         ],
-      keywordList:[{content:'哈哈哈'},{content:'哈哈哈'},{content:'哈哈哈'}],
+      keywordList:[{content:'前端'},{content:'java'},{content:'python'}],
       hotpositionList:[],
       newpositionList:[]
     };
@@ -353,8 +295,8 @@ export default {
     recommendation() {
        this.$http.get("/home/recommended/position").then(res => {
          if (res.data.code == 200) {
-          //  console.log(res.data.data)
            this.listRecommend = res.data.data
+           console.log(this.listRecommend,'232333232323')
           }
       });
     },
@@ -393,6 +335,23 @@ export default {
           }
       });
     },
+    // 行业
+    industry() {
+      this.$http.get("/constant/positionCatalog").then(res => {
+         if (res.data.code == 200) {
+              // 
+              // console.log(res)
+          }
+      });
+    },
+    //获取所有职位类型
+      allpositionCatalog() {
+        this.$http.get("/constant/positionCatalog").then(res => {
+          if (res.data.code == 200) {
+            this.positionCatalogList = res.data.data
+          }
+        });
+      },
     handleOpenMenu() {},
     handleChangeLocation() {},
     doLogin() {
@@ -401,13 +360,47 @@ export default {
       this.isLogin = true;
     },
     search() {
-      this.$router.push({ path: "/joblist" });
+      this.$http.post('/searched/position',{county:this.citycode,keyword:this.searchContent,pageNum:0,
+        pageSize:10,province:this.provincecode}).then(res => {
+          if (res.data.code == 200) {
+            this.$store.state.lsit = res.data.data;
+            this.$router.push({ path: "/joblist",query:{
+            thisId: '123'
+          } });
+          }
+        });
     },
     desc(id) {
       this.$router.push({ path: "/position",query:{
             id: id
           }});
     },
+     //城市
+      citise() {
+      this.$http.get('/constant/district')
+      .then(res => {
+          if (res.data.code == 200) {
+            this.city = res.data.data
+          }
+        });
+    },
+      citys(item,index) {
+        this.provinceButton = item.tag
+        this.provincecode = item.code
+          this.curr = index;
+          this.citis = this.city[this.curr].children
+          this.sliceArr = item.children.slice(0,5)
+          
+        },
+      citiss(item) {
+        this.cityButton = item.tag
+        this.citycode = item.code
+        this.sliceArr.forEach(function(value) {
+            if(value.tag == item.tag) {
+              console.log(item) 
+            }
+          })
+      },
     // dealMenuClick(command) {
     //   if (command === "logout") {
     //     this.isLogin = false;
@@ -433,16 +426,79 @@ export default {
     // },
   },
   created() {
+    this.allpositionCatalog()
+    this.industry();
     this.carousel();
     this.hotcompany();
     this.hotkeyword();
     this.hotposition();
     this.new();
+    this.citise();
     this.recommendation();
     if (this.recommend == false) {
       this.activeName = "second";
     } else {
       this.activeName = "first";
+    }
+  },
+  filters:{
+    level(level){
+      const map=["初中及以下","职中","大专","本科",'硕士','博士']
+      return map[level]
+    },
+    industry(industry){
+      if(industry == 1) {
+        const map=['',"酒店/餐饮","旅游/度假","医疗/护理/美容/保健/卫生服务"]
+        return map[industry]
+      }
+      if(industry == 2) {
+        const map=['',"计算机软件","网络游戏","IT服务(系统/数据/维护)","计算机硬件",'互联网/电子商务','电子技术/半导体/集成电路','通信、电信运营/增值服务','通信/电信/网络设备']
+        return map[industry]
+      }
+      if(industry == 3) {
+        const map=['',"保险","银行","信托/担保/拍卖/典当","基金/证券/期货/投资"]
+        return map[industry]
+      }
+      if(industry == 4) {
+        const map=['',"零售/批发","贸易/进出口","快速消费品（食品/饮料/烟酒/日化）","耐用消耗品",'租赁服务']
+        return map[industry]
+      }
+      if(industry == 5) {
+        const map=['',"文体教育|工艺美术","教育/培训/院校","礼品/玩具/工艺美术/收藏品/奢侈品"]
+        return map[industry]
+      }
+      if(industry == 6) {
+        const map=['',"办公用品及设备","航空/航天研究与制造","医疗设备/器械",'加工制造（原料加工/模具）','医药/生物工程','大型设备/机电设备/重工业','印刷/包装/造纸','汽车/摩托车','仪器仪表及工业自动化']
+        return map[industry]
+      }
+      if(industry == 7) {
+        const map=['',"房地产/建筑/建材/工程","物业管理/商业中心","家居/室内设计/装饰装潢"]
+        return map[industry]
+      }
+      if(industry == 8) {
+        const map=['',"专业服务/咨询(财会/法律/人力资源等)","广告/会展/公关","中介服务",'外包服务','检验/检测/认证']
+        return map[industry]
+      }
+      if(industry == 9) {
+        const map=['',"娱乐/体育/休闲","媒体/出版/影视/文化传媒"]
+        return map[industry]
+      }
+      if(industry == 10) {
+        const map=['',"跨领域经营","农/林/牧/渔",'其他']
+        return map[industry]
+      }
+      if(industry == 11) {
+        const map=['',"交通/运输",'物流/仓储']
+        return map[industry]
+      }
+      if(industry == 12) {
+        const map=['',"环保",'石油/石化/化工','能源/矿产/采掘/冶炼','电气/电力/水利']
+        return map[industry]
+      }
+      if(industry == 13) {
+        const map=['',"学术/科研",'政府/公共事业/非盈利机构']
+        return map[industry]
+      }
     }
   },
   mounted() {
@@ -469,7 +525,7 @@ export default {
       .dialog-city-first
         font-size 14px
         font-family PingFangSC-Regular
-        color #1f368d
+        color #1d366e
         float left
         margin -10px 0 0 0
       .dialog-city-first span
@@ -477,7 +533,7 @@ export default {
       .dialog-city-second
         font-size 14px
         font-family PingFangSC-Regular
-        color #1f368d
+        color #1d366e
         text-align left 
         margin 25px 0 0 0
       .dialog-city-second span
@@ -578,7 +634,7 @@ export default {
  .el-tabs__nav-wrap:after
    background-color #f0f0f0
   a  
-    color #1f368d
+    color #1d366e
   a:active
     color #617dcb
   a:hover

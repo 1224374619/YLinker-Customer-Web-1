@@ -10,10 +10,10 @@
     <div class="inforchange-right" v-if="active===1">
       <el-form :model="ruleForm" :rules="rules" style="width:400px;margin-left:150px" ref="ruleForm" label-width="120px" class="demo-ruleForm">
         <el-form-item label="手机号" style="margin:20px 0 10px 0">
-          <span style="font-size:14px;color:#1f368d;margin-left:-180px">15513779331</span>
+          <span style="font-size:14px;color:#1d366e;margin-left:-180px">{{phoneOne}}</span>
         </el-form-item>
         <el-form-item label="验证码" prop="code">
-            <captcha v-model="ruleForm.code" />
+            <captchaPass v-model="ruleForm.code" />
         </el-form-item>
         <el-form-item label="新密码" prop="newPassword">
           <el-input style="width:270px;height:43px" placeholder="请输入新密码（6-24位数字和字母）" v-model="ruleForm.newPassword" show-password></el-input>
@@ -32,7 +32,7 @@
     <div class="inforchange-right" v-if="active===2">
       <el-form :model="newRuleForm" :rules="newRules" style="width:400px;margin-left:150px" ref="newRuleForm" label-width="120px" class="demo-ruleForm">
         <el-form-item label="手机号" style="margin:20px 0 10px 0">
-          <span style="font-size:14px;color:#1f368d;margin-left:-180px">15513779331</span>
+          <span style="font-size:14px;color:#1d366e;margin-left:-180px">{{phoneOne}}</span>
         </el-form-item>
          <el-form-item label="当前登录密码" prop="nowPassword">
             <el-input style="width:270px;height:43px" placeholder="请确认输入登陆密码" v-model="newRuleForm.nowPassword" show-password></el-input>
@@ -41,7 +41,7 @@
           <span><el-input style="width:270px;height:43px" v-model="newRuleForm.newPhone" placeholder="请确认输入新手机号"></el-input></span>
         </el-form-item>
         <el-form-item label="验证码" prop="newCode">
-            <captcha v-model="newRuleForm.newCode" />
+            <captchaPhone v-model="newRuleForm.newCode" />
         </el-form-item>
         <el-form-item>
           <el-button  @click="phoneSubmitForm('newRuleForm')" style="width:270px;height:43px" type="primary">换绑手机</el-button>
@@ -61,16 +61,21 @@
 
 import Captcha from 'components/captcha.vue';
 import PasswordInput from 'components/password-input.vue';
+import captchaPass from 'components/captchaPass.vue';
+import captchaPhone from 'components/captchaPhone.vue';
   export default {
     name: 'inforchange',
     components: {
     Captcha,
+    captchaPass,
     PasswordInput,
+    captchaPhone
   },
     data() {
       return {
         phone: '',
         password: '',
+        phoneOne:'',
         active: 1,
         inforchangeLeft: true,
         inforchangeBack: false,
@@ -125,12 +130,11 @@ import PasswordInput from 'components/password-input.vue';
       submitForm(formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
-            this.$http.put('/account/password', {agree:true,password: "123123", phone: "17717291341", vcode:this.ruleForm.code}).then(res => {
+            this.$http.put('/account/password', {agree:true,password:this.ruleForm.newPassword, phone:this.phoneOne, vcode:this.ruleForm.code}).then(res => {
               if (res.data.code == 200) {
                 console.log(res);
               }
             });
-             alert('submit!');
           } else {
             // this.active = 0
             // this.inforchangeLeft = false
@@ -143,12 +147,11 @@ import PasswordInput from 'components/password-input.vue';
       phoneSubmitForm(aa) {
         this.$refs[aa].validate((valid) => {
           if (valid) {
-            this.$http.put('/account/phone', { password: "21313131311", phone: "17717291341", vcode:this.newRuleForm.newCode}).then(res => {
+            this.$http.put('/account/phone', { password: this.newRuleForm.nowPassword, phone:this.newRuleForm.newPhone, vcode:this.newRuleForm.newCode}).then(res => {
               if (res.data.code == 200) {
                 console.log(res);
               }
             });
-            alert('submit!');
           } else {
             // this.active = 0
             // this.inforchangeLeft = false
@@ -159,6 +162,8 @@ import PasswordInput from 'components/password-input.vue';
       },
     },
     created() {
+      this.phoneOne = this.$store.state.username
+      // console.log(this.phone)
     },
   }
 </script>
@@ -176,7 +181,7 @@ import PasswordInput from 'components/password-input.vue';
         display flex
         flex-direction column
         font-family PingFangSC-Semibold
-        color #1f368d
+        color #1d366e
         font-size 16px
         font-weight 550
         .left-line
@@ -185,12 +190,12 @@ import PasswordInput from 'components/password-input.vue';
           margin 8px 0 0 0
         .password
           margin 32px 0 0 0
-          color #1f368d
+          color #1d366e
           text-decoration none
           border 1px solid white
         .phone
           margin 8px 0 0 0
-          color #1f368d
+          color #1d366e
           text-decoration none
         .active
           color #617dcb
@@ -198,11 +203,11 @@ import PasswordInput from 'components/password-input.vue';
       width 784px
       margin 90px 0 0 36px
       background white
-      color #1f368d
+      color #1d366e
       .cancel:hover
-        background #1f368d
+        background #1d366e
         color white
-        border-color #1f368d
+        border-color #1d366e
     .inforchangeback
       width 656px
       height 360px
@@ -220,12 +225,12 @@ import PasswordInput from 'components/password-input.vue';
     .inforchangeback span:nth-child(2)
       margin 25px 0 0 0
       font-family PingFangSC-Regular
-      color #1f368d
+      color #1d366e
       font-size 14px
 </style>
 <style lang="stylus">
   .el-input:hover
     border-color #7d8dcd
   .el-form-item__label
-    color #1f368d
+    color #1d366e
 </style>

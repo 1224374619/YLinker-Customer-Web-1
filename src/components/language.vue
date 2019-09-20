@@ -32,6 +32,7 @@
 
 export default {
   name: 'language',
+  props: ["languageDegree"],
   data() {
     return {
          formInline: {
@@ -62,7 +63,7 @@ export default {
     keep(formName) {
       this.$refs[formName].validate(valid => {
         if (valid) {
-          this.$http.post(`/resume/${2}/language`,{listenAndSpeak:Number(this.formInline.listenAbility),language:this.formInline.languages,readAndWrite:Number(this.formInline.readAbility),}).then(res => {
+          this.$http.post(`/resume/${this.languageDegree}/language`,{listenAndSpeak:Number(this.formInline.listenAbility),language:this.formInline.languages,readAndWrite:Number(this.formInline.readAbility),}).then(res => {
             if (res.data.code == 201) {
               this.$emit("languageEmit",false,true)
             }
@@ -90,9 +91,9 @@ export default {
   .el-form-item
     padding 0 0 0 54px
   .cancel:hover
-     background #1f368d  
+     background #1d366e  
      color white
-     border-color #1f368d
+     border-color #1d366e
   .el-button
     width 94px 
     height 34px
