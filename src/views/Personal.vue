@@ -81,7 +81,7 @@
         </span>
         <div v-if="showInfor" class="infor">
         <span class="span-city">现居{{city}} | {{workAge}}年工作经验 | {{age}}岁</span>
-          <span class="span-type">求职状态：离职-随时到岗</span>
+          <span class="span-type">求职状态：{{jobSearchStatus}}</span>
         </div>
         <div v-if="showWarn" style="font-size:14px;padding:10px 0 10px 0">个人信息未填写完整，快快来补充吧</div>
       </div>
@@ -90,14 +90,15 @@
           <span>推荐职位</span>
           <span @click="next">查看更多 》</span>
         </div>
-        <div v-for="list in searchedList" :key="list">
+        <div v-for="(list,index) in positionList.slice(0, 6)" :key="index">
           <div class="footer-article">
-            <span>{{list.postion}}</span>
+            <span>{{list.positionName}}</span>
             <span>{{list.salaryMin}}-{{list.salaryMax}}k</span>
           </div>
           <div class="footer-foot">
-            <span>{{list.companyName}}</span>
-            <span>上海长宁区</span>
+            <span>{{list.company.companyName}}</span>
+            
+            <span>{{list.workAddress.province}}{{list.workAddress.county}}</span>
           </div>
           <div class="footer-line"></div>
         </div>
@@ -151,13 +152,15 @@ export default {
           workAgeMax:'5',
           workAgeMin:'3'
         }],
-        searchedList:[],
+        positionList:[],
         fullName:'',
         city:'',
+        citysal:[],
         workAge:'',
         age:'',
         state:'',
-        workState:''
+        workState:'',
+        jobSearchStatus:''
     }
   },
   methods: {
@@ -186,18 +189,20 @@ export default {
         this.$http.get('/resume/brief').then(res => {
           if (res.data.code == 200) {
             this.avatarUrl = res.data.data.avatarUrl
-            this.fullName = res.data.data.base.fullName,
-            this.city = res.data.data.base.province  +  res.data.data.base.county
+            this.fullName = res.data.data.base.fullName
+            var til = this.$CodeToTag.CodeToTag([res.data.data.base.province,res.data.data.base.county],this.citysal)
+            this.city = til[0]+til[1]
             this.workAge = res.data.data.base.workAge
             this.age = res.data.data.base.age
-            if(res.data.data.target.jobSearchStatus == 2) {
-                this.workState = '离职-延时到岗'  
-              }else if(res.data.data.target.jobSearchStatus == 1) {
-                this.workState = '离职-随时到岗'
+            this.jobSearchStatus =  res.data.data.target.jobSearchStatus
+            if(res.data.data.target.jobSearchStatus == 1) {
+                this.jobSearchStatus = '离职-延时到岗'  
+              }else if(res.data.data.target.jobSearchStatus == 0) {
+                this.jobSearchStatus = '离职-随时到岗'
+              }else if(res.data.data.target.jobSearchStatus == 2) {
+                this.jobSearchStatus = '在职-考虑机会'
               }else if(res.data.data.target.jobSearchStatus == 3) {
-                this.workState = '在职-考虑机会'
-              }else if(res.data.data.target.jobSearchStatus == 4) {
-               this.workState = '在职-暂不到岗'
+               this.jobSearchStatus = '在职-暂不到岗'
               }
               if(res.data.data.target.jobType == 1) {
                 this.state = '实习'  
@@ -225,21 +230,54 @@ export default {
           }
         });
       },
-      //获取推荐岗位
-      searched() {
-        this.$http.post('/searched/position').then(res => {
+      //城市
+      citise() {
+        this.$http.get("/constant/district").then(res => {
           if (res.data.code == 200) {
-            // this.favoriteList = res.data.data; 
+            this.citysal = res.data.data;
+            console.log(this.citysal)
           }
         });
+      },
+      //获取推荐岗位
+      searched() {
+        this.$http
+          .post("/searched/position", {
+            county: this.citycode,
+            degreeMin: this.Education,
+            industry: this.duty,
+            isGraduate: this.isGraduate,
+            jobType: this.workState,
+            keyword: this.searchContent,
+            pageNum: 0,
+            pageSize: 10,
+            province: this.provincecode,
+            publishedInterval: this.release,
+            salaryMax: this.salaryMax,
+            salaryMin: this.salaryMin,
+            size: this.scale,
+            workAgeMax: this.workAgeMax,
+            workAgeMin: this.workAgeMin
+          })
+          .then(res => {
+            if (res.data.code == 200) {
+              
+              this.positionList = res.data.data.list;
+              if (res.data.data.total == 0) {
+              } else {
+              }
+            }
+          });
       }
     },
     created() {
+      this.citise()
       this.submitted();
       this.favorite();
       this.iscancel();
       this.brief()
       this.searched();
+      
     },
     filters:{
     level(level){
@@ -454,7 +492,6 @@ export default {
       .right-footer
         background white
         margin 10px 0 0 0
-        height 374px
         .footer-nav
           display flex
           flex-direction row

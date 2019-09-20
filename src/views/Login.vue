@@ -79,7 +79,14 @@ export default {
             })
             .then(res => {
               if (res.data.code == 200) {
-                this.$store.state.hasLogin = true;
+                let token = 'asd1d5.0o9utrf7.12jjkht';
+                // 设置cookie默认过期时间单位是1d(1天)
+                this.$cookie.set('token', token, 1);
+                // this.$cookieStore.addCookie('name',1)
+                // this.$cookieStore.getCookie('name')
+                window.sessionStorage.getItem(token)
+                // this.$store.state.cookie = token;
+                // console.log(this.$store.state.cookie)
                 this.$router.push({ path: "/resume" });
               }
               // this.$store.commit('SET_TOKEN', res.data.token)
@@ -90,8 +97,14 @@ export default {
               // }
             })
             .catch(error => {
-                this.$store.state.hasLogin = true;
-                this.$router.push({ path: "/gap" });
+              let token = 'asd1d5.0o9utrf7.12jjkht';
+              // 设置cookie默认过期时间单位是1d(1天)
+              this.$cookie.set('token', token, 1);
+              // this.$cookieStore.addCookie('name',1)
+              // this.$cookieStore.getCookie('name')
+              window.sessionStorage.getItem(token)
+                // this.$store.state.hasLogin = true;
+              this.$router.push({ path: "/gap" });
             });
         } else {
           return false;

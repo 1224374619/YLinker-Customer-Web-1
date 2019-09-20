@@ -5,7 +5,7 @@
           <span>你还没有在线简历信息呦，编辑在线简历，可以大大提升投递成功率</span>
           <el-button style="width:204px;height:43px" @click="next" type="primary">立即创建简历</el-button>
       </div>
-      <div class="gap-right">
+      <!-- <div class="gap-right">
           <div class="right-nav">
               <span>在线简历</span>
               <span>暂未创建</span>
@@ -16,7 +16,7 @@
               <p>支持格式包括： 支持DOC，DOCX,PDF,JPG,PNG格式<br>文件,大小不超过2M</p>
               <el-button style="width:108px;height:34px"  @click="upload" type="primary">立即上传</el-button>
           </div>
-      </div>
+      </div> -->
   </div>
   
 </template>
@@ -52,7 +52,8 @@ export default {
     },
   },
   created () {
-    // this.next();
+    this.$store.state.token = 'asd1d5.0o9utrf7.12jjkht'
+    console.log(this.$store.state.cookie,'23232323')
   },
 }
 </script>

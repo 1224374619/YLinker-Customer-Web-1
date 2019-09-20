@@ -350,11 +350,13 @@ export default {
       this.isLogin = true;
     },
     search() {
-      this.$http.post('/searched/company',{county:this.citycode,keyword:this.searchContent,pageNum:0,
+      this.$http.post('/searched/position',{county:this.citycode,keyword:this.searchContent,pageNum:0,
         pageSize:10,province:this.provincecode}).then(res => {
           if (res.data.code == 200) {
             this.$store.state.lsit = res.data.data;
-            this.$router.push({ path: "/joblist" });
+            this.$router.push({ path: "/joblist",query:{
+            thisId: '123'
+          } });
           }
         });
     },

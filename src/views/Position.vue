@@ -69,23 +69,23 @@
           </el-tab-pane>
           <el-tab-pane label="在招职位" name="second">
             <div class="postType">
-              <!-- <div style="text-align:left" class="list">
+              <div style="text-align:left" class="list">
                 <span
                   class="postType-span"
                   style="margin:10px 0 0 0;font-size:13px;padding:0 25px 0 0;color:#455379"
                 >职位类型：</span>
+                <!-- <span
+                  class="posttype-span"
+                >全部（{{this.positionCatalogList}}）</span> -->
                 <span
                   class="posttype-span"
-                >全部（{{this.positionCatalogList[2].total}}）</span>
-                <span
+                >销售经理（{{this.positionCatalogList.total}}）</span>
+                <!-- <span
                   class="posttype-span"
-                >销售经理（{{this.positionCatalogList[0].total}}）</span>
-                <span
-                  class="posttype-span"
-                >销售主管（{{this.positionCatalogList[1].total}}）</span>
+                >销售主管（{{this.positionCatalogList}}）</span> -->
                 
-              </div> -->
-              <!-- <div v-for="(list,index) in tableData" :key="index" @click="next(list.id)">
+              </div>
+              <div v-for="(list,index) in tableData" :key="index" @click="next(list.id)">
                 <div class="position-tab">
                   <div style="font-size:15px;margin:0 0 0 15px">{{list.positionName}}</div>
                   <div
@@ -95,7 +95,7 @@
                   <div style="margin:0 0 0 140px">{{list.publishedTime | formatDate}}</div>
                 </div>
                 <div class="line-tab"></div>
-              </div> -->
+              </div>
               <div class="footer-pagination" style="margin:15px 0 15px 0">
                 <el-pagination
                   @size-change="handleSizeChange"
@@ -133,7 +133,7 @@ export default {
             },
       companId:'',
       time:'',
-      companyIdList:'',
+      companyIdList:{},
       center: { lng: 0.2, lat: 0.1 },
       zoom: 3,
       table: false,
@@ -142,7 +142,7 @@ export default {
       url:
         "https://yinlinkrc-test.oss-cn-shanghai.aliyuncs.com/logo/company/2019-08-31/e747bdbb1f774fdd9da33eb92b4d447a.png",
       tableData: [],
-      positionCatalogList: []
+      positionCatalogList:{}
     };
   },
   methods: {

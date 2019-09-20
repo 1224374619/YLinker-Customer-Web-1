@@ -10,7 +10,7 @@
                         <router-link to="/gap" index="3">简历</router-link>
                  <router-link to="/aboutus/:id" index="4">联系我们</router-link>
           </div>
-          <div class="btn-set" v-if="!hasLogin">
+          <div class="btn-set" v-if="this.$store.state.token == ''">
             <router-link tag="button" :to="{name:'login'}" index="1">登录</router-link>
             <router-link tag="button" :to="{name:'register'}" index="2">注册</router-link>
           </div>
@@ -63,6 +63,7 @@
         data() {
             return {
               chorus:true,
+              tok:this.$store.state.token,
               notificationlist:[
               {
                 description:'你投递的“产品经理”(xx公司) 已被查看简历'
@@ -81,6 +82,12 @@
                 return state.hasLogin;
             }
         }),
+        //  watch: {
+        //     //使用这个可以监听data中指定数据的变化,然后触发watch中对应的function的处理
+        //     'tok': function () {
+        //       this.$store.state.token = true
+        //     },
+        // },
         methods: {
           //全部标记
           chorusle() {
@@ -92,7 +99,10 @@
                 if (res.data.code == 200) {
                   console.log(res);
                 }
-              });
+              }).catch(error => {
+                this.$store.state.token = ''
+              this.$router.push({ path: "/login" });
+            });;
             },
             gotoHomeUI() {
                 this.$router.push({path: '/'});

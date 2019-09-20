@@ -13,11 +13,12 @@
         </el-select>
       </el-form-item>
       <el-form-item label="获奖证书" style="margin-left:-90px">
-        <el-upload
-                :action="uploadUrl"
-                list-type="picture-card"
-                :on-success="handleAvatarSuccess"
-                >
+         <el-upload
+          class="avatar-uploader"
+          :action="uploadUrl"
+          :show-file-list="false"
+          :on-success="handleAvatarSuccess"
+          >
           <img v-if="imageUrl" :src="imageUrl" class="avatar">
           <i v-else class="el-icon-plus avatar-uploader-icon"></i>
         </el-upload>
