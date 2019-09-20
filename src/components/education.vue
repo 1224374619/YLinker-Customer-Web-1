@@ -158,7 +158,7 @@ export default {
     // }
   },
   created() {
-    this.formInline.major = this.educationDegree;
+    // this.formInline.major = this.educationDegree;
   }
 };
 </script>
@@ -168,9 +168,9 @@ export default {
 }
 
 .cancel:hover {
-  background: #1f368d;
+  background: #1d366e;
   color: white;
-  border-color: #1f368d;
+  border-color: #1d366e;
 }
 
 .el-button {

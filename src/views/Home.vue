@@ -102,7 +102,8 @@
                 <span>{{list.positionName}}</span>
                 <span>{{list.salaryMin}}-{{list.salaryMax}}k</span>
               </div>
-              <div class="desc-second">销售经理 | {{list.workAgeMin}}-{{list.workAgeMax}}年 | {{list.degreeMin|level}}</div>
+              
+              <div class="desc-second">{{$CodeToTag.CodeToTag([parseInt(parseInt(list.positionCatalog/100)*100/10000)*10000,parseInt(list.positionCatalog/100)*100,list.positionCatalog],positionCatalogList)[2]}} | {{list.workAgeMin}}-{{list.workAgeMax}}年 | {{list.degreeMin|level}}</div>
               <div class="line"></div>
               <div class="desc-third">
                 <img
@@ -183,7 +184,7 @@
                 <span>{{list.positionName}}</span>
                 <span>{{list.salaryMin}}-{{list.salaryMax}}k</span>
               </div>
-              <div class="desc-second">销售经理 | {{list.workAgeMin}}-{{list.workAgeMax}}年 | {{list.degreeMin|level}}</div>
+              <div class="desc-second">{{$CodeToTag.CodeToTag([parseInt(parseInt(list.positionCatalog/100)*100/10000)*10000,parseInt(list.positionCatalog/100)*100,list.positionCatalog],positionCatalogList)[2]}} | {{list.workAgeMin}}-{{list.workAgeMax}}年 | {{list.degreeMin|level}}</div>
               <div class="line"></div>
               <div class="desc-third">
                 <img
@@ -214,6 +215,7 @@ export default {
   name: "home",
   data() {
     return {
+      positionCatalogList:[],
       provinceButton:'上海',
       cityButton:'',
       searchContent:'',
@@ -253,7 +255,7 @@ export default {
           {id: 8, idView: require('../assets/images/company4.png')},
           {id: 9, idView: require('../assets/images/company5.png')},
         ],
-      keywordList:[{content:'哈哈哈'},{content:'哈哈哈'},{content:'哈哈哈'}],
+      keywordList:[{content:'前端'},{content:'java'},{content:'python'}],
       hotpositionList:[],
       newpositionList:[]
     };
@@ -342,6 +344,14 @@ export default {
           }
       });
     },
+    //获取所有职位类型
+      allpositionCatalog() {
+        this.$http.get("/constant/positionCatalog").then(res => {
+          if (res.data.code == 200) {
+            this.positionCatalogList = res.data.data
+          }
+        });
+      },
     handleOpenMenu() {},
     handleChangeLocation() {},
     doLogin() {
@@ -416,6 +426,7 @@ export default {
     // },
   },
   created() {
+    this.allpositionCatalog()
     this.industry();
     this.carousel();
     this.hotcompany();
@@ -514,7 +525,7 @@ export default {
       .dialog-city-first
         font-size 14px
         font-family PingFangSC-Regular
-        color #1f368d
+        color #1d366e
         float left
         margin -10px 0 0 0
       .dialog-city-first span
@@ -522,7 +533,7 @@ export default {
       .dialog-city-second
         font-size 14px
         font-family PingFangSC-Regular
-        color #1f368d
+        color #1d366e
         text-align left 
         margin 25px 0 0 0
       .dialog-city-second span
@@ -623,7 +634,7 @@ export default {
  .el-tabs__nav-wrap:after
    background-color #f0f0f0
   a  
-    color #1f368d
+    color #1d366e
   a:active
     color #617dcb
   a:hover

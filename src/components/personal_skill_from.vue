@@ -59,6 +59,6 @@ export default {
      display flex
      flex-direction row
      font-size 15px
-     color #1f368d
+     color #1d366e
      text-align left
 </style>

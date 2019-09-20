@@ -53,7 +53,7 @@
     display flex
     flex-direction column
     font-size 15px
-    color #1f368d
+    color #1d366e
     text-align left
     margin 0 0 0 0
     .fromfirst 

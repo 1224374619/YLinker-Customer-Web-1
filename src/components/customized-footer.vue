@@ -53,7 +53,7 @@ export default {
 
 <style lang="stylus" scoped>
   .footer
-    background-color #1f368d
+    background-color #1d366e
     margin 0 0 50px 0
     .appendix
       display flex

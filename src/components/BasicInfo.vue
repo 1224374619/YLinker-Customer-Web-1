@@ -7,6 +7,7 @@
           :action="uploadUrl"
           :show-file-list="false"
           :on-success="handleAvatarSuccess"
+          
           >
           <img v-if="imageUrl" :src="imageUrl" class="avatar">
           <i v-else class="el-icon-plus avatar-uploader-icon"></i>
@@ -132,7 +133,7 @@ export default {
       file:'',
       options:[],
       props:{
-            value: 'tag',
+            value: 'code',
             label:'tag',
             children: 'children'
         }
@@ -159,7 +160,7 @@ export default {
       }
       this.$http.put(`/resume/${this.fromData}/base`,
       {file:this.file,overseasAge:Number(this.formInline.overseasAge),workYear:(this.formInline.workingSeniority).getTime(),politicalStatus:Number(this.formInline.politicCountenance),
-      birthday:(this.formInline.birthday).getTime(),county:this.formInline.city[1],fullName:this.formInline.name,sex:this.formInline.gender,province:this.formInline.city[0],degree:this.formInline.educationLevel,email:this.formInline.email,phone:this.formInline.phone,isGraduate:this.formInline.isGraduate})
+      birthday:(this.formInline.birthday).getTime(),county:this.formInline.city[1],fullName:this.formInline.name,sex:this.formInline.gender,province:this.formInline.city[0],degree:Number(this.formInline.educationLevel),email:this.formInline.email,phone:this.formInline.phone,isGraduate:this.formInline.isGraduate})
       .then(res => {
           if (res.data.code == 200) {
             this.$emit("BasicEmit",false,true)
@@ -252,9 +253,9 @@ export default {
         height 80px
         margin 32px 0 0 42px
     .cancel:hover
-      background #1f368d  
+      background #1d366e   
       color white
-      border-color #1f368d
+      border-color #1d366e
     .keep:hover
       border-color #7d8dcd 
             

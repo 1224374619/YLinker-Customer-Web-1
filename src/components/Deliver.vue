@@ -57,7 +57,7 @@ export default {
     },
     //岗位列表
     positionCompany() {
-      this.$http.get(`/company/${this.companyId}/position`).then(res => {
+      this.$http.get(`/company/${this.fromData}/position`).then(res => {
         if (res.data.code == 200) {
           this.hotpositionList = res.data.data.list;
         }

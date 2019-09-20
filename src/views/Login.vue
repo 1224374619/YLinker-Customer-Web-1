@@ -79,6 +79,8 @@ export default {
             })
             .then(res => {
               if (res.data.code == 200) {
+                window.sessionStorage.setItem('user',this.form.tel)
+                // this.$router.push({ path: "/gap" });
                 let token = 'asd1d5.0o9utrf7.12jjkht';
                 // 设置cookie默认过期时间单位是1d(1天)
                 this.$cookie.set('token', token, 1);
@@ -97,6 +99,12 @@ export default {
               // }
             })
             .catch(error => {
+              window.sessionStorage.setItem('user',this.form.tel)
+              // this.$message({
+              //   showClose: true,
+              //   message: '输入有误，请重新输入'
+              // });
+              this.$router.push({ path: "/gap" });
               let token = 'asd1d5.0o9utrf7.12jjkht';
               // 设置cookie默认过期时间单位是1d(1天)
               this.$cookie.set('token', token, 1);
@@ -104,7 +112,7 @@ export default {
               // this.$cookieStore.getCookie('name')
               window.sessionStorage.getItem(token)
                 // this.$store.state.hasLogin = true;
-              this.$router.push({ path: "/gap" });
+              
             });
         } else {
           return false;

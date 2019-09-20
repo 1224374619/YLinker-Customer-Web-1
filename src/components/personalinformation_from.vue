@@ -16,7 +16,7 @@
           <span>{{fromData.age}}岁({{fromData.birthday | formatDateOne}})</span>
         </div>
         <div class="information-second">
-          <span>现居{{fromData.province}}{{fromData.county}}</span>
+          <span>现居{{$CodeToTag.CodeToTag([fromData.province,fromData.county],citysal)[0]+$CodeToTag.CodeToTag([fromData.province,fromData.county],citysal)[1]}}</span>
           <span>|</span>
           <span>{{fromData.overseasAge}}年海外工作经验</span>
         </div>
@@ -56,7 +56,8 @@ export default {
 
   data() {
     return {
-     avatarUrl:''
+     avatarUrl:'',
+     citysal:[]
     };
   },
   filters: {
@@ -76,9 +77,18 @@ export default {
         })
         .catch(error => {
         });
-    }
+    },
+     //城市
+      citise() {
+        this.$http.get("/constant/district").then(res => {
+          if (res.data.code == 200) {
+            this.citysal = res.data.data;
+          }
+        });
+      },
   },
   created() {
+    this.citise()
     this.brief()
   }
 };
@@ -97,7 +107,7 @@ export default {
         text-align left
         .information-first span:nth-child(1)
           float left
-          color #1f368d
+          color #1d366e
           font-size 24px
           font-weight bold
           margin 0 0 0 -5px
@@ -132,7 +142,7 @@ export default {
       margin 31px 0 0 25px
     .information div:nth-child(3)   
       .actions-span
-        color #1f368d
+        color #1d366e
         font-size 14px
       .actions-span span:hover
         color #7d8dcd

@@ -10,7 +10,8 @@
       </div>
       <div class="station-nav-content">
         <div class="content-nav">
-      <span>{{positionIdList.workAddress.province}} {{positionIdList.workAddress.county}} | {{positionIdList.workAgeMin}}-{{positionIdList.workAgeMax}}年 | {{positionIdList.isGraduate}} | {{positionIdList.jobType}}</span>
+          
+      <span>{{$CodeToTag.CodeToTag([positionIdList.workAddress.province,positionIdList.workAddress.county],citysal)[0]+' ' +' '+$CodeToTag.CodeToTag([positionIdList.workAddress.province,positionIdList.workAddress.county],citysal)[1]}} | {{positionIdList.workAgeMin}}-{{positionIdList.workAgeMax}}年 | {{positionIdList.isGraduate}} | {{positionIdList.jobType}}</span>
         </div>
         <div class="content-article">
           <span>发布时间：{{positionIdList.publishedTime | formatDate}}</span>
@@ -69,7 +70,7 @@
         </span>
       </el-dialog>
       <el-dialog :visible.sync="dialogVisibleTwo" style="width:1100px;margin:0 0 0 400px" :before-close="handleClose">
-        <div style="font-size:15px;color:#1f368d;margin:-30px 0 20px 0">请选择想要投递的快递</div>
+        <div style="font-size:15px;color:#1d366e;margin:-30px 0 20px 0">请选择想要投递的快递</div>
         <div>
           <el-radio-group v-model="radio" style="margin-right:100px">
             <el-radio :label="3"><span style="font-size:11px">在线简历：完整度80%</span><br><span style="margin:0 0 0 73px;color:#b1b1b1;font-size:11px">上传时间：2019-11-09 23：20</span></el-radio>
@@ -116,7 +117,7 @@
         <div class="station-foot-foot">
           <div class="station-foot-foot-one">工作地点:</div>
           <div class="station-foot-foot-two">
-            <span>{{positionIdList.workAddress.province}} {{positionIdList.workAddress.county}} {{positionIdList.workAddress.detail}}</span>
+            <span>{{$CodeToTag.CodeToTag([positionIdList.workAddress.province,positionIdList.workAddress.county],citysal)[0]+' ' +' '+$CodeToTag.CodeToTag([positionIdList.workAddress.province,positionIdList.workAddress.county],citysal)[1]}} {{positionIdList.workAddress.detail}}</span>
             <span>查看地图</span>
           </div>
           <baidu-map
@@ -159,14 +160,15 @@
             <span>相似职位</span>
             <span @click="more">查看更多 》</span>
           </div>
-          <div class="aside-footer" v-for="(list,index) in hotpositionList" :key="index">
+          <div class="aside-footer" v-for="(list,index) in hotpositionList.slice(0,6)" :key="index">
             <div class="company-post">
               <span>{{list.positionName}}</span>
               <span>{{list.salaryMin}}-{{list.salaryMax}}k</span>
             </div>
             <div class="company-address">
               <span>{{companyName}}</span>
-              <span>{{list.workAddress.province}}{{list.workAddress.county}}</span>
+              
+              <span>{{$CodeToTag.CodeToTag([list.workAddress.province,list.workAddress.county],citysal)[0]+$CodeToTag.CodeToTag([list.workAddress.province,list.workAddress.county],citysal)[1]}}</span>
             </div>
             <div class="line"></div>
           </div>
@@ -211,7 +213,9 @@ export default {
       isshowCollect: true,
       showCollect: false,
       isshow: true,
-      url:''
+      url:'',
+      citysal:[],
+      resumesId:""
     };
   },
   methods: {
@@ -224,7 +228,7 @@ export default {
       },
     //确认投递
     showdeliver() {
-      this.$http.put(`/submitted/position/${this.positiId}/resume/${4}`).then(res => {
+      this.$http.put(`/submitted/position/${this.positiId}/resume/${this.resumesId}`).then(res => {
           if (res.data.code == 200) {
             this.almsg = false
             this.msg = true
@@ -343,6 +347,14 @@ export default {
       // this.map = true,
       // this.mapList = true
     },
+    //城市
+      citise() {
+        this.$http.get("/constant/district").then(res => {
+          if (res.data.code == 200) {
+            this.citysal = res.data.data;
+          }
+        });
+      },
     iscollect() {
         this.$http.put(`/favorite/position/${this.positiId}`).then(res => {
           if (res.data.code == 200) {
@@ -355,6 +367,7 @@ export default {
               type: 'warning'
             });
       });
+      
       // if(this.num == 1) {
       //     this.dialogVisible = true
       // }else{
@@ -365,6 +378,17 @@ export default {
       // this.map = true,
       // this.mapList = true
     },
+    //获取简历简讯
+      brief () {
+        this.$http.get('/resume/brief').then(res => {
+          if (res.data.code == 200) {
+            this.resumesId = res.data.data.defaultResumeId
+            
+          }
+        }).catch(error => {
+          
+            });
+      },
     isdeliver() {
       this.dialogVisibleOne = false;
       this.stationNav = false;
@@ -373,10 +397,12 @@ export default {
     }
   },
   created() {
+    this.citise()
     this.positiId = this.$route.query.id;
     this.positionId();
     this.showdeli();
     this.showcoll();
+    this.brief()
   },
    filters:{
     level(level){
@@ -461,7 +487,7 @@ export default {
         padding 0 0 0 2%
       .station-nav-name span:nth-child(1)
         font-size 32px
-        color #1f368d
+        color #1d366e
         font-weight bold
       .station-nav-name span:nth-child(2)
         font-size 28px
@@ -484,9 +510,9 @@ export default {
           font-size 14px
           margin 0 0 0 300px
       .cancel:hover
-        background #1f368d  
+        background #1d366e  
         color white
-        border-color #1f368d     
+        border-color #1d366e   
     .station-foot
       display flex
       flex-direction row
@@ -520,7 +546,7 @@ export default {
           .company-name
             font-size 25px
             font-weight bold
-            color #1f368d
+            color #1d366e
           .company-type
             padding  4% 0 0 0
             font-size 13px
@@ -544,7 +570,7 @@ export default {
           padding 24px 0 0 0
         .footer-nav span:nth-child(1)
           font-family PingFangSC-Semibold
-          color #1f368d
+          color #1d366e
           font-size 14px
           margin 0 0 0 6% 
         .footer-nav span:nth-child(2)
@@ -592,7 +618,7 @@ export default {
         .station-foot-foot-one
           margin 0 0 0 40px
           font-size 14px
-          color #1f368d 
+          color #1d366e 
         .station-foot-foot-two
           display flex
           flex-direction row

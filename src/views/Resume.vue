@@ -118,7 +118,7 @@
         <el-dialog
                 title=""
                 :visible.sync="dialogaward"
-                width="30%"
+                style="width:900px;margin-left:21%"
                 :before-close="handleClose">
           <div style="display:flex;flex-direction:row;margin-left:90px">
             <img style="height:18px;" :src="require('../assets/images/222.png')"/>
@@ -289,9 +289,10 @@
                   <el-option v-for="(list,index) in workStateList" :key="index" :label="list.tag" :value="list.code"></el-option>
                   </el-select>
               </el-form-item>
+              <!-- :disabled="formJobintension.status === '离职-延时到岗'?false:true" -->
               <el-form-item label="到岗时间" class="block" prop='reportTime'>
                   <el-date-picker
-                  :disabled="formJobintension.status === '离职-延时到岗'?false:true"
+                  
                   v-model='formJobintension.reportTime'
                   style="width:400px;height:36px;margin-right:50px"
                   type="date"
@@ -329,10 +330,13 @@
                   <el-input style="width:400px;height:36px;margin-right:50px" v-model="formWork.postName" placeholder=""></el-input>
               </el-form-item>
               <el-form-item label="行业" prop='trade'>
-                  <el-select style="width:400px;height:36px;margin-right:50px" v-model="formWork.trade" placeholder="">
-                  <el-option label="" value="shanghai"></el-option>
-                  <el-option label="" value="beijing"></el-option>
-                  </el-select>
+                <el-cascader style="width:400px;height:36px;margin-right:50px"
+                      :options="industryList"
+                      :props="propsOne"
+                      :show-all-levels="false"
+                      v-model="formWork.trade"
+                      >
+                  </el-cascader>
               </el-form-item>
                <el-form-item label="工作时间" class="block" prop='workTime'>
                   <el-date-picker
@@ -664,14 +668,13 @@
         <div class="personalinformation" v-if="personalinformation">
           <div class="personalinformation-img">
             <el-upload
-              style='width:80px;height:80px;margin:32px 0 0 42px'
-              class="avatar-uploader"
-              action="https://jsonplaceholder.typicode.com/posts/"
+              style='width:40px;height:40px;margin:32px 0 0 42px'
+              class="avatar-upload"
+              
               :show-file-list="false"
-              :on-success="handleAvatarSuccess"
-              :before-upload="beforeAvatarUpload">
+              >
               <img v-if="imageUrl" :src="imageUrl" class="avatar">
-              <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+              <i v-else class="el-icon-plus avatar-upload-icon"></i>
             </el-upload>
           </div>
           <div class="img-add" @click="ispersonalinformation"><img :src="require('../assets/images/add.png')"/><span
@@ -714,7 +717,7 @@
                       style="margin-right:3px" @click="showjobintensionList()">编辑</span>
               </span>
             <div style="width:879px">
-              <from :fromData="listjobintension"></from>
+              <from :fromData="targeIdList"></from>
               <br><br>
             </div>
           </li>
@@ -1081,6 +1084,7 @@
             children: 'children'
 
         },
+        targeIdList:'',
         resumesId:'',
         awardsId:'',
         languageId:'',
@@ -1147,7 +1151,7 @@
         awardsinnerVisible:false,
         selfappraisalinnerVisible:false,
         selfappraisalouterVisible:false,
-        listjobintension: '',
+        listjobintension:[],
         listeducational: [],
         listwork: [],
         listprogectperience: [],
@@ -1650,16 +1654,16 @@
       languagekeep(formName) {
          this.$refs[formName].validate(valid => {
           if (valid) {
-            if(this.formlanguage.languages == '一般') {
-              this.formlanguage.languages = 0
-            }else if(this.formlanguage.languages == '良好') {
-              this.formlanguage.languages = 1
+            if(this.formlanguage.listenAbility == '一般') {
+              this.formlanguage.listenAbility = 0
+            }else if(this.formlanguage.listenAbility == '良好') {
+              this.formlanguage.listenAbility = 1
             }
-            else if(this.formlanguage.languages == '熟练') {
-              this.formlanguage.languages = 2
+            else if(this.formlanguage.listenAbility == '熟练') {
+              this.formlanguage.listenAbility = 2
             }
-            else if(this.formlanguage.languages == '精通') {
-              this.formlanguage.languages = 3
+            else if(this.formlanguage.listenAbility == '精通') {
+              this.formlanguage.listenAbility = 3
             }
              this.$http.put(`/resume/${this.resumesId}/language/${this.languageId}`,{language:this.formlanguage.languages,listenAndSpeak:this.formlanguage.listenAbility,readAndWrite:this.formlanguage.readAbility}).then(res => {
               if (res.data.code == 200) {
@@ -1869,6 +1873,7 @@
         this.$http.get('/resume/brief').then(res => {
           if (res.data.code == 200) {
             this.resumesId = res.data.data.defaultResumeId
+            this.targeIdList = res.data.data
             this.resumeId()
             if(res.data.data.base == null) {
               this.showPersonalinformation = false,
@@ -2614,9 +2619,9 @@
           font-weight bold
 
       .cancel:hover
-        background #1f368d
+        background #1d366e
         color white
-        border-color #1f368d
+        border-color #1d366e
 
       .cancel
         margin 0 20px 0 0
@@ -2637,7 +2642,7 @@
         .actions-span
           float right
           font-size 15px
-          color #1f368d
+          color #1d366e
           opacity 0
         &:hover
           background #f7f7f7
@@ -2665,7 +2670,7 @@
           vertical-align middle
           margin 0 0 4px 0
         .main-content-second
-          color #1f368d
+          color #1d366e
           line-height 50px
           margin 0 74px 0 0
         .main-content-second span
@@ -2754,7 +2759,7 @@
 
         .aside-foot-first
           font-family PingFangSC-Regular
-          color #1F368D
+          color #1d366e
           font-size 14px
           text-align left
           margin-left 30px
@@ -2767,6 +2772,10 @@
 
 </style>
 <style lang="stylus">
+  .el-button--primary 
+    color #fff;
+    background-color #1d366e;
+    border-color #1d366e;
   .el-input__inner:hover
     border-color #7d8dcd
   .el-select .el-input__inner:hover
@@ -2774,9 +2783,9 @@
   .el-select-dropdown__item:hover
     color #7d8dcd
   .cancel:hover
-    background #1f368d
+    background #1d366e
     color white
-    border-color #1f368d
+    border-color #1d366e
   .el-button
     width 94px
     height 34px
@@ -2794,9 +2803,9 @@
   .el-button--primary:active
     background #617dcb
   .el-button.is-plain
-    color #1f368d
+    color #1d366e
     background white
-    border-color #1f368d 
+    border-color #1d366e 
   .el-button.is-plain:hover 
     border-color #7d8dcd
     color #7d8dcd
@@ -2804,5 +2813,29 @@
   .el-button.is-plain:active 
     border-color #617dcb
     color #617dcb
-    background white   
+    background white 
+  .avatar-upload .el-upload {
+    border: 1px dashed #d9d9d9;
+    border-radius: 6px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    margin-right:15px
+  }
+  .avatar-upload .el-upload:hover {
+    border-color: #409EFF;
+  }
+  .avatar-upload-icon {
+    font-size: 28px;
+    color: #8c939d;
+    width: 100px;
+    height: 100px;
+    line-height: 100px;
+    text-align: center;
+  }
+  .avatar {
+    width: 100px;
+    height: 100px;
+    display: block;
+  }  
 </style>

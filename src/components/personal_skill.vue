@@ -12,7 +12,7 @@
           <el-option label="精通" value="3"></el-option>
         </el-select>
       </el-form-item>
-      <el-form-item label="获奖证书" style="margin-left:-90px">
+      <el-form-item label="获奖证书" style="margin-left:-110px">
          <el-upload
           class="avatar-uploader"
           :action="uploadUrl"
@@ -120,7 +120,7 @@
     padding 0 0 0 30px
 
   .cancel:hover
-    background #1f368d
+    background #1d366e
     color white
 
   .el-button
@@ -128,4 +128,29 @@
     height 34px
     vertical-align middle
     padding 0px
+</style>
+<style scoped>
+  .avatar-uploader .el-upload {
+    border: 1px dashed #d9d9d9;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    margin-right:30px
+  }
+  .avatar-uploader .el-upload:hover {
+    border-color: #409EFF;
+  }
+  .avatar-uploader-icon {
+    font-size: 28px;
+    color: #8c939d;
+    width: 130px;
+    height: 130px;
+    line-height: 130px;
+    text-align: center;
+  }
+  .avatar {
+    width: 130px;
+    height: 130px;
+    display: block;
+  }
 </style>

@@ -2,7 +2,7 @@
   <div>
     <nav>
       <div class="nav-body">
-        <img @click="gotoHomeUI" :src="require('../assets/images/logo.png')" />
+        <img style="height:40px" @click="gotoHomeUI" :src="require('../assets/images/log.png')" />
         <div class="menu">
           <div class="group" v-if="!ctlHideMenus">
                  <router-link to="/home" index="1">首页</router-link>
@@ -28,12 +28,12 @@
                 </div>
                 <div>
                   <span
-                    style="font-size:14px;color:#1f368d;margin-left:10px;line-height:30px" @click="chorusle"
+                    style="font-size:14px;color:#1d366e;margin-left:10px;line-height:30px" @click="chorusle"
                   >全部标为已读</span>
                 </div>
               </el-dropdown-menu>
             </el-dropdown>
-            <span style="line-height:60px;color:white;padding:0 10px 0 0;font-size:15px;">李康</span>
+            <span style="line-height:60px;color:white;padding:0 10px 0 0;font-size:15px;">{{fullName}}</span>
             <el-dropdown placement="bottom-start" @command="dealMenuClick">
               <img :src="require('../assets/images/tou.png')" />
               <el-dropdown-menu slot="dropdown">
@@ -62,6 +62,7 @@
         },
         data() {
             return {
+              fullName:"",
               chorus:true,
               tok:this.$store.state.token,
               notificationlist:[
@@ -126,10 +127,24 @@
                   console.log(res) 
                 }
               });
-            } 
+            },
+            //获取简历简讯
+      brief () {
+        this.$http.get('/resume/brief').then(res => {
+          if (res.data.code == 200) {
+           
+            this.fullName = res.data.data.base.fullName
+            
+           
+          }
+        }).catch(error => {
+         
+            });
+      },
         },
         created () {
           this.notification()
+          this.brief()
         }
     }
 </script>
@@ -137,7 +152,7 @@
 <style lang="stylus" scoped>
     nav
         z-index 100
-        background-color #1f368d
+        background-color #1d366e
         box-shadow 0px 1px 9px #ccc
         width 100%
         position fixed

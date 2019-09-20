@@ -182,7 +182,7 @@
         </div>
         <div class="content-infor">
           <span>{{item.companyName}}</span>
-          <span>{{item.address.province}} {{item.address.county}} | {{item.size}}人 | {{item.industry-parseInt(item.industry/100)*100|industry}}</span>
+          <span>{{$CodeToTag.CodeToTag([item.address.province,item.address.county],city)[0]+$CodeToTag.CodeToTag([item.address.province,item.address.county],city)[1]}} | {{item.size}}人 | {{item.industry-parseInt(item.industry/100)*100|industry}}</span>
         </div>
         <div class="content-button">
           <span>
@@ -213,7 +213,8 @@
           <span>{{item.company.companyName}}</span>
         </div>
         <div class="footer-second">
-          <span>{{item.workAddress.province}} {{item.workAddress.county}} | {{item.workAgeMin}}-{{item.workAgeMax}}年 | {{item.degreeMin|level}}</span>
+          
+          <span>{{$CodeToTag.CodeToTag([item.workAddress.province,item.workAddress.county],city)[0]+$CodeToTag.CodeToTag([item.workAddress.province,item.workAddress.county],city)[1]}} | {{item.workAgeMin}}-{{item.workAgeMax}}年 | {{item.degreeMin|level}}</span>
           <span>{{item.publishedTime | formatDate}}</span>
           <span>{{item.company.industry-parseInt(item.company.industry/100)*100|industry}} | {{item.company.size}}人</span>
         </div>
@@ -545,6 +546,7 @@ export default {
                 this.contentNull = true;
               } else {
                 this.joblistCompany = true;
+                 this.contentNull = false;
               }
             }
           });
@@ -1005,7 +1007,7 @@ export default {
           padding 4px 6px 
           line-height 15px
           font-size 12px 
-          color #1f368d     
+          color #1d366e     
     .joblist-article div:nth-child(1)
       margin 0 0 0 51px
       text-align left
@@ -1035,7 +1037,7 @@ export default {
           display flex
           flex-direction column 
           float left
-          color  #1F368D
+          color  #1d366e
         .content-infor span:nth-child(1)
           text-align left
           font-family PingFangSC-Regular
@@ -1080,7 +1082,7 @@ export default {
       .footer-first span:nth-child(1)
         margin 36px 0 0 38px
         font-family PingFangSC-Regular
-        color #1f368d
+        color #1d366e
         font-size 16px
       .footer-first span:nth-child(2)
         margin 36px 425px 0 0
@@ -1090,7 +1092,7 @@ export default {
       .footer-first span:nth-child(3)
         margin 36px 178px 0 0 
         font-family PingFangSC-Regular
-        color #1f368d
+        color #1d366e
         font-size 16px 
         font-weight 550
       .footer-second
@@ -1100,7 +1102,7 @@ export default {
       .footer-second span:nth-child(1)
         margin 9px 0 0 38px
         font-family PingFangSC-Regular
-        color #1f368d 
+        color #1d366e 
         font-size 14px
       .footer-second span:nth-child(2)
         margin 9px 215px 0 0
@@ -1110,7 +1112,7 @@ export default {
       .footer-second span:nth-child(3)
         margin 9px 35px 0 0 
         font-family PingFangSC-Regular
-        color #1f368d
+        color #1d366e
         font-size 14px
         width 208px
         text-align left
@@ -1121,7 +1123,7 @@ export default {
       .footer-pagination
         margin 30px 0 0 0
         padding 0 0 20px 0
-        color #1f368d
+        color #1d366e
     .dialog
       display flex
       flex-direction column
@@ -1136,7 +1138,7 @@ export default {
       .dialog-city-first
         font-size 14px
         font-family PingFangSC-Regular
-        color #1f368d
+        color #1d366e
         float left
         margin -10px 0 0 0
       .dialog-city-first span
@@ -1144,7 +1146,7 @@ export default {
       .dialog-city-second
         font-size 14px
         font-family PingFangSC-Regular
-        color #1f368d
+        color #1d366e
         text-align left 
         margin 25px 0 0 0
       .dialog-city-second span
@@ -1178,7 +1180,7 @@ export default {
     padding 4px 6px 
     line-height 15px
     font-size 12px 
-    color #1f368d 
+    color #1d366e 
     border 0px solid red
   .spanCity:hover
     color #617dcb 

@@ -55,7 +55,7 @@
             
             <el-form-item style="margin:0 41px 20px 0">
             <el-button @click="cancel" style="margin:0 10px 0 490px" plain>取消</el-button>
-            <el-button type="primary" @click="JobType">保存</el-button>
+            <el-button type="primary" @click="JobT">保存</el-button>
             </el-form-item>
           </el-form>
   </div>
@@ -77,7 +77,7 @@ export default {
          salaryMin:'',
          salaryMax:'',
          props:{
-              value: 'tag',
+              value: 'code',
               label:'tag',
               children: 'children'
           },
@@ -129,7 +129,8 @@ export default {
       //   }
       // });
     },
-    JobType() {
+    JobT() {
+      
       var len = this.formInline.industry.length
       var lenOne = this.formInline.postType.length
       // console.log(this.industryList);
@@ -175,10 +176,12 @@ export default {
             this.salaryMax = null
             break;           
         }
-       let til = this.formInline.reportTime.getTime();
+       let til = new Date(this.formInline.reportTime).getTime();
+       alert(11111111)
        this.$http.put(`/resume/${this.JobintenDegree}/target`,{positionCatalogs:this.formInline.postType,arriveTime:til,county:this.formInline.city[1],industries:this.formInline.industry,jobSearchStatus:this.formInline.status,jobType:this.formInline.jobType,province:this.formInline.city[0],salaryMin:this.salaryMin,salaryMax:this.salaryMax}).then(res => {
         if (res.data.code == 200) {
-          console.log(res);
+          this.$emit("jobintensionEmit",false,true) 
+          
         }
       });
     },
@@ -231,9 +234,9 @@ export default {
   .el-form-item
     padding 0 0 0 30px
   .cancel:hover
-     background #1f368d  
+     background #1d366e  
      color white
-     border-color #1f368d
+     border-color #1d366e
   .el-button
     width 94px 
     height 34px

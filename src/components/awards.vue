@@ -12,7 +12,7 @@
           placeholder="选择月">
         </el-date-picker>
       </el-form-item>
-      <el-form-item label="获奖证书" style="margin-left:-90px">
+      <el-form-item label="获奖证书" style="margin-left:-110px">
         <el-upload
           class="avatar-uploader"
           :action="uploadUrl"
@@ -129,14 +129,13 @@ export default {
   .el-input__inner:hover
     border-color red 
 </style>
-<style>
+<style scoped>
   .avatar-uploader .el-upload {
     border: 1px dashed #d9d9d9;
-    border-radius: 6px;
     cursor: pointer;
     position: relative;
     overflow: hidden;
-    margin-right:15px
+    margin-right:30px
   }
   .avatar-uploader .el-upload:hover {
     border-color: #409EFF;

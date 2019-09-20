@@ -117,7 +117,7 @@ export default {
         display flex
         flex-direction column
         font-family PingFangSC-Semibold
-        color #1f368d 
+        color #1d366e 
         font-size 16px
         font-weight 550
         .left-line
@@ -126,11 +126,11 @@ export default {
           margin 8px 0 0 0
         .password
           margin 32px 0 0 0
-          color #1f368d 
+          color #1d366e 
           text-decoration none
         .phone
           margin 8px 0 0 0
-          color #1f368d 
+          color #1d366e 
           text-decoration none
         .active
           color #617dcb

@@ -14,10 +14,13 @@
         <el-input style="width:242px;height:36px" v-model="formInline.postName" placeholder></el-input>
       </el-form-item>
       <el-form-item label="行业" style="margin:0 0 0 40px" prop="trade">
-        <el-select style="width:242px;height:36px" v-model="formInline.trade" placeholder>
-          <el-option label value="shanghai"></el-option>
-          <el-option label value="beijing"></el-option>
-        </el-select>
+        <el-cascader style="width:242px;height:36px"
+                    :options="industryList"
+                    :props="propsOne"
+                    :show-all-levels="false"
+                    v-model="formInline.trade"
+                    >
+                </el-cascader>
       </el-form-item>
       <el-form-item label="在校时间" class="block" prop="workTime">
         <el-date-picker
@@ -65,6 +68,13 @@ export default {
         post: "",
         workTime:[]
       },
+      industryList:[],
+      propsOne:{
+              value: 'code',
+              label:'tag',
+              children: 'children',
+              emitPath:false
+          },
       rules: {
         post: [
           { required: true, message: "请输入公司名称", trigger: "blur" }
@@ -95,6 +105,14 @@ export default {
     cancel() {
       this.$emit("workEmit", false, true);
     },
+    //获取所有企业行业
+      allposition() {
+        this.$http.get("/constant/industry").then(res => {
+          if (res.data.code == 200) {
+            this.industryList = res.data.data
+          }
+        });
+      },
     //新增
     keep(formName) {
       this.$refs[formName].validate(valid => {
@@ -135,6 +153,9 @@ export default {
     //       }
     //     });
     // },
+  },
+  created() {
+    this.allposition()
   }
 };
 </script>
@@ -143,7 +164,7 @@ export default {
   .el-form-item
     padding 0 0 0 30px
   .cancel:hover
-    background #1f368d  
+    background #1d366e  
     color white
   .el-button
     width 94px 

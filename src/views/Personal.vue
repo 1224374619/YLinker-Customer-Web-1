@@ -10,7 +10,7 @@
             </div>
             <div class="tabs-second">
               <span>{{list.company.companyName}}</span>
-              <span>{{list.workAddress.province}} {{list.workAddress.county}} | {{list.workAgeMin}}-{{list.workAgeMax}}年 | {{list.degreeMin|level}}</span>
+              <span>{{$CodeToTag.CodeToTag([list.workAddress.province,list.workAddress.county],citysal)[0]+$CodeToTag.CodeToTag([list.workAddress.province,list.workAddress.county],citysal)[1]}} | {{list.workAgeMin}}-{{list.workAgeMax}}年 | {{list.degreeMin|level}}</span>
               <span>
                 {{list.publishedTime|formatDate}}
                 <el-tooltip
@@ -49,7 +49,7 @@
             </div>
             <div class="collect-second">
               <span class="collect-company">{{list.company.companyName}}</span>
-              <span class="collect-city">{{list.workAddress.province}} {{list.workAddress.county}} | {{list.workAgeMin}}-{{list.workAgeMax}}年 | {{list.degreeMin|level}}</span>
+              <span class="collect-city">{{$CodeToTag.CodeToTag([list.workAddress.province,list.workAddress.county],citysal)[0]+$CodeToTag.CodeToTag([list.workAddress.province,list.workAddress.county],citysal)[1]}} | {{list.workAgeMin}}-{{list.workAgeMax}}年 | {{list.degreeMin|level}}</span>
               <span class="collect-button">
                 <el-button class="button" type="primary" @click="iscancel" size="mini">取消收藏</el-button>
               </span>
@@ -98,7 +98,7 @@
           <div class="footer-foot">
             <span>{{list.company.companyName}}</span>
             
-            <span>{{list.workAddress.province}}{{list.workAddress.county}}</span>
+            <span>{{$CodeToTag.CodeToTag([list.workAddress.province,list.workAddress.county],citysal)[0]+$CodeToTag.CodeToTag([list.workAddress.province,list.workAddress.county],citysal)[1]}}</span>
           </div>
           <div class="footer-line"></div>
         </div>
@@ -133,7 +133,8 @@ export default {
         collectNum:4,
         activeName:'first',
         showInfor:true,
-        showWarn:false,
+        showWarn:true,
+        showWarnone:false,
         showTabs:true,
         isshowTabs:false,
         submittedList:[],
@@ -188,6 +189,11 @@ export default {
       brief () {
         this.$http.get('/resume/brief').then(res => {
           if (res.data.code == 200) {
+            if(res.data.data.base == null) {
+              this.showWarn = true
+            }else{
+              this.showWarn = false
+            }
             this.avatarUrl = res.data.data.avatarUrl
             this.fullName = res.data.data.base.fullName
             var til = this.$CodeToTag.CodeToTag([res.data.data.base.province,res.data.data.base.county],this.citysal)
@@ -364,7 +370,7 @@ export default {
       .el-tabs__item
         font-size 15px 
         font-family PingFangSC-Semibold
-        color #1f368d
+        color #1d366e
         font-weight 550
         padding 0 25px
         width 120px
@@ -406,7 +412,7 @@ export default {
         margin 16px 0 0 0
         text-align left
       .tabs-first span:nth-child(1)
-        color #1f368d
+        color #1d366e
         margin 10px 0 0 10px
         width 120px
       .tabs-first span:nth-child(2)
@@ -442,7 +448,7 @@ export default {
       .tabs-pagination
         margin 30px 0 0 0
         padding 0 0 20px 0
-        color #1f368d  
+        color #1d366e
     .personal-right
       width 290px
       margin 0 0 0 10px
@@ -499,7 +505,7 @@ export default {
           padding 24px 0 0 0
         .footer-nav span:nth-child(1)
           font-family PingFangSC-Semibold
-          color #1f368d
+          color #1d366e
           font-size 14px
           margin 0 0 0 20px 
         .footer-nav span:nth-child(2)
@@ -514,7 +520,7 @@ export default {
           margin 15px 0 0 0
         .footer-article span:nth-child(1)
           font-family PingFangSC-Semibold
-          color #1f368d
+          color #1d366e
           font-size 14px
           margin 0 0 0 20px 
         .footer-article span:nth-child(2)

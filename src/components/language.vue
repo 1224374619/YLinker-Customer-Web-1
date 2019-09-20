@@ -91,9 +91,9 @@ export default {
   .el-form-item
     padding 0 0 0 54px
   .cancel:hover
-     background #1f368d  
+     background #1d366e  
      color white
-     border-color #1f368d
+     border-color #1d366e
   .el-button
     width 94px 
     height 34px

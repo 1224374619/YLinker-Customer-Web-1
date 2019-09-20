@@ -54,7 +54,7 @@
                 <div class="map-address">
                   <span
                     class="map-address-span"
-                  >{{this.companyIdList.address.province}}{{this.companyIdList.address.county}}{{this.companyIdList.address.detail}}</span>
+                  >{{$CodeToTag.CodeToTag([this.companyIdList.address.province,this.companyIdList.address.county],citysal)[0]+$CodeToTag.CodeToTag([this.companyIdList.address.province,this.companyIdList.address.county],citysal)[1]}}{{this.companyIdList.address.detail}}</span>
                   <span class="map-address-map">查看地图</span>
                 </div>
                 <baidu-map
@@ -79,7 +79,7 @@
                 >全部（{{this.positionCatalogList}}）</span> -->
                 <span
                   class="posttype-span"
-                >销售经理（{{this.positionCatalogList.total}}）</span>
+                >销售|客服|市场（{{this.positionCatalogList.total}}）</span>
                 <!-- <span
                   class="posttype-span"
                 >销售主管（{{this.positionCatalogList}}）</span> -->
@@ -90,7 +90,7 @@
                   <div style="font-size:15px;margin:0 0 0 15px">{{list.positionName}}</div>
                   <div
                     style="margin:0 0 0 70px"
-                  >{{list.workAddress.province}} {{list.workAddress.county}} | {{list.workAgeMin}}-{{list.workAgeMax}}年 | 本科</div>
+                  >{{$CodeToTag.CodeToTag([list.workAddress.province,list.workAddress.county],citysal)[0]+$CodeToTag.CodeToTag([list.workAddress.province,list.workAddress.county],citysal)[1]}} | {{list.workAgeMin}}-{{list.workAgeMax}}年 | {{list.degreeMin|position}}</div>
                   <div style="margin:0 0 0 130px">{{list.salaryMin}}-{{list.salaryMax}}k</div>
                   <div style="margin:0 0 0 140px">{{list.publishedTime | formatDate}}</div>
                 </div>
@@ -132,6 +132,7 @@ export default {
                 pageSizeOpts: [5,10,20]
             },
       companId:'',
+      citysal:[],
       time:'',
       companyIdList:{},
       center: { lng: 0.2, lat: 0.1 },
@@ -139,6 +140,7 @@ export default {
       table: false,
       information: true,
       activeName: "first",
+      posiCatalogList:[],
       url:
         "https://yinlinkrc-test.oss-cn-shanghai.aliyuncs.com/logo/company/2019-08-31/e747bdbb1f774fdd9da33eb92b4d447a.png",
       tableData: [],
@@ -224,14 +226,38 @@ export default {
       return commonTime;
       
       
-    }
+    },
+    //城市
+      citise() {
+        this.$http.get("/constant/district").then(res => {
+          if (res.data.code == 200) {
+            this.citysal = res.data.data;
+          }
+        });
+      },
+      //获取所有职位类型
+      allpositionCatalog() {
+        this.$http.get("/constant/positionCatalog").then(res => {
+          if (res.data.code == 200) {
+            this.posiCatalogList = res.data.data
+            
+          }
+        });
+      },
   },
+   
   created() {
-    this.companId = this.$route.query.id 
+    this.allpositionCatalog()
+    this.companId = this.$route.query.id
+    this.citise() 
     this.companyId();
     this.positionCatalog();
   },
   filters:{
+    position(position) {
+      const map = ["初中及以下", "职中", "大专", "本科", "硕士", "博士"];
+      return map[position];
+    },
     level(level){
       const map=["国有企业","外资企业","合资企业","民营企业",'事业单位']
       return map[level]
@@ -295,7 +321,7 @@ export default {
 </script>
 <style lang="stylus">
   .el-tabs__item
-    color #1f368d
+    color #1d366e
   .el-tabs__item.is-active
     color #617DCB 
   .el-tabs__active-bar
@@ -315,7 +341,7 @@ export default {
         .aside-nav
           text-align left 
           font-size 30px
-          color #1f368d
+          color #1d366e
           font-weight bold
           padding 0 0 0 10px 
           margin 35px 0 0 0  
@@ -349,7 +375,7 @@ export default {
         .company
           text-align left
           font-size 14px
-          color #1f368d 
+          color #1d366e
           margin 5px 0 0 0
           font-weight bold
         .company-content
@@ -362,7 +388,7 @@ export default {
             .company-address
               text-align left
               font-size 14px
-              color #1f368d 
+              color #1d366e
               font-weight bold 
           .map-address
             display flex
