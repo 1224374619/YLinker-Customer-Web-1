@@ -9,7 +9,7 @@
         <span>{{positionIdList.salaryMin}}-{{positionIdList.salaryMax}}k</span>
       </div>
       <div class="station-nav-content">
-        <div class="content-nav">
+        <div class="content-nav" style='width:400px'>
           
       <span>{{$CodeToTag.CodeToTag([positionIdList.workAddress.province,positionIdList.workAddress.county],citysal)[0]+' ' +' '+$CodeToTag.CodeToTag([positionIdList.workAddress.province,positionIdList.workAddress.county],citysal)[1]}} | {{positionIdList.workAgeMin}}-{{positionIdList.workAgeMax}}年 | {{positionIdList.isGraduate}} | {{positionIdList.jobType}}</span>
         </div>
@@ -22,7 +22,7 @@
               id="deliver"
               style="width:140px;height:40px;"
               type="primary"
-              @click="isclick()"
+              @click="showdeliver"
             >投递简历</el-button>
           </span>
           <span v-if="msg">
@@ -54,7 +54,7 @@
           </span>
         </div>
       </div>
-      <el-dialog :visible.sync="dialogVisible" width="30%" :before-close="handleClose">
+      <el-dialog :visible.sync="dialogVisible" width="30%" >
         <span style="font-size:16px;color:#455379">简历中要至少要填写"基本信息"和"校园经历",否则无法投递呦</span>
         <span slot="footer" class="dialog-footer">
           <el-button
@@ -69,31 +69,7 @@
           >完善简历</el-button>
         </span>
       </el-dialog>
-      <el-dialog :visible.sync="dialogVisibleTwo" style="width:1100px;margin:0 0 0 400px" :before-close="handleClose">
-        <div style="font-size:15px;color:#1d366e;margin:-30px 0 20px 0">请选择想要投递的快递</div>
-        <div>
-          <el-radio-group v-model="radio" style="margin-right:100px">
-            <el-radio :label="3"><span style="font-size:11px">在线简历：完整度80%</span><br><span style="margin:0 0 0 73px;color:#b1b1b1;font-size:11px">上传时间：2019-11-09 23：20</span></el-radio>
-          </el-radio-group>
-          <el-divider></el-divider>
-          <el-radio-group v-model="radio" style="margin-right:100px">
-            <el-radio :label="4"><span style="font-size:11px">在线简历：完整度80%</span><br><span style="margin:0 0 0 73px;color:#b1b1b1;font-size:11px">上传时间：2019-11-09 23：20</span></el-radio>
-          </el-radio-group>
-        </div>
-        <div slot="footer" class="dialog-footer">
-          <el-button
-            style="width:94px;height:34px"
-            @click="dialogVisibleTwo = false"
-            plain
-          >取 消</el-button>
-          <el-button
-            type="primary"
-            style="margin-right:160px;width:94px;height:34px;"
-            @click="showdeliver"
-          >确认投递</el-button>
-        </div>
-      </el-dialog>
-      <el-dialog :visible.sync="dialogVisibleOne" width="30%" :before-close="handleClose">
+      <el-dialog :visible.sync="dialogVisibleOne" width="30%" >
         <span style="font-size:34px;color:#52c41a;">
           <i class="el-icon-circle-check"></i>
         </span>
@@ -301,10 +277,7 @@ export default {
               this.showDeliver = false
               this.al = true
               this.all = true
-              this.isshowCollect = true
-              this.showCollect = false
-              this.msg = false
-              this.almsg = true
+              
             }
             this.positionCompany(),
             this.comId()
@@ -315,7 +288,11 @@ export default {
       showdeli() {
         this.$http.get(`/submitted/position/${this.positiId}`).then(res => {
           if (res.data.code == 200) {
-            if(res.data.data == false) {
+            if(res.data.data === true) {
+              console.log(res.data.data,'123123123123123231')
+              this.almsg = false
+              this.msg = true
+            }else{
               this.almsg = true
               this.msg = false
             }
@@ -326,9 +303,12 @@ export default {
       showcoll() {
         this.$http.get(`/favorite/position/${this.positiId}`).then(res => {
           if (res.data.code == 200) {
-            if(res.data.data == false) {
+            if(res.data.data === false) {
               this.showCollect = false
               this.isshowCollect = true
+            }else{
+              this.showCollect = true
+              this.isshowCollect = false
             }
           }
         });
@@ -383,7 +363,6 @@ export default {
         this.$http.get('/resume/brief').then(res => {
           if (res.data.code == 200) {
             this.resumesId = res.data.data.defaultResumeId
-            
           }
         }).catch(error => {
           
@@ -508,7 +487,8 @@ export default {
         .content-article 
           color #9b9b9b
           font-size 14px
-          margin 0 0 0 300px
+          margin 0 0 0 200px
+          width 200px
       .cancel:hover
         background #1d366e  
         color white

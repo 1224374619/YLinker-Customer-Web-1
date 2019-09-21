@@ -2,7 +2,6 @@
     <div class="from">
         <div style="display:flex;flex-direction:row">
             <div class="fromfirst">
-                <div class="fromfirst-one"><span>{{fromData.company}}</span></div>
                 <div class="fromfirst-one" style="color:#61687c"><span>{{fromData.project}}</span></div>
             </div>
             <div class="fromsecond">

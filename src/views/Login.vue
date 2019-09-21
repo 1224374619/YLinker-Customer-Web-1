@@ -64,7 +64,7 @@ export default {
   },
   methods: {
     ...mapMutations([DONE_LOGIN]),
-    onSubmit() {
+    onSubmit(id) {
       this.$refs["form"].validate(async valid => {
         if (valid) {
           // const res = await signin({ ...this.form });
@@ -73,7 +73,7 @@ export default {
           // }
           // username: "17717291341", password: "21313131311"
           this.$_http
-            .post("/login?returnUrl=http://localhost:8080/api/resume/brief", {
+            .post("/login?returnUrl=http://localhost:8081/api/resume/brief", {
               username: this.form.tel,
               password: this.form.password
             })
@@ -89,7 +89,12 @@ export default {
                 window.sessionStorage.getItem(token)
                 // this.$store.state.cookie = token;
                 // console.log(this.$store.state.cookie)
-                this.$router.push({ path: "/resume" });
+                 if(res.data.data.defaultResumeId == 0) {
+                    this.$router.push({path:'/gap'})
+                  }else{
+                    this.$router.push({path:'/joblist'})
+                  }
+                
               }
               // this.$store.commit('SET_TOKEN', res.data.token)
               // console.log(res.set-cookie)
@@ -99,19 +104,13 @@ export default {
               // }
             })
             .catch(error => {
-              window.sessionStorage.setItem('user',this.form.tel)
-              // this.$message({
-              //   showClose: true,
-              //   message: '输入有误，请重新输入'
-              // });
-              this.$router.push({ path: "/gap" });
-              let token = 'asd1d5.0o9utrf7.12jjkht';
-              // 设置cookie默认过期时间单位是1d(1天)
-              this.$cookie.set('token', token, 1);
-              // this.$cookieStore.addCookie('name',1)
-              // this.$cookieStore.getCookie('name')
-              window.sessionStorage.getItem(token)
-                // this.$store.state.hasLogin = true;
+              
+              
+                this.$message({
+                showClose: true,
+                message: '输入有误，请重新输入'
+                });
+              
               
             });
         } else {

@@ -177,7 +177,7 @@ export default {
             break;           
         }
        let til = new Date(this.formInline.reportTime).getTime();
-       alert(11111111)
+      
        this.$http.put(`/resume/${this.JobintenDegree}/target`,{positionCatalogs:this.formInline.postType,arriveTime:til,county:this.formInline.city[1],industries:this.formInline.industry,jobSearchStatus:this.formInline.status,jobType:this.formInline.jobType,province:this.formInline.city[0],salaryMin:this.salaryMin,salaryMax:this.salaryMax}).then(res => {
         if (res.data.code == 200) {
           this.$emit("jobintensionEmit",false,true) 

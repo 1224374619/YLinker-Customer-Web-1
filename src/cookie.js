@@ -57,8 +57,6 @@ export function CodeToTag(codeArr, list, Alias){
       if (targetList.children && targetList.children.length > 0) {
         getTag(codeArr[tagArr.length], targetList.children);
       }
-    } else {
-      throw new Error('tag is no found！please check the codeArr and list!');
     }
   };
   getTag(codeArr[tagArr.length], list);

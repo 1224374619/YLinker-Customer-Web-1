@@ -81,9 +81,9 @@
       <span style="font-size:12px;color:#7d8dcd" ><a href="#" style="padding:0 0 0 5px;text-decoration:none" v-for="item in keywordList" :key="item">{{item.content}}</a></span>
     </div>
     <div class="carousel">
-      <el-carousel height="307px" :interval="5000">
+      <el-carousel  :interval="5000">
         <el-carousel-item v-for="item in carouselImgs" :key="item">
-          <img style="width:802px" :src="item" />
+          <img style="width:802px;height:340px" :src="item" />
         </el-carousel-item>
       </el-carousel>
     </div>
@@ -215,6 +215,7 @@ export default {
   name: "home",
   data() {
     return {
+      positiId:'',
       positionCatalogList:[],
       provinceButton:'上海',
       cityButton:'',
@@ -239,8 +240,9 @@ export default {
         }
       ],
       carouselImgs: [
-        require("../assets/images/loop1.jpg"),
-        require("../assets/images/loop2.png")
+        require("../assets/images/qq.png"),
+        require("../assets/images/zz.png"),
+        require("../assets/images/yy.png")
       ],
       //热门企业
       imgList: [
@@ -426,6 +428,10 @@ export default {
     // },
   },
   created() {
+    this.positiId = this.$route.query.id;
+    if(this.positiId == 2) {
+      this.$store.state.token = 'asd1d5.0o9utrf7.12jjkht'
+    }
     this.allpositionCatalog()
     this.industry();
     this.carousel();
