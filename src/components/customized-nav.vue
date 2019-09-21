@@ -10,7 +10,7 @@
                         <router-link to="/gap" index="3">简历</router-link>
                  <router-link to="/aboutus/:id" index="4">联系我们</router-link>
           </div>
-          <div class="btn-set" v-if="this.$store.state.token == ''">
+          <div class="btn-set" v-if="this.$store.state.token == null">
             <router-link tag="button" :to="{name:'login'}" index="1">登录</router-link>
             <router-link tag="button" :to="{name:'register'}" index="2">注册</router-link>
           </div>
@@ -101,7 +101,7 @@
                   console.log(res);
                 }
               }).catch(error => {
-                this.$store.state.token = ''
+                this.$store.state.token = null
               this.$router.push({ path: "/login" });
             });;
             },
@@ -143,6 +143,9 @@
       },
         },
         created () {
+          if(this.$store.state.cookie == null) {
+            
+          }
           this.notification()
           this.brief()
         }

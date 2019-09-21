@@ -22,7 +22,7 @@
                     >
                 </el-cascader>
       </el-form-item>
-      <el-form-item label="在校时间" class="block" prop="workTime">
+      <el-form-item label="工作时间" class="block" prop="workTime">
         <el-date-picker
           style="width:240px;height:36px"
           v-model="formInline.workTime"

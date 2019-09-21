@@ -162,11 +162,11 @@
                   <el-radio-button style="margin-right:25px"  label="2" >否</el-radio-button>
                 </el-radio-group>
               </el-form-item><br>
-              <el-form-item label="工作年限" prop='workAge'>
+              <el-form-item label="起始工作时间" prop='workAge'>
                 <el-date-picker
                   v-model='formInformation.workAge'
                   :editable="false"
-                  value-format="yyyy-MM-dd" format="yyyy-MM-dd"
+                  type="year"
                   style="width:400px;height:36px;margin-right:50px"
                   placeholder="选择日期"
                 ></el-date-picker>
@@ -1382,37 +1382,37 @@
         },
         personalrules: {
           name: [
-            { required: true, message: '请输入姓名', trigger: 'blur' },
+            {  message: '请输入姓名', trigger: 'blur' },
             { min: 0, max: 24, message: '长度在 0 到 24 个字符', trigger: 'blur' },
             { pattern:/^[a-zA-Z\u4e00-\u9fa5\s]{0,24}$/, message: '姓名仅支持中文汉字与英文字母', trigger: 'blur' },
           ],
           city: [
-            { required: true, message: '请选择城市', trigger: 'change' },
+            { message: '请选择城市', trigger: 'change' },
           ],
           sex: [
-            { required: true, message: '请选择性别', trigger: 'change' }
+            {  message: '请选择性别', trigger: 'change' }
           ],
           graduate:[
-            { required: true, message: '请选择是否应届', trigger: 'change' }
+            {  message: '请选择是否应届', trigger: 'change' }
           ],
           birthday: [
-            { type: 'string', required: true,message: '请选择日期', trigger: 'change' }
+            { type: 'date',message: '请选择日期', trigger: 'change' }
           ],
           educationLevel: [
-            { required: true, message: '请选择学历', trigger: 'change' }
+            { message: '请选择学历', trigger: 'change' }
           ],
           workAge: [
-            { type: 'string', required: true, message: '请选择工作年限', trigger: 'change' }
+            { type: 'date', message: '请选择工作年限', trigger: 'change' }
           ],
           politicCountenance: [
-            { required: true, message: '请选择政治面貌', trigger: 'change' }
+            { message: '请选择政治面貌', trigger: 'change' }
           ],
           phone: [
-            { required: true, message: '请填写手机号', trigger: 'change' },
+            { message: '请填写手机号', trigger: 'change' },
             { pattern:/^[1][3578][0-9]{9}$/,message: '请输入正确的手机号', trigger: ['change','blur'] },
           ],
           email: [
-            { required: true, message: '请填写邮箱', trigger: 'change' },
+            { message: '请填写邮箱', trigger: 'change' },
             { pattern:/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/,message: '请输入正确的邮箱', trigger: ['change','blur'] },
           ],
         },
@@ -1510,7 +1510,7 @@
               if (res.data.code == 200) {
                 // console.log(res);
                 this.jobintensionouterVisible = false
-                 this.resumeId()
+                 this.brief()
               }
             });
            
@@ -1728,7 +1728,7 @@
             }else{
               var eduTime = till
             }
-            this.$http.put(`/resume/${this.resumesId}/project/${this.progectId}`,{duty:this.formProject.duty,endTime:eduTime,beginTime:til,company:this.formProject.companyName,description: this.formProject.project,project:this.formProject.companyName}).then(res => {
+            this.$http.put(`/resume/${this.resumesId}/project/${this.progectId}`,{duty:this.formProject.duty,endTime:eduTime,beginTime:til,company:this.formProject.companyName,description:this.formProject.project,project:this.formProject.itemName}).then(res => {
               if (res.data.code == 200) {
                 // console.log(res);
                this.progectouterVisible = false
@@ -2054,7 +2054,7 @@
         this.showJob = c[0],
         this.showjobintension = c[1]
         this.showadd = c[1]
-         this.resumeId()
+         this.brief()
       },
       //荣誉奖项（$emit）
       awardsemit(c) {

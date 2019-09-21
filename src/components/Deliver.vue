@@ -26,8 +26,8 @@
             <span>{{list.salaryMin}}-{{list.salaryMax}}k</span>
           </div>
           <div class="company-address">
-            <span>{{companyName}}</span>
-            <span>{{list.workAddress.province}}{{list.workAddress.county}}</span>
+            <span>{{list.positionName}}</span>
+            <span>{{$CodeToTag.CodeToTag([list.workAddress.province,list.workAddress.county],city)[0]+$CodeToTag.CodeToTag([list.workAddress.province,list.workAddress.county],city)[1]}}</span>
           </div>
           <div class="line"></div>
         </div>
@@ -42,7 +42,8 @@ export default {
   props: ["fromData"],
   data() {
     return {
-      hotpositionList: []
+      hotpositionList: [],
+      city:[]
     };
   },
   methods: {
@@ -62,10 +63,19 @@ export default {
           this.hotpositionList = res.data.data.list;
         }
       });
-    }
+    },
+     //城市
+    citise() {
+      this.$http.get("/constant/district").then(res => {
+        if (res.data.code == 200) {
+          this.city = res.data.data;
+        }
+      });
+    },
   },
   created() {
     this.positionCompany();
+    this.citise()
   }
 };
 </script>

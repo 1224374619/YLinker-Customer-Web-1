@@ -213,7 +213,6 @@
           <span>{{item.company.companyName}}</span>
         </div>
         <div class="footer-second">
-          
           <span>{{$CodeToTag.CodeToTag([item.workAddress.province,item.workAddress.county],city)[0]+$CodeToTag.CodeToTag([item.workAddress.province,item.workAddress.county],city)[1]}} | {{item.workAgeMin}}-{{item.workAgeMax}}年 | {{item.degreeMin|level}}</span>
           <span>{{item.publishedTime | formatDate}}</span>
           <span>{{item.company.industry-parseInt(item.company.industry/100)*100|industry}} | {{item.company.size}}人</span>
@@ -777,7 +776,7 @@ export default {
     }
   },
   created() {
-    // this.positionId()
+    this.$store.state.token = 'asd1d5.0o9utrf7.12jjkht'
     this.allposition();
     this.enterpriseForm();
     this.positionCatalog();
@@ -1090,7 +1089,7 @@ export default {
         color #6EC5D2 
         font-size 16px
       .footer-first span:nth-child(3)
-        margin 36px 178px 0 0 
+        margin 36px 158px 0 0 
         font-family PingFangSC-Regular
         color #1d366e
         font-size 16px 
