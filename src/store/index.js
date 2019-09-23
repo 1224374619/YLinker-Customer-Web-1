@@ -34,9 +34,9 @@ export default new Vuex.Store({
     LOGOUT: (state) => {
       // 登出的时候要清除token
       state.token = null
-      state.user = null
+      // state.user = null
       window.sessionStorage.removeItem('token')
-      window.sessionStorage.removeItem('user')
+      // window.sessionStorage.removeItem('user')
     }
   }
 });

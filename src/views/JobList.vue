@@ -44,8 +44,8 @@
             v-for="(list,index) in sliceArr"
             :key="index"
           >{{list.tag}}</el-radio-button>
-          <!-- <span class="article-title">行政区：</span> -->
         </el-radio-group>
+        <span style="font-size:12px;margin-top:3px;margin-left:15px"  @click="moreOne">更多<i class="el-icon-caret-bottom"></i></span>
       </div>
       <div class="article" v-if="isshow">
         <el-radio-group size="small" v-model="workExperience">
@@ -134,30 +134,18 @@
           <el-radio-button
             class="article-content"
             :label="index"
-            v-for="(list,index) in industryList"
+            v-for="(list,index) in industryList.slice(0, 5)"
             :key="index"
           >{{list.tag}}</el-radio-button>
+          <el-radio-button  v-if="isduty" v-model="duty" class="article-content" v-for="(list,index) in industryList.slice(6)" :label="index+5" :key='index'>{{list.tag}}</el-radio-button>
         </el-radio-group>
+        <span style="font-size:14px" @click="more">更多<i class="el-icon-caret-bottom"></i></span>
       </div>
-      <div style="margin-bottom:10px;margin-top:0px;" v-if="isduty">
-        <el-checkbox-group size="small" v-model="menu" style="width:770px;margin:0 0 0 -5px">
+      <div class="article" style="margin-bottom:10px;margin-top:-1px" >
+        <el-radio-group size="small" v-model="menu" style="width:700px;margin:0 0 0 67px;">
           <div>111</div>
-          <el-checkbox-button label="1">行业</el-checkbox-button>
-          <el-checkbox-button label="2">行业</el-checkbox-button>
-          <el-checkbox-button label="3">行业</el-checkbox-button>
-          <el-checkbox-button label="4">行业</el-checkbox-button>
-          <el-checkbox-button label="5">行业</el-checkbox-button>
-          <el-checkbox-button label="1">行业</el-checkbox-button>
-          <el-checkbox-button label="2">行业</el-checkbox-button>
-          <el-checkbox-button label="3">行业</el-checkbox-button>
-          <el-checkbox-button label="4">行业</el-checkbox-button>
-          <el-checkbox-button label="5">行业</el-checkbox-button>
-          <el-checkbox-button label="1">行业</el-checkbox-button>
-          <el-checkbox-button label="2">行业</el-checkbox-button>
-          <el-checkbox-button label="3">行业</el-checkbox-button>
-          <el-checkbox-button label="4">行业</el-checkbox-button>
-          <el-checkbox-button label="5">行业</el-checkbox-button>
-        </el-checkbox-group>
+          
+        </el-radio-group>
       </div>
 
       <div class="article-button" v-if="articleButton">
@@ -213,7 +201,8 @@
           <span>{{item.company.companyName}}</span>
         </div>
         <div class="footer-second">
-          <span>{{$CodeToTag.CodeToTag([item.workAddress.province,item.workAddress.county],city)[0]+$CodeToTag.CodeToTag([item.workAddress.province,item.workAddress.county],city)[1]}} | {{item.workAgeMin}}-{{item.workAgeMax}}年 | {{item.degreeMin|level}}</span>
+          <span v-if='item.workAgeMax == null'>{{$CodeToTag.CodeToTag([item.workAddress.province,item.workAddress.county],city)[0]+$CodeToTag.CodeToTag([item.workAddress.province,item.workAddress.county],city)[1]}} | 10年以上 | {{item.degreeMin|level}}</span>
+          <span v-else>{{$CodeToTag.CodeToTag([item.workAddress.province,item.workAddress.county],city)[0]+$CodeToTag.CodeToTag([item.workAddress.province,item.workAddress.county],city)[1]}} | {{item.workAgeMin}}-{{item.workAgeMax}}年 | {{item.degreeMin|level}}</span>
           <span>{{item.publishedTime | formatDate}}</span>
           <span>{{item.company.industry-parseInt(item.company.industry/100)*100|industry}} | {{item.company.size}}人</span>
         </div>
@@ -473,6 +462,9 @@ export default {
     },
     more() {
       this.isduty = true;
+    },
+    moreOne() {
+      this.dialogVisible = true;
     },
     //城市
     citise() {
@@ -776,7 +768,6 @@ export default {
     }
   },
   created() {
-    this.$store.state.token = 'asd1d5.0o9utrf7.12jjkht'
     this.allposition();
     this.enterpriseForm();
     this.positionCatalog();
@@ -1078,43 +1069,52 @@ export default {
         display flex
         flex-direction row
         justify-content space-between
+        text-align left
       .footer-first span:nth-child(1)
         margin 36px 0 0 38px
         font-family PingFangSC-Regular
         color #1d366e
+        width 300px
         font-size 16px
       .footer-first span:nth-child(2)
-        margin 36px 425px 0 0
+        margin 36px 210px 0 0
         font-family PingFangSC-Regular
+        
+        width 100px
         color #6EC5D2 
         font-size 16px
       .footer-first span:nth-child(3)
-        margin 36px 158px 0 0 
+        margin 36px 50px 0 0 
         font-family PingFangSC-Regular
         color #1d366e
+        width 200px
+        
         font-size 16px 
         font-weight 550
       .footer-second
         display flex
         flex-direction row
+        text-align left
         justify-content space-between
       .footer-second span:nth-child(1)
         margin 9px 0 0 38px
         font-family PingFangSC-Regular
         color #1d366e 
+        width 300px
         font-size 14px
       .footer-second span:nth-child(2)
         margin 9px 215px 0 0
         font-family PingFangSC-Regular
-        color #909090 
+        color #909090    
+        width 100px
         font-size 14px  
       .footer-second span:nth-child(3)
-        margin 9px 35px 0 0 
+        margin 9px 45px 0 0 
         font-family PingFangSC-Regular
         color #1d366e
         font-size 14px
         width 208px
-        text-align left
+        
       .footer-line
         width 810px
         border 0.5px solid #f0f0f0

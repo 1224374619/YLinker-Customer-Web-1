@@ -73,28 +73,19 @@ export default {
           // }
           // username: "17717291341", password: "21313131311"
           this.$_http
-            .post("/login?returnUrl=http://localhost:8081/api/resume/brief", {
+            .post("/login?returnUrl=http://localhost:8082/api/resume/brief", {
               username: this.form.tel,
               password: this.form.password
             })
             .then(res => {
               if (res.data.code == 200) {
                 window.sessionStorage.setItem('user',this.form.tel)
-                // this.$router.push({ path: "/gap" });
                 let token = 'asd1d5.0o9utrf7.12jjkht';
                 // 设置cookie默认过期时间单位是1d(1天)
-                this.$cookie.set('token', token, 1);
-                // this.$cookieStore.addCookie('name',1)
-                // this.$cookieStore.getCookie('name')
-                window.sessionStorage.getItem(token)
-                // this.$store.state.cookie = token;
-                // console.log(this.$store.state.cookie)
-                 if(res.data.data.defaultResumeId == 0) {
-                    this.$router.push({path:'/gap'})
-                  }else{
-                    this.$router.push({path:'/joblist'})
-                  }
-                
+                // this.$cookie.set('token', token, 1);
+                this.$store.commit('SET_TOKEN',token);
+                // window.sessionStorage.setItem('token',token)
+                this.$router.push({path:'/home'})
               }
               // this.$store.commit('SET_TOKEN', res.data.token)
               // console.log(res.set-cookie)
@@ -127,11 +118,11 @@ export default {
     aaa() {
       console.log(this.$cookies.get("SESSION") + "34343434");
     }
+  },
+  created() {
+    console.log(this.$cookies.get('SESSION')+'34343434')
+    this.$cookies.get('session')
   }
-  // created() {
-  //   console.log(this.$cookies.get('SESSION')+'34343434')
-  //   this.$cookies.get('session')
-  // }
 };
 </script>
 

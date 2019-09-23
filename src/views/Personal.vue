@@ -10,11 +10,12 @@
             </div>
             <div class="tabs-second">
               <span>{{list.company.companyName}}</span>
-              <span>{{$CodeToTag.CodeToTag([list.workAddress.province,list.workAddress.county],citysal)[0]+$CodeToTag.CodeToTag([list.workAddress.province,list.workAddress.county],citysal)[1]}} | {{list.workAgeMin}}-{{list.workAgeMax}}年 | {{list.degreeMin|level}}</span>
-              <span>
+              <span v-if="list.workAgeMax == null">{{$CodeToTag.CodeToTag([list.workAddress.province,list.workAddress.county],citysal)[0]+$CodeToTag.CodeToTag([list.workAddress.province,list.workAddress.county],citysal)[1]}} | 10年以上 | {{list.degreeMin|level}}</span>
+              <span v-else>{{$CodeToTag.CodeToTag([list.workAddress.province,list.workAddress.county],citysal)[0]+$CodeToTag.CodeToTag([list.workAddress.province,list.workAddress.county],citysal)[1]}} | {{list.workAgeMin}}-{{list.workAgeMax}}年 | {{list.degreeMin|level}}</span>
+              <p>
                 {{list.publishedTime|formatDate}}
                 <el-tooltip
-                  style="padding-left:19px;font-size:14px;color:#909090"
+                  style="font-size:14px;color:#909090"
                   class="item"
                   effect="dark"
                   placement="top-end"
@@ -23,9 +24,9 @@
                    {{list.publishedTime|formatDate}}  投递成功
                     <br />{{list.publishedTime|formatDate}}  被查看
                   </div>
-                  <span>被查看</span>
+                  <span style="font-size:20px">被查看</span>
                 </el-tooltip>
-              </span>
+              </p>
             </div>
             <div class="tabs-line"></div>
           </div>
@@ -51,7 +52,7 @@
               <span class="collect-company">{{list.company.companyName}}</span>
               <span class="collect-city">{{$CodeToTag.CodeToTag([list.workAddress.province,list.workAddress.county],citysal)[0]+$CodeToTag.CodeToTag([list.workAddress.province,list.workAddress.county],citysal)[1]}} | {{list.workAgeMin}}-{{list.workAgeMax}}年 | {{list.degreeMin|level}}</span>
               <span class="collect-button">
-                <el-button class="button" type="primary" @click="iscancel" size="mini">取消收藏</el-button>
+                <el-button class="button" type="primary" @click="iscancel(list.id)" size="mini">取消收藏</el-button>
               </span>
             </div>
             <div class="collect-line"></div>
@@ -230,9 +231,10 @@ export default {
         });
       },
       //取消对岗位的收藏
-      iscancel() {
-          this.$http.delete(`/favorite/position/${2}`).then(res => {
+      iscancel(c) {
+          this.$http.delete(`/favorite/position/${c}`).then(res => {
           if (res.data.code == 200) {
+            this.favorite()
           }
         });
       },
@@ -352,7 +354,7 @@ export default {
   .personal
     display flex
     flex-direction row
-    margin 90px 0 0 0
+    margin 90px auto 0
     width 1000px
     .hover:hover
       background  #f7f7f7
@@ -414,7 +416,7 @@ export default {
       .tabs-first span:nth-child(1)
         color #1d366e
         margin 10px 0 0 10px
-        width 120px
+        width 180px
       .tabs-first span:nth-child(2)
         color #617dcb
         margin 10px 0 0 0
@@ -427,15 +429,18 @@ export default {
         margin 10px 0 0 0
       .tabs-second span:nth-child(1)
         font-size 16px 
+        
         margin 0 0 0 10px
-        width 100px
+        width 150px
       .tabs-second span:nth-child(2)
-        margin 2px 160px 7px 0
-        width 200px
+        margin 2px 0 7px 0
+        width 300px
         font-size 14px
-      .tabs-second span:nth-child(3)
+      .tabs-second p
         margin  0 10px 0 0
         font-size 14px
+        text-align right
+        width 160px
         color #909090
         .time
           font-size 14px

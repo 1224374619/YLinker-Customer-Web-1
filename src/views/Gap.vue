@@ -52,8 +52,6 @@ export default {
     },
   },
   created () {
-    this.$store.state.token = 'asd1d5.0o9utrf7.12jjkht'
-    console.log(this.$store.state.cookie,'23232323')
     this.$http.get('/resume/brief').then(res => {
           if (res.data.code == 200) {
             if(res.data.data.defaultResumeId == 0) {

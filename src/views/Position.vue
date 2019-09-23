@@ -87,12 +87,11 @@
               </div>
               <div v-for="(list,index) in tableData" :key="index" @click="next(list.id)">
                 <div class="position-tab">
-                  <div style="font-size:15px;margin:0 0 0 15px">{{list.positionName}}</div>
-                  <div
-                    style="margin:0 0 0 70px"
-                  >{{$CodeToTag.CodeToTag([list.workAddress.province,list.workAddress.county],citysal)[0]+$CodeToTag.CodeToTag([list.workAddress.province,list.workAddress.county],citysal)[1]}} | {{list.workAgeMin}}-{{list.workAgeMax}}年 | {{list.degreeMin|position}}</div>
-                  <div style="margin:0 0 0 130px">{{list.salaryMin}}-{{list.salaryMax}}k</div>
-                  <div style="margin:0 0 0 140px">{{list.publishedTime | formatDate}}</div>
+                  <div style="font-size:15px;margin:0 0 0 15px;width:200px;text-align:left">{{list.positionName}}</div>
+                  <div v-if='list.workAgeMax == null' style="margin:0 0 0 0;width:300px;text-align:left;">{{$CodeToTag.CodeToTag([list.workAddress.province,list.workAddress.county],citysal)[0]+$CodeToTag.CodeToTag([list.workAddress.province,list.workAddress.county],citysal)[1]}} | 10年以上 | {{list.degreeMin|position}}</div>
+                  <div v-else style="margin:0 0 0 0;width:300px;text-align:left;">{{$CodeToTag.CodeToTag([list.workAddress.province,list.workAddress.county],citysal)[0]+$CodeToTag.CodeToTag([list.workAddress.province,list.workAddress.county],citysal)[1]}} | {{list.workAgeMin}}-{{list.workAgeMax}}年 | {{list.degreeMin|position}}</div>
+                  <div style="margin:0 0 0 0;width:100px;text-align:left;">{{list.salaryMin}}-{{list.salaryMax}}k</div>
+                  <div style="margin:0 0 0 0">{{list.publishedTime | formatDate}}</div>
                 </div>
                 <div class="line-tab"></div>
               </div>
