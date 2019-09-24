@@ -98,7 +98,7 @@
           </div>
           <div class="footer-foot">
             <span>{{list.company.companyName}}</span>
-            
+
             <span>{{$CodeToTag.CodeToTag([list.workAddress.province,list.workAddress.county],citysal)[0]+$CodeToTag.CodeToTag([list.workAddress.province,list.workAddress.county],citysal)[1]}}</span>
           </div>
           <div class="footer-line"></div>
@@ -109,8 +109,8 @@
 </template>
 
 <script>
-import datacenterBus from '../apis/datacenterBus.js';
-import { submitted } from "../apis/account";
+import datacenterBus from 'apis/datacenterBus.js';
+import { submitted,brief } from "apis/account";
 export default {
   name: 'personal',
   components: {
@@ -155,7 +155,7 @@ export default {
       next() {
         this.$router.push({path:'/joblist'})
       },
-      toPerson() { 
+      toPerson() {
         this.$router.push({path:'/inforchange'})
       },
       //编辑个人信息
@@ -165,8 +165,7 @@ export default {
       },
       //获取投递过的岗位
       submitt() {
-        //  const res = await submitted();
-          submitted().then(res => {
+        submitted().then(res => {
           if (res.data.code == 200) {
             this.submittedList = res.data.data.list;
             this.page1.total = res.data.data.total
@@ -175,7 +174,7 @@ export default {
       },
       //获取简历简讯
       brief () {
-        this.$http.get('/resume/brief').then(res => {
+       brief().then(res => {
           if (res.data.code == 200) {
             if(res.data.data.base == null) {
               this.showWarn = true
@@ -190,7 +189,7 @@ export default {
             this.age = res.data.data.base.age
             this.jobSearchStatus =  res.data.data.target.jobSearchStatus
             if(res.data.data.target.jobSearchStatus == 1) {
-                this.jobSearchStatus = '离职-延时到岗'  
+                this.jobSearchStatus = '离职-延时到岗'
               }else if(res.data.data.target.jobSearchStatus == 0) {
                 this.jobSearchStatus = '离职-随时到岗'
               }else if(res.data.data.target.jobSearchStatus == 2) {
@@ -199,7 +198,7 @@ export default {
                this.jobSearchStatus = '在职-暂不到岗'
               }
               if(res.data.data.target.jobType == 1) {
-                this.state = '实习'  
+                this.state = '实习'
               }else if(res.data.data.target.jobType == 2) {
                 this.state = '全职'
               }else if(res.data.data.target.jobType == 3) {
@@ -210,16 +209,16 @@ export default {
       },
       //获取收藏的岗位
       favorite() {
-          this.$http.get('/favorite/position').then(res => {
+          favorite().then(res => {
           if (res.data.code == 200) {
-            this.favoriteList = res.data.data.list; 
+            this.favoriteList = res.data.data.list;
             this.page.total = res.data.data.total
           }
         });
       },
       //取消对岗位的收藏
       iscancel(c) {
-          this.$http.delete(`/favorite/position/${c}`).then(res => {
+         isfavorite(c).then(res => {
           if (res.data.code == 200) {
             this.favorite()
           }
@@ -227,36 +226,16 @@ export default {
       },
       //城市
       citise() {
-        this.$http.get("/constant/district").then(res => {
+        city().then(res => {
           if (res.data.code == 200) {
             this.citysal = res.data.data;
-            console.log(this.citysal)
           }
         });
       },
       //获取推荐岗位
       searched() {
-        this.$http
-          .post("/searched/position", {
-            county: this.citycode,
-            degreeMin: this.Education,
-            industry: this.duty,
-            isGraduate: this.isGraduate,
-            jobType: this.workState,
-            keyword: this.searchContent,
-            pageNum: 0,
-            pageSize: 10,
-            province: this.provincecode,
-            publishedInterval: this.release,
-            salaryMax: this.salaryMax,
-            salaryMin: this.salaryMin,
-            size: this.scale,
-            workAgeMax: this.workAgeMax,
-            workAgeMin: this.workAgeMin
-          })
-          .then(res => {
+        searched().then(res => {
             if (res.data.code == 200) {
-              
               this.positionList = res.data.data.list;
               if (res.data.data.total == 0) {
               } else {
@@ -269,10 +248,8 @@ export default {
       this.citise()
       this.submitt();
       this.favorite();
-      
       this.brief()
       this.searched();
-      
     },
     filters:{
     level(level){
@@ -337,7 +314,7 @@ export default {
 }
 </script>
 
-<style lang="stylus"> 
+<style lang="stylus">
   .personal
     display flex
     flex-direction row
@@ -351,13 +328,13 @@ export default {
       .personal-tabs
         margin 16px 0 0 35px
       .el-tabs__nav-wrap:after
-        height 0px 
+        height 0px
       .el-tabs__item.is-active
         color #617DCB
       .el-tabs__active-bar
-        background-color #617DCB  
+        background-color #617DCB
       .el-tabs__item
-        font-size 15px 
+        font-size 15px
         font-family PingFangSC-Semibold
         color #1d366e
         font-weight 550
@@ -365,7 +342,7 @@ export default {
         width 120px
       .collect-second
         display flex
-        flex-direction row 
+        flex-direction row
         justify-content space-between
         margin 10px 0 15px 0
       .collect-line
@@ -374,7 +351,7 @@ export default {
         border 0.5px solid #f0f0f0
       .collect-pagination
         margin 30px 0 0 0
-        padding 0 0 20px 0    
+        padding 0 0 20px 0
       .collect-company
         font-size 16px
         margin 0 0 0 10px
@@ -382,7 +359,7 @@ export default {
         text-align left
       .collect-city
         margin 2px 205px 1px 0
-        font-size 14px 
+        font-size 14px
       .collect-button
         margin -5px 10px 0 0
         font-size 12px
@@ -392,7 +369,7 @@ export default {
           margin -6px 0 0 0
         .button:focus
           background-color #d8d8d8
-          border 1px solid #d8d8d8   
+          border 1px solid #d8d8d8
       .tabs-first
         display flex
         flex-direction row
@@ -415,8 +392,8 @@ export default {
         text-align left
         margin 10px 0 0 0
       .tabs-second span:nth-child(1)
-        font-size 16px 
-        
+        font-size 16px
+
         margin 0 0 0 10px
         width 150px
       .tabs-second span:nth-child(2)
@@ -432,7 +409,7 @@ export default {
         .time
           font-size 14px
           margin 0 0 0 20px
-          color #909090 
+          color #909090
       .tabs-line
         width 630px
         margin 10px 0 0 0
@@ -456,14 +433,14 @@ export default {
           opacity 0
         &:hover
           .span-hover
-              opacity 1  
-        .span-name 
+              opacity 1
+        .span-name
           font-family PingFangSC-Regular
-          color #455379 
+          color #455379
           font-size 14px
           margin 10px 0 0 10px
           text-align center
-        .span-name img 
+        .span-name img
           width 15px
           height 15px
           margin 0 0 0 5px
@@ -473,14 +450,14 @@ export default {
           flex-direction column
           .span-city
             font-family PingFangSC-Regular
-            color #455379 
+            color #455379
             font-size 14px
             margin 10px 0 0 0
           .span-type
             font-family PingFangSC-Regular
-            color #455379 
-            font-size 14px 
-            margin 10px 0 11px 0      
+            color #455379
+            font-size 14px
+            margin 10px 0 11px 0
       .right-nav img
         font-family PingFangSC-Regular
         color #909090
@@ -499,11 +476,11 @@ export default {
           font-family PingFangSC-Semibold
           color #1d366e
           font-size 14px
-          margin 0 0 0 20px 
+          margin 0 0 0 20px
         .footer-nav span:nth-child(2)
           font-family PingFangSC-Semibold
           color #617DCB
-          font-size 12px 
+          font-size 12px
           margin 0 15px 0 0
         .footer-article
           display flex
@@ -514,11 +491,11 @@ export default {
           font-family PingFangSC-Semibold
           color #1d366e
           font-size 14px
-          margin 0 0 0 20px 
+          margin 0 0 0 20px
         .footer-article span:nth-child(2)
           font-family PingFangSC-Semibold
           color #617dcb
-          font-size 15px 
+          font-size 15px
           margin 0 24px 0 0
         .footer-foot
           display flex
@@ -528,13 +505,13 @@ export default {
         .footer-foot span:nth-child(1)
           font-family PingFangSC-Semibold
           font-size 12px
-          margin 0 0 0 20px 
+          margin 0 0 0 20px
         .footer-foot span:nth-child(2)
           font-family PingFangSC-Semibold
-          font-size 12px 
+          font-size 12px
           margin 0 24px 0 0
-        .footer-line 
-          width 240px 
+        .footer-line
+          width 240px
           border 0.5px solid #f0f0f0
-          margin 6px 0 0 24px      
+          margin 6px 0 0 24px
 </style>

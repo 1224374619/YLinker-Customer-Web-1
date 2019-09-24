@@ -73,7 +73,7 @@ export default {
           // }
           // username: "17717291341", password: "21313131311"
           this.$_http
-            .post("/login?returnUrl=http://localhost:8082/api/resume/brief", {
+            .post(`/login?returnUrl=http://${document.location.host}/api/resume/brief`, {
               username: this.form.tel,
               password: this.form.password
             })
@@ -95,14 +95,14 @@ export default {
               // }
             })
             .catch(error => {
-              
-              
+
+
                 this.$message({
                 showClose: true,
                 message: '输入有误，请重新输入'
                 });
-              
-              
+
+
             });
         } else {
           return false;
@@ -160,5 +160,5 @@ export default {
             justify-content space-around
             margin-left 80px
           span
-            font-size 20px 
+            font-size 20px
 </style>
