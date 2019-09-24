@@ -133,7 +133,7 @@
         <!-- 基本信息编辑 -->
         <el-dialog title="基本信息编辑" style="width:1150px;margin-left:15%" :visible.sync="informationouterVisible">
           <el-dialog
-            style="width:900px;margin-left:21%"
+            style="width:950px;margin-left:21%"
             :visible.sync="informationinnerVisible"
             append-to-body>
             <div style="display:flex;flex-direction:row;margin-left:120px">
@@ -146,17 +146,17 @@
             </div>
           </el-dialog>
           <div>
-            <el-form :model="formInformation" class="demo-form-inline" label-width="100px" :rules="personalrules"  ref="formInformation">
+            <el-form :model="formInformation" class="demo-form-inline" label-width="110px" :rules="personalrules"  ref="formInformation">
               <el-form-item label="姓名" prop='name'>
                 <el-input style="width:400px;height:36px;margin-right:50px" v-model='formInformation.name'  placeholder="请输入姓名"></el-input>
               </el-form-item>
-              <el-form-item label="性别" style="margin:0 285px 0 0" prop='sex'>
+              <el-form-item label="性别" style="margin:0 275px 0 0" prop='sex'>
                 <el-radio-group v-model='formInformation.sex'>
                   <el-radio-button  label="0" >男性</el-radio-button>
                   <el-radio-button  label="1" >女性</el-radio-button>
                 </el-radio-group>
               </el-form-item><br>
-              <el-form-item label="是否应届" style="margin:0 285px 0 0" prop='graduate'>
+              <el-form-item label="是否应届" style="margin:0 275px 0 0" prop='graduate'>
                 <el-radio-group v-model='formInformation.graduate'>
                   <el-radio-button  label="1" >是</el-radio-button>
                   <el-radio-button style="margin-right:25px"  label="2" >否</el-radio-button>
@@ -165,7 +165,6 @@
               <el-form-item label="起始工作时间" prop='workAge'>
                 <el-date-picker
                   v-model='formInformation.workAge'
-                  :editable="false"
                   type="year"
                   style="width:400px;height:36px;margin-right:50px"
                   placeholder="选择日期"
@@ -205,6 +204,7 @@
               <el-form-item label="生日" prop='birthday'>
                 <el-date-picker
                   v-model='formInformation.birthday'
+                  type="date"
                   style="width:400px;height:36px;margin-right:50px"
                   placeholder="选择日期"
                 ></el-date-picker>
@@ -1382,37 +1382,37 @@
         },
         personalrules: {
           name: [
-            {  message: '请输入姓名', trigger: 'blur' },
+            {required: true, message: '请输入姓名', trigger: 'blur' },
             { min: 0, max: 24, message: '长度在 0 到 24 个字符', trigger: 'blur' },
             { pattern:/^[a-zA-Z\u4e00-\u9fa5\s]{0,24}$/, message: '姓名仅支持中文汉字与英文字母', trigger: 'blur' },
           ],
           city: [
-            { message: '请选择城市', trigger: 'change' },
+            {required: true,message: '请选择城市', trigger: 'blur' },
           ],
           sex: [
-            {  message: '请选择性别', trigger: 'change' }
+            {required: true, message: '请选择性别', trigger: 'blur' }
           ],
           graduate:[
-            {  message: '请选择是否应届', trigger: 'change' }
+            {required: true,  message: '请选择是否应届', trigger: 'change' }
           ],
           birthday: [
-            { type: 'date',message: '请选择日期', trigger: 'change' }
+            {required: true, message: '请选择日期', trigger: 'change' }
           ],
           educationLevel: [
-            { message: '请选择学历', trigger: 'change' }
+            {required: true, message: '请选择学历', trigger: 'change' }
           ],
           workAge: [
-            { type: 'date', message: '请选择工作年限', trigger: 'change' }
+            { required: true,message: '请选择工作年限', trigger: 'change' }
           ],
           politicCountenance: [
-            { message: '请选择政治面貌', trigger: 'change' }
+            {required: true, message: '请选择政治面貌', trigger: 'change' }
           ],
           phone: [
-            { message: '请填写手机号', trigger: 'change' },
+            {required: true, message: '请填写手机号', trigger: 'change' },
             { pattern:/^[1][3578][0-9]{9}$/,message: '请输入正确的手机号', trigger: ['change','blur'] },
           ],
           email: [
-            { message: '请填写邮箱', trigger: 'change' },
+            {required: true, message: '请填写邮箱', trigger: 'change' },
             { pattern:/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/,message: '请输入正确的邮箱', trigger: ['change','blur'] },
           ],
         },
@@ -1541,7 +1541,7 @@
               }else if(this.formInformation.educationLevel == '职中') {
                   this.formInformation.educationLevel = 1
               }else if(this.formInformation.politeducationLevelicCountenance == '高中') {
-                  this.formInformation.educationLevel = 1
+                  this.formInformation.educationLevel = 2
               }else if(this.formInformation.educationLevel == '大专') {
                   this.formInformation.educationLevel = 3
               }else if(this.formInformation.educationLevel == '本科') {
@@ -1558,12 +1558,13 @@
               }else if(this.formInformation.isGraduate == 1) {
                   this.formInformation.isGraduate = false
               }
-              new Date(this.formEducation.educationTime[0]).getTime();
+              let til = new Date(this.formInformation.workAge).getTime()
+              let till = new Date(this.formInformation.birthday).getTime()
             this.$http.put(`/resume/${this.resumesId}/base`,
             {overseasAge:Number(this.formInformation.overseasAge),
-            workYear:new Date(this.formInformation.workAge).getTime(),
+            workYear:til,
             politicalStatus:Number(this.formInformation.politicCountenance),
-            birthday:new Date(this.formInformation.birthday).getTime(),
+            birthday:till,
             county:this.formInformation.city[1],
             fullName:this.formInformation.name,
             sex:this.formInformation.sex,
@@ -2159,11 +2160,13 @@
       },
       //工作经历编辑
       showworkperienceList(list) {
+        console.log(list)
         this.workouterVisible = true
         this.workId  = list.id
         this.formWork.companyName = list.company
         this.formWork.postName = list.position
         this.formWork.jobDescription = list.description
+        // this.formWork.trade[0].code = list.industries[0].code
         if(list.endTime == null) {
             var end = this.$moment(new Date().getTime()).format("YYYY-MM")
           }else{

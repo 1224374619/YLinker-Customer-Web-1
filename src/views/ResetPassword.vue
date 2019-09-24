@@ -7,17 +7,17 @@
           <span>重置密码</span>
         </p>
         <el-form ref="form" :rules="rules" :model="form" label-width="80px">
-          <el-form-item label="手机号" prop="tel">
+          <el-form-item label="手机号" prop="tel" style="width:92%">
             <el-input v-model.number="form.tel" placeholder="请输入登录手机号"></el-input>
           </el-form-item>
           <el-form-item label="验证码" prop="captcha">
-            <captcha v-model="form.captcha" />
+            <captcha :fromData="this.form.tel" v-model="form.captcha" />
           </el-form-item>
           <el-form-item label="新密码" prop="password">
-            <password-input v-model="form.password" :placeholder="'请输入新密码（6-24位数字和字母）'" />
+            <el-input style="width:90%" show-password v-model="form.password" :placeholder="'请输入新密码（6-24位数字和字母）'" />
           </el-form-item>
-          <el-form-item label="确认密码" prop="confirm-password">
-            <password-input v-model="form.confirmPassword"  :placeholder="'请再次输入新密码'" />
+          <el-form-item label="确认密码" prop="confirmPassword">
+            <el-input style="width:90%" show-password v-model="form.confirmPassword"  :placeholder="'请再次输入新密码'" />
           </el-form-item>
           <el-form-item>
             <el-button class="full" type="primary" @click="onSubmit">重置密码</el-button>
@@ -32,11 +32,12 @@
 <script>
 import CustomizedFooter from 'components/customized-footer.vue';
 import CustomizedNav from 'components/customized-nav.vue';
-import Captcha from 'components/captcha.vue';
+import Captcha from 'components/captchaCz.vue';
 import PasswordInput from 'components/password-input.vue';
 
 export default {
   name: 'resetpwd',
+  
   components: {
     CustomizedFooter,
     CustomizedNav,
@@ -59,7 +60,7 @@ export default {
         password: [
           { required: true, message: '请输入新登录密码', trigger: 'blur' },
         ],
-        'confirm-password': [
+        confirmPassword: [
           { required: true, message: '请再次输入新登录密码', trigger: 'blur' },
         ],
         captcha: [
@@ -72,7 +73,12 @@ export default {
     onSubmit() {
       this.$refs['form'].validate((valid) => {
         if (valid) {
-          // submit;
+          this.$http.put('/account/password', {agree:true,password:this.form.password, phone:this.form.tel, vcode:this.form.captcha}).then(res => {
+              if (res.data.code == 200) {
+                // this.$store.commit('LOGOUT');
+                this.$router.push({path: "/login"});
+              }
+            });
         } else {
           return false;
         }
@@ -104,7 +110,7 @@ export default {
         background-color white
         border-radius 3px
         button.full
-          width 100%
+          width 90%
         p
           display flex
           flex-direction row

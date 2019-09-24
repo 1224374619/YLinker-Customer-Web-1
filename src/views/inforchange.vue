@@ -38,10 +38,10 @@
             <el-input style="width:270px;height:43px" placeholder="请确认输入登陆密码" v-model="newRuleForm.nowPassword" show-password></el-input>
           </el-form-item>
         <el-form-item label="新手机号" prop="newPhone">
-          <span><el-input style="width:270px;height:43px" v-model="newRuleForm.newPhone" placeholder="请确认输入新手机号"></el-input></span>
+          <span><el-input style="width:270px;height:43px"   v-model="newRuleForm.newPhone" placeholder="请确认输入新手机号"></el-input></span>
         </el-form-item>
         <el-form-item label="验证码" prop="newCode">
-            <captchaPhone v-model="newRuleForm.newCode" />
+            <captchaPhone :fromData="this.newRuleForm.newPhone" v-model="newRuleForm.newCode" />
         </el-form-item>
         <el-form-item>
           <el-button  @click="phoneSubmitForm('newRuleForm')" style="width:270px;height:43px" type="primary">换绑手机</el-button>
@@ -132,7 +132,8 @@ import captchaPhone from 'components/captchaPhone.vue';
           if (valid) {
             this.$http.put('/account/password', {agree:true,password:this.ruleForm.newPassword, phone:this.phoneOne, vcode:this.ruleForm.code}).then(res => {
               if (res.data.code == 200) {
-                console.log(res);
+                this.$store.commit('LOGOUT');
+                this.$router.push({path: "/login"});
               }
             });
           } else {
@@ -149,7 +150,8 @@ import captchaPhone from 'components/captchaPhone.vue';
           if (valid) {
             this.$http.put('/account/phone', { password: this.newRuleForm.nowPassword, phone:this.newRuleForm.newPhone, vcode:this.newRuleForm.newCode}).then(res => {
               if (res.data.code == 200) {
-                console.log(res);
+                this.$store.commit('LOGOUT');
+                this.$router.push({path: "/login"});
               }
             });
           } else {
@@ -172,6 +174,8 @@ import captchaPhone from 'components/captchaPhone.vue';
   .inforchange
     display flex
     flex-direction row
+    width 970px
+    margin 0 auto 
     .inforchange-left
       margin 90px 0 0 0
       .left

@@ -17,10 +17,10 @@
           <span>发布时间：{{positionIdList.publishedTime | formatDate}}</span>
         </div>
         <div style="margin:0 0 0 325px" v-if="al">
-          <span style="margin:0 20px 0 0" v-if="almsg">
+          <span v-if="almsg">
             <el-button
               id="deliver"
-              style="width:140px;height:40px;"
+              style="width:140px;height:40px;margin:0 20px 0 0"
               type="primary"
               @click="showdeliver"
             >投递简历</el-button>
@@ -89,6 +89,10 @@
         <p>职位描述</p>
         <p>
           {{positionIdList.description}}
+        </p>
+        <p>招聘要求</p>
+        <p>
+          {{positionIdList.requirement}}
         </p>
         <div class="station-foot-foot">
           <div class="station-foot-foot-one">工作地点:</div>
@@ -484,6 +488,7 @@ export default {
           color #455379
           font-size 14px
           margin 0 0 0 10px
+          text-align left
         .content-article 
           color #9b9b9b
           font-size 14px
@@ -510,7 +515,19 @@ export default {
       .station-foot-content p:nth-child(2)
         font-size 14px
         color #61687c
-        margin 15px 0 -20px 42px 
+        margin 10px 0 10px 42px 
+        width 500px
+        white-space pre-line
+      .station-foot-content p:nth-child(3)  
+        font-size 16px
+        color #617dcb
+        margin 17px 0 0 42px
+      .station-foot-content p:nth-child(4)
+        font-size 14px
+        color #61687c
+        margin 10px 0 -20px 42px 
+        width 500px
+        white-space pre-line  
       .station-foot-aside
         width 24%
         background-color white

@@ -1,4 +1,8 @@
 <template>
+<!-- <div>
+<div>
+<customized-nav />
+</div> -->
   <div class="home">
    <el-dialog
         class="dialog"
@@ -90,7 +94,7 @@
     <div style="text-align:left;color:#455379;font-size:14px;margin:10px 0 0 15px">热门企业</div>
     <div class="company">
       <vue-seamless-scroll :data="imgList" :class-option="optionLeft" class="seamless-warp2">
-              <img v-for="item in imgList" :src="item.idView"  class="banner_img"/>
+              <img v-for="(item,index) in imgList" :src="item.idView" :key="index"  class="banner_img"/>
       </vue-seamless-scroll>
     </div>
     <div class="tabs">
@@ -103,7 +107,8 @@
                 <span>{{list.salaryMin}}-{{list.salaryMax}}k</span>
               </div>
               
-              <div class="desc-second">{{$CodeToTag.CodeToTag([parseInt(parseInt(list.positionCatalog/100)*100/10000)*10000,parseInt(list.positionCatalog/100)*100,list.positionCatalog],positionCatalogList)[2]}} | {{list.workAgeMin}}-{{list.workAgeMax}}年 | {{list.degreeMin|level}}</div>
+              <div class="desc-second" v-if="list.workAgeMax == null">{{$CodeToTag.CodeToTag([parseInt(parseInt(list.positionCatalog/100)*100/10000)*10000,parseInt(list.positionCatalog/100)*100,list.positionCatalog],positionCatalogList)[2]}} | 10年以上 | {{list.degreeMin|level}}</div>
+              <div class="desc-second" v-else>{{$CodeToTag.CodeToTag([parseInt(parseInt(list.positionCatalog/100)*100/10000)*10000,parseInt(list.positionCatalog/100)*100,list.positionCatalog],positionCatalogList)[2]}} | {{list.workAgeMin}}-{{list.workAgeMax}}年 | {{list.degreeMin|level}}</div>
               <div class="line"></div>
               <div class="desc-third">
                 <img
@@ -184,7 +189,8 @@
                 <span>{{list.positionName}}</span>
                 <span>{{list.salaryMin}}-{{list.salaryMax}}k</span>
               </div>
-              <div class="desc-second">{{$CodeToTag.CodeToTag([parseInt(parseInt(list.positionCatalog/100)*100/10000)*10000,parseInt(list.positionCatalog/100)*100,list.positionCatalog],positionCatalogList)[2]}} | {{list.workAgeMin}}-{{list.workAgeMax}}年 | {{list.degreeMin|level}}</div>
+              <div class="desc-second" v-if="list.workAgeMax == null">{{$CodeToTag.CodeToTag([parseInt(parseInt(list.positionCatalog/100)*100/10000)*10000,parseInt(list.positionCatalog/100)*100,list.positionCatalog],positionCatalogList)[2]}} | 10年以上 | {{list.degreeMin|level}}</div>
+              <div class="desc-second" v-else>{{$CodeToTag.CodeToTag([parseInt(parseInt(list.positionCatalog/100)*100/10000)*10000,parseInt(list.positionCatalog/100)*100,list.positionCatalog],positionCatalogList)[2]}} | {{list.workAgeMin}}-{{list.workAgeMax}}年 | {{list.degreeMin|level}}</div>
               <div class="line"></div>
               <div class="desc-third">
                 <img
@@ -206,13 +212,17 @@
       <el-button plain @click="search" style="width:210px;height:43px;font-size:14px">查看更多</el-button>
     </div>
   </div>
+  <!-- </div> -->
 </template>
 
 <script>
 // import placeholder from 'assets/images/placeholder.jpg';
-
+import CustomizedNav from 'components/customized-nav.vue';
 export default {
   name: "home",
+  components: {
+        CustomizedNav
+        },
   data() {
     return {
       positiId:'',
@@ -428,10 +438,7 @@ export default {
     // },
   },
   created() {
-    this.positiId = this.$route.query.id;
-    if(this.positiId == 2) {
-      this.$store.state.token = 'asd1d5.0o9utrf7.12jjkht'
-    }
+    console.log(this.$store.state.token,'wwwwwwww')
     this.allpositionCatalog()
     this.industry();
     this.carousel();
