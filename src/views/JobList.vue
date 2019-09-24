@@ -963,7 +963,7 @@ export default {
       .el-input__inner
         border 0px solid red
       .search-button
-        width 115px
+        width 124px
         height 44px
         font-size 12px
         color white

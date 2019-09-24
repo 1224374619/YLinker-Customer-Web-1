@@ -77,13 +77,13 @@
               v-model="formInline.educationLevel"
               placeholder
             >
-              <el-option label="初中及以下" value="1"></el-option>
-              <el-option label="职中" value="2"></el-option>
-              <el-option label="高中" value="3"></el-option>
-              <el-option label="大专" value="4"></el-option>
-              <el-option label="本科" value="5"></el-option>
-              <el-option label="硕士" value="6"></el-option>
-              <el-option label="博士" value="7"></el-option>
+              <el-option label="初中及以下" value="0"></el-option>
+              <el-option label="职中" value="1"></el-option>
+              <el-option label="高中" value="2"></el-option>
+              <el-option label="大专" value="3"></el-option>
+              <el-option label="本科" value="4"></el-option>
+              <el-option label="硕士" value="5"></el-option>
+              <el-option label="博士" value="6"></el-option>
             </el-select>
           </el-form-item>
           <el-form-item label="生日" style="margin:0 10px 0 0" prop="birthday">

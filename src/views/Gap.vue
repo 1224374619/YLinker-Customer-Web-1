@@ -74,20 +74,20 @@ export default {
     display flex
     flex-direction row
     .gap-left
-      width 770px
+      width 990px
       height 563px
       background white
       display flex
       flex-direction column
     .gap-left img 
-      margin 57px 0 0 314px
+      margin 57px 0 0 424px
       width 143px
     .gap-left span
       font-size 16px
       color #61687c
       margin 24px 0 0 0
     .gap-left .el-button
-      margin 40px 0 0 283px
+      margin 40px 0 0 393px
     .gap-right
       width 220px
       height 268px 

@@ -110,10 +110,10 @@
 
 <script>
 import datacenterBus from '../apis/datacenterBus.js';
+import { submitted } from "../apis/account";
 export default {
   name: 'personal',
   components: {
-
   },
   data() {
     return {
@@ -139,21 +139,7 @@ export default {
         showTabs:true,
         isshowTabs:false,
         submittedList:[],
-        favoriteList:[{
-          degreeMin:'大专',
-          positionName:'前端',
-          salaryMax:'9',
-          salaryMin:'3',
-          workAgeMax:'5',
-          workAgeMin:'3'
-        },{
-          degreeMin:'硕士',
-          positionName:'JAVA',
-          salaryMax:'9',
-          salaryMin:'3',
-          workAgeMax:'5',
-          workAgeMin:'3'
-        }],
+        favoriteList:[],
         positionList:[],
         fullName:'',
         city:'',
@@ -170,7 +156,7 @@ export default {
         this.$router.push({path:'/joblist'})
       },
       toPerson() { 
-           this.$router.push({path:'/inforchange'})
+        this.$router.push({path:'/inforchange'})
       },
       //编辑个人信息
       edit() {
@@ -178,8 +164,9 @@ export default {
         this.$router.push({path:'/resume'})
       },
       //获取投递过的岗位
-      submitted() {
-          this.$http.get('/submitted/position').then(res => {
+      submitt() {
+        //  const res = await submitted();
+          submitted().then(res => {
           if (res.data.code == 200) {
             this.submittedList = res.data.data.list;
             this.page1.total = res.data.data.total
@@ -280,9 +267,9 @@ export default {
     },
     created() {
       this.citise()
-      this.submitted();
+      this.submitt();
       this.favorite();
-      this.iscancel();
+      
       this.brief()
       this.searched();
       

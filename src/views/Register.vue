@@ -122,7 +122,7 @@ export default {
         background-color white
         border-radius 3px
         position absolute
-        right 150px
+        right 36%
         top 120px
         button.full
           width 100%

@@ -1002,29 +1002,29 @@
 <script>
   // import PersonalinformationFrom from 'components/personalinformation_from.vue'
   import datacenterBus from '../apis/datacenterBus.js';
-  import BasicInfo from 'components/BasicInfo.vue';
-  import JobIntension from 'components/Jobintension.vue';
-  import EducationExperience from 'components/education.vue';
-  import WorkExperience from 'components/work.vue';
-  import ProjectExperience from 'components/project.vue';
-  import TrainingExperience from 'components/training.vue';
-  import LanguageExperience from 'components/language.vue';
-  import ProfessionalExperience from 'components/professional.vue';
-  import PersonalSkill from 'components/personal_skill.vue';
-  import AwArds from 'components/awards.vue';
-  import SelfAppraisal from 'components/self-appraisal.vue';
+  import BasicInfo from 'components/personalnformation/BasicInfo.vue';
+  import JobIntension from 'components/jobintension/Jobintension.vue';
+  import EducationExperience from 'components/education/education.vue';
+  import WorkExperience from 'components/work/work.vue';
+  import ProjectExperience from 'components/project/project.vue';
+  import TrainingExperience from 'components/train/training.vue';
+  import LanguageExperience from 'components/language/language.vue';
+  import ProfessionalExperience from 'components/professional/professional.vue';
+  import PersonalSkill from 'components/skill/personal_skill.vue';
+  import AwArds from 'components/awards/awards.vue';
+  import SelfAppraisal from 'components/appraisal/self-appraisal.vue';
 
-  import PersonalinformationFrom from 'components/personalinformation_from.vue'
-  import From from 'components/jobintension_from.vue'
-  import EducationexperienceFrom from 'components/education_from.vue'
-  import WorkFrom from 'components/work_from.vue'
-  import ProgectFrom from 'components/progect_from.vue'
-  import TrainingFrom from 'components/training_from.vue'
-  import LanguageFrom from 'components/language_from.vue'
-  import ProfessionalFrom from 'components/professional_from.vue'
-  import PersonalskillFrom from 'components/personal_skill_from.vue'
-  import AwardsFrom from 'components/awards_from.vue'
-  import SelfappraisalFrom from 'components/selfappraisal_from.vue'
+  import PersonalinformationFrom from 'components/personalnformation/personalinformation_from.vue'
+  import From from 'components/jobintension/jobintension_from.vue'
+  import EducationexperienceFrom from 'components/education/education_from.vue'
+  import WorkFrom from 'components/work/work_from.vue'
+  import ProgectFrom from 'components/project/progect_from.vue'
+  import TrainingFrom from 'components/train/training_from.vue'
+  import LanguageFrom from 'components/language/language_from.vue'
+  import ProfessionalFrom from 'components/professional/professional_from.vue'
+  import PersonalskillFrom from 'components/skill/personal_skill_from.vue'
+  import AwardsFrom from 'components/awards/awards_from.vue'
+  import SelfappraisalFrom from 'components/appraisal/selfappraisal_from.vue'
   import Affix from 'components/affix.vue'
 
   export default {
@@ -2264,8 +2264,9 @@
         this.formJobintension.trad[0].code = this.listjobintension.industries[0].code
         this.formJobintension.postType[0].code = this.listjobintension.positionCatalogs[0].code
       },
-
+      //个人信息编辑
       showjpersonalList() {
+        console.log(this.resumeIdList,'1123231313132')
         this.informationouterVisible = true
         this.formInformation.name = this.resumeIdList.fullName
         this.formInformation.sex = this.resumeIdList.sex

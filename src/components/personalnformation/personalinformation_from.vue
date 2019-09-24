@@ -11,7 +11,7 @@
         <div class="information-first">
           <span>{{fromData.fullName}}</span>
           <span>
-            <img style="width:26px" :src="require('../assets/images/xing.png')" />
+            <img style="width:26px" :src="require('../../assets/images/xing.png')" />
           </span>
           <span>{{fromData.age}}岁({{fromData.birthday | formatDateOne}})</span>
         </div>
@@ -24,7 +24,7 @@
           <span>
             <img
               style="width:8px;height:14px;margin:0 0 0 10px"
-              :src="require('../assets/images/copy.png')"
+              :src="require('../../assets/images/copy.png')"
             />
             <span style="margin:0 0 0 13px">{{fromData.phone}}</span>
           </span>
@@ -32,7 +32,7 @@
           <span>
             <img
               style="width:11px;height:8px;margin-left:15px"
-              :src="require('../assets/images/00.png')"
+              :src="require('../../assets/images/00.png')"
             />
             <span style="margin:0 0 0 13px">{{fromData.email}}</span>
           </span>

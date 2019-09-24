@@ -18,6 +18,7 @@
           style="width:242px;height:36px"
           v-model="formInline.trainTime"
           type="daterange"
+          :picker-options="pickerOptions"
           range-separator="至"
           start-placeholder="开始日期"
           end-placeholder="结束日期"
@@ -48,6 +49,12 @@ export default {
         trainCours: "",
         trainTime: ""
       },
+      pickerOptions: {
+        disabledDate(time) {
+          return time.getTime() > Date.now();
+        }
+      },
+      trainTime: [],
       rules: {
         trainCourse: [
           { required: true, message: "请输入培训课程", trigger: "blur" },
@@ -57,8 +64,7 @@ export default {
         trainCours: [
           { required: true, message: "请输入培训机构", trigger: "blur" },
           { min: 0, max: 50, message: "长度在 0 到 50 个字符", trigger: "blur" }
-        ],
-        trainTime: []
+        ]
       }
     };
   },
@@ -72,16 +78,17 @@ export default {
         if (valid) {
           let til = this.formInline.trainTime[0].getTime();
           let till = this.formInline.trainTime[1].getTime();
-          let ti = this.$moment(till).format("YYYY-MM")
-          let end = this.$moment(new Date().getTime()).format("YYYY-MM")
-           if(ti === end) {
-              var eduTime = null
-          }else{
-              var eduTime  = till
-            }
+          let ti = this.$moment(till).format("YYYY-MM");
+          let end = this.$moment(new Date().getTime()).format("YYYY-MM");
+          if (ti === end) {
+            var eduTime = null;
+          } else {
+            var eduTime = till;
+          }
           this.$http
             .post(`/resume/${this.trainDegree}/training`, {
-              beginTime:til,endTime:eduTime,
+              beginTime: til,
+              endTime: eduTime,
               institution: this.formInline.trainCours,
               lesson: this.formInline.trainCourse
             })
@@ -109,15 +116,19 @@ export default {
 };
 </script>
 
-<style lang="stylus" scoped> 
-  .el-form-item
-    padding 0 0 0 30px
-  .cancel:hover
-    background #1d366e 
-    color white
-  .el-button
-    width 94px 
-    height 34px
-    vertical-align middle
-    padding 0px  
+<style lang="stylus" scoped>.el-form-item {
+  padding: 0 0 0 30px;
+}
+
+.cancel:hover {
+  background: #1d366e;
+  color: white;
+}
+
+.el-button {
+  width: 94px;
+  height: 34px;
+  vertical-align: middle;
+  padding: 0px;
+}
 </style>

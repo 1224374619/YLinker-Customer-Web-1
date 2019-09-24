@@ -3,6 +3,7 @@
 <div>
 <customized-nav />
 </div> -->
+<div style="width:1000px;background:#FFFFFF;border:1px solid #FFFFFF;margin:90px auto 0">
   <div class="home">
    <el-dialog
         class="dialog"
@@ -74,24 +75,24 @@
       <el-input v-model="searchContent" style="width:477px;" placeholder="请输入内容"></el-input>
       <el-button
         class="search-button"
-        style="border-radius:0 2px 2px 0"
+        style="border-radius:0 2px 2px 0;"
         type="primary"
         @click="search"
         icon="el-icon-search"
       >搜索</el-button>
     </div>
-    <div style="text-align:left;margin:4px 0 0 15px">
+    <div style="text-align:left;margin:4px 0 0 11%">
       <span style="font-size:12px;color:#617dcb">热门搜索：</span>
       <span style="font-size:12px;color:#7d8dcd" ><a href="#" style="padding:0 0 0 5px;text-decoration:none" v-for="item in keywordList" :key="item">{{item.content}}</a></span>
     </div>
     <div class="carousel">
       <el-carousel  :interval="5000">
         <el-carousel-item v-for="item in carouselImgs" :key="item">
-          <img style="width:802px;height:340px" :src="item" />
+          <img style="width:1000px" :src="item" />
         </el-carousel-item>
       </el-carousel>
     </div>
-    <div style="text-align:left;color:#455379;font-size:14px;margin:10px 0 0 15px">热门企业</div>
+    <div style="text-align:left;color:#455379;font-size:14px;margin:10px 0 0 11%">热门企业</div>
     <div class="company">
       <vue-seamless-scroll :data="imgList" :class-option="optionLeft" class="seamless-warp2">
               <img v-for="(item,index) in imgList" :src="item.idView" :key="index"  class="banner_img"/>
@@ -102,17 +103,16 @@
         <el-tab-pane label="为你推荐" name="first" v-if="recommend">
           <div class="demo">
             <div class="desc" v-for="(list,index) in listRecommend" :key="index">
-              <div class="desc-first">
+              <div class="desc-first" @click="descOne(list.id)">
                 <span>{{list.positionName}}</span>
                 <span>{{list.salaryMin}}-{{list.salaryMax}}k</span>
               </div>
               
-              <div class="desc-second" v-if="list.workAgeMax == null">{{$CodeToTag.CodeToTag([parseInt(parseInt(list.positionCatalog/100)*100/10000)*10000,parseInt(list.positionCatalog/100)*100,list.positionCatalog],positionCatalogList)[2]}} | 10年以上 | {{list.degreeMin|level}}</div>
+              <div @click="descOne(list.id)" class="desc-second" v-if="list.workAgeMax == null">{{$CodeToTag.CodeToTag([parseInt(parseInt(list.positionCatalog/100)*100/10000)*10000,parseInt(list.positionCatalog/100)*100,list.positionCatalog],positionCatalogList)[2]}} | 10年以上 | {{list.degreeMin|level}}</div>
               <div class="desc-second" v-else>{{$CodeToTag.CodeToTag([parseInt(parseInt(list.positionCatalog/100)*100/10000)*10000,parseInt(list.positionCatalog/100)*100,list.positionCatalog],positionCatalogList)[2]}} | {{list.workAgeMin}}-{{list.workAgeMax}}年 | {{list.degreeMin|level}}</div>
               <div class="line"></div>
-              <div class="desc-third">
+              <div class="desc-third" @click="desc(list.company.id)">
                 <img
-                  @click="desc(list.company.id)"
                   style="width:50px;margin:10px 0 0 5px"
                   :src="require('../assets/images/company1.jpg')"
                 />
@@ -185,16 +185,15 @@
         <el-tab-pane label="最新职位" name="third">
           <div class="demo">
             <div class="desc" v-for="(list,index) in newpositionList" :key="index">
-              <div class="desc-first">
+              <div class="desc-first" @click="descOne(list.id)">
                 <span>{{list.positionName}}</span>
                 <span>{{list.salaryMin}}-{{list.salaryMax}}k</span>
               </div>
-              <div class="desc-second" v-if="list.workAgeMax == null">{{$CodeToTag.CodeToTag([parseInt(parseInt(list.positionCatalog/100)*100/10000)*10000,parseInt(list.positionCatalog/100)*100,list.positionCatalog],positionCatalogList)[2]}} | 10年以上 | {{list.degreeMin|level}}</div>
+              <div @click="descOne(list.id)" class="desc-second" v-if="list.workAgeMax == null">{{$CodeToTag.CodeToTag([parseInt(parseInt(list.positionCatalog/100)*100/10000)*10000,parseInt(list.positionCatalog/100)*100,list.positionCatalog],positionCatalogList)[2]}} | 10年以上 | {{list.degreeMin|level}}</div>
               <div class="desc-second" v-else>{{$CodeToTag.CodeToTag([parseInt(parseInt(list.positionCatalog/100)*100/10000)*10000,parseInt(list.positionCatalog/100)*100,list.positionCatalog],positionCatalogList)[2]}} | {{list.workAgeMin}}-{{list.workAgeMax}}年 | {{list.degreeMin|level}}</div>
               <div class="line"></div>
-              <div class="desc-third">
+              <div class="desc-third" @click="desc(list.company.id)">
                 <img
-                  @click="desc(list.company.id)"
                   style="width:50px;margin:10px 0 0 5px"
                   :src="require('../assets/images/company1.jpg')"
                 />
@@ -212,7 +211,7 @@
       <el-button plain @click="search" style="width:210px;height:43px;font-size:14px">查看更多</el-button>
     </div>
   </div>
-  <!-- </div> -->
+  </div>
 </template>
 
 <script>
@@ -251,21 +250,20 @@ export default {
       ],
       carouselImgs: [
         require("../assets/images/qq.png"),
-        require("../assets/images/zz.png"),
+        require("../assets/images/dd.png"),
         require("../assets/images/yy.png")
       ],
       //热门企业
       imgList: [
-          {id: 0, idView: require('../assets/images/company3.png')},
           {id: 1, idView: require('../assets/images/company1.jpg')},
-          {id: 2, idView: require('../assets/images/company2.jpg')},
           {id: 3, idView: require('../assets/images/company4.png')},
-          {id: 4, idView: require('../assets/images/company5.png')},
-          {id: 5, idView: require('../assets/images/company3.png')},
           {id: 6, idView: require('../assets/images/company1.jpg')},
-          {id: 7, idView: require('../assets/images/company2.jpg')},
-          {id: 8, idView: require('../assets/images/company4.png')},
-          {id: 9, idView: require('../assets/images/company5.png')},
+          {id: 1, idView: require('../assets/images/company1.jpg')},
+          {id: 3, idView: require('../assets/images/company4.png')},
+          {id: 6, idView: require('../assets/images/company1.jpg')},
+          {id: 1, idView: require('../assets/images/company1.jpg')},
+          {id: 3, idView: require('../assets/images/company4.png')},
+          {id: 6, idView: require('../assets/images/company1.jpg')},
         ],
       keywordList:[{content:'前端'},{content:'java'},{content:'python'}],
       hotpositionList:[],
@@ -307,6 +305,7 @@ export default {
     recommendation() {
        this.$http.get("/home/recommended/position").then(res => {
          if (res.data.code == 200) {
+           console.log(this.listRecommend,'wewewewewewewewe')
            this.listRecommend = res.data.data
            console.log(this.listRecommend,'232333232323')
           }
@@ -384,6 +383,11 @@ export default {
     },
     desc(id) {
       this.$router.push({ path: "/position",query:{
+            id: id
+          }});
+    },
+    descOne(id) {
+      this.$router.push({ path: "/station",query:{
             id: id
           }});
     },
@@ -522,8 +526,6 @@ export default {
 
 <style lang="stylus">
   .home
-    width 802px
-    margin 90px auto 0 
     .dialog
       display flex
       flex-direction column
@@ -566,6 +568,8 @@ export default {
       width 802px
       height 44px
       background white
+      margin 20px 0 0 10%
+      border 0.75px solid rgba(229,229,229,1);
       .joblist-after                  
         border 0.5px solid #dbdbdb
       .el-icon-search:before
@@ -582,14 +586,18 @@ export default {
         border-color #7d8dcd 
     .carousel
       margin 3px 0 0 0
+      width 1000px
     .company
       border: solid 1px #eee
       margin: 10px auto
       overflow hidden
+      width 800px
     .company img
       height 100px
       padding 0 15px 0 0 
     .tabs
+      width 800px
+      margin 0 0 0 9%
       .el-tabs
         margin 0 0 0 7px 
         .demo
@@ -598,12 +606,14 @@ export default {
           flex-wrap  wrap
           .desc:hover
             background #f7f7f7
+            box-shadow 1px 1px 10px 0px rgba(84,111,212,0.50)
           .desc
             width 258px
             height 143px
             text-align left
             margin 3px 3px 0 0 
-            background white
+            background #FFFFFF
+            border 0.75px solid rgba(229,229,229,1);
             .desc-first
               display flex
               flex-direction row
@@ -613,7 +623,7 @@ export default {
               color #61687c
               font-size 14px
             .desc-first span:nth-child(2)
-              margin 15px 5px 0 0
+              margin 15px 15px 0 0
               color #ff7a1a
               font-size 14px
             .desc-second
@@ -655,7 +665,12 @@ export default {
   .seamless-warp2 
     overflow hidden
     width 1500px
+    border 0px solid red
   .banner_img
     height 100px 
-    width 100px        
+    width 100px     
+    margin 3px 0 0 0  
+  .el-tabs__nav-wrap:after
+    background-color #ffffff;  
+    
 </style>
