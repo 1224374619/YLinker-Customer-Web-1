@@ -22,7 +22,7 @@
         <p class="adjunctive">
           <el-button type="text" @click="gotoRegisterUI">立即注册</el-button>
           <el-button type="text" @click="gotoResetPwdUI">忘记密码？</el-button>
-          <el-button type="text" @click="aaa">密码？</el-button>
+          <el-button type="text">密码？</el-button>
         </p>
       </div>
     </div>
@@ -34,7 +34,6 @@
 import CustomizedFooter from "components/customized-footer.vue";
 import CustomizedNav from "components/customized-nav.vue";
 import PasswordInput from "components/password-input.vue";
-import { signin } from "apis/account";
 import { mapMutations } from "vuex";
 import { DONE_LOGIN } from "store/mutation-types";
 
@@ -67,42 +66,27 @@ export default {
     onSubmit(id) {
       this.$refs["form"].validate(async valid => {
         if (valid) {
-          // const res = await signin({ ...this.form });
-          // if (res.result) {
-          //   this[DONE_LOGIN]();
-          // }
-          // username: "17717291341", password: "21313131311"
           this.$_http
-            .post(`/login?returnUrl=http://${document.location.host}/api/resume/brief`, {
-              username: this.form.tel,
-              password: this.form.password
-            })
+            .post(
+              `/login?returnUrl=http://${document.location.host}/api/resume/brief`,
+              {
+                username: this.form.tel,
+                password: this.form.password
+              }
+            )
             .then(res => {
               if (res.data.code == 200) {
-                window.sessionStorage.setItem('user',this.form.tel)
-                let token = 'asd1d5.0o9utrf7.12jjkht';
-                // 设置cookie默认过期时间单位是1d(1天)
-                // this.$cookie.set('token', token, 1);
-                this.$store.commit('SET_TOKEN',token);
-                // window.sessionStorage.setItem('token',token)
-                this.$router.push({path:'/home'})
+                window.sessionStorage.setItem("user", this.form.tel);
+                let token = "asd1d5.0o9utrf7.12jjkht";
+                this.$store.commit("SET_TOKEN", token);
+                this.$router.push({ path: "/home" });
               }
-              // this.$store.commit('SET_TOKEN', res.data.token)
-              // console.log(res.set-cookie)
-              // if (res.data.code == 302) {
-              //   this.$router.push({ path: 'reset-password' });
-              //   console.log(res)
-              // }
             })
             .catch(error => {
-
-
-                this.$message({
+              this.$message({
                 showClose: true,
-                message: '输入有误，请重新输入'
-                });
-
-
+                message: "输入有误，请重新输入"
+              });
             });
         } else {
           return false;
@@ -115,16 +99,13 @@ export default {
     gotoResetPwdUI() {
       this.$router.push({ path: "reset-password" });
     },
-    aaa() {
-      console.log(this.$cookies.get("SESSION") + "34343434");
-    }
   },
   created() {
-    console.log(this.$cookies.get('SESSION')+'34343434')
-    this.$cookies.get('session')
+    this.$cookies.get("session");
   }
 };
 </script>
+
 
 <style lang="stylus" scoped>
   .container

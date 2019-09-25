@@ -161,6 +161,18 @@
 <script>
 import Deliver from "components/Deliver.vue";
 import BaiduMap from "vue-baidu-map/components/map/Map.vue";
+import {
+  showdeliver,
+  companyDetail,
+  positionlist,
+  positionDetail,
+  showdeli,
+  showcoll,
+  city,
+  iscollect,
+  brief
+} from "apis/account";
+import { error } from 'util';
 export default {
   name: "station",
   components: {
@@ -208,7 +220,7 @@ export default {
       },
     //确认投递
     showdeliver() {
-      this.$http.put(`/submitted/position/${this.positiId}/resume/${this.resumesId}`).then(res => {
+     showdeliver(this.positiId,this.resumesId).then(res => {
           if (res.data.code == 200) {
             this.almsg = false
             this.msg = true
@@ -235,24 +247,31 @@ export default {
     },
     //获取公司详情
     comId() {
-      this.$http.get(`/company/${this.companyId}`).then(res => {
+      companyDetail(this.companyId).then(res => {
         if (res.data.code == 200) {
           this.companyIdList = res.data.data;
-          //  console.log(res.data.data)
+        }else{
+
         }
+      }).catch(error => {
+
       });
     },
     //岗位列表
       positionCompany() {
-        this.$http.get(`/company/${this.companyId}/position`).then(res => {
+        positionlist(this.companyId).then(res => {
           if (res.data.code == 200) {
             this.hotpositionList = res.data.data.list
+          }else{
+
           }
+      }).catch(error =>{
+        
       });
       },
     //获取岗位详情
       positionId() {
-        this.$http.get(`/position/${this.positiId}`).then(res => {
+        positionDetail(this.positiId).then(res => {
           this.companyId = res.data.data.company.id
           this.companyName = res.data.data.company.companyName
           if (res.data.code == 200) {
@@ -290,10 +309,9 @@ export default {
       },
     //判断简历是否投递
       showdeli() {
-        this.$http.get(`/submitted/position/${this.positiId}`).then(res => {
+        showdeli(this.positiId).then(res => {
           if (res.data.code == 200) {
             if(res.data.data === true) {
-              console.log(res.data.data,'123123123123123231')
               this.almsg = false
               this.msg = true
             }else{
@@ -301,11 +319,13 @@ export default {
               this.msg = false
             }
           }
+        }).catcha(error => {
+
         });
       },
        //判断简历是否收藏
       showcoll() {
-        this.$http.get(`/favorite/position/${this.positiId}`).then(res => {
+        showcoll(this.positiId).then(res => {
           if (res.data.code == 200) {
             if(res.data.data === false) {
               this.showCollect = false
@@ -333,17 +353,22 @@ export default {
     },
     //城市
       citise() {
-        this.$http.get("/constant/district").then(res => {
+        city().then(res => {
           if (res.data.code == 200) {
             this.citysal = res.data.data;
+          }else{
+
           }
+        }).catch(error => {
+
         });
       },
     iscollect() {
-        this.$http.put(`/favorite/position/${this.positiId}`).then(res => {
+        iscollect(this.positiId).then(res => {
           if (res.data.code == 200) {
             this.isshowCollect = false
             this.showCollect = true
+          }else{
           }
         }).catch(error => {
           this.$message({
@@ -351,23 +376,13 @@ export default {
               type: 'warning'
             });
       });
-      
-      // if(this.num == 1) {
-      //     this.dialogVisible = true
-      // }else{
-      //     this.dialogVisibleOne = true
-      // }
-      // this.showDeliver = false,
-      // this.showCollect = false,
-      // this.map = true,
-      // this.mapList = true
     },
     //获取简历简讯
       brief () {
-        this.$http.get('/resume/brief').then(res => {
+        brief().then(res => {
           if (res.data.code == 200) {
             this.resumesId = res.data.data.defaultResumeId
-          }
+          }else{}
         }).catch(error => {
           
             });
@@ -380,12 +395,12 @@ export default {
     }
   },
   created() {
+    this.brief()
     this.citise()
     this.positiId = this.$route.query.id;
     this.positionId();
     this.showdeli();
     this.showcoll();
-    this.brief()
   },
    filters:{
     level(level){

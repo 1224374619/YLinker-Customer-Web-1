@@ -117,15 +117,7 @@
 </template>
 
 <script>
-import datacenterBus from "apis/datacenterBus.js";
-import {
-  submitted,
-  brief,
-  city,
-  favorite,
-  isfavorite,
-  searched
-} from "apis/account";
+import {submitted,brief,city,favorite,isfavorite,searched} from "apis/account";
 export default {
   name: "personal",
   components: {},
@@ -206,8 +198,8 @@ export default {
     //获取简历简讯
     brief() {
       brief().then(res => {
-        if (res.data.code == 200) {
-          if (res.data.data.base == null) {
+        if (res.data.code === 200) {
+          if (res.data.data.base === null) {
             this.showWarn = true;
           } else {
             this.showWarn = false;
@@ -222,20 +214,20 @@ export default {
           this.workAge = res.data.data.base.workAge;
           this.age = res.data.data.base.age;
           this.jobSearchStatus = res.data.data.target.jobSearchStatus;
-          if (res.data.data.target.jobSearchStatus == 1) {
+          if (res.data.data.target.jobSearchStatus === 1) {
             this.jobSearchStatus = "离职-延时到岗";
-          } else if (res.data.data.target.jobSearchStatus == 0) {
+          } else if (res.data.data.target.jobSearchStatus === 0) {
             this.jobSearchStatus = "离职-随时到岗";
-          } else if (res.data.data.target.jobSearchStatus == 2) {
+          } else if (res.data.data.target.jobSearchStatus === 2) {
             this.jobSearchStatus = "在职-考虑机会";
-          } else if (res.data.data.target.jobSearchStatus == 3) {
+          } else if (res.data.data.target.jobSearchStatus === 3) {
             this.jobSearchStatus = "在职-暂不到岗";
           }
-          if (res.data.data.target.jobType == 1) {
+          if (res.data.data.target.jobType === 1) {
             this.state = "实习";
-          } else if (res.data.data.target.jobType == 2) {
+          } else if (res.data.data.target.jobType === 2) {
             this.state = "全职";
-          } else if (res.data.data.target.jobType == 3) {
+          } else if (res.data.data.target.jobType === 3) {
             this.state = "兼职";
           }
         }
@@ -244,7 +236,7 @@ export default {
     //获取收藏的岗位
     favorite() {
       favorite().then(res => {
-        if (res.data.code == 200) {
+        if (res.data.code === 200) {
           this.favoriteList = res.data.data.list;
           this.page.total = res.data.data.total;
         }
@@ -253,7 +245,7 @@ export default {
     //取消对岗位的收藏
     iscancel(c) {
       isfavorite(c).then(res => {
-        if (res.data.code == 200) {
+        if (res.data.code === 200) {
           this.favorite();
         }
       });
@@ -261,7 +253,7 @@ export default {
     //城市
     citise() {
       city().then(res => {
-        if (res.data.code == 200) {
+        if (res.data.code === 200) {
           this.citysal = res.data.data;
         }
       });
@@ -286,9 +278,9 @@ export default {
         workAgeMin: ""
       };
       searched(params).then(res => {
-        if (res.data.code == 200) {
+        if (res.data.code === 200) {
           this.positionList = res.data.data.list;
-          if (res.data.data.total == 0) {
+          if (res.data.data.total === 0) {
             this.Tjposition = false
             this.QSposition = true
           } else {
