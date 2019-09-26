@@ -69,7 +69,7 @@ export default {
           const devMode = process.env.VUE_APP_DEV_MODE
           console.log(devMode)
           this.$_http
-            .post(`/login?returnUrl=${devMode ? '/api' : '/consumertest'}/resume/brief`,
+            .post(`/login?returnUrl=/resume/brief`,
               {
                 username: this.form.tel,
                 password: this.form.password
