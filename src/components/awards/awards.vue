@@ -108,7 +108,7 @@ export default {
   },
   computed: {
       uploadUrl() {
-        return `/api/resume/${this.professionalDegree}/skill/cert`
+        return `/consumertest/resume/${this.professionalDegree}/skill/cert`
       }
     },
 };

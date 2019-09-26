@@ -320,7 +320,7 @@ export default {
   },
   computed: {
     uploadUrl() {
-      return `/api/resume/${this.fromData}/base/avatar`;
+      return `/consumertest/resume/${this.fromData}/base/avatar`;
     }
   }
 };
