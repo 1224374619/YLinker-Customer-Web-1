@@ -28,9 +28,9 @@
                 this.$emit('setFromList',flag);
             }
         },
-        created() {
-            console.log(fromData)
-        }
+        // created() {
+        //     console.log(fromData)
+        // }
     }
 </script>
 

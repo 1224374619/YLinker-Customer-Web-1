@@ -16,6 +16,7 @@
           style="width:280px;height:36px"
           v-model="formInline.schoolTime"
           type="daterange"
+          :picker-options="pickerOptions"
           unlink-panels
           range-separator="至"
           start-placeholder="开始日期"
@@ -70,6 +71,11 @@ export default {
         major: "",
         general: "",
         qualifications: ""
+      },
+      pickerOptions: {
+        disabledDate(time) {
+          return time.getTime() > Date.now();
+        }
       },
       rules: {
         schoolName: [

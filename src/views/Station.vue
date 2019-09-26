@@ -140,7 +140,7 @@
             <span>相似职位</span>
             <span @click="more">查看更多 》</span>
           </div>
-          <div class="aside-footer" v-for="(list,index) in hotpositionList.slice(0,6)" :key="index">
+          <div class="aside-footer" v-for="(list,index) in hotpositionList.slice(0,6)" :key="index" @click="nextjoblist(list.id)">
             <div class="company-post">
               <span>{{list.positionName}}</span>
               <span>{{list.salaryMin}}-{{list.salaryMax}}k</span>
@@ -236,6 +236,10 @@ export default {
             });
       });
     },
+    nextjoblist(id) {
+      this.positiId = id
+      this.positionId()
+    },
     more() {
       this.$router.push({path:'/joblist'})
     },
@@ -319,7 +323,7 @@ export default {
               this.msg = false
             }
           }
-        }).catcha(error => {
+        }).catch(error => {
 
         });
       },

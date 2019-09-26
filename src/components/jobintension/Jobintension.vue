@@ -46,8 +46,10 @@
             <el-form-item label="到岗时间" class="block" v-if="datePicker" style="margin:0 330px 0 0">
                 <el-date-picker
                 style="width:242px;height:36px"
+                :disabled="this.formInline.status === 1||this.formJobintension.status === '离职-延时到岗'?false:true"
                 v-model="formInline.reportTime"
                 type="date"
+                :picker-options="pickerOptions"
                 placeholder="请选择日期"
               >
                 </el-date-picker>
@@ -76,6 +78,11 @@ export default {
          positionCatalogList:[],
          salaryMin:'',
          salaryMax:'',
+         pickerOptions: {
+        disabledDate(time) {
+          return time.getTime() > Date.now();
+          }
+        },
          props:{
               value: 'code',
               label:'tag',

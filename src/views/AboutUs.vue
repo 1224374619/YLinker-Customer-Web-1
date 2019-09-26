@@ -4,7 +4,7 @@
           title=""
           :visible.sync="dialog"
           width="30%"
-          :before-close="handleClose">
+          >
           <div style="display:flex;flex-direction:row;margin-left:220px">
               <img style="height:18px;" :src="require('../assets/images/222.png')"/>
               <span style="font-size:14px;line-height:20px;margin:0 0 0 20px">请先登录？</span>

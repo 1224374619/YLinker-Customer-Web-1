@@ -19,7 +19,7 @@
           <span @click="more">查看更多》</span>
         </div>
       </div>
-      <div class="deliver-foot-foot" v-for="(list,index) in hotpositionList" :key="index">
+      <div class="deliver-foot-foot" v-for="(list,index) in hotpositionList" :key="index" @click="nextjoblist(list.id)">
         <div style="margin:10px 0 0 0">
           <div class="company-post">
             <span>{{list.positionName}}</span>
@@ -47,6 +47,11 @@ export default {
     };
   },
   methods: {
+    nextjoblist(id) {
+      this.$router.push({ path: "/station",query:{
+            id: id
+          }});
+    },
     next() {
       this.$emit("backEmit", false, true);
     },

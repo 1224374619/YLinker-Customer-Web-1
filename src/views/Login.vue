@@ -66,9 +66,10 @@ export default {
     onSubmit(id) {
       this.$refs["form"].validate(async valid => {
         if (valid) {
+          const devMode = process.env.VUE_APP_DEV_MODE
+          console.log(devMode)
           this.$_http
-            .post(
-              `/login?returnUrl=http://${document.location.host}/api/resume/brief`,
+            .post(devMode ? `/login?returnUrl=http://${document.location.host}/api/resume/brief` : '/login?returnUrl=/resume/brief',
               {
                 username: this.form.tel,
                 password: this.form.password
