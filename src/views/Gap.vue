@@ -1,11 +1,11 @@
 <template>
   <div class="gap">
-      <div class="gap-left">
-          <img :src="require('../assets/images/tu.png')"/>
-          <span>你还没有在线简历信息呦，编辑在线简历，可以大大提升投递成功率</span>
-          <el-button style="width:204px;height:43px" @click="next" type="primary">立即创建简历</el-button>
-      </div>
-      <!-- <div class="gap-right">
+    <div class="gap-left">
+      <img :src="require('../assets/images/tu.png')" />
+      <span>你还没有在线简历信息呦，编辑在线简历，可以大大提升投递成功率</span>
+      <el-button style="width:204px;height:43px" @click="next" type="primary">立即创建简历</el-button>
+    </div>
+    <!-- <div class="gap-right">
           <div class="right-nav">
               <span>在线简历</span>
               <span>暂未创建</span>
@@ -16,55 +16,47 @@
               <p>支持格式包括： 支持DOC，DOCX,PDF,JPG,PNG格式<br>文件,大小不超过2M</p>
               <el-button style="width:108px;height:34px"  @click="upload" type="primary">立即上传</el-button>
           </div>
-      </div> -->
+    </div>-->
   </div>
-  
 </template>
 
 <script>
-
-
+import { brief } from "apis/account";
 export default {
-  name: 'gap',
-  
+  name: "gap",
+
   data() {
-    return {
-     
-    }
+    return {};
   },
   methods: {
-     next() {
-       this.$http.post('/resume').then(res => {
+    next() {
+      this.$http.post("/resume").then(res => {
         if (res.data.code == 200) {
-          // console.log(res);
-          
         }
       });
-      this.$router.push({path:'/resume'})
-      //  this.$router.push({path:'/specialty'})  
+      this.$router.push({ path: "/resume" });
     },
-     upload() {
-       this.$http.post('/resume/file').then(res => {
+    upload() {
+      this.$http.post("/resume/file").then(res => {
         if (res.data.code == 200) {
-          console.log(res);
         }
       });
-    },
+    }
   },
-  created () {
-    this.$http.get('/resume/brief').then(res => {
-          if (res.data.code == 200) {
-            if(res.data.data.defaultResumeId == 0) {
-              this.$router.push({path:'/gap'})
-            }else{
-              this.$router.push({path:'/resume'})
-            }
+  created() {
+    brief()
+      .then(res => {
+        if (res.data.code == 200) {
+          if (res.data.data.defaultResumeId == 0) {
+            this.$router.push({ path: "/gap" });
+          } else {
+            this.$router.push({ path: "/resume" });
           }
-        }).catch(error => {
-         
-            });
-  },
-}
+        }
+      })
+      .catch(error => {});
+  }
+};
 </script>
 
 <style lang="stylus" scoped>
@@ -74,20 +66,20 @@ export default {
     display flex
     flex-direction row
     .gap-left
-      width 770px
+      width 990px
       height 563px
       background white
       display flex
       flex-direction column
     .gap-left img 
-      margin 57px 0 0 314px
+      margin 57px 0 0 424px
       width 143px
     .gap-left span
       font-size 16px
       color #61687c
       margin 24px 0 0 0
     .gap-left .el-button
-      margin 40px 0 0 283px
+      margin 40px 0 0 393px
     .gap-right
       width 220px
       height 268px 
@@ -128,5 +120,4 @@ export default {
       .right-footer .el-button 
         margin 14px 0 0 56px       
 </style>
-<style lang="stylus">
-</style>
+

@@ -101,7 +101,7 @@
          <!-- 职称等级删除确认 -->
         <el-dialog
                 title=""
-                :visible.sync="dialogprofession"
+                :visible.sync="dialogprofess"
                 style="width:900px;margin-left:21%"
                 :before-close="handleClose">
           <div style="display:flex;flex-direction:row;margin-left:90px">
@@ -109,7 +109,7 @@
             <span style="font-size:14px;line-height:20px;margin:0 0 0 20px">删除后不能恢复，请确定删除？</span>
           </div>
           <div slot="footer" class="dialog-footer" style="margin-top:-30px">
-            <el-button style="margin:0 20px 0 0" @click="dialogprofession = false" plain>取 消</el-button>
+            <el-button style="margin:0 20px 0 0" @click="dialogprofess = false" plain>取 消</el-button>
             <el-button type="primary" style="margin:0 90px 0 0" @click="deleteprofession()">确 定</el-button>
           </div>
           <div style="height:30px"></div>
@@ -535,8 +535,8 @@
                <span style="font-size:14px;line-height:20px;margin:0 0 0 20px">离开修改内容将不会保存</span>
              </div>
              <div slot="footer" class="dialog-footer">
-              <el-button style="margin:0 20px 0 175px" @click="personalskillinnerVisible = true" plain>取 消</el-button>
-              <el-button style="margin:0 20px 0 0" type="primary" @click="skillkeep('formPersonalskill')">保存</el-button>
+              <el-button style="margin:0 20px 0 0" @click="languageinnerVisible = false" plain>取 消</el-button>
+              <el-button style="margin:0 80px 0 0" type="primary"  @click="languageouterVisible = false,languageinnerVisible = false">确定</el-button>
              </div>
           </el-dialog>
         </el-dialog>
@@ -1002,31 +1002,60 @@
 <script>
   // import PersonalinformationFrom from 'components/personalinformation_from.vue'
   import datacenterBus from '../apis/datacenterBus.js';
-  import BasicInfo from 'components/BasicInfo.vue';
-  import JobIntension from 'components/Jobintension.vue';
-  import EducationExperience from 'components/education.vue';
-  import WorkExperience from 'components/work.vue';
-  import ProjectExperience from 'components/project.vue';
-  import TrainingExperience from 'components/training.vue';
-  import LanguageExperience from 'components/language.vue';
-  import ProfessionalExperience from 'components/professional.vue';
-  import PersonalSkill from 'components/personal_skill.vue';
-  import AwArds from 'components/awards.vue';
-  import SelfAppraisal from 'components/self-appraisal.vue';
+  import BasicInfo from 'components/personalnformation/BasicInfo.vue';
+  import JobIntension from 'components/jobintension/Jobintension.vue';
+  import EducationExperience from 'components/education/education.vue';
+  import WorkExperience from 'components/work/work.vue';
+  import ProjectExperience from 'components/project/project.vue';
+  import TrainingExperience from 'components/train/training.vue';
+  import LanguageExperience from 'components/language/language.vue';
+  import ProfessionalExperience from 'components/professional/professional.vue';
+  import PersonalSkill from 'components/skill/personal_skill.vue';
+  import AwArds from 'components/awards/awards.vue';
+  import SelfAppraisal from 'components/appraisal/self-appraisal.vue';
 
-  import PersonalinformationFrom from 'components/personalinformation_from.vue'
-  import From from 'components/jobintension_from.vue'
-  import EducationexperienceFrom from 'components/education_from.vue'
-  import WorkFrom from 'components/work_from.vue'
-  import ProgectFrom from 'components/progect_from.vue'
-  import TrainingFrom from 'components/training_from.vue'
-  import LanguageFrom from 'components/language_from.vue'
-  import ProfessionalFrom from 'components/professional_from.vue'
-  import PersonalskillFrom from 'components/personal_skill_from.vue'
-  import AwardsFrom from 'components/awards_from.vue'
-  import SelfappraisalFrom from 'components/selfappraisal_from.vue'
+  import PersonalinformationFrom from 'components/personalnformation/personalinformation_from.vue'
+  import From from 'components/jobintension/jobintension_from.vue'
+  import EducationexperienceFrom from 'components/education/education_from.vue'
+  import WorkFrom from 'components/work/work_from.vue'
+  import ProgectFrom from 'components/project/progect_from.vue'
+  import TrainingFrom from 'components/train/training_from.vue'
+  import LanguageFrom from 'components/language/language_from.vue'
+  import ProfessionalFrom from 'components/professional/professional_from.vue'
+  import PersonalskillFrom from 'components/skill/personal_skill_from.vue'
+  import AwardsFrom from 'components/awards/awards_from.vue'
+  import SelfappraisalFrom from 'components/appraisal/selfappraisal_from.vue'
   import Affix from 'components/affix.vue'
 
+
+
+  import {
+  jobintensionkeep,
+  informationkeep,
+  selfappraisalkeep,
+  awardskeep,
+  skillkeep,
+  languagekeep,
+  professionkeep,
+  trainingkeep,
+  workkeeped,
+  educationkeep,
+  resumeId,
+  brief,
+  deleteskill,
+  deleteprofession,
+  deleteawards,
+  deletework,
+  deletedu,
+  deletetrain,
+  deletelanguage,
+  deleteproject,
+  city,
+  industry,
+  allpositionCatalog,
+  option,
+  progectkeep
+} from "apis/account";
   export default {
     name: 'Resumes',
     components: {
@@ -1103,6 +1132,7 @@
         dialoglanguage:false,
         dialogskill:false,
         dialogaward:false,
+        dialogprofess:false,
         personalinformation: false,
         showPersonalinformation: true,
         showDemo: false,
@@ -1505,17 +1535,19 @@
           else if(this.formJobintension.jobType == '实习') {
             this.formJobintension.languages = 2
           }
-            let til = new Date(this.formJobintension.reportTime).getTime();
-            this.$http.put(`/resume/${this.resumesId}/target`,{positionCatalogs:this.formJobintension.postType,arriveTime:til,county:this.formJobintension.city[1],industries:this.formJobintension.trad,jobSearchStatus:this.formJobintension.status,jobType:this.formJobintension.jobType,province:this.formJobintension.city[0],salaryMin:this.salaryMin,salaryMax:this.salaryMax}).then(res => {
+            let til = new Date(this.formJobintension.reportTime).getTime()
+            let params = {
+              positionCatalogs:this.formJobintension.postType,arriveTime:til,county:this.formJobintension.city[1],industries:this.formJobintension.trad,jobSearchStatus:this.formJobintension.status,jobType:this.formJobintension.jobType,province:this.formJobintension.city[0],salaryMin:this.salaryMin,salaryMax:this.salaryMax
+            }
+            jobintensionkeep(this.resumesId,params).then(res => {
               if (res.data.code == 200) {
-                // console.log(res);
                 this.jobintensionouterVisible = false
-                 this.brief()
+                this.brief()
               }
+            }).catch(error =>{
+              
             });
-           
           } else {
-            // this.informationouterVisible = false
             return false;
           }
       });
@@ -1551,8 +1583,6 @@
               }else if(this.formInformation.educationLevel == '博士') {
                   this.formInformation.educationLevel = 6
               }
-              
-
               if(this.formInformation.isGraduate == 0) {
                   this.formInformation.isGraduate = true
               }else if(this.formInformation.isGraduate == 1) {
@@ -1560,28 +1590,30 @@
               }
               let til = new Date(this.formInformation.workAge).getTime()
               let till = new Date(this.formInformation.birthday).getTime()
-            this.$http.put(`/resume/${this.resumesId}/base`,
-            {overseasAge:Number(this.formInformation.overseasAge),
-            workYear:til,
-            politicalStatus:Number(this.formInformation.politicCountenance),
-            birthday:till,
-            county:this.formInformation.city[1],
-            fullName:this.formInformation.name,
-            sex:this.formInformation.sex,
-            province:this.formInformation.city[0],
-            degree:this.formInformation.educationLevel,
-            email:this.formInformation.email,
-            phone:this.formInformation.phone,
-            isGraduate:this.formInformation.graduate}).then(res => {
+              let params = {
+                overseasAge:Number(this.formInformation.overseasAge),
+                workYear:til,
+                politicalStatus:Number(this.formInformation.politicCountenance),
+                birthday:till,
+                county:this.formInformation.city[1],
+                fullName:this.formInformation.name,
+                sex:this.formInformation.sex,
+                province:this.formInformation.city[0],
+                degree:this.formInformation.educationLevel,
+                email:this.formInformation.email,
+                phone:this.formInformation.phone,
+                isGraduate:this.formInformation.graduate
+              }
+            informationkeep(this.resumesId,params).then(res => {
               if (res.data.code == 200) {
-                // console.log(res);
                 this.informationouterVisible = false
                 this.resumeId()
               }
+            }).catch(error =>{
+              
             });
             this.informationouterVisible = false
           } else {
-            // this.informationouterVisible = false
             return false;
           }
       });
@@ -1590,16 +1622,18 @@
       selfappraisalkeep(formName) {
         this.$refs[formName].validate(valid => {
           if (valid) {
-            this.$http.put(`/resume/${this.resumesId}/evaluation`,{content:this.formSelfappraisal.personalDescription}).then(res => {
+            let params = {
+              content:this.formSelfappraisal.personalDescription
+            }
+            selfappraisalkeep(this.resumesId,params).then(res => {
               if (res.data.code == 200) {
-                // console.log(res);
                 this.selfappraisalouterVisible = false
                  this.resumeId()
               }
+            }).catch(error =>{
+              
             });
-            
           } else {
-            // this.selfappraisalouterVisible = false
             return false;
           }
       });
@@ -1609,16 +1643,16 @@
         this.$refs[formName].validate(valid => {
           if (valid) {
             let till = new Date(this.formAwards.prizeTime).getTime();
-            this.$http.put(`/resume/${this.resumesId}/award/${this.awardsId}`,{award:this.formAwards.prizeAward,acquiredTime:till}).then(res => {
+            let params = {
+              award:this.formAwards.prizeAward,acquiredTime:till
+            }
+            awardskeep(this.resumesId,this.awardsId,params).then(res => {
               if (res.data.code == 200) {
-                // console.log(res);
                 this.awardsouterVisible = false
                 this.resumeId()
-              }
-            });
-           
+              }else{}
+            }).catch(error => {});
           } else {
-            // this.awardsouterVisible = false
             return false;
           }
       });
@@ -1638,15 +1672,16 @@
             else if(this.formPersonalskill.level == '精通') {
               this.formPersonalskill.level = 3
             }
-             this.$http.put(`/resume/${this.resumesId}/skill/${this.skillId}`,{level:this.formPersonalskill.level,skill:this.formPersonalskill.technicalName}).then(res => {
+            let params = {
+              level:this.formPersonalskill.level,skill:this.formPersonalskill.technicalName
+            }
+             skillkeep(this.resumesId,this.skillId,params).then(res => {
               if (res.data.code == 200) {
-                // console.log(res);
                this.personalskillouterVisible = false
                this.resumeId()
-              }
-            });
+              }else{}
+            }).catch(error =>{});
           } else {
-            // this.personalskillouterVisible = false
             return false;
           }
       });
@@ -1666,16 +1701,16 @@
             else if(this.formlanguage.listenAbility == '精通') {
               this.formlanguage.listenAbility = 3
             }
-             this.$http.put(`/resume/${this.resumesId}/language/${this.languageId}`,{language:this.formlanguage.languages,listenAndSpeak:this.formlanguage.listenAbility,readAndWrite:this.formlanguage.readAbility}).then(res => {
+            let params = {
+              language:this.formlanguage.languages,listenAndSpeak:this.formlanguage.listenAbility,readAndWrite:this.formlanguage.readAbility
+            }
+            languagekeep(this.resumesId,this.languageId,params).then(res => {
               if (res.data.code == 200) {
-                // console.log(res);
                this.languageouterVisible = false
                this.resumeId()
-              }
-            });
-            
+              }else{}
+            }).catch(error => {});
           } else {
-            // this.languageouterVisible = false
             return false;
           }
       });
@@ -1684,16 +1719,16 @@
       professionkeep(formName) {
          this.$refs[formName].validate(valid => {
           if (valid) {
-             this.$http.put(`/resume/${this.resumesId}/qualification/${this.qualId}`,{qual:this.formProfession.qual}).then(res => {
+            let params = {
+              qual:this.formProfession.qual
+            }
+             professionkeep(this.resumesId,this.qualId,params).then(res => {
               if (res.data.code == 200) {
-                // console.log(res);
                this.professionouterVisible = false
                this.resumeId()
-              }
-            });
-            
+              }else{}
+            }).catch(error => {});
           } else {
-            // this.languageouterVisible = false
             return false;
           }
       });
@@ -1702,16 +1737,16 @@
       trainingkeep(formName) {
         this.$refs[formName].validate(valid => {
           if (valid) {
-             this.$http.put(`/resume/${this.resumesId}/training/${this.trainId}`,{lesson:this.formtraining.trainCourse,institution:this.formtraining.trainCours}).then(res => {
+            let params = {
+              lesson:this.formtraining.trainCourse,institution:this.formtraining.trainCours
+            }
+             trainingkeep(this.resumesId,this.trainId,params).then(res => {
               if (res.data.code == 200) {
-                // console.log(res);
                this.trainingouterVisible = false
                this.resumeId()
-              }
-            });
-            
+              }else{}
+            }).catch(error => {});
           } else {
-            // this.trainingouterVisible = false
             return false;
           }
       });
@@ -1729,15 +1764,16 @@
             }else{
               var eduTime = till
             }
-            this.$http.put(`/resume/${this.resumesId}/project/${this.progectId}`,{duty:this.formProject.duty,endTime:eduTime,beginTime:til,company:this.formProject.companyName,description:this.formProject.project,project:this.formProject.itemName}).then(res => {
+            let params = {
+              duty:this.formProject.duty,endTime:eduTime,beginTime:til,company:this.formProject.companyName,description:this.formProject.project,project:this.formProject.itemName
+            }
+            progectkeep(this.resumesId,this.progectId,params).then(res => {
               if (res.data.code == 200) {
-                // console.log(res);
                this.progectouterVisible = false
                this.resumeId()
-              }
-            });
+              }else{}
+            }).catch(error => {});
           } else {
-            // this.progectouterVisible = false
             return false;
           }
       });
@@ -1755,15 +1791,17 @@
             }else{
               var eduTime = till
             }
-            this.$http.put(`/resume/${this.resumesId}/work/${this.workId}`,{beginTime:til,endTime:eduTime,company:this.formWork.companyName,description:this.formWork.jobDescription,position:this.formWork.postName,salaryBeforeTax:'2'}).then(res => {
+            let params = {
+              beginTime:til,endTime:eduTime,company:this.formWork.companyName,description:this.formWork.jobDescription,position:this.formWork.postName,salaryBeforeTax:'2'
+            }
+            workkeeped(this.resumesId,this.workId,params).then(res => {
+              console.log(this.resumesId)
               if (res.data.code == 200) {
-                // console.log(res);
                 this.workouterVisible = false
                 this.resumeId()
-              }
-            });
+              }else{}
+            }).catch(error => {});
           } else {
-            // this.workouterVisible = false
             return false;
           }
       });
@@ -1796,29 +1834,23 @@
             }else{
               var eduTime = till
             }
-            // if (this.formInline.general == 0) {
-            //   this.formInline.general = true;
-            // } else if (this.formInline.general == 1) {
-            //   this.formInline.general = false;
-            // }
-            // console.log(til)
-            this.$http.put(`/resume/${this.resumesId}/education/${this.educationId}`,{beginTime:til,endTime:eduTime,degree:this.formEducation.educationDegree,major:this.formEducation.educationSpecialty,school:this.formEducation.educationName,isUnified:false}).then(res => {
+            let params = {
+              beginTime:til,endTime:eduTime,degree:this.formEducation.educationDegree,major:this.formEducation.educationSpecialty,school:this.formEducation.educationName,isUnified:false
+            }
+            educationkeep(this.resumesId,this.educationId,params).then(res => {
               if (res.data.code == 200) {
-                // console.log(res);
                 this.educationouterVisible = false
                 this.resumeId()
-              }
-            });
-            
+              }else{}
+            }).catch(error => {});
           } else {
-            // this.educationouterVisible = false
             return false;
           }
       });
       },
       //获取简历详情
       resumeId () {
-        this.$http.get(`/resume/${this.resumesId}`).then(res => {
+        resumeId(this.resumesId).then(res => {
           if (res.data.code == 200) {
             this.resumeIdList = res.data.data.base
             this.avatarUrl = res.data.data.avatarUrl
@@ -1864,14 +1896,12 @@
             }else if(this.resumeIdList.politicalStatus == 4) {
                 this.resumeIdList.politicalStatus = '中共党员'
             }  
-
-            
           }
         });
       },
       //获取简历简讯
       brief () {
-        this.$http.get('/resume/brief').then(res => {
+        brief().then(res => {
           if (res.data.code == 200) {
             this.resumesId = res.data.data.defaultResumeId
             this.targeIdList = res.data.data
@@ -1910,98 +1940,87 @@
       },
       //专业技能删除
       deleteskill() {
-        this.$http.delete(`/resume/${this.resumesId}/skill/${this.skillId}`).then(res => {
+         deleteskill(this.resumesId,this.skillId).then(res => {
           if (res.data.code == 204) {
             this.dialogskill = false
             this.resumeId()
-          }
-        });
+          }else{}
+        }).catch(error =>{});
       },
       //职称等级删除
       deleteprofession() {
-        this.$http.delete(`/resume/${this.resumesId}/qualification/${this.qualId}`).then(res => {
+        deleteprofession(this.resumesId,this.qualId).then(res => {
           if (res.data.code == 204) {
-            this.dialogprofession = false
+            this.dialogprofess = false
             this.resumeId()
-          }
-        });
+          }else{}
+        }).catch(error => {});
       },
       //工作经历删除
       deletework() {
-        this.$http.delete(`/resume/${this.resumesId}/work/${this.workId}`).then(res => {
+        deletework(this.resumesId,this.workId).then(res => {
           if (res.data.code == 204) {
             this.dialogwork = false
             this.resumeId()
-          }
-        });
+          }else{}
+        }).catch(error => {});
       },
-       //荣誉奖项删除
+      //荣誉奖项删除
       deleteawards() {
-        this.$http.delete(`/resume/${this.resumesId}/award/${this.awardsId}`).then(res => {
+        deleteawards(this.resumesId,this.awardsId).then(res => {
           if (res.data.code == 204) {
             this.dialogaward = false
             this.resumeId()
-          }
-        });
+          }else{}
+        }).catch(error => {});
       },
-       //教育经历删除
+      //教育经历删除
       deletedu() {
-        this.$http.delete(`/resume/${this.resumesId}/education/${this.educationId}`).then(res => {
+        deletedu(this.resumesId,this.educationId).then(res => {
           if (res.data.code == 204) {
             this.dialogedu = false
             this.resumeId()
-            
-          }
-        });
+          }else{}
+        }).catch(error =>{});
       },
-      //职称等级删除
-      deleteaward() {
-        this.$http.delete(`/resume/${this.resumesId}/qualification/${1}`).then(res => {
-          if (res.data.code == 200) {
-            this.dialogedu = false
-            this.resumeId()
-            console.log(res);
-          }
-        });
-      },
-       //培训经历删除
+      //培训经历删除
       deletetrain() {
-        this.$http.delete(`/resume/${this.resumesId}/training/${this.trainId}`).then(res => {
+        deletetrain(this.resumesId,this.trainId).then(res => {
           if (res.data.code == 204) {
             this.dialogtrain = false
             this.resumeId()
-          }
-        });
+          }else{}
+        }).catch(error =>{});
       },
-       //语言能力删除
+      //语言能力删除
       deletelanguage() {
-        this.$http.delete(`/resume/${this.resumesId}/language/${this.languageId}`).then(res => {
+        deletelanguage(this.resumesId,this.languageId).then(res => {
           if (res.data.code == 204) {
             this.dialoglanguage = false
             this.resumeId()
-          }
-        });
+          }else{}
+        }).catch(error => {});
       },
        //项目经历删除
       deleteproject() {
-        this.$http.delete(`/resume/${this.resumesId}/project/${this.progectId}`).then(res => {
+        deleteproject(this.resumesId,this.progectId).then(res => {
           if (res.data.code == 204) {
             this.dialogproject = false
             this.resumeId()
-          }
-        });
+          }else{}
+        }).catch(error =>{});
       },
       //自我评价
       selfappraisalemit(c) {
         this.showpersonappraisal = c[1]
         this.showselfappraisal = c[0]
-         this.resumeId()
+        this.resumeId()
       },
       //荣誉奖项（$emit）
       awardsEmit(c) {
         this.showpersonalskills = c[1]
         this.showpersonalskill = c[0]
-         this.resumeId()
+        this.resumeId()
       },
       //专业技能（$emit）
       skillEmit(c) {
@@ -2013,37 +2032,37 @@
       professionalEmit(c) {
         this.showprofessional = c[0]
         this.showprofessionals = c[1]
-         this.resumeId()
+        this.resumeId()
       },
       //语言能力（$emit）
       languageEmit(c) {
         this.showlanguage = c[0]
         this.showlanguages = c[1]
-         this.resumeId()
+        this.resumeId()
       },
       //培训经历（$emit）
       trainEmit(c) {
         this.showtraining = c[0]
         this.showtrain = c[1]
-         this.resumeId()
+        this.resumeId()
       },
       //项目经历（$emit）
       progectEmit(c) {
         this.showproject = c[0]
         this.showprogectperience = c[1]
-         this.resumeId()
+        this.resumeId()
       },
       //教育经历（$emit）
       sendiptVal(c) {
         this.showeducation = c[0]
         this.showeducational = c[1]
-         this.resumeId()
+        this.resumeId()
       },
       //工作经历
       workEmit(c) {
         this.showwork = c[0],
         this.showworkperience = c[1]
-         this.resumeId()
+        this.resumeId()
       },
       BasicEmit(c) {
         this.showDemo = c[0],
@@ -2055,13 +2074,13 @@
         this.showJob = c[0],
         this.showjobintension = c[1]
         this.showadd = c[1]
-         this.brief()
+        this.brief()
       },
       //荣誉奖项（$emit）
       awardsemit(c) {
         this.showawards = c[0]
         this.showaward = c[1]
-         this.resumeId()
+        this.resumeId()
       },
       //自我介绍
       showselfappraisalList() {
@@ -2070,7 +2089,6 @@
       },
       //荣誉奖项
       showawardList(list) {
-        // console.log(list)
         this.awardsId = list.id
         this.awardsouterVisible = true
         this.formAwards.prizeAward = list.award
@@ -2078,7 +2096,6 @@
       },
        //专业技能编辑
       editskill(list) {
-        // console.log(list)
         this.personalskillouterVisible = true
         this.skillId = list.id 
         this.formPersonalskill.technicalName = list.skill
@@ -2093,9 +2110,7 @@
         }
       },
       //语言能力
-      
       showlanguagesList(list) {
-        // console.log(list)
         this.languageouterVisible = true
         this.formlanguage.languages = list.language
         if(list.listenAndSpeak == 0) {
@@ -2125,18 +2140,6 @@
         this.trainId = list.id
         this.formtraining.trainCourse = list.lesson
         this.formtraining.trainCours = list.institution
-        // if(list.endTime == null) {
-        //     var end = this.$moment(new Date().getTime()).format("YYYY-MM")
-        //   }else{
-        //     var end = this.$moment(new Date(list.endTime).getTime()).format("YYYY-MM")
-        //   }
-        //   this.formtraining.trainTime = [this.$moment(new Date(list.beginTime)).format("YYYY-MM"),end]
-        // formtraining: {
-        //   trainCourse:'',
-        //   trainTime:'',
-        //   trainCours:'',
-        // },
-
       },
       //项目经历编辑
       showprogectperienceList(list) {
@@ -2160,13 +2163,11 @@
       },
       //工作经历编辑
       showworkperienceList(list) {
-        console.log(list)
         this.workouterVisible = true
         this.workId  = list.id
         this.formWork.companyName = list.company
         this.formWork.postName = list.position
         this.formWork.jobDescription = list.description
-        // this.formWork.trade[0].code = list.industries[0].code
         if(list.endTime == null) {
             var end = this.$moment(new Date().getTime()).format("YYYY-MM")
           }else{
@@ -2205,16 +2206,6 @@
         }
         this.formEducation.educationTime = [this.$moment(list.beginTime).format("YYYY-MM"),end]
       },
-
-      //求职意向编辑
-      // formJobintension: {
-      //     postType: '',
-      //     trade: '',
-      //     scope:'',
-      //     status:'',
-      //     jobType:'',
-      //     reportTime:'', 
-      //   },
       showjobintensionList () {
          this.jobintensionouterVisible = true
         if(this.listjobintension.jobSearchStatus == 1) {
@@ -2234,8 +2225,7 @@
           }else if(this.listjobintension.jobType == 1) {
             this.listjobintension.jobType = '兼职'
           }
-       
-        // this.formJobintension.postType = this.listjobintension.postType
+      
         if(this.listjobintension.salaryMax == 1) {
           this.formJobintension.scope = '1K以下'
         }else if(this.listjobintension.salaryMax == 2) {
@@ -2264,44 +2254,44 @@
         this.formJobintension.trad[0].code = this.listjobintension.industries[0].code
         this.formJobintension.postType[0].code = this.listjobintension.positionCatalogs[0].code
       },
-
+      //个人信息编辑
       showjpersonalList() {
         this.informationouterVisible = true
         this.formInformation.name = this.resumeIdList.fullName
         this.formInformation.sex = this.resumeIdList.sex
         this.formInformation.politicCountenance = this.resumeIdList.politicalStatus
         if(this.resumeIdList.graduate == true) {
-                this.formInformation.graduate = 1 
-            }else if(this.resumeIdList.graduate == false) {
-                this.formInformation.graduate = 2
-            }
+            this.formInformation.graduate = 1 
+        }else if(this.resumeIdList.graduate == false) {
+            this.formInformation.graduate = 2
+        }
         this.formInformation.overseasAge = this.resumeIdList.overseasAge
         if(this.resumeIdList.degree == 2) {
-                this.formInformation.educationLevel = '高中'
-            }else if(this.resumeIdList.degree == 0) {
-                this.formInformation.educationLevel = '初中及以下'
-            }else if(this.resumeIdList.degree == 1) {
-                this.formInformation.educationLevel = '职中'
-            }else if(this.resumeIdList.degree == 3) {
-                this.formInformation.educationLevel = '大专'
-            }else if(this.resumeIdList.degree == 4) {
-                this.formInformation.educationLevel = '本科'
-            }else if(this.resumeIdList.degree == 5) {
-                this.formInformation.educationLevel = '硕士'
-            }else if(this.resumeIdList.degree == 6) {
-                this.formInformation.educationLevel = '博士'
-            }
+            this.formInformation.educationLevel = '高中'
+        }else if(this.resumeIdList.degree == 0) {
+            this.formInformation.educationLevel = '初中及以下'
+        }else if(this.resumeIdList.degree == 1) {
+            this.formInformation.educationLevel = '职中'
+        }else if(this.resumeIdList.degree == 3) {
+            this.formInformation.educationLevel = '大专'
+        }else if(this.resumeIdList.degree == 4) {
+            this.formInformation.educationLevel = '本科'
+        }else if(this.resumeIdList.degree == 5) {
+            this.formInformation.educationLevel = '硕士'
+        }else if(this.resumeIdList.degree == 6) {
+            this.formInformation.educationLevel = '博士'
+        }
         if(this.resumeIdList.politicalStatus == 2) {
-                this.formInformation.politicCountenance = '民主党派'
-            }else if(this.resumeIdList.politicalStatus == 0) {
-                this.formInformation.politicCountenance = '群众'
-            }else if(this.resumeIdList.politicalStatus == 1) {
-                this.formInformation.politicCountenance = '团员'
-            }else if(this.resumeIdList.politicalStatus == 3) {
-                this.formInformation.politicCountenance = '预备党员'
-            }else if(this.resumeIdList.politicalStatus == 4) {
-                this.formInformation.politicCountenance = '中共党员'
-            }    
+            this.formInformation.politicCountenance = '民主党派'
+        }else if(this.resumeIdList.politicalStatus == 0) {
+            this.formInformation.politicCountenance = '群众'
+        }else if(this.resumeIdList.politicalStatus == 1) {
+            this.formInformation.politicCountenance = '团员'
+        }else if(this.resumeIdList.politicalStatus == 3) {
+            this.formInformation.politicCountenance = '预备党员'
+        }else if(this.resumeIdList.politicalStatus == 4) {
+            this.formInformation.politicCountenance = '中共党员'
+        }    
         var birth = this.resumeIdList.birthday 
         this.woekTime = this.resumeIdList.birthday
         this.formInformation.birthday = this.$moment(birth).format("YYYY-MM-DD") 
@@ -2317,10 +2307,8 @@
           const y = this.$refs[ref].offsetTop - 100
           window.scrollTo({top: y, behavior: "smooth"});
         } else {
-          // alert("222222")
           const y = this.$refs[ref].offsetTop - 600
           window.scrollTo({top: y, behavior: "smooth"});
-          // alert(y)
         }
       },
       showedudialog(list) {
@@ -2353,7 +2341,7 @@
       },
       showprofessionaldialog(list) {
         this.qualId  = list.id
-        this.dialogprofession = true
+        this.dialogprofess = true
       },
       ispersonalinformation() {
         this.isshowpersonalinformation = true
@@ -2474,48 +2462,40 @@
           this.active = ""
         }
       },
-      //城市
+    //城市
       city() {
-      this.$http.get('/constant/district')
-      .then(res => {
-          if (res.data.code == 200) {
-            this.options = res.data.data
-          }
-        });
+        city().then(res => {
+            if (res.data.code == 200) {
+              this.options = res.data.data
+            }else{}
+          }).catch(error =>{});
     },
     //获取所有企业行业
       allposition() {
-        this.$http.get("/constant/industry").then(res => {
+        industry().then(res => {
           if (res.data.code == 200) {
             this.industryList = res.data.data
-          }
-        });
+          }else{}
+        }).catch(error => {});
       },
       //获取所有职位类型
       allpositionCatalog() {
-        this.$http.get("/constant/positionCatalog").then(res => {
+        allpositionCatalog().then(res => {
           if (res.data.code == 200) {
             this.positionCatalogList = res.data.data
-          }
-        });
+          }else{}
+        }).catch(error => {});
       },
       //获取简单选项信息
       option() {
-        this.$http.get("/option").then(res => {
+        option().then(res => {
           if (res.data.code == 200) {
             this.monthPayList = res.data.data.salaryRange
             this.workStateList = res.data.data.jobType
             this.jobSearchList = res.data.data.jobSearchStatus
-          }
-        });
+          }else{}
+        }).catch(error => {});
       },
-    // getTime(){
-		// 		setInterval(()=>{
-		// 			//new Date() new一个data对象，当前日期和时间
-		// 			//toLocaleString() 方法可根据本地时间把 Date 对象转换为字符串，并返回结果。
-		// 			this.nowtime = new Date().toLocaleString();
-		// 		},1000)
-		// 	}
     },
     created () {
       this.brief(),
@@ -2590,7 +2570,6 @@
   }
 
 </script>
-
 
 <style lang="stylus" scoped>
   
@@ -2842,3 +2821,4 @@
     display: block;
   }  
 </style>
+

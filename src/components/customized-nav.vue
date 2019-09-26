@@ -5,10 +5,10 @@
         <img style="height:40px" @click="gotoHomeUI" :src="require('../assets/images/log.png')" />
         <div class="menu">
           <div class="group" v-if="!ctlHideMenus">
-            <router-link to="/home" index="1">首页</router-link>
-            <router-link to="/joblist" index="2">职位</router-link>
-            <router-link to="/gap" index="3">简历</router-link>
-            <router-link to="/aboutus/:id" index="4">联系我们</router-link>
+            <router-link to="/home" index="1"><span>首页</span></router-link>
+            <router-link to="/joblist" index="2"><span>职位</span></router-link>
+            <router-link to="/gap" index="3"><span>简历</span></router-link>
+            <router-link to="/aboutus/:id" index="4"><span>联系我们</span></router-link>
           </div>
           <div class="btn-set" v-if="this.$store.state.token == null">
             <router-link tag="button" :to="{name:'login'}" index="1">登录</router-link>
@@ -182,7 +182,7 @@ export default {
             height 100%
             img
                 height 40
-                margin 0 20px
+                margin 0 0 0 140px
                 cursor pointer  
             .menu
                 display flex
@@ -194,7 +194,7 @@ export default {
                     display flex
                     height 100%
                     flex 1
-                    margin 0 50px
+                    margin 0 0 0 70px
                     a
                         width 100px
                         color white
@@ -202,13 +202,25 @@ export default {
                         display flex
                         align-items center
                         justify-content center
-                        &.router-link-exact-active
-                            color #6EC5D2
-                            border-bottom solid 3px #6EC5D2
+                        &.router-link-active
+                          background-color white
+                          color #16376e
+                          height 80%
+                          margin 15px 0 0 0
+                          border-radius 10px 10px 0 0 
+                          span
+                            width 80%
+                            height 80%
+                            border-bottom solid 2px #16376e
+                            
+                            display flex
+                            justify-content center
+                            align-items center
                 .user-operations
                     cursor pointer
                     display flex
                     flex-direction row
+                    margin 0 140px 0 0
                     .badge
                       border 1px solid red  
                     img
@@ -217,7 +229,7 @@ export default {
                         border-radius 50%
                         margin 17px 0 0 0
                 .btn-set
-                    margin 0 15px
+                    margin 0 130px 0 0
                     button
                         cursor pointer
                         font-size 15px

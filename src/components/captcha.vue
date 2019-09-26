@@ -53,7 +53,7 @@ export default {
     width 165px
     height 43px
   .btn
-    width 123px
-    height 43px
-    margin-left 10px
+    width 125px
+    height 40px
+    margin 0 0 2px 10px
 </style>

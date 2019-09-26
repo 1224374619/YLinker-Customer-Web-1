@@ -32,7 +32,6 @@ _axios.interceptors.response.use(response => {
     //     title: '错误',
     //     message: error.message
     // });
-    console.log("23232323232")
     return Promise.reject(error);
 });
 

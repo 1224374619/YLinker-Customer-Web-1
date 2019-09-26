@@ -45,7 +45,10 @@
             :key="index"
           >{{list.tag}}</el-radio-button>
         </el-radio-group>
-        <span style="font-size:12px;margin-top:3px;margin-left:15px"  @click="moreOne">更多<i class="el-icon-caret-bottom"></i></span>
+        <span style="font-size:12px;margin-top:3px;margin-left:15px" @click="moreOne">
+          更多
+          <i class="el-icon-caret-bottom"></i>
+        </span>
       </div>
       <div class="article" v-if="isshow">
         <el-radio-group size="small" v-model="workExperience">
@@ -137,14 +140,23 @@
             v-for="(list,index) in industryList.slice(0, 5)"
             :key="index"
           >{{list.tag}}</el-radio-button>
-          <el-radio-button  v-if="isduty" v-model="duty" class="article-content" v-for="(list,index) in industryList.slice(6)" :label="index+5" :key='index'>{{list.tag}}</el-radio-button>
+          <el-radio-button
+            v-if="isduty"
+            v-model="duty"
+            class="article-content"
+            v-for="(list,index) in industryList.slice(6)"
+            :label="index+5"
+            :key="index"
+          >{{list.tag}}</el-radio-button>
         </el-radio-group>
-        <span style="font-size:14px" @click="more">更多<i class="el-icon-caret-bottom"></i></span>
+        <span style="font-size:14px" @click="more">
+          更多
+          <i class="el-icon-caret-bottom"></i>
+        </span>
       </div>
-      <div class="article" style="margin-bottom:10px;margin-top:-1px" >
+      <div class="article" style="margin-bottom:10px;margin-top:-1px">
         <el-radio-group size="small" v-model="menu" style="width:700px;margin:0 0 0 67px;">
           <div>111</div>
-          
         </el-radio-group>
       </div>
 
@@ -201,8 +213,12 @@
           <span>{{item.company.companyName}}</span>
         </div>
         <div class="footer-second">
-          <span v-if='item.workAgeMax == null'>{{$CodeToTag.CodeToTag([item.workAddress.province,item.workAddress.county],city)[0]+$CodeToTag.CodeToTag([item.workAddress.province,item.workAddress.county],city)[1]}} | 10年以上 | {{item.degreeMin|level}}</span>
-          <span v-else>{{$CodeToTag.CodeToTag([item.workAddress.province,item.workAddress.county],city)[0]+$CodeToTag.CodeToTag([item.workAddress.province,item.workAddress.county],city)[1]}} | {{item.workAgeMin}}-{{item.workAgeMax}}年 | {{item.degreeMin|level}}</span>
+          <span
+            v-if="item.workAgeMax == null"
+          >{{$CodeToTag.CodeToTag([item.workAddress.province,item.workAddress.county],city)[0]+$CodeToTag.CodeToTag([item.workAddress.province,item.workAddress.county],city)[1]}} | 10年以上 | {{item.degreeMin|level}}</span>
+          <span
+            v-else
+          >{{$CodeToTag.CodeToTag([item.workAddress.province,item.workAddress.county],city)[0]+$CodeToTag.CodeToTag([item.workAddress.province,item.workAddress.county],city)[1]}} | {{item.workAgeMin}}-{{item.workAgeMax}}年 | {{item.degreeMin|level}}</span>
           <span>{{item.publishedTime | formatDate}}</span>
           <span>{{item.company.industry-parseInt(item.company.industry/100)*100|industry}} | {{item.company.size}}人</span>
         </div>
@@ -282,6 +298,13 @@
   </div>
 </template>
 <script>
+import {
+  city,
+  companySearch,
+  positionSearch,
+  industry,
+  option
+} from "apis/account";
 export default {
   name: "joblist",
   components: {},
@@ -468,14 +491,16 @@ export default {
     },
     //城市
     citise() {
-      this.$http.get("/constant/district").then(res => {
-        if (res.data.code == 200) {
-          this.city = res.data.data;
-        }
-      });
+      city()
+        .then(res => {
+          if (res.data.code == 200) {
+            this.city = res.data.data;
+          } else {
+          }
+        })
+        .catch(error => {});
     },
     citys(item, index) {
-      console.log(item, "232332323232");
       this.provinceButton = item.tag;
       this.provincecode = item.code;
       this.curr = index;
@@ -487,13 +512,11 @@ export default {
       this.citycode = item.code;
       this.sliceArr.forEach(function(value) {
         if (value.tag == item.tag) {
-          console.log(item);
         }
       });
     },
     cits(item) {
       this.provinceButton = this.items.tag;
-      console.log(this.items.tag);
       this.sliceArr = this.items.children.slice(0, 5);
     },
     cancelButton() {
@@ -507,7 +530,7 @@ export default {
       this.release = "";
       this.quality = "";
       this.duty = "";
-      this.searchContent = ''
+      this.searchContent = "";
       setTimeout(() => {
         this.articleButton = false;
       }, 300);
@@ -516,18 +539,19 @@ export default {
     keepButton() {
       this.search();
     },
+    //公司搜索
     search() {
       if (this.company == "公司") {
-        this.$http
-          .post("/searched/company", {
-            county: this.citycode,
-            industry: this.duty,
-            keyword: this.searchContent,
-            pageNum: 0,
-            pageSize: 10,
-            province: this.provincecode,
-            size: this.scale
-          })
+        let params = {
+          county: this.citycode,
+          industry: this.duty,
+          keyword: this.searchContent,
+          pageNum: 0,
+          pageSize: 10,
+          province: this.provincecode,
+          size: this.scale
+        };
+        companySearch(params)
           .then(res => {
             if (res.data.code == 200) {
               this.joblistJob = false;
@@ -537,10 +561,11 @@ export default {
                 this.contentNull = true;
               } else {
                 this.joblistCompany = true;
-                 this.contentNull = false;
+                this.contentNull = false;
               }
             }
-          });
+          })
+          .catch(error => {});
       } else if (this.company == "职位") {
         switch (this.monthPay) {
           case 0:
@@ -628,24 +653,24 @@ export default {
         } else {
           this.isGraduate = true;
         }
-        this.$http
-          .post("/searched/position", {
-            county: this.citycode,
-            degreeMin: this.Education,
-            industry: this.duty,
-            isGraduate: this.isGraduate,
-            jobType: this.workState,
-            keyword: this.searchContent,
-            pageNum: 0,
-            pageSize: 10,
-            province: this.provincecode,
-            publishedInterval: this.release,
-            salaryMax: this.salaryMax,
-            salaryMin: this.salaryMin,
-            size: this.scale,
-            workAgeMax: this.workAgeMax,
-            workAgeMin: this.workAgeMin
-          })
+        let paramsPosition = {
+          county: this.citycode,
+          degreeMin: this.Education,
+          industry: this.duty,
+          isGraduate: this.isGraduate,
+          jobType: this.workState,
+          keyword: this.searchContent,
+          pageNum: 0,
+          pageSize: 10,
+          province: this.provincecode,
+          publishedInterval: this.release,
+          salaryMax: this.salaryMax,
+          salaryMin: this.salaryMin,
+          size: this.scale,
+          workAgeMax: this.workAgeMax,
+          workAgeMin: this.workAgeMin
+        };
+        positionSearch(paramsPosition)
           .then(res => {
             if (res.data.code == 200) {
               this.joblistCompany = false;
@@ -657,8 +682,10 @@ export default {
               } else {
                 this.joblistJob = true;
               }
+            } else {
             }
-          });
+          })
+          .catch(error => {});
       }
     },
     next() {
@@ -690,41 +717,29 @@ export default {
     },
     //获取所有企业行业
     allposition() {
-      this.$http.get("/constant/positionCatalog").then(res => {
-        if (res.data.code == 200) {
-          this.industryList = res.data.data;
-        }
-      });
-    },
-    //获取所有企业类别
-    enterpriseForm() {
-      this.$http.get("/constant/enterpriseForm").then(res => {
-        if (res.data.code == 200) {
-          // this.industryList = res.data.data
-        }
-      });
-    },
-    //获取所有职位类型
-    positionCatalog() {
-      this.$http.get("/constant/positionCatalog").then(res => {
-        if (res.data.code == 200) {
-          // this.industryList = res.data.data
-        }
-      });
+      industry()
+        .then(res => {
+          if (res.data.code == 200) {
+            this.industryList = res.data.data;
+          }
+        })
+        .catch(error => {});
     },
     //获取简单选项信息
     option() {
-      this.$http.get("/option").then(res => {
-        if (res.data.code == 200) {
-          this.qualityList = res.data.data.companyNature;
-          this.scaleList = res.data.data.companySize;
-          this.workStateList = res.data.data.jobType;
-          this.monthPayList = res.data.data.salaryRange;
-          this.EducationList = res.data.data.eduDegree;
-
-          this.workExperienceList = res.data.data.workAgeRange;
-        }
-      });
+      option()
+        .then(res => {
+          if (res.data.code == 200) {
+            this.qualityList = res.data.data.companyNature;
+            this.scaleList = res.data.data.companySize;
+            this.workStateList = res.data.data.jobType;
+            this.monthPayList = res.data.data.salaryRange;
+            this.EducationList = res.data.data.eduDegree;
+            this.workExperienceList = res.data.data.workAgeRange;
+          } else {
+          }
+        })
+        .catch(error => {});
     },
     getVendorId() {
       if (this.company == "公司") {
@@ -769,8 +784,6 @@ export default {
   },
   created() {
     this.allposition();
-    this.enterpriseForm();
-    this.positionCatalog();
     this.citise();
     this.option();
     this.cits();
@@ -784,41 +797,42 @@ export default {
       } else {
         this.joblistJob = true;
         this.contentNull = false;
-        this.positionList = this.$store.state.lsit.list
+        this.positionList = this.$store.state.lsit.list;
       }
     } else {
-      this.$http
-          .post("/searched/position", {
-            county: this.citycode,
-            degreeMin: this.Education,
-            industry: this.duty,
-            isGraduate: this.isGraduate,
-            jobType: this.workState,
-            keyword: this.searchContent,
-            pageNum: 0,
-            pageSize: 10,
-            province: this.provincecode,
-            publishedInterval: this.release,
-            salaryMax: this.salaryMax,
-            salaryMin: this.salaryMin,
-            size: this.scale,
-            workAgeMax: this.workAgeMax,
-            workAgeMin: this.workAgeMin
-          })
-          .then(res => {
-            if (res.data.code == 200) {
-              this.joblistCompany = false;
-              this.contentNull = false;
-              this.positionList = res.data.data.list;
-              this.page.total = res.data.data.total
-              if (res.data.data.total == 0) {
-                this.joblistJob = false;
-                this.contentNull = true;
-              } else {
-                this.joblistJob = true;
-              }
+      let params = {
+        county: this.citycode,
+        degreeMin: this.Education,
+        industry: this.duty,
+        isGraduate: this.isGraduate,
+        jobType: this.workState,
+        keyword: this.searchContent,
+        pageNum: 0,
+        pageSize: 10,
+        province: this.provincecode,
+        publishedInterval: this.release,
+        salaryMax: this.salaryMax,
+        salaryMin: this.salaryMin,
+        size: this.scale,
+        workAgeMax: this.workAgeMax,
+        workAgeMin: this.workAgeMin
+      };
+      positionSearch(params)
+        .then(res => {
+          if (res.data.code == 200) {
+            this.joblistCompany = false;
+            this.contentNull = false;
+            this.positionList = res.data.data.list;
+            this.page.total = res.data.data.total;
+            if (res.data.data.total == 0) {
+              this.joblistJob = false;
+              this.contentNull = true;
+            } else {
+              this.joblistJob = true;
             }
-          });
+          }
+        })
+        .catch(error => {});
     }
   },
   filters: {
@@ -963,7 +977,7 @@ export default {
       .el-input__inner
         border 0px solid red
       .search-button
-        width 115px
+        width 124px
         height 44px
         font-size 12px
         color white

@@ -116,7 +116,14 @@
 
 <script>
 import BaiduMap from "vue-baidu-map/components/map/Map.vue";
-
+import {
+  companyDetail,
+  positionlist,
+  positionCatalog,
+  city,
+  allpositionCatalog
+} from "apis/account";
+import { error } from 'util';
 export default {
   name: "position",
   components: {
@@ -126,9 +133,9 @@ export default {
     return {
       page: {
                 total: 0,
-                pageSize: 5,
+                pageSize: 10,
                 current: 1,
-                pageSizeOpts: [5,10,20]
+                pageSizeOpts: [10,20,30]
             },
       companId:'',
       citysal:[],
@@ -159,38 +166,48 @@ export default {
     },
     //获取公司详情
     companyId() {
-      this.$http.get(`/company/${this.companId}`).then(res => {
+      companyDetail(this.companId).then(res => {
         if (res.data.code == 200) {
           this.companyIdList = res.data.data;
-           console.log(this.companyIdList)
+        }else{
         }
+      }).catch(error => {
       });
     },
     //获取岗位列表
     handleClick(e) {
       if (e.index == 1) {
-      this.$http.get(`/company/${this.companId}/position`,{params:{pageNum:this.page.current-1,pageSize:this.page.pageSize,positionCatalog:10202}}).then(res => {
+        let params = {
+          pageNum:this.page.current-1,pageSize:this.page.pageSize,positionCatalog:10202
+        }
+      positionlist(this.companId,params).then(res => {
           if (res.data.code == 200) {
             this.tableData = res.data.data.list;
             this.page.total = res.data.data.total
-            // var time = this.tableData[0].publishedTime
-            // this.changeTime(time)
           }
+      }).catch(error => {
+        
       });
       }
     },
     //岗位分类
     positionCatalog() {
-      this.$http.get(`/company/${this.companId}/positionCatalog`).then(res => {
+      positionCatalog(this.companId).then(res => {
         if (res.data.code == 200) {
           this.positionCatalogList = res.data.data;
-        }
+        }else{}
+      }).catch(error => {
+
       });
     },
     handleSizeChange(val) {
       this.page.pageSize = val
       this.page.current = 1
-      this.$http.get(`/company/${this.companId}/position`,{params:{pageNum:this.page.current-1,pageSize:this.page.pageSize}}).then(res => {
+      let params = {
+        pageNum:this.page.current-1,
+        pageSize:this.page.pageSize
+      }
+      positionlist(this.companId,params).then(res => {
           if (res.data.code == 200) {
             this.tableData = res.data.data.list;
             this.page.total = res.data.data.total
@@ -201,7 +218,11 @@ export default {
     },
     handleCurrentChange(val) {
       this.page.current = val
-      this.$http.get(`/company/${this.companId}/position`,{params:{pageNum:this.page.current-1,pageSize:this.page.pageSize}}).then(res => {
+       let params = {
+        pageNum:this.page.current-1,
+        pageSize:this.page.pageSize
+      }
+      positionlist(this.companId,params).then(res => {
           if (res.data.code == 200) {
             this.tableData = res.data.data.list;
             this.page.total = res.data.data.total
@@ -228,7 +249,7 @@ export default {
     },
     //城市
       citise() {
-        this.$http.get("/constant/district").then(res => {
+        city().then(res => {
           if (res.data.code == 200) {
             this.citysal = res.data.data;
           }
@@ -236,11 +257,12 @@ export default {
       },
       //获取所有职位类型
       allpositionCatalog() {
-        this.$http.get("/constant/positionCatalog").then(res => {
+        allpositionCatalog().then(res => {
           if (res.data.code == 200) {
             this.posiCatalogList = res.data.data
-            
-          }
+          }else{}
+        }).catch(error => {
+
         });
       },
   },
