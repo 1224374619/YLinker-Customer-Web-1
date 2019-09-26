@@ -1,7 +1,7 @@
 <template>
   <div class="personal">
     <div class="personal-left">
-      <el-tabs v-model="activeName" @tab-click="handleClick" class="personal-tabs" v-if="showTabs">
+      <el-tabs v-model="activeName"  class="personal-tabs" v-if="showTabs">
         <el-tab-pane :label="`投递记录（${throwNum = this.page1.total}）`" name="first">
           <div style="width:630px" class="hover" v-for="(list,index) in submittedList" :key="index">
             <div class="tabs-first">
@@ -98,7 +98,7 @@
           <span>推荐职位</span>
           <span @click="next">查看更多 》</span>
         </div>
-        <div v-if='Tjposition' v-for="(list,index) in positionList.slice(0, 6)" :key="index">
+        <div v-if='Tjposition' v-for="(list,index) in positionList.slice(0, 6)" :key="index" @click="nextjoblist(list.id)">
           <div class="footer-article">
             <span>{{list.positionName}}</span>
             <span>{{list.salaryMin}}-{{list.salaryMax}}k</span>
@@ -175,8 +175,25 @@ export default {
     };
   },
   methods: {
+    handleSizeChange(val) {
+        console.log(`每页 ${val} 条`);
+      },
+    handleCurrentChange(val) {
+      console.log(`当前页: ${val}`);
+      },
+    handleSizeChange1(val) {
+        console.log(`每页 ${val} 条`);
+      },
+    handleCurrentChange1(val) {
+      console.log(`当前页: ${val}`);
+      },  
     next() {
       this.$router.push({ path: "/joblist" });
+    },
+    nextjoblist(id) {
+      this.$router.push({ path: "/station",query:{
+            id: id
+          }});
     },
     toPerson() {
       this.$router.push({ path: "/inforchange" });

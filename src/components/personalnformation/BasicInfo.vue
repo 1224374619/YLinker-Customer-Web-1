@@ -42,6 +42,7 @@
             <el-date-picker
               style="width:168px;height:36px"
               type="year"
+              :picker-options="pickerOptions"
               placeholder="选择日期"
               v-model="formInline.workingSeniority"
             ></el-date-picker>
@@ -90,6 +91,7 @@
             <el-date-picker
               style="width:168px;height:36px"
               type="date"
+              :picker-options="pickerOptionsOne"
               placeholder="选择日期"
               v-model="formInline.birthday"
             ></el-date-picker>
@@ -143,6 +145,16 @@ export default {
         politicCountenance: "",
         overseasAge: "",
         isGraduate: ""
+      },
+      pickerOptions: {
+        disabledDate(time) {
+          return time.getTime() > Date.now();
+        }
+      },
+      pickerOptionsOne: {
+        disabledDate(time) {
+          return time.getTime() > Date.now();
+        }
       },
       imageUrl: "",
       file: "",

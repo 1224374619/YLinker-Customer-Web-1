@@ -21,7 +21,7 @@
               </el-badge>
               <el-dropdown-menu slot="dropdown" style="width:372px;height:200px;">
                 <div style="overflow:scroll;width:372px;height:180px;overflow-x:hidden">
-                  <div class="badge" v-for="item in notificationlist" :key="item">
+                  <div class="badge" v-for="(item,index) in notificationlist" :key="index">
                     <span
                       style="color:#4a4a4a;font-size:12px;margin-left:10px;"
                     >{{item.description}}</span>
@@ -39,7 +39,7 @@
             <span
               style="line-height:60px;color:white;padding:0 10px 0 0;font-size:15px;"
             >{{fullName}}</span>
-            <el-dropdown placement="bottom-start" @command="dealMenuClick">
+            <el-dropdown placement="bottom-start" >
               <img :src="this.avatarUrl" />
               <el-dropdown-menu slot="dropdown">
                 <el-dropdown-item @click.native="personal">个人信息</el-dropdown-item>

@@ -11,7 +11,7 @@ import queryString from 'querystring'
 // }]
 let config = {
     //判断当前开发环境，切换代理配置
-    baseURL: process.env.NODE_ENV === 'production' ? '/basic/' : 'api',
+    baseURL: process.env.NODE_ENV === 'production' ? '/consumertest/' : 'api',
     timeout: 60 * 1000, // Timeout
     withCredentials: true, // Check cross-site Access-Control
 };
@@ -19,7 +19,7 @@ let config = {
 const _axios = axios.create(config);
 
 const instance= axios.create({
-    baseURL: process.env.NODE_ENV === 'production' ? '/basic/' : 'api',
+    baseURL: process.env.NODE_ENV === 'production' ? '/consumertest/' : 'api',
     headers:{'Content-Type':'application/x-www-form-urlencoded'},
     transformRequest:[ (data) => queryString.stringify(data)]
 })

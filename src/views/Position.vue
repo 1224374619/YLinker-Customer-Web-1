@@ -150,6 +150,7 @@ export default {
       url:
         "https://yinlinkrc-test.oss-cn-shanghai.aliyuncs.com/logo/company/2019-08-31/e747bdbb1f774fdd9da33eb92b4d447a.png",
       tableData: [],
+      positionCatalog:'',
       positionCatalogList:{}
     };
   },
@@ -178,7 +179,7 @@ export default {
     handleClick(e) {
       if (e.index == 1) {
         let params = {
-          pageNum:this.page.current-1,pageSize:this.page.pageSize,positionCatalog:10202
+          pageNum:this.page.current-1,pageSize:this.page.pageSize,positionCatalog:this.positionCatalog
         }
       positionlist(this.companId,params).then(res => {
           if (res.data.code == 200) {
@@ -195,6 +196,7 @@ export default {
       positionCatalog(this.companId).then(res => {
         if (res.data.code == 200) {
           this.positionCatalogList = res.data.data;
+          this.positionCatalog = res.data.data.list[0].positionCatalog;
         }else{}
       }).catch(error => {
 

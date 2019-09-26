@@ -9,6 +9,7 @@
           style="width:242px;height:36px"
           v-model="formInline.prizeTime"
           type="month"
+          :picker-options="pickerOptions"
           placeholder="选择月">
         </el-date-picker>
       </el-form-item>
@@ -47,6 +48,11 @@ export default {
       formInline: {
         prizeAward: "",
         prizeTime: ""
+      },
+       pickerOptions: {
+        disabledDate(time) {
+          return time.getTime() > Date.now();
+        }
       },
        rules: {
           prizeAward: [

@@ -76,8 +76,8 @@
           :label-in-value="true"
         >
           <el-option
-            v-for="item in perList"
-            :key="item.value"
+            v-for="(item,index) in perList"
+            :key="index"
             :label="item.label"
             :value="item.value"
           ></el-option>
@@ -98,14 +98,14 @@
           <a
             href="#"
             style="padding:0 0 0 5px;text-decoration:none"
-            v-for="item in keywordList"
-            :key="item"
+            v-for="(item,index) in keywordList"
+            :key="index"
           >{{item.content}}</a>
         </span>
       </div>
       <div class="carousel">
         <el-carousel :interval="5000">
-          <el-carousel-item v-for="item in carouselImgs" :key="item">
+          <el-carousel-item v-for="(item,index) in carouselImgs" :key="index">
             <img style="width:1000px" :src="item" />
           </el-carousel-item>
         </el-carousel>
@@ -635,9 +635,9 @@ export default {
       }
     }
   },
-  mounted() {
-    this.companyScrolling();
-  }
+  // mounted() {
+  //   this.companyScrolling();
+  // }
 };
 </script>
 

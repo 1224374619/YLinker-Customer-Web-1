@@ -7,7 +7,7 @@
                 title=""
                 :visible.sync="dialogedu"
                 style="width:900px;margin-left:21%"
-                :before-close="handleClose">
+                >
           <div style="display:flex;flex-direction:row;margin-left:90px">
             <img style="height:18px;" :src="require('../assets/images/222.png')"/>
             <span style="font-size:14px;line-height:20px;margin:0 0 0 20px">删除后不能恢复，请确定删除？</span>
@@ -23,7 +23,7 @@
                 title=""
                 :visible.sync="dialogwork"
                 style="width:900px;margin-left:21%"
-                :before-close="handleClose">
+                >
           <div style="display:flex;flex-direction:row;margin-left:90px">
             <img style="height:18px;" :src="require('../assets/images/222.png')"/>
             <span style="font-size:14px;line-height:20px;margin:0 0 0 20px">删除后不能恢复，请确定删除？</span>
@@ -39,7 +39,7 @@
                 title=""
                 :visible.sync="dialogproject"
                 style="width:900px;margin-left:21%"
-                :before-close="handleClose">
+                >
           <div style="display:flex;flex-direction:row;margin-left:90px">
             <img style="height:18px;" :src="require('../assets/images/222.png')"/>
             <span style="font-size:14px;line-height:20px;margin:0 0 0 20px">删除后不能恢复，请确定删除？</span>
@@ -55,7 +55,7 @@
                 title=""
                 :visible.sync="dialogtrain"
                 style="width:900px;margin-left:21%"
-                :before-close="handleClose">
+                >
           <div style="display:flex;flex-direction:row;margin-left:90px">
             <img style="height:18px;" :src="require('../assets/images/222.png')"/>
             <span style="font-size:14px;line-height:20px;margin:0 0 0 20px">删除后不能恢复，请确定删除？</span>
@@ -71,7 +71,7 @@
                 title=""
                 :visible.sync="dialoglanguage"
                 style="width:900px;margin-left:21%"
-                :before-close="handleClose">
+                >
           <div style="display:flex;flex-direction:row;margin-left:90px">
             <img style="height:18px;" :src="require('../assets/images/222.png')"/>
             <span style="font-size:14px;line-height:20px;margin:0 0 0 20px">删除后不能恢复，请确定删除？</span>
@@ -87,7 +87,7 @@
                 title=""
                 :visible.sync="dialogskill"
                 style="width:900px;margin-left:21%"
-                :before-close="handleClose">
+                >
           <div style="display:flex;flex-direction:row;margin-left:90px">
             <img style="height:18px;" :src="require('../assets/images/222.png')"/>
             <span style="font-size:14px;line-height:20px;margin:0 0 0 20px">删除后不能恢复，请确定删除？</span>
@@ -103,7 +103,7 @@
                 title=""
                 :visible.sync="dialogprofess"
                 style="width:900px;margin-left:21%"
-                :before-close="handleClose">
+                >
           <div style="display:flex;flex-direction:row;margin-left:90px">
             <img style="height:18px;" :src="require('../assets/images/222.png')"/>
             <span style="font-size:14px;line-height:20px;margin:0 0 0 20px">删除后不能恢复，请确定删除？</span>
@@ -119,7 +119,7 @@
                 title=""
                 :visible.sync="dialogaward"
                 style="width:900px;margin-left:21%"
-                :before-close="handleClose">
+                >
           <div style="display:flex;flex-direction:row;margin-left:90px">
             <img style="height:18px;" :src="require('../assets/images/222.png')"/>
             <span style="font-size:14px;line-height:20px;margin:0 0 0 20px">删除后不能恢复，请确定删除？</span>
@@ -166,6 +166,7 @@
                 <el-date-picker
                   v-model='formInformation.workAge'
                   type="year"
+                  :picker-options="pickerOptions"
                   style="width:400px;height:36px;margin-right:50px"
                   placeholder="选择日期"
                 ></el-date-picker>
@@ -205,6 +206,7 @@
                 <el-date-picker
                   v-model='formInformation.birthday'
                   type="date"
+                  :picker-options="pickerOptions"
                   style="width:400px;height:36px;margin-right:50px"
                   placeholder="选择日期"
                 ></el-date-picker>
@@ -289,10 +291,11 @@
                   <el-option v-for="(list,index) in workStateList" :key="index" :label="list.tag" :value="list.code"></el-option>
                   </el-select>
               </el-form-item>
-              <!-- :disabled="formJobintension.status === '离职-延时到岗'?false:true" -->
+              <!-- :disabled="this.formJobintension.status === '离职-延时到岗'?false:true" -->
               <el-form-item label="到岗时间" class="block" prop='reportTime'>
                   <el-date-picker
-                  
+                  :disabled="this.formJobintension.status === 1||this.formJobintension.status === '离职-延时到岗'?false:true"
+                  :picker-options="pickerOptionsOne"
                   v-model='formJobintension.reportTime'
                   style="width:400px;height:36px;margin-right:50px"
                   type="date"
@@ -344,6 +347,7 @@
                   v-model="formWork.workTime"
                   type="daterange"
                   unlink-panels
+                  :picker-options="pickerOptions"
                   range-separator="至"
                   start-placeholder="开始日期"
                   end-placeholder="结束日期">
@@ -371,6 +375,7 @@
                   style="width:400px;height:36px;margin-right:50px"
                   v-model="formEducation.educationTime"
                   type="daterange"
+                  :picker-options="pickerOptions"
                   unlink-panels
                   range-separator="至"
                   start-placeholder="开始日期"
@@ -426,6 +431,7 @@
                   style="width:400px;height:36px;margin-right:50px"
                   v-model="formProject.schoolTime"
                   type="daterange"
+                  :picker-options="pickerOptions"
                   range-separator="至"
                   start-placeholder="开始日期"
                   end-placeholder="结束日期">
@@ -472,6 +478,7 @@
                   style="width:400px;height:36px;margin-right:50px"
                   v-model="formtraining.trainTime"
                   type="daterange"
+                  :picker-options="pickerOptions"
                   range-separator="至"
                   start-placeholder="开始日期"
                   end-placeholder="结束日期">
@@ -614,6 +621,7 @@
                   style="width:400px;height:36px;margin-right:50px"
                   v-model="formAwards.prizeTime"
                   type="month"
+                  :picker-options="pickerOptions"
                   placeholder="选择月">
                 </el-date-picker>
               </el-form-item>
@@ -740,7 +748,7 @@
                   <img class="img-second" style="margin-right:9px;height:12px"
                        :src="require('../assets/images/ziwo.png')"/><span style="margin-right:3px" @click="showeducationalList(list,index)">编辑</span>
               </span>
-            <educationexperience-From :fromData="list" :index="index"></educationexperience-From>
+            <educationexperience-From :fromData="list" ></educationexperience-From>
             <br>
           </li>
         </ul>
@@ -762,7 +770,7 @@
                   <img style="margin-right:9px;height:12px" :src="require('../assets/images/ziwo.png')"/><span
                       style="margin-right:3px" @click="showworkperienceList(list)">编辑</span>
               </span>
-            <work-from :from-data="list" :index="index"></work-from>
+            <work-from :from-data="list" ></work-from>
             <br>
           </li>
         </ul>
@@ -784,7 +792,7 @@
                   <img style="margin-right:9px;height:12px" :src="require('../assets/images/ziwo.png')"/><span
                       style="margin-right:3px" @click="showprogectperienceList(list)">编辑</span>
               </span>
-            <progect-from :from-data="list" :index="index"></progect-from>
+            <progect-from :from-data="list" ></progect-from>
             <br>
           </li>
         </ul>
@@ -806,7 +814,7 @@
                   <img style="margin-right:9px;height:12px" :src="require('../assets/images/ziwo.png')"/><span
                       style="margin-right:3px" @click="showtrainList(list)">编辑</span>
               </span><br>
-            <training-from :from-data="list" :index="index"></training-from>
+            <training-from :from-data="list" ></training-from>
             <br>
           </li>
         </ul>
@@ -828,7 +836,7 @@
                   <img style="margin-right:9px;height:12px" :src="require('../assets/images/ziwo.png')"/><span
                       style="margin-right:3px" @click="showlanguagesList(list)">编辑</span>
               </span><br>
-            <language-from :from-data="list" :index="index"></language-from>
+            <language-from :from-data="list" ></language-from>
             <br>
           </li>
         </ul>
@@ -850,7 +858,7 @@
                   <img style="margin-right:9px;height:12px" :src="require('../assets/images/ziwo.png')"/><span
                     @click="showprofessionalList(list)"  style="margin-right:3px" >编辑</span>
               </span><br>
-            <professional-from :from-data="list" :index="index"></professional-from>
+            <professional-from :from-data="list" ></professional-from>
             <br>
           </li>
         </ul>
@@ -872,7 +880,7 @@
                   <img style="margin-right:9px;height:12px" :src="require('../assets/images/ziwo.png')"/><span
                       style="margin-right:3px" @click="editskill(list)">编辑</span>
               </span><br>
-            <personalskill-from :from-data="list" :index="index"></personalskill-from>
+            <personalskill-from :from-data="list" ></personalskill-from>
             <br>
           </li>
         </ul>
@@ -893,7 +901,7 @@
                   <img style="margin-right:9px;height:12px" :src="require('../assets/images/ziwo.png')"/><span
                       style="margin-right:3px" @click="showawardList(list)">编辑</span>
               </span><br>
-            <awards-from :from-data="list" :index="index"></awards-from>
+            <awards-from :from-data="list" ></awards-from>
             <br>
           </li>
         </ul>
@@ -912,7 +920,7 @@
                   <img style="margin-right:9px;height:12px" :src="require('../assets/images/ziwo.png')"/><span
                       style="margin-right:3px" @click="showselfappraisalList()">编辑</span>
               </span>
-            <selfappraisal-from :from-data="listpersonappraisal" :index="index"></selfappraisal-from>
+            <selfappraisal-from :from-data="listpersonappraisal" ></selfappraisal-from>
             <br>
           </li>
         </ul>
@@ -945,7 +953,7 @@
           <div class="aside">
             <div class="aside-nav">
               <div class="aside-nav-first">在线简历</div>
-              <div class="aside-nav-second"><span>完整度</span><span><el-progress :percentage="this.completedPercent" class="progess"
+              <div class="aside-nav-second"><span>完整度</span><span><el-progress :percentage="this.compPercent" class="progess"
                                                                                style="width:111px;padding:0 0 0 7px;height:9px"></el-progress></span>
               </div>
               <div class="aside-nav-third">最后更新：{{this.updatedTime|formatDateTwo}}</div>
@@ -1089,6 +1097,7 @@
         monthPayList:[],
         isshowJob:false,
         joint:true,
+        updatedTime:'',
         monthPayList:[],
         workStateList:[],
         jobSearchList:[],
@@ -1100,6 +1109,16 @@
             label:'tag',
             children: 'children',
             emitPath:false
+        },
+        pickerOptions: {
+          disabledDate(time) {
+            return time.getTime() > Date.now();
+          }
+        },
+        pickerOptionsOne: {
+          disabledDate(time) {
+            return time.getTime() < Date.now();
+          }
         },
         propsTwo:{
             value: 'code',
@@ -1191,7 +1210,7 @@
         listpersonalskill: [],
         listaward: [],
         listpersonappraisal: '',
-        completedPercent:'',
+        compPercent:'',
         formEducation: {
           educationDegree:'',
           educationName:'',
@@ -1471,6 +1490,16 @@
         },
       }
     },
+  //   watch: {
+  //   //使用这个可以监听data中指定数据的变化,然后触发watch中对应的function的处理
+  //   'formJobintension.status': function(val) {
+  //     if (this.formJobintension.status == '离职-延时到岗') {
+  //       this.boole = false
+  //     }else{
+  //       this.boole = true
+  //     }
+  //   },
+  // },
     methods: {
       //求职意向保存
       jobintensionkeep(formName) {
@@ -1518,14 +1547,19 @@
             this.salaryMax = null
             break;           
         }
+        
         if(this.formJobintension.status == '离职-延时到岗') {
             this.formJobintension.status = 1  
+            
           }else if(this.formJobintension.status == '离职-随时到岗') {
             this.formJobintension.status = 0
+            this.formJobintension.reportTime = ''
           }else if(this.formJobintension.status == '在职-考虑机会') {
             this.formJobintension.status = 2
-          }else if(this.formJobintension.jobType == '在职-暂不到岗') {
+            this.formJobintension.reportTime = ''
+          }else if(this.formJobintension.jobType == '在职-暂不考虑') {
             this.formJobintension.status = 3
+            this.formJobintension.reportTime = ''
           }
         if(this.formJobintension.jobType == '全职') {
             this.formJobintension.jobType = 0
@@ -1535,7 +1569,7 @@
           else if(this.formJobintension.jobType == '实习') {
             this.formJobintension.languages = 2
           }
-            let til = new Date(this.formJobintension.reportTime).getTime()
+            var til = new Date(this.formJobintension.reportTime).getTime()
             let params = {
               positionCatalogs:this.formJobintension.postType,arriveTime:til,county:this.formJobintension.city[1],industries:this.formJobintension.trad,jobSearchStatus:this.formJobintension.status,jobType:this.formJobintension.jobType,province:this.formJobintension.city[0],salaryMin:this.salaryMin,salaryMax:this.salaryMax
             }
@@ -1864,7 +1898,7 @@
             this.listprofessional = res.data.data.qualifications
             this.listaward = res.data.data.awards
             this.listpersonappraisal = res.data.data.evaluation
-            this.completedPercent = res.data.data.completedPercent
+            this.compPercent = res.data.data.completedPercent
             this.updatedTime = res.data.data.updatedTime
 
             if(this.listjobintension.jobSearchStatus == 1) {
@@ -2215,7 +2249,7 @@
           }else if(this.listjobintension.jobSearchStatus == 2) {
             this.listjobintension.jobSearchStatus = '在职-考虑机会'
           }else if(this.listjobintension.jobSearchStatus == 3) {
-            this.listjobintension.jobSearchStatus = '在职-暂不到岗'
+            this.listjobintension.jobSearchStatus = '在职-暂不考虑'
           }
 
         if(this.listjobintension.jobType == 3) {
